@@ -49,13 +49,13 @@ export class JavaNotesComponent implements OnInit {
   selected?: string;
   currentUrl?: SafeResourceUrl;
   recentFiles: string[] = [];
-  jsonFilePath: string = environment.jsonFilePath;
+  jsonFilePath: string = environment.apiUrl;
   private RECENT_KEY = 'javaNotesRecentFiles';
 
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    fetch(this.jsonFilePath)
+    fetch(this.jsonFilePath + "/assets/javaNotesPdf/files.json")
       .then(res => res.json())
       .then((data: string[]) => {
         this.files = data;
