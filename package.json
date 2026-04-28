@@ -1,0 +1,48 @@
+{
+  "name": "angular17-java-totorial",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "prestart": "node scripts/generateFilesManifest.js",
+    "start": "ng serve -o",
+    "start:dev": "ng serve",
+    "build": "ng build",
+    "build:prod": "ng build --configuration production",
+    "server": "node server.js",
+    "server:prod": "npm run build:prod && npm run server",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^17.3.0",
+    "@angular/common": "^17.3.10",
+    "@angular/compiler": "^17.3.0",
+    "@angular/core": "^17.3.0",
+    "@angular/forms": "^17.3.0",
+    "@angular/platform-browser": "^17.3.0",
+    "@angular/platform-browser-dynamic": "^17.3.0",
+    "@angular/router": "^17.3.0",
+    "bootstrap": "^5.3.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "compression": "^1.7.4",
+    "express": "^4.18.2",
+    "rxjs": "^6.6.7",
+    "tslib": "^2.3.0",
+    "word-extractor": "^1.0.4",
+    "zone.js": "~0.14.3"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^17.3.4",
+    "@angular/cli": "^17.3.4",
+    "@angular/compiler-cli": "^17.3.0",
+    "@types/jasmine": "~5.1.0",
+    "jasmine-core": "~5.1.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0"
+  }
+}

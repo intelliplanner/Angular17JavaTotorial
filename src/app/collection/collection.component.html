@@ -1,0 +1,365 @@
+<div align="center" style="font-size: 25px;">Collection</div>
+<img src="\assets\images\collectiongraph.png" alt="collectiongraph" width="500" height="500">
+<p> Legacy Classes: Vector, Hashtable </p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Implements/Extends
+            </th>
+            <th scope="col">Order Maintain</th>
+            <th scope="col">Is Duplicate Allow</th>
+            <th scope="col">Is Null Allow?</th>
+            <th scope="col">Data Structure</th>
+            <th scope="col">Synchronized</th>
+            <th scope="col">Methods</th>
+            <th scope="col">performance</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">List(I)</th>
+            <td>Collection</td>
+            <td>Ordered Collection</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <th scope="row">ArrayList</th>
+            <td>List</td>
+            <td>Insertion </td>
+            <td>Yes</td>
+            <td></td>
+            <td>Dynamic Array</td>
+            <td>non synchronized.</td>
+            <td></td>
+            <td>Manipulation Slow Because internally uses array. ArrayList is initialized with a default capacity of 10. an ArrayList
+                is a resizable array
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">LinkedList</th>
+            <td>inherits the AbstractList class and implements List and Deque interfaces</td>
+            <td>Insertion order</td>
+            <td>Yes</td>
+            <td></td>
+            <td>Doubly linked list </td>
+            <td>non synchronized</td>
+            <td></td>
+            <td>Manipulation is fast Because internally uses a Doubly linked list</td>
+        </tr>
+        <tr>
+            <th scope="row">Vector</th>
+            <td>List</td>
+            <td>Insertion</td>
+            <td>-</td>
+            <td>-</td>
+            <td>Dynamic Array</td>
+            <td>Yes</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th scope="row">Stack</th>
+            <td>Vector(Extends)</td>
+            <td>LIFO</td>
+            <td></td>
+            <td></td>
+            <td>LIFO</td>
+            <td></td>
+            <td>Push(), peek()
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <th scope="row">Queue(I)</th>
+            <td></td>
+            <td>Ordered List</td>
+            <td></td>
+            <td>The NullPointerException is raised, if any null operation is done on the BlockingQueues.</td>
+            <td>FIFO</td>
+            <td></td>
+            <td></td>
+            <td>If it is required to have a thread safe implementation, PriorityBlockingQueue is an available option. In Queue,
+                insertion of elements occurs at the end of the list, and removal of elements occurs at the beginning of the
+                list.
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Priority Queue</th>
+            <td>Queue</td>
+            <td></td>
+            <td></td>
+            <td>No</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th scope="row">Deque(I)</th>
+            <td>Queue</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>The Deque supports the addition as well as the removal of elements from both ends of the data structure.</td>
+        </tr>
+        <tr>
+            <th scope="row">Array Deque</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Not Allow</td>
+            <td></td>
+            <td>Non Synchronized</td>
+            <td></td>
+            <td>Unlike Queue, we can add or remove elements from both sides. ArrayDeque is faster than LinkedList and Stack.
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Set(I)</th>
+            <td></td>
+            <td>Unordered Set</td>
+            <td>No, Unique Only
+            </td>
+            <td>Only One Null Value</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th scope="row">HashSet</th>
+            <td>inherits the AbstractSet class and implements Set interface.</td>
+            <td>HashSet doesn't maintain the insertion order. Because inserted based on their hashcode.</td>
+            <td>No, Unique Only
+            </td>
+            <td>HashSet allows a null value.</td>
+            <td>HashTable( the hashing mechanism used to store the elements.)
+            </td>
+            <td>non-synchronized</td>
+            <td></td>
+            <td>default capacity of HashSet is 16, and the load factor is 0.75. the best approach for search operations. HashSet
+                implemented by hash table. HashSet performs faster than TreeSet. HashSet uses HashMap internally.
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">LinkedHashSet</th>
+            <td></td>
+            <td>Insertion Ordered</td>
+            <td>No, unique elements only like HashSet.
+            </td>
+            <td>doesn't allow null element.</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Note: Keeping the insertion order in the LinkedHashset has some additional costs, both in terms of extra memory
+                and extra CPU cycles. Therefore, if it is not required to maintain the insertion order, go for the lighter-weight
+                HashMap or the HashSet instead.</td>
+        </tr>
+        <tr>
+            <th scope="row">Sorted Set(I)/ Alternate of Set</th>
+            <td>Set</td>
+            <td>Insertion Ordered</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th scope="row">TreeSet</th>
+            <td>Sorted Set (TreeSet class implements the NavigableSet interface. The NavigableSet interface extends SortedSet,
+                Set, Collection and Iterable interfaces in hierarchical order.)
+            </td>
+            <td>Ascending Order</td>
+            <td>TreeSet class contains unique elements only like HashSet.</td>
+            <td>doesn't allow null elements.</td>
+            <td></td>
+            <td>non-synchronized.</td>
+            <td></td>
+            <td>The TreeSet can only allow those generic types that are comparable. For example The Comparable interface is being
+                implemented by the StringBuffer class. Java TreeSet class access and retrieval times are quiet fast. TreeSet
+                class access and retrieval times are quite fast. TreeSet implemented by a Tree structure. TreeSet uses TreeMap
+                internally in java.
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<br>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Collection</th>
+            <th scope="col">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>List(I)</td>
+            <td>List interface is the child interface of Collection interface
+                we can store the ordered collection of objects.
+                It can have duplicate values.
+                List interface is implemented by the classes ArrayList, LinkedList, Vector, and Stack.
+                </td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>ArrayList</td>
+            <td>The ArrayList class implements the List interface.
+                It uses a dynamic array to store the duplicate element of different data types. 
+               The ArrayList class maintains the insertion order and is non-synchronized. 
+               The elements stored in the ArrayList class can be randomly accessed.
+               </td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>LinkedList</td>
+            <td>LinkedList implements the Collection interface. 
+                It uses a doubly linked list internally to store the elements.
+                 It can store the duplicate elements. It maintains the insertion order and is not synchronized.
+                 In LinkedList, the manipulation is fast because no shifting is required.
+                </td>
+        </tr>
+        <tr>
+            <th scope="row">4</th>
+            <td>Vector</td>
+            <td>Vector uses a dynamic array to store the data elements. 
+                It is similar to ArrayList. However, It is synchronized and contains many methods that are not the part of Collection framework.
+                </td>
+        </tr>
+        <tr>
+            <th scope="row">5</th>
+            <td>stack</td>
+            <td>The stack is the subclass of Vector. 
+                It implements the last-in-first-out data structure, i.e., Stack. 
+                The stack contains all of the methods of Vector class and also provides its methods like boolean push(), boolean peek(), boolean push(object o), which defines its properties.
+                </td>
+        </tr>
+        <tr>
+            <th scope="row">6</th>
+            <td>Queue</td>
+            <td>Queue interface maintains the first-in-first-out order.
+                It can be defined as an ordered list that is used to hold the elements which are about to be processed.
+                There are various classes like PriorityQueue, Deque, and ArrayDeque which implements the Queue interface.
+               Queue interface can be instantiated as:
+               Queue&lt;String&gt; q1 = new PriorityQueue();  
+               Queue&lt;String&gt; q2 = new ArrayDeque();  
+               </td>
+        </tr>
+        <tr>
+            <th scope="row">7</th>
+            <td>PriorityQueue</td>
+            <td>The PriorityQueue class implements the Queue interface. 
+It holds the elements or objects which are to be processed by their priorities. 
+PriorityQueue doesn't allow null values to be stored in the queue.
+</td>
+        </tr>
+        <tr>
+            <th scope="row">8</th>
+            <td>Deque</td>
+            <td>Deque interface extends the Queue interface. In Deque, we can remove and add the elements from both the side. Deque stands for a double-ended queue which enables us to perform the operations at both the ends.
+                Deque can be instantiated as:
+                Deque d = new ArrayDeque();  
+                </td>
+        </tr>
+        <tr>
+            <th scope="row">9</th>
+            <td>ArrayDeque</td>
+            <td>ArrayDeque class implements the Deque interface. 
+                It facilitates us to use the Deque. 
+                Unlike queue, we can add or delete the elements from both the ends.
+                ArrayDeque is faster than ArrayList and Stack and has no capacity restrictions.
+                </td>
+        </tr>
+        <tr>
+            <th scope="row">10</th>
+            <td>Set</td>
+            <td>Set Interface in Java is present in java.util package.
+                It extends the Collection interface. 
+               It represents the unordered set of elements which doesn't allow us to store the duplicate items. We can store at most one null value in Set. 
+               Set is implemented by HashSet, LinkedHashSet, and TreeSet.
+               </td>
+        </tr>
+        <tr>
+            <th scope="row">11</th>
+            <td>HashSet</td>
+            <td>HashSet class implements Set Interface. It represents the collection that uses a hash table for storage. Hashing is used to store the elements in the HashSet. It contains unique items.</td>
+        </tr>
+        <tr>
+            <th scope="row">12</th>
+            <td>LinkedHashSet</td>
+            <td>LinkedHashSet class represents the LinkedList implementation of Set Interface. It extends the HashSet class and implements Set interface. 
+                Like HashSet, It also contains unique elements. It maintains the insertion order and permits null elements.
+                </td>
+        </tr>
+        <tr>
+            <th scope="row">13</th>
+            <td>SortedSet</td>
+            <td>
+                SortedSet is the alternate of Set interface that provides a total ordering on its elements. The elements of the SortedSet
+                are arranged in the increasing (ascending) order. The SortedSet provides the additional methods that inhibit
+                the natural ordering of the elements. SortedSet&lt;data-type&gt; set = new TreeSet();
+
+
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<p>
+    Q1: How HashMap works in Java?
+</p>
+<p> If anybody asks me to describe “How HashMap works? “, I simply answer: “On principle of Hashing “. As simple as it is. Now
+    before answering it, one must be very sure to know at least basics of Hashing.
+</p>
+<p>
+    Q2. What is Hashing?
+</p>
+<p>
+    Hashing in its simplest form, is a way to assigning a unique code for any variable/object after applying any formula/algorithm
+    on its properties. A true hash function must follow this rule – “Hash function should return the same hash code each
+    and every time when the function is applied on same or equal objects. In other words, two equal objects must produce
+    the same hash code consistently.”
+</p>
+<p>Note: All objects in Java inherit a default implementation of hashCode() function defined in Object class. This function
+    produces hash code by typically converting the internal address of the object into an integer, thus producing different
+    hash codes for all different objects.
+</p>
+<p>
+
+    Entry class in HashMap:
+    <br>
+    static class Entry&lt;K ,V&gt; implements Map.Entry&lt;K ,V&gt;
+    <br>
+    final K key;  <br> V value;  <br> Entry&lt;K ,V&gt; next;  <br> final int
+    hash; ...//More code goes here
+</p>
+<br><br>
+<div>
+<p>
+    Comparable interface
+<br>
+<br>
+Java Comparable interface is used to order the objects of the user-defined class. 
+This interface is found in java.lang package and contains only one method named compareTo(Object).
+It provides a single sorting sequence only, i.e., you can sort the elements on the basis of single data member only. 
+For example, it may be rollno, name, age or anything else.
+</p>
+<br><br>
+<p><a href="https://www.tpointtech.com/internal-working-of-hashset">internal-working-of-hashset</a></p>
+</div>

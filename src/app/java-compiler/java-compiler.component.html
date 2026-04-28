@@ -1,0 +1,72 @@
+<div class="compiler-container">
+  <h2>Java Code Compiler</h2>
+
+  <!-- <div class="status-info" *ngIf="javaVersions.length > 0">
+    ✅ {{ javaVersions.length }} Java version(s) loaded
+  </div> -->
+
+  <div class="compiler-controls">
+    <label for="javaVersion">Java Version: </label>
+    <select id="javaVersion" [(ngModel)]="selectedVersion" [disabled]="javaVersions.length === 0">
+      <option *ngIf="javaVersions.length === 0" value="">Loading versions...</option>
+      <option *ngFor="let version of javaVersions" [value]="version.value">
+        {{ version.label }}
+      </option>
+    </select>
+
+    <!-- NEW: Dropdown for saved Java files -->
+    <label for="savedPrograms">Saved Programs: </label>
+    <select id="savedPrograms" [(ngModel)]="savedFileSelection">
+      <option value="">Select a saved program...</option>
+      <option *ngFor="let file of savedJavaFiles" [value]="file">
+        {{ file.replace('.java', '') }}
+      </option>
+    </select>
+
+    <button (click)="loadSavedProgram(savedFileSelection)" class="load-btn" [disabled]="!savedFileSelection">Load Program</button>
+  </div>
+
+  <div class="editor-wrapper">
+    <!-- Import Suggestions Panel -->
+    <div class="import-suggestions-panel">
+      <h4>📚 Library Imports</h4>
+      <div class="import-buttons">
+        <button *ngFor="let importSugg of importSuggestions" (click)="insertImport(importSugg.import)"
+          class="import-btn" [title]="importSugg.description">
+          {{ importSugg.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Code Editor Section -->
+    <div class="program-controls">
+      <label for="programName">Program Description: </label>
+      <input id="programName" [(ngModel)]="programName" placeholder="Description" />
+
+      <button (click)="saveProgram()" class="save-btn">Save Program</button>
+    </div>
+
+    <div class="editor-section">
+
+      <textarea [(ngModel)]="code" rows="20" cols="80" 
+                placeholder="Write your Java code here..."
+                (keydown)="handleTabKey($event)"></textarea>
+
+      <!-- Code Suggestions Panel -->
+      <div class="suggestions-panel">
+        <h4>💡 Code Snippets</h4>
+        <button *ngFor="let suggestion of codeSuggestions" (click)="insertSuggestion(suggestion.code)"
+          class="suggestion-btn" [title]="suggestion.description">
+          {{ suggestion.label }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <button (click)="compileCode()" class="compile-btn">Compile & Run</button>
+  <button (click)="clearCode()" class="clear-btn">Clear</button>
+
+  <h3>Output:</h3>
+  <pre>{{ output }}</pre>
+</div>

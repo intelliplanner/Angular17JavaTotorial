@@ -1,0 +1,90 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+        <!-- Navbar brand -->
+        <a class="navbar-brand mt-2 mt-lg-0" href="#">
+            <h5 class="pt-1">Java Tutorial</h5>
+        </a>
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-collapse-init data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="java" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Java
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="collection">Collection</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Java 8</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Java 9</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="designPattern">Design Pattern</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="hibernate">Hibernate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="springBoot">Spring Boot</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="microservice">MicroServices</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="exceptionHandling">Exception Handling</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="interview">Interview Questions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Java Notes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="compiler">Java Compiler</a>
+                </li>
+            </ul>
+            <!-- Left links -->
+
+            <!-- Right elements -->
+            <div class="d-flex align-items-center justify-content-start">
+                <!-- Icon -->
+                <div [class]="loginClass">
+                    <a href="login" class="bi bi-person btn btn-primary btn-lg" role="button" (click)="login()" aria-disabled="true">
+                        <i>Login</i>
+                    </a>
+                </div>
+                <div [class]="logoutClass">
+                    <a href="logout" class="bi bi-person btn btn-primary btn-lg " role="button" (click)="logout()" aria-disabled="true">
+                        <i>Logout</i>
+                    </a>
+                </div>
+            </div>
+            <!-- Right elements -->
+        </div>
+        <!-- Collapsible wrapper -->
+    </div>
+    <!-- Container wrapper -->
+</nav>

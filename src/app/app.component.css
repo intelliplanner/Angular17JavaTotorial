@@ -1,0 +1,15 @@
+#container {
+    /* display: flex;                  establish flex container */
+    /* height:100%;  */
+    /* width:98%; */
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 100px;
+    flex-direction: row;            /* default value; can be omitted */
+    flex-wrap: nowrap;              /* default value; can be omitted */
+    justify-content: space-between; /* switched from default (flex-start, see below) */
+    /* background-color: lightyellow; */
+    /* direction:rtl;  */
+    /* overflow:auto;  */
+  }
+

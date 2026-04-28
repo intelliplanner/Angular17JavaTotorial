@@ -1,0 +1,19 @@
+<div class="java-notes">
+  <div class="controls">
+    <label for="notesSelect">Choose Java Notes: </label>
+    <select id="notesSelect" [(ngModel)]="selected">
+      <option *ngIf="!selected" value="" disabled>Select a file</option>
+      <optgroup *ngIf="recentFiles?.length" label="Recent">
+        <option *ngFor="let f of recentFiles" [value]="f">{{f}}</option>
+      </optgroup>
+      <optgroup label="All Files">
+        <option *ngFor="let f of otherFiles" [value]="f">{{f}}</option>
+      </optgroup>
+    </select>
+
+    <button (click)="openSelected()" [disabled]="!selected">Open</button>
+ 
+
+  <div id="pdfViewer" class="pdf-viewer" *ngIf="currentUrl"></div>
+ </div>
+</div>

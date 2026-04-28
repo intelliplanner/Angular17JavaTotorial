@@ -1,0 +1,53 @@
+.java-notes {
+  padding: 1px;
+  padding-bottom: 0;
+}
+
+.java-notes h2 {
+  margin: 0 0 8px 0;
+}
+
+.java-notes select {
+  margin-right: 12px;
+}
+
+.java-notes .controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.pdf-viewer {
+  margin: 12px auto;
+  max-width: 900px; /* reduce viewer width */
+  width: 100%;
+}
+
+.pdf-page {
+  margin-bottom: 8px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.08);
+  background: #fff;
+  /* remove left padding so text aligns with canvas left edge */
+  padding: 8px 0 8px 0;
+}
+
+.pdf-page canvas {
+  max-width: 100%;
+  height: auto !important;
+  width: 100% !important;
+}
+
+.pdf-text-content {
+  padding: 4px 0 12px 0;
+  white-space: pre-wrap;
+  /* align text to the left edge of the page/canvas */
+  margin: 0;
+  padding-left: 0;
+  text-align: left;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #222;
+}
