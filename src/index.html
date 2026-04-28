@@ -15,14 +15,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script>
     // Handle redirect from 404.html fallback
-    if (sessionStorage.redirect) {
-      let redirect = sessionStorage.redirect;
-      delete sessionStorage.redirect;
-      if (!redirect.includes('#')) {
-        redirect = '/#' + (redirect.split('/Angular17JavaTotorial')[1] || '/');
+    (function() {
+      if (sessionStorage.redirect) {
+        let redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        window.location.href = redirect;
       }
-      window.location.href = redirect;
-    }
+    })();
   </script>
 </head>
 <body>

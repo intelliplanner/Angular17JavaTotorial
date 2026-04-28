@@ -14,18 +14,20 @@ import { JavaNotesComponent } from './java-notes/java-notes.component';
 import { JavaCompilerComponent } from './java-compiler/java-compiler.component';
 
 export const routes: Routes = [
-    // {'path':'',component:HomeComponent,'title':'DashBoard',canActivate:[authGaurd]},
-    {'path':'dashboard',component:HomeComponent,'title':'DashBoard'},
-    {'path':'java',component:JavaComponent,'title':'Java'},
-    {'path':'collection',component:CollectionComponent,'title':'collection'},
-    {'path':'designPattern',component:DesignpatternComponent,'title':'DesignPattern',canActivate:[authGaurd]},
-    {'path':'hibernate',component:HibernateComponent,'title':'Hibernate'},
-    {'path':'springBoot',component:SpringbootComponent,'title':'SpringBoot'},
-    {'path':'microservice',component:MicroserviceComponent,'title':'Microservice'},
-    {'path':'interview',component:InterviewQuestionsComponent,'title':'Interview'},
-    {'path':'exceptionHandling',component:ExceptionHandlingComponent,'title':'Exception Handling'},
-    {'path':'login',component:LoginComponent,'title':'Login Page'},
-    {'path':'myJavaNotes',component:JavaNotesComponent,'title':'Java Notes'},
-    {'path':'',component:JavaNotesComponent,'title':'Java Notes'},
-    {'path':'compiler',component:JavaCompilerComponent,'title':'Java Compiler'}
+    { 'path': 'javaNotes', component: JavaNotesComponent, 'title': 'Java Notes' },
+    { 'path': '', component: JavaNotesComponent, 'title': 'Java Notes' },
+    { 'path': 'dashboard', component: HomeComponent, 'title': 'DashBoard' },
+    { 'path': 'java', component: JavaComponent, 'title': 'Java' },
+    { 'path': 'collection', component: CollectionComponent, 'title': 'collection' },
+    { 'path': 'designPattern', component: DesignpatternComponent, 'title': 'DesignPattern', canActivate: [authGaurd] },
+    { 'path': 'hibernate', component: HibernateComponent, 'title': 'Hibernate' },
+    { 'path': 'springBoot', component: SpringbootComponent, 'title': 'SpringBoot' },
+    { 'path': 'microservice', component: MicroserviceComponent, 'title': 'Microservice' },
+    { 'path': 'interview', component: InterviewQuestionsComponent, 'title': 'Interview' },
+    { 'path': 'exceptionHandling', component: ExceptionHandlingComponent, 'title': 'Exception Handling' },
+    { 'path': 'login', component: LoginComponent, 'title': 'Login Page' },
+    { 'path': 'myJavaNotes', component: JavaNotesComponent, 'title': 'Java Notes' },
+    { 'path': 'compiler', component: JavaCompilerComponent, 'title': 'Java Compiler' },
+    { 'path': '**', redirectTo: '', pathMatch: 'full' } // Wildcard route - redirect to home
 ];
+

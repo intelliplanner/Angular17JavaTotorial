@@ -4,10 +4,16 @@
     <meta charset="utf-8">
     <title>Angular17JavaTotorial</title>
     <script>
-        // Redirect all 404 errors back to index.html for SPA routing
-        sessionStorage.redirect = location.href;
+        // Redirect 404 errors to the SPA entry point
+        // Preserve the path and convert to hash-based routing for Angular
+        var path = window.location.pathname;
+        var pathWithoutBase = path.replace('/Angular17JavaTotorial', '');
+        var hashPath = '#' + (pathWithoutBase || '/');
+        
+        // Store the redirect URL in sessionStorage
+        sessionStorage.redirect = window.location.origin + '/Angular17JavaTotorial/' + hashPath;
     </script>
-    <meta http-equiv="refresh" content="0;URL='/Angular17JavaTotorial/'"></meta>
+    <meta http-equiv="refresh" content="0;URL='/Angular17JavaTotorial/#/'"></meta>
 </head>
 <body>
 </body>
