@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface JavaVersion {
   label: string;
@@ -14,7 +15,7 @@ export interface JavaVersion {
 })
 export class JavaVersionService {
   private javaVersions: JavaVersion[] = [];
-  private apiUrl = 'http://localhost:9090';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
