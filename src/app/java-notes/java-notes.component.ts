@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-java-notes',
@@ -48,12 +49,13 @@ export class JavaNotesComponent implements OnInit {
   selected?: string;
   currentUrl?: SafeResourceUrl;
   recentFiles: string[] = [];
+  jsonFilePath: string = environment.jsonFilePath;
   private RECENT_KEY = 'javaNotesRecentFiles';
 
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    fetch('/assets/javaNotesPdf/files.json')
+    fetch(this.jsonFilePath)
       .then(res => res.json())
       .then((data: string[]) => {
         this.files = data;
