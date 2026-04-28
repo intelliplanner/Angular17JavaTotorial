@@ -14,6 +14,7 @@ import { JavaNotesComponent } from './java-notes/java-notes.component';
 import { JavaCompilerComponent } from './java-compiler/java-compiler.component';
 
 export const routes: Routes = [
+
     { 'path': 'javaNotes', component: JavaNotesComponent, 'title': 'Java Notes' },
     { 'path': '', component: JavaNotesComponent, 'title': 'Java Notes' },
     { 'path': 'dashboard', component: HomeComponent, 'title': 'DashBoard' },
