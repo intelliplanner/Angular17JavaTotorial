@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { JavaVersionService, JavaVersion } from '../services/java-version.service';
+import { environment } from '../../environments/environment';
 
 interface CodeSuggestion {
   label: string;
@@ -32,6 +33,7 @@ export class JavaCompilerComponent implements OnInit {
   programName: string = '';
   savedJavaFiles: string[] = [];
   savedFileSelection: string = '';
+  apiUrl: string = environment.apiUrl;
 
   importSuggestions: ImportSuggestion[] = [
     {
@@ -224,7 +226,7 @@ saveProgram() {
   const fileName = className + '.java';
   const payload = { fileName: fileName, code: fullCode };
 
-  this.http.post<any>('http://192.168.1.10:9090/saveProgram', payload)
+  this.http.post<any>(`${this.apiUrl}/saveProgram`, payload)
     .subscribe({
       next: (res) => this.output = res.message,
       error: (err) => this.output = 'Error saving program: ' + (err.error?.message || err.statusText)
@@ -232,7 +234,7 @@ saveProgram() {
 }
 // Add this new method to load Java files from server
 loadSavedJavaFiles() {
-  this.http.get<any>('http://192.168.1.10:9090/getSavedPrograms')
+  this.http.get<any>(`${this.apiUrl}/getSavedPrograms`)
     .subscribe({
       next: (res) => {
         this.savedJavaFiles = res.files || [];
@@ -247,7 +249,7 @@ loadSavedJavaFiles() {
 loadSavedProgram(fileName: string) {
   if (!fileName) return;
 
-  this.http.get<any>(`http://192.168.1.10:9090/loadProgram?fileName=${fileName}`)
+  this.http.get<any>(`${this.apiUrl}/loadProgram?fileName=${fileName}`)
     .subscribe({
       next: (res) => {
         this.code = res.code || '';
@@ -291,7 +293,7 @@ loadSavedProgram(fileName: string) {
     const javaPath = this.getSelectedJavaPath();
     const payload = { code: this.code, javaPath: javaPath };
 
-    this.http.post<any>('http://192.168.1.10:9090/compile', payload)
+    this.http.post<any>(`${this.apiUrl}/compile`, payload)
       .subscribe({
         next: (res) => this.output = res.output,
         error: (err) => this.output = 'Error: ' + err.message
