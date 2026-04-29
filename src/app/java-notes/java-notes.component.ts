@@ -78,7 +78,7 @@ export class JavaNotesComponent implements OnInit {
     if (environment.production ) {
       return `${this.basePath}/Angular17JavaTotorial/assets/javaNotesPdf/${this.selected}`;
     } else {
-      return `${this.basePath}/Angular17JavaTotorial/assets/javaNotesPdf/${this.selected}`;
+      return `${this.basePath}/assets/javaNotesPdf/${this.selected}`;
     }
   }
 
