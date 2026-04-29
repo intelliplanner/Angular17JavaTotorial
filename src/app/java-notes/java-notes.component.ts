@@ -49,14 +49,14 @@ export class JavaNotesComponent implements OnInit {
   selected?: string;
   currentUrl?: SafeResourceUrl;
   recentFiles: string[] = [];
-  jsonFilePath: string = environment.apiUrl;
+  // jsonFilePath: string = environment.apiUrl;
   private RECENT_KEY = 'javaNotesRecentFiles';
   private basePath: string = environment.production ? '/Angular17JavaTutorial' : '';
 
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    fetch(this.jsonFilePath + "/assets/javaNotesPdf/files.json")
+    fetch(this.basePath + "/assets/javaNotesPdf/files.json")
       .then(res => res.json())
       .then((data: string[]) => {
         this.files = data;
@@ -77,8 +77,8 @@ export class JavaNotesComponent implements OnInit {
     if (!this.selected) return null;
     
     // In production, use full URL from apiUrl; in development, use relative path
-    if (environment.production && this.jsonFilePath) {
-      return `${this.jsonFilePath}/assets/javaNotesPdf/${this.selected}`;
+    if (environment.production ) {
+      return `${this.basePath}/assets/javaNotesPdf/${this.selected}`;
     } else {
       return `${this.basePath}/assets/javaNotesPdf/${this.selected}`;
     }
