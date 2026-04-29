@@ -1,12 +1,7 @@
 /**
- * Program: Java8Stream
+ * Program: Java8Stream hh
  */
-/**
- * Program: Java8Stream
- */
-/**
- * Program: Java8Stream
- */
+
 import java.util.stream.*;
 import java.util.Arrays;
 import java.util.List;
@@ -22,5 +17,8 @@ public class Java8Stream {
         List<String> oddIndexValues =
                 IntStream.range(0,li.size()).filter(i->i%2 != 0).mapToObj(li :: get).collect(Collectors.toList());
         System.out.println("Odd index values: " + oddIndexValues);
+
+	System.out.println("Hello");
     }
 }
+
