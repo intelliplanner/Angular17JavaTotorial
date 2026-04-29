@@ -51,7 +51,7 @@ export class JavaNotesComponent implements OnInit {
   recentFiles: string[] = [];
   jsonFilePath: string = environment.apiUrl;
   private RECENT_KEY = 'javaNotesRecentFiles';
-  private basePath: string = environment.production ? '/Angular17JavaTutorial' : '';
+  private basePath: string = environment.production ? '/Angular17JavaTotorial' : '';
 
   constructor(private sanitizer: DomSanitizer) { }
 
