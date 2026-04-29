@@ -66,8 +66,6 @@ export class JavaNotesComponent implements OnInit {
           this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
           this.loadRecent();
           this.updateRecent(this.selected);
-          // auto-render first file
-        //   this.openSelected().catch(() => {});
         }
       })
       .catch(err => console.error('Failed to load files manifest', err));
@@ -78,7 +76,7 @@ export class JavaNotesComponent implements OnInit {
     
     // In production, use full URL from apiUrl; in development, use relative path
     if (environment.production ) {
-      return `${this.jsonFilePath}/assets/javaNotesPdf/${this.selected}`;
+      return `${this.jsonFilePath}/Angular17JavaTutorial/assets/javaNotesPdf/${this.selected}`;
     } else {
       return `${this.basePath}/assets/javaNotesPdf/${this.selected}`;
     }
