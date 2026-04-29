@@ -74,7 +74,14 @@ export class JavaNotesComponent implements OnInit {
   }
 
   get downloadUrl(): string | null {
-    return this.selected ? `${this.basePath}/assets/javaNotesPdf/${this.selected}` : null;
+    if (!this.selected) return null;
+    
+    // In production, use full URL from apiUrl; in development, use relative path
+    if (environment.production && this.jsonFilePath) {
+      return `${this.jsonFilePath}/assets/javaNotesPdf/${this.selected}`;
+    } else {
+      return `${this.basePath}/assets/javaNotesPdf/${this.selected}`;
+    }
   }
 
   openSelected(): void {
