@@ -76,7 +76,7 @@ export class JavaNotesComponent implements OnInit {
     
     // In production, use full URL from apiUrl; in development, use relative path
     if (environment.production ) {
-      return `${this.basePath}/assets/javaNotesPdf/${this.selected}`;
+      return `${this.basePath}/Angular17JavaTotorial/assets/javaNotesPdf/${this.selected}`;
     } else {
       return `${this.basePath}/assets/javaNotesPdf/${this.selected}`;
     }
