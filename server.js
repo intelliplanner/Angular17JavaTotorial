@@ -17,6 +17,9 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
+// Serve static files from src/assets directory
+app.use('/assets', express.static(path.join(__dirname, 'src', 'assets')));
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'Java Compiler Server is running', port: 9090 });

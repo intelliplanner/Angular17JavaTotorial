@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-java-notes',
@@ -51,6 +51,7 @@ export class JavaNotesComponent implements OnInit {
   recentFiles: string[] = [];
   jsonFilePath: string = environment.apiUrl;
   private RECENT_KEY = 'javaNotesRecentFiles';
+  private basePath: string = environment.production ? '/Angular17JavaTutorial' : '';
 
   constructor(private sanitizer: DomSanitizer) { }
 
@@ -73,7 +74,7 @@ export class JavaNotesComponent implements OnInit {
   }
 
   get downloadUrl(): string | null {
-    return this.selected ? `/assets/javaNotesPdf/${this.selected}` : null;
+    return this.selected ? `${this.basePath}/assets/javaNotesPdf/${this.selected}` : null;
   }
 
   openSelected(): void {
