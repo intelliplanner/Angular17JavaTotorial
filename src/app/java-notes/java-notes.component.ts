@@ -73,7 +73,7 @@ export class JavaNotesComponent implements OnInit {
   }
 
   get downloadUrl(): string | null {
-    return this.selected ? `/Angular17JavaTotorial/assets/javaNotesPdf/${this.selected}` : null;
+    return this.selected ? `/assets/javaNotesPdf/${this.selected}` : null;
   }
 
   openSelected(): void {
