@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { JavaComponent } from './java/java.component';
 import { DesignpatternComponent } from './designpattern/designpattern.component';
 import { HibernateComponent } from './hibernate/hibernate.component';
 import { SpringbootComponent } from './springboot/springboot.component';
@@ -20,7 +19,6 @@ export const routes: Routes = [
     { 'path': 'categorizedNotes', component: CategorizedNotesComponent, 'title': 'Categorized Notes' },
     { 'path': '', component: JavaNotesComponent, 'title': 'Java Notes' },
     { 'path': 'dashboard', component: HomeComponent, 'title': 'DashBoard' },
-    { 'path': 'java', component: JavaComponent, 'title': 'Java' },
     { 'path': 'collection', component: CollectionComponent, 'title': 'collection' },
     { 'path': 'designPattern', component: DesignpatternComponent, 'title': 'DesignPattern', canActivate: [authGaurd] },
     { 'path': 'hibernate', component: HibernateComponent, 'title': 'Hibernate' },
