@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';   // <-- add this
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { environment } from '../../environments/environment.prod';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    fetch('/assets/json_files/route_mapping.json')
+    fetch(`${environment.apiUrl}/assets/json_files/route_mapping.json`)
       .then(res => res.json())
       .then((data: any[]) => {
         this.categories = data;
@@ -37,14 +38,6 @@ export class HomeComponent implements OnInit {
       .catch(err => console.error('Failed to load route mapping', err));
   }
 
-  // showFiles(category: string): void {
-  //   this.selectedFiles = this.categories
-  //     .filter(item => item.routeMap === category)
-  //     .map(item => item.fileName);
-  //   this.selectedFile = null;
-  //   this.currentUrl = null;
-  // }
-
 showFiles(category: string): void {
   this.selectedFiles = this.categories
     .filter(item => item.routeMap === category)
@@ -55,7 +48,7 @@ showFiles(category: string): void {
     this.selectedFile = this.selectedFiles[0];
 
     // Auto-open the first file
-    const url = `/assets/javaNotesPdf/${this.selectedFile}`;
+    const url = `${environment.apiUrl}/assets/javaNotesPdf/${this.selectedFile}`;
     this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   } else {
     this.selectedFile = null;
@@ -66,13 +59,13 @@ showFiles(category: string): void {
 // Auto-open whenever dropdown changes
 onFileChange(): void {
   if (this.selectedFile) {
-    const url = `/assets/javaNotesPdf/${this.selectedFile}`;
+    const url = `${environment.apiUrl}/assets/javaNotesPdf/${this.selectedFile}`;
     this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
   openSelected(): void {
     if (!this.selectedFile) return;
-    const url = `/assets/javaNotesPdf/${this.selectedFile}`;
+    const url = `${environment.apiUrl}/assets/javaNotesPdf/${this.selectedFile}`;
     this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
