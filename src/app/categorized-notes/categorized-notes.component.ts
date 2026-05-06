@@ -20,7 +20,7 @@ export class CategorizedNotesComponent implements OnInit {
   recentFiles: string[] = [];
   jsonFilePath: string = environment.apiUrl;
   private RECENT_KEY = 'javaNotesRecentFiles';
-  private basePath: string = environment.production ? '/Angular17JavaTotorial' : '';
+  // private basePath: string = environment.production ? '/Angular17JavaTotorial' : '';
   selectedFileUrl?: SafeResourceUrl;
   showDialog = false;
   selectedCategory: string = '';   // dropdown selection
@@ -31,7 +31,7 @@ export class CategorizedNotesComponent implements OnInit {
   filesByCategory: { [key: string]: string[] } = {};
 
   ngOnInit(): void {
-  fetch(this.jsonFilePath + "/assets/json_files/categorized_topic.json")
+  fetch(`${environment.apiUrl}/assets/json_files/categorized_topic.json`)
     .then(res => res.json())
     .then((data: { [key: string]: string[] }) => {
       // Sort files inside each category
@@ -70,103 +70,6 @@ export class CategorizedNotesComponent implements OnInit {
   });
 }
 
-
-  // get downloadUrl(): string | null {
-  //   if (!this.selected) return null;
-
-  //   // In production, use full URL from apiUrl; in development, use relative path
-  //   if (environment.production) {
-  //     return `${environment.apiUrl}/assets/javaNotesPdf/${this.selected}`;
-  //   } else {
-  //     return `${environment.apiUrl}/assets/javaNotesPdf/${this.selected}`;
-  //   }
-  // }
-
-  // private loadRecent(): void {
-  //   try {
-  //     const raw = localStorage.getItem(this.RECENT_KEY);
-  //     if (raw) {
-  //       const arr = JSON.parse(raw) as string[];
-  //       this.recentFiles = (arr || []).filter(f => this.files.includes(f)).slice(0, 5);
-  //     }
-  //   } catch (e) {
-  //     this.recentFiles = [];
-  //   }
-  // }
-
-  // private updateRecent(file?: string): void {
-  //   if (!file) return;
-  //   this.recentFiles = this.recentFiles.filter(f => f !== file);
-  //   this.recentFiles.unshift(file);
-  //   this.recentFiles = this.recentFiles.slice(0, 5);
-  //   try {
-  //     localStorage.setItem(this.RECENT_KEY, JSON.stringify(this.recentFiles));
-  //   } catch (e) {
-  //     // ignore
-  //   }
-  // }
-
-  // get otherFiles(): string[] {
-  //   return this.files.filter(f => !this.recentFiles.includes(f));
-  // }
-
-  // private renderIframe(url: string): void {
-  //   const viewer = document.getElementById('pdfViewer');
-  //   if (!viewer) return;
-  //   viewer.innerHTML = '';
-  //   const iframe = document.createElement('iframe');
-  //   iframe.src = url;
-  //   iframe.width = '100%';
-  //   iframe.height = '700px';
-  //   iframe.setAttribute('frameborder', '0');
-  //   iframe.setAttribute('scrolling', 'auto');
-  //   iframe.style.overflow = 'auto';
-  //   viewer.appendChild(iframe);
-  // }
-
-  // onFileSelected(event: Event): void {
-  //   const input = event.target as HTMLInputElement;
-  //   if (input.files && input.files.length > 0) {
-  //     const file = input.files[0];
-  //     if (file.type !== 'application/pdf') {
-  //       alert('Only PDF files are allowed!');
-  //       return;
-  //     }
-  //     this.selectedFile = file;
-
-  //     // Create a preview URL for the selected file
-  //     const url = URL.createObjectURL(file);
-  //     this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-
-  //     // Render in the same pdfViewer
-  //     this.renderIframe(url);
-  //   }
-  // }
-
-  // openSelected(): void {
-  //   if (!this.selected) return;
-  //   const url = this.downloadUrl || '';
-  //   this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  //   this.updateRecent(this.selected);
-
-  //   // Render in the same pdfViewer
-  //   this.renderIframe(url);
-  // }
-
-  // savePdf(): void {
-  //   if (!this.selectedFile) return;
-
-  //   const formData = new FormData();
-  //   formData.append('pdfFile', this.selectedFile);
-
-  //   this.http.post(`${environment.apiUrl}/uploadPdf`, formData).subscribe({
-  //     next: () => alert('PDF saved successfully!'),
-  //     error: (err) => {
-  //       console.error('Upload failed:', err); // full error in console
-  //       alert('Upload failed: ' + (err.message || JSON.stringify(err)));
-  //     }
-  //   });
-  // }
 
 
   openCategoryDialog() { this.showDialog = true; }
