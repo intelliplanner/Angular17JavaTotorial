@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-question-answer-panel',
@@ -38,7 +39,7 @@ export class QuestionAnswerPanelComponent implements OnInit {
   }
 
   private loadQuestions(): void {
-    this.http.get<any[]>('/assets/json_files/interview_question_answer.json')
+    this.http.get<any[]>(`${environment.apiUrl}/assets/json_files/interview_question_answer.json`)
       .subscribe(data => {
         // Ensure data is an array
         this.questions = Array.isArray(data) ? data : [];
@@ -132,7 +133,7 @@ export class QuestionAnswerPanelComponent implements OnInit {
       subCategory: subCategoryToSave
     };
 
-    this.http.post('http://localhost:9090/saveQuestion', payload)
+    this.http.post(`${environment.apiUrl}/saveQuestion`, payload)
       .subscribe({
         next: (res: any) => {
           if (!Array.isArray(this.questions)) {
@@ -150,7 +151,6 @@ export class QuestionAnswerPanelComponent implements OnInit {
           this.notificationType = 'error';
         }
       });
-
   }
 
   resetForm() {

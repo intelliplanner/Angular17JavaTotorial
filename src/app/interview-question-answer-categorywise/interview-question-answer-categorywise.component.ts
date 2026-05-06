@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-interview-question-answer-categorywise',
@@ -24,7 +25,7 @@ export class InterviewQuestionAnswerCategorywiseComponent implements OnInit {
   filteredQuestions: any[] = [];
 
   ngOnInit(): void {
-    this.http.get<any[]>('/assets/json_files/interview_question_answer.json')
+    this.http.get<any[]>(`${environment.apiUrl}/assets/json_files/interview_question_answer.json`)
       .subscribe(data => {
         this.questions = data;
         const cats = new Set<string>();
