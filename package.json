@@ -4,14 +4,15 @@
   "scripts": {
     "ng": "ng",
     "prestart": "node scripts/generateFilesManifest.js",
-    "start": "ng serve -o",
+    "start": "ng serve Angular17JavaTotorial -o --host 0.0.0.0 --port 4200",
     "start:dev": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --configuration production",
     "server": "node server.js",
     "server:prod": "npm run build:prod && npm run server",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -23,11 +24,12 @@
     "@angular/platform-browser": "^17.3.10",
     "@angular/platform-browser-dynamic": "^17.3.10",
     "@angular/router": "^17.3.10",
-    "bootstrap": "^5.3.3",
     "body-parser": "^1.20.2",
-    "cors": "^2.8.5",
+    "bootstrap": "^5.3.3",
     "compression": "^1.7.4",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
+    "multer": "^2.1.1",
     "rxjs": "^6.6.7",
     "tslib": "^2.3.0",
     "word-extractor": "^1.0.4",

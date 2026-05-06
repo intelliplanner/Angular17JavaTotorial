@@ -12,10 +12,12 @@ import { LoginComponent } from './login/login.component';
 import { authGaurd } from './login-guard.guard';
 import { JavaNotesComponent } from './java-notes/java-notes.component';
 import { JavaCompilerComponent } from './java-compiler/java-compiler.component';
+import { CategorizedNotesComponent } from './categorized-notes/categorized-notes.component';
 
 export const routes: Routes = [
 
     { 'path': 'javaNotes', component: JavaNotesComponent, 'title': 'Java Notes' },
+    { 'path': 'categorizedNotes', component: CategorizedNotesComponent, 'title': 'Categorized Notes' },
     { 'path': '', component: JavaNotesComponent, 'title': 'Java Notes' },
     { 'path': 'dashboard', component: HomeComponent, 'title': 'DashBoard' },
     { 'path': 'java', component: JavaComponent, 'title': 'Java' },

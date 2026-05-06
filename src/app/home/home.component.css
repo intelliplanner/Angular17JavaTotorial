@@ -1,0 +1,57 @@
+.app-layout {
+  display: flex;
+  min-height: 100vh; /* full height */
+}
+
+.vertical-nav {
+  width: 270px;
+  min-height: 100vh;
+  overflow-y: auto;          /* enable vertical scroll */
+  scrollbar-width: thin;     /* Firefox */
+  scrollbar-color: #007bff #f8f9fa;
+  padding: 1rem;
+  border-right: 1px solid #ddd;
+  background-color: #f8f9fa;
+}
+
+/* Custom scrollbar for WebKit browsers */
+.vertical-nav::-webkit-scrollbar {
+  width: 8px;
+}
+.vertical-nav::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+.vertical-nav::-webkit-scrollbar-thumb {
+  background-color: #007bff;
+  border-radius: 4px;
+}
+
+.vertical-nav .nav-link {
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.vertical-nav .nav-link:hover {
+  background-color: #007bff;
+  color: #fff;
+  transform: translateX(4px); /* subtle slide on hover */
+}
+
+.vertical-nav .nav-link.active {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+
+
+.d-flex {
+  display: flex;
+  /* align-items: center; */
+  gap: 10px; /* space between elements */
+}
+
+.form-select.w-auto {
+  min-width: 200px; /* adjust dropdown width */
+}

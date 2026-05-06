@@ -4,20 +4,33 @@
       <label for="notesSelect">Choose Java Notes: </label>
       <select id="notesSelect" [(ngModel)]="selected">
         <option *ngIf="!selected" value="" disabled>Select a file</option>
+
         <optgroup *ngIf="recentFiles.length" label="Recent">
-          <option *ngFor="let f of recentFiles" [value]="f">{{f}}</option>
+          <option *ngFor="let f of recentFiles" [value]="f">{{ f }}</option>
         </optgroup>
-        <optgroup label="All Files">
-          <option *ngFor="let f of otherFiles" [value]="f">{{f}}</option>
-        </optgroup>
+
+        <!-- Category-wise groups -->
+        <ng-container *ngFor="let category of categories">
+          <optgroup [label]="category">
+            <option *ngFor="let f of filesByCategory[category]" [value]="f">{{ f }}</option>
+          </optgroup>
+        </ng-container>
       </select>
 
       <button (click)="openSelected()" [disabled]="!selected">Open</button>
-      <button (click)="openCategoryDialog()">Add Category</button>
+      <button (click)="openCategoryDialog()">Add Note by Category</button>
+
     </div>
+
+    <div *ngIf="selectedFile" class="selected-file">
+      Selected File: {{ selectedFile.name }}
+    </div>
+
+    <!-- Single unified viewer -->
     <div id="pdfViewer" class="pdf-viewer" *ngIf="currentUrl"></div>
   </div>
 </section>
+
 
 <!-- Dialog box -->
 <div *ngIf="showDialog" class="dialog" (click)="closeDialog()" tabindex="0">

@@ -1,0 +1,102 @@
+{
+  "Agile_Methodology": [
+    "Agile Methodology.pdf"
+  ],
+  "Apache_Question": [
+    "Apache_and_JBOSS_INTERVIEW_QUETIONS.pdf"
+  ],
+  "Collections": [
+    "Collections.pdf"
+  ],
+  "Core_Java": [
+    "Java Keep In  Mind.pdf",
+    "Java Networking.pdf",
+    "Java Questions Only.pdf",
+    "Java Topics.pdf",
+    "JAVA_1.4_1.5.pdf",
+    "Java_1.7.pdf",
+    "java_1.8.pdf",
+    "Java_1.9.pdf",
+    "Java_OOPs_Misc.pdf",
+    "Java_Topics.pdf"
+  ],
+  "DataBase_Questions": [
+    "DataBase_Interview_Questions.pdf"
+  ],
+  "Designing_Pattern": [
+    "Designing_Pattern.pdf"
+  ],
+  "Docker": [
+    "Docker.pdf"
+  ],
+  "Exception_Handling": [
+    "Exception_Handling.pdf"
+  ],
+  "Hibernate": [
+    "Hibernate.pdf"
+  ],
+  "Http_Error_Status": [
+    "Http Error Status.pdf"
+  ],
+  "Interview": [
+    "Interview HR round.pdf",
+    "Interview Online Test.pdf",
+    "Interview_Question_My.pdf",
+    "Interview_Round.pdf"
+  ],
+  "JavaMail_JMS": [
+    "JavaMail_JMS.pdf"
+  ],
+  "JavaScript": [
+    "JavaScript.pdf",
+    "JavaScript_Interview_Question.pdf"
+  ],
+  "JSP": [
+    "JSP.pdf"
+  ],
+  "Junit_Annotation": [
+    "Junit Annotation.pdf"
+  ],
+  "Kafka_Study": [
+    "Kafka Study.pdf"
+  ],
+  "Kubernetes": [
+    "Kubernetes.pdf"
+  ],
+  "Logger_Hibernate": [
+    "Logger Hibernate.pdf"
+  ],
+  "Maven_pom": [
+    "Maven pom.pdf"
+  ],
+  "Multithreading": [
+    "Multi-threading.pdf"
+  ],
+  "Project_Details": [
+    "Project Details.pdf"
+  ],
+  "Spring": [
+    "Spring Boot Caching.pdf",
+    "Spring Boot.pdf",
+    "SpringBoot_Microservices_Jenkins.pdf",
+    "SpringFrameworkAnnotations.pdf",
+    "SpringStudy.pdf"
+  ],
+  "Virendra_Introduction": [
+    "Virendra Introduction.pdf"
+  ],
+  "WebServiceNotes": [
+    "WebServiceNotes.pdf"
+  ],
+  "Youtube_Java_Important_Links": [
+    "Youtube_Java_Important_Links.pdf"
+  ],
+  "Angular": [
+    "Angular_Interview_Question.pdf",
+    "uploadedAngular-17  Mar-1st-2024.pdf"
+  ],
+  "MongoDB": [
+    "MongoDB_Schema_vs_Scaling_Explanation.pdf",
+    "MongoDB_Sharing_Aggregation_QA.pdf"
+  ]
+}

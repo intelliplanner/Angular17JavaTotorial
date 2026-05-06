@@ -152,6 +152,7 @@ app.get('/getSavedPrograms', (req, res) => {
   }
 });
 
+
 // Load a specific program
 app.get('/loadProgram', (req, res) => {
   const fs = require('fs');
@@ -167,6 +168,99 @@ app.get('/loadProgram', (req, res) => {
   }
 });
 
+
+// ----------------------------- PDF Upload + Categorization -----------------------------
+const multer = require('multer');
+const pdfDir = path.join(__dirname, 'src', 'assets', 'javaNotesPdf');
+const categoryFile = path.join(__dirname,'src', 'assets', 'json_files','categorized_topic.json');
+
+// Ensure javaNotesPdf folder exists
+if (!fs.existsSync(pdfDir)) {
+  fs.mkdirSync(pdfDir, { recursive: true });
+}
+
+// Configure Multer storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, pdfDir),
+  filename: (req, file, cb) => cb(null,"uploaded_" + file.originalname)
+});
+
+const upload = multer({ storage });
+
+// Serve uploaded PDFs statically
+app.use('/javaNotesPdf', express.static(pdfDir));
+
+// Upload + categorize endpoint
+app.post('/uploadPdf', upload.single('pdfFile'), (req, res) => {
+  const { category } = req.body;
+
+  if (!req.file) {
+    return res.status(400).json({ message: 'No file uploaded' });
+  }
+
+  try {
+    // Update categorized_topic.json
+    let data = {};
+    if (fs.existsSync(categoryFile)) {
+      data = JSON.parse(fs.readFileSync(categoryFile, 'utf-8'));
+    }
+
+    if (category) {
+      if (!data[category]) {
+        data[category] = [];
+      }
+      if (!data[category].includes(req.file.filename)) {
+        data[category].push(req.file.filename);
+      }
+    }
+
+    fs.writeFileSync(categoryFile, JSON.stringify(data, null, 2), 'utf-8');
+
+    res.json({
+      message: `PDF ${req.file.filename} uploaded successfully!`,
+      file: req.file.filename,
+      category: category || null,
+      url: `/javaNotesPdf/${req.file.filename}`
+    });
+  } catch (err) {
+    console.error('Error saving PDF:', err);
+    res.status(500).json({ message: 'Failed to save PDF' });
+  }
+});
+
+// ----------------------------- Convert categorized_topic.json to route_mapping.json for one time only-----------------------------
+// const inputPath = path.join(__dirname, 'src', 'assets', 'json_files', 'categorized_topic.json');
+// const outputPath = path.join(__dirname, 'src', 'assets', 'json_files', 'route_mapping.json');
+
+// try {
+//   const data = JSON.parse(fs.readFileSync(inputPath, 'utf-8'));
+//   const result = [];
+
+//   // Sort categories alphabetically
+//   Object.keys(data)
+//     .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }))
+//     .forEach(category => {
+//       // Sort files alphabetically inside each category
+//       data[category].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+//       data[category].forEach(file => {
+//         result.push({
+//           routeMap: category,
+//           notesCategory: category,
+//           fileName: file
+//           // urlMapping: `/assets/javaNotesPdf/${file}` // optional direct link
+//         });
+//       });
+//     });
+
+//   fs.writeFileSync(outputPath, JSON.stringify(result, null, 2), 'utf-8');
+//   console.log(`✅ Converted JSON written to ${outputPath}`);
+// } catch (err) {
+//   console.error('❌ Failed to convert JSON:', err);
+// }
+// End Convert categorized_topic.json to route_mapping.json 
+
+// Start the server
+
 const PORT = 9090;
 app.listen(PORT,'0.0.0.0', () => {
   console.log(`\n🚀 Java Compiler Server running on port ${PORT}`);
@@ -175,3 +269,4 @@ app.listen(PORT,'0.0.0.0', () => {
   console.log(`✅ CORS enabled for Angular frontend\n`);
 
 });
+

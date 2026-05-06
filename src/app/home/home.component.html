@@ -1,17 +1,35 @@
-
-<br>
-<div class="row row-cols-1 row-cols-md-6 g-4">
-    <!-- @for (file of filesNameList; track file.id) {
-       -->
-       @for (topic of topicList; track topic.id) {
-        <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <!-- <h5 class="card-title">{{topic.topicName}}</h5> -->
-                <!-- <p class="card-text">Topic Definition</p> -->
-                <a href="{{topic.topicName}}" class="card-link">{{topic.topicName}}</a>
-              </div>
-            </div>
-          </div>
-    }
+<div class="app-layout d-flex">
+  <!-- Sidebar -->
+  <div class="vertical-nav bg-light p-2">
+    <ul class="nav flex-column">
+      <li class="nav-item" *ngFor="let item of uniqueCategories">
+        <a class="nav-link" (click)="showFiles(item.routeMap)">
+          {{ item.notesCategory }}
+        </a>
+      </li>
+    </ul>
   </div>
+
+  <!-- Content Area -->
+  <div class="content-area flex-grow-1 p-3">
+    <div *ngIf="selectedFiles.length" class="d-flex align-items-center gap-2">
+      <label for="fileSelect" class="me-2">Files in this category:</label>
+
+      <select id="fileSelect" class="form-select w-auto"
+              [(ngModel)]="selectedFile">
+              <!-- (change)="onFileChange()"> -->
+        <option *ngFor="let f of selectedFiles" [value]="f">{{ f }}</option>
+      </select>
+
+      <!-- Open button optional now -->
+      <button class="btn btn-primary" (click)="openSelected()" [disabled]="!selectedFile">
+        Open
+      </button>
+    </div>
+
+    <!-- PDF Viewer -->
+    <div *ngIf="currentUrl" class="pdf-viewer mt-3">
+      <iframe [src]="currentUrl" width="100%" height="800" frameborder="0"></iframe>
+    </div>
+  </div>
+</div>

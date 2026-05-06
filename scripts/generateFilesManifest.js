@@ -1,24 +1,29 @@
 const fs = require('fs');
 const path = require('path');
 
-const dir = path.join(__dirname, '..', 'src', 'assets', 'javaNotesPdf');
+const dir = path.join(__dirname, '..', 'src', 'assets', 'json_files');
+const filesDir = path.join(__dirname, '..', 'src', 'assets', 'javaNotesPdf');
 const manifestPath = path.join(dir, 'files.json');
 
 try {
   if (!fs.existsSync(dir)) {
-    console.error('Directory does not exist:', dir);
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  if (!fs.existsSync(filesDir)) {
+    console.error('PDF directory does not exist:', filesDir);
     process.exit(0);
   }
 
-  const files = fs.readdirSync(dir).filter(f => /\.pdf$/i.test(f));
+  // Collect all PDFs
+  const files = fs.readdirSync(filesDir).filter(f => /\.pdf$/i.test(f));
 
-  if (fs.existsSync(manifestPath)) {
-    fs.unlinkSync(manifestPath);
-  }
+  // Sort alphabetically (case-insensitive)
+  const sortedFiles = files.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
 
-  fs.writeFileSync(manifestPath, JSON.stringify(files, null, 2), 'utf8');
-  console.log('Wrote manifest with', files.length, 'entries to', manifestPath);
+  // Write manifest
+  fs.writeFileSync(manifestPath, JSON.stringify(sortedFiles, null, 2), 'utf8');
+  console.log(`✅ Wrote manifest with ${sortedFiles.length} entries to ${manifestPath}`);
 } catch (err) {
-  console.error('Failed to generate files manifest:', err);
+  console.error('❌ Failed to generate files manifest:', err);
   process.exit(1);
 }
