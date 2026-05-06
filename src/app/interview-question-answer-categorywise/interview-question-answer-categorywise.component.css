@@ -1,0 +1,85 @@
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.vertical-nav {
+  width: 250px;
+  border-right: 1px solid #ddd;
+  background-color: #f8f9fa;
+}
+
+.vertical-nav .nav-link {
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.vertical-nav .nav-link:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.content-area {
+  flex: 1;
+  background-color: #fff;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Fixed header row */
+.category-header {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  z-index: 10;
+}
+
+.qa-card {
+  background: #fdfdfd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.qa-card h4 {
+  color: #007acc;
+  margin-bottom: 0.5rem;
+}
+
+.text-answer {
+  font-size: 16px;
+  margin-top: 0.5rem;
+}
+
+/* Each line of a multi-line text answer */
+.answer-line {
+  background: #f9f9f9;
+  border-left: 4px solid #007acc;
+  padding: 6px 10px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+.table-answer {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+.table-answer th {
+  background: #007acc;
+  color: #fff;
+  padding: 8px;
+}
+
+.table-answer td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}

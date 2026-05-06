@@ -259,6 +259,62 @@ app.post('/uploadPdf', upload.single('pdfFile'), (req, res) => {
 // }
 // End Convert categorized_topic.json to route_mapping.json 
 
+
+
+// ----------------------------- Save Interview Q&A -----------------------------
+const qaFilePath = path.join(__dirname, 'src', 'assets', 'json_files', 'interview_question_answer.json');
+
+// Ensure file exists
+if (!fs.existsSync(qaFilePath)) {
+  fs.writeFileSync(qaFilePath, '[]', 'utf-8');
+}
+
+// Save Question API
+app.post('/saveQuestion', (req, res) => {
+  const newQ = req.body;
+
+  fs.readFile(qaFilePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading interview_question_answer.json:', err);
+      return res.status(500).send('Error reading file');
+    }
+
+    let questions = [];
+    if (data && data.trim().length > 0) {
+      try {
+        questions = JSON.parse(data);
+      } catch (parseErr) {
+        console.error('Error parsing interview_question_answer.json:', parseErr);
+        return res.status(500).send('Error parsing file');
+      }
+    }
+
+    questions.push(newQ);
+
+    fs.writeFile(qaFilePath, JSON.stringify(questions, null, 2), 'utf-8', (err) => {
+      if (err) {
+        console.error('Error writing interview_question_answer.json:', err);
+        return res.status(500).send('Error writing file');
+      }
+      res.json({ message: 'Question saved successfully!', total: questions.length });
+    });
+  });
+});
+
+// Get all Interview Q&A
+app.get('/getQuestions', (req, res) => {
+  try {
+    const data = fs.readFileSync(qaFilePath, 'utf-8');
+    const questions = JSON.parse(data || '[]');
+    res.json(questions);
+  } catch (err) {
+    console.error('Error reading interview_question_answer.json:', err);
+    res.status(500).json({ error: 'Failed to read questions' });
+  }
+});
+
+
+
 // Start the server
 
 const PORT = 9090;

@@ -1,0 +1,108 @@
+.admin-panel {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fdfdfd;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.admin-panel h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #007acc;
+  font-weight: 600;
+}
+
+.admin-panel label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.admin-panel input,
+.admin-panel select,
+.admin-panel textarea {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.admin-panel input:focus,
+.admin-panel select:focus,
+.admin-panel textarea:focus {
+  border-color: #007acc;
+  box-shadow: 0 0 6px rgba(0,122,204,0.4);
+  outline: none;
+}
+
+.admin-panel button {
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #007acc, #00c6ff);
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.admin-panel button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #005fa3, #0099cc);
+}
+
+.admin-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.admin-panel table td {
+  border: 1px solid #ddd;
+  padding: 6px;
+}
+
+.admin-panel table input {
+  width: 100%;
+  border: none;
+  padding: 6px;
+  background: #fafafa;
+}
+
+.admin-panel table input:focus {
+  background: #fff;
+  border: 1px solid #007acc;
+}
+
+.selected {
+  background-color: #e6f7ff;
+  border-left: 4px solid #007acc;
+  padding: 0.5rem;
+  transition: background 0.3s;
+}
+.notification {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}

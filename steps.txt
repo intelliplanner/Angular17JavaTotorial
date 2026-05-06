@@ -12,3 +12,6 @@ Comipler Usage
 - The NodeJS server will invoke your local JDK compiler at D:\Software_Installed_Dir\java\jdk1.8.0_192\bin.
 
 
+Implement Pending 
+
+Q & A Panel Add image feature
