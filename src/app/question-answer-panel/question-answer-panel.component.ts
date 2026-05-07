@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-question-answer-panel',
@@ -113,6 +113,11 @@ export class QuestionAnswerPanelComponent implements OnInit {
 
     return categoryValid && subCategoryValid && questionValid && answerValid;
   }
+  generateUniqueId(): number {
+    // If questions already have IDs, find max and increment
+    const ids = this.questions.map(q => q.id).filter(id => typeof id === 'number');
+    return ids.length ? Math.max(...ids) + 1 : 1;
+  }
 
   saveQuestion(): void {
     if (!this.validateFields()) {
@@ -126,6 +131,7 @@ export class QuestionAnswerPanelComponent implements OnInit {
 
     const payload = {
       ...this.newQuestion,
+      id: this.generateUniqueId(),   // <-- assign unique ID
       question: this.newQuestion.question.endsWith('?')
         ? this.newQuestion.question
         : this.newQuestion.question + '?',
@@ -135,23 +141,58 @@ export class QuestionAnswerPanelComponent implements OnInit {
 
     this.http.post(`${environment.apiUrl}/saveQuestion`, payload)
       .subscribe({
-        next: (res: any) => {
-          if (!Array.isArray(this.questions)) {
-            this.questions = [];
-          }
+        next: () => {
           this.questions.push(payload);
           this.notification = 'Question saved successfully!';
           this.notificationType = 'success';
           this.resetForm();
-          this.loadQuestions(); // refresh categories/subcategories
+          this.loadQuestions();
         },
-        error: (err) => {
-          console.error('Failed to save question', err);
+        error: () => {
           this.notification = 'Failed to save question!';
           this.notificationType = 'error';
         }
       });
   }
+
+  // saveQuestion(): void {
+  //   if (!this.validateFields()) {
+  //     this.notification = 'Please fill all required fields!';
+  //     this.notificationType = 'error';
+  //     return;
+  //   }
+
+  //   const categoryToSave = this.selectedCategory === 'Other' ? this.newCategory : this.selectedCategory;
+  //   const subCategoryToSave = this.selectedSubCategory === 'Other' ? this.newSubCategory : this.selectedSubCategory;
+
+  //   const payload = {
+  //     ...this.newQuestion,
+  //     question: this.newQuestion.question.endsWith('?')
+  //       ? this.newQuestion.question
+  //       : this.newQuestion.question + '?',
+  //     category: categoryToSave,
+  //     subCategory: subCategoryToSave
+  //   };
+
+  //   this.http.post(`${environment.apiUrl}/saveQuestion`, payload)
+  //     .subscribe({
+  //       next: (res: any) => {
+  //         if (!Array.isArray(this.questions)) {
+  //           this.questions = [];
+  //         }
+  //         this.questions.push(payload);
+  //         this.notification = 'Question saved successfully!';
+  //         this.notificationType = 'success';
+  //         this.resetForm();
+  //         this.loadQuestions(); // refresh categories/subcategories
+  //       },
+  //       error: (err) => {
+  //         console.error('Failed to save question', err);
+  //         this.notification = 'Failed to save question!';
+  //         this.notificationType = 'error';
+  //       }
+  //     });
+  // }
 
   resetForm() {
     this.newQuestion = {
@@ -164,4 +205,28 @@ export class QuestionAnswerPanelComponent implements OnInit {
     this.newCategory = '';
     this.newSubCategory = '';
   }
+
+  deleteRow(): void {
+    if (this.newQuestion.answerType === 'table' && Array.isArray(this.newQuestion.answer)) {
+      if (this.newQuestion.answer.length > 1) {
+        this.newQuestion.answer.pop(); // remove last row
+      } else {
+        this.notification = 'Cannot delete header row!';
+        this.notificationType = 'error';
+      }
+    }
+  }
+
+  deleteColumn(): void {
+    if (this.newQuestion.answerType === 'table' && Array.isArray(this.newQuestion.answer)) {
+      const cols = this.newQuestion.answer[0]?.length || 0;
+      if (cols > 1) {
+        this.newQuestion.answer.forEach((row: string[]) => row.pop()); // remove last column
+      } else {
+        this.notification = 'Cannot delete the only column!';
+        this.notificationType = 'error';
+      }
+    }
+  }
+
 }

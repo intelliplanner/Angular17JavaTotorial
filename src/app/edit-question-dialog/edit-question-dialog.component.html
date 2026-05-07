@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>Edit Question</h2>
+<div mat-dialog-content>
+  <!-- Category -->
+  <label>Category:</label>
+  <select [(ngModel)]="data.selectedCategory">
+    <option value="">Select Category</option>
+    <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+  </select>
+  <input *ngIf="data.selectedCategory === 'Other'" [(ngModel)]="data.newCategory" placeholder="Enter new category" />
+
+  <!-- SubCategory -->
+  <label>SubCategory:</label>
+  <select [(ngModel)]="data.selectedSubCategory">
+    <option value="">Select SubCategory</option>
+    <option *ngFor="let s of subCategories" [value]="s">{{ s }}</option>
+  </select>
+  <input *ngIf="data.selectedSubCategory === 'Other'" [(ngModel)]="data.newSubCategory" placeholder="Enter new subcategory" />
+
+  <!-- Question -->
+  <label>Question:</label>
+  <input [(ngModel)]="data.newQuestion.question" />
+
+  <!-- Answer Type -->
+  <label>Answer Type:</label>
+  <select [(ngModel)]="data.newQuestion.answerType" (change)="onAnswerTypeChange()">
+    <option value="text">Text</option>
+    <option value="table">Table</option>
+  </select>
+
+  <!-- Text Answer -->
+  <textarea *ngIf="data.newQuestion.answerType === 'text'" [(ngModel)]="data.newQuestion.answer"></textarea>
+
+  <!-- Table Answer -->
+  <div *ngIf="data.newQuestion.answerType === 'table'">
+    <table>
+      <tr *ngFor="let row of data.newQuestion.answer; let r = index">
+        <td *ngFor="let cell of row; let j = index">
+          <input [(ngModel)]="data.newQuestion.answer[r][j]" />
+        </td>
+      </tr>
+    </table>
+    <button mat-button (click)="addRow()">Add Row</button>
+    <button mat-button (click)="addColumn()">Add Column</button>
+    <button mat-button (click)="deleteRow()">Delete Row</button>
+    <button mat-button (click)="deleteColumn()">Delete Column</button>
+  </div>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+</div>

@@ -14,6 +14,7 @@ import { JavaCompilerComponent } from './java-compiler/java-compiler.component';
 import { CategorizedNotesComponent } from './categorized-notes/categorized-notes.component';
 import { QuestionAnswerPanelComponent } from './question-answer-panel/question-answer-panel.component';
 import { InterviewQuestionAnswerCategorywiseComponent } from './interview-question-answer-categorywise/interview-question-answer-categorywise.component';
+import { InterviewQuestionsAnswerUpdateComponent } from './interview-questions-answer-update/interview-questions-answer-update.component';
 
 export const routes: Routes = [
 
@@ -33,6 +34,7 @@ export const routes: Routes = [
     { 'path': 'compiler', component: JavaCompilerComponent, 'title': 'Java Compiler' },
     { 'path': 'questionAnswerPanel', component: QuestionAnswerPanelComponent, 'title': 'Question-Answer-Panel' },
     { 'path': 'questionAnswerByCategory', component: InterviewQuestionAnswerCategorywiseComponent, 'title': 'Question-Answer by Category' },
+    { 'path': 'updateInterviewQuestionsAnswer', component: InterviewQuestionsAnswerUpdateComponent, 'title': 'Manage Questions Answers' },
     { 'path': '**', redirectTo: '', pathMatch: 'full' } // Wildcard route - redirect to home
 ];
 

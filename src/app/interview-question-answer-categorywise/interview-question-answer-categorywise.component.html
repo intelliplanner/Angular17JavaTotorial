@@ -17,9 +17,8 @@
             <h3 *ngIf="selectedCategory" class="mb-0"> {{ selectedCategory }}</h3>
 
             <div *ngIf="subCategories.length">
-                <select id="subSelect" class="form-select w-auto"
-                        [(ngModel)]="selectedSubCategory"
-                        (change)="filterBySubCategory()">
+                <select id="subSelect" class="form-select w-auto" [(ngModel)]="selectedSubCategory"
+                    (change)="filterBySubCategory()">
                     <option value="">All</option>
                     <option *ngFor="let s of subCategories" [value]="s">{{ s }}</option>
                 </select>
@@ -32,11 +31,26 @@
                 {{ q.question }}{{ q.question.endsWith('?') ? '' : '?' }}
             </h4>
 
-            <!-- Text Answer: split by newline -->
-            <div *ngIf="q.answerType === 'text'" class="text-answer">
-                <div *ngFor="let line of q.answer.split('\n')" class="answer-line">
-                    {{ line.trim() }}
+            <!-- Text Answer -->
+            <div *ngIf="q.answerType === 'text'">
+                <!-- If subCategory is Program, show inside codewrapper -->
+                <div *ngIf="q.subCategory === 'Program'; else normalAnswer" class="codewrapper">
+                    <div class="codeblock">
+                        <pre>{{ q.answer }}</pre>
+                    </div>
+                    <a class="btn btn-compile" href="https://www.tpointtech.com/compiler/java" target="_blank">
+                        Compile and Run Java
+                    </a>
                 </div>
+
+                <!-- Normal text answers -->
+                <ng-template #normalAnswer>
+                    <div class="text-answer">
+                        <div *ngFor="let line of q.answer.split('\n')" class="answer-line">
+                            {{ line.trim() }}
+                        </div>
+                    </div>
+                </ng-template>
             </div>
 
             <!-- Table Answer -->

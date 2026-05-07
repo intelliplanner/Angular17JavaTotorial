@@ -33,5 +33,13 @@
     "answer": "Spring Framework provides three ways to configure beans to be used in the application.\n1.\tAnnotation Based Configuration – By using @Service or @Component annotations. Scope details can be provided with @Scope annotation.\n2.\tXML Based Configuration – By creating Spring Configuration XML file to configure the beans. If you are using Spring MVC framework, the xml based configuration can be loaded automatically by writing some boiler plate code in web.xml file.\n3.\tJava Based Configuration – Starting from Spring 3.0, we can configure Spring beans using java programs. Some important annotations used for java based configuration are @Configuration, @ComponentScan and @Bean.\n",
     "category": "Spring Boot",
     "subCategory": "Spring Boot"
+  },
+  {
+    "question": "test?",
+    "answerType": "text",
+    "answer": "fsf",
+    "id": 1,
+    "category": "Core Java",
+    "subCategory": "Exception"
   }
 ]

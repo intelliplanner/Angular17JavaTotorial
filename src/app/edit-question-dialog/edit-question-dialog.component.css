@@ -1,0 +1,124 @@
+/* Dialog container */
+:host {
+  display: block;
+  padding: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+}
+
+/* Title */
+h2[mat-dialog-title] {
+  margin: 0 0 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1976d2;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-top: 0.75rem;
+  font-weight: 500;
+  color: #444;
+}
+
+/* Inputs, selects, textareas */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 6px 10px;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 4px;
+}
+
+table input {
+  width: 100%;
+  border: none;
+  padding: 4px;
+  font-size: 0.85rem;
+}
+
+/* Action buttons inside dialog */
+button[mat-button],
+button[mat-raised-button] {
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+}
+
+button[mat-raised-button] {
+  background-color: #1976d2;
+  color: #fff;
+}
+
+button[mat-raised-button]:hover {
+  background-color: #1565c0;
+}
+
+button[mat-button] {
+  color: #555;
+}
+
+button[mat-button]:hover {
+  background-color: #f5f5f5;
+}
+
+/* Notification styling if used inside dialog */
+.notification {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+.mat-dialog-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* Ensure actions are centered */
+.mat-dialog-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
