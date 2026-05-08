@@ -8,39 +8,18 @@
 
   <!-- Questions List -->
   <div *ngFor="let q of questions; let i = index; trackBy: trackByIndex" class="qa-card">
-    <h4>{{ q.question }}</h4>
-    <p><strong>Category:</strong> {{ q.category }} | <strong>SubCategory:</strong> {{ q.subCategory }}</p>
-
-    <!-- Edit/Delete buttons -->
-    <button (click)="editQuestion(i)">Edit</button>
-    <button (click)="deleteQuestion(i)">Delete</button>
-  </div>
-
-  <!-- Edit Form -->
-  <div *ngIf="editingIndex !== null" class="edit-form">
-    <h3>Edit Question</h3>
-    <label>Question:</label>
-    <input [(ngModel)]="editData.question" />
-
-    <label>Answer Type:</label>
-    <select [(ngModel)]="editData.answerType">
-      <option value="text">Text</option>
-      <option value="table">Table</option>
-    </select>
-
-    <textarea *ngIf="editData.answerType === 'text'" [(ngModel)]="editData.answer"></textarea>
-
-    <div *ngIf="editData.answerType === 'table'">
-      <table>
-        <tr *ngFor="let row of editData.answer; let r = index">
-          <td *ngFor="let cell of row; let j = index">
-            <input [(ngModel)]="editData.answer[r][j]" />
-          </td>
-        </tr>
-      </table>
+    <div class="qa-header">
+      <h4>{{ q.question }}</h4>
+      <p class="qa-meta">
+        <strong>Category:</strong> {{ q.category }} | 
+        <strong>SubCategory:</strong> {{ q.subCategory }}
+      </p>
     </div>
 
-    <button (click)="updateQuestion()">Update</button>
-    <button (click)="cancelEdit()">Cancel</button>
+    <!-- Action buttons -->
+    <div class="qa-actions">
+      <button class="btn-edit" (click)="editQuestion(i)">✏️ Edit</button>
+      <button class="btn-delete" (click)="deleteQuestion(i)">🗑️ Delete</button>
+    </div>
   </div>
 </div>

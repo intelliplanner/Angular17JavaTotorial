@@ -6,8 +6,8 @@
             <h5 class="pt-1">Java Tutorial</h5>
         </a>
         <!-- Toggle button -->
-        <button class="navbar-toggler" type="button" data-mdb-collapse-init data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-mdb-collapse-init data-mdb-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
         </button>
 
@@ -65,18 +65,36 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#/compiler">Java Compiler</a>
                 </li>
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="#/categorizedNotes">Categorized Notes</a>
                 </li>
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="#/questionAnswerByCategory">Question-Answer by Category</a>
                 </li>
-                 <li class="nav-item">
-                    <a class="nav-link" href="#/questionAnswerPanel">Question-Answer Panel</a>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#/questionAnswerPanel">Interview Question-Answer</a>
+                </li> 
+                <li class="nav-item">
+                    <a class="nav-link" href="#/updateInterviewQuestionsAnswer">Manage Questions Answers</a>
+                </li>-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="java" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Interview Question-Answer
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="#/questionAnswerPanel">Add Interview Question-Answer</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#/updateInterviewQuestionsAnswer">Update Interview
+                                Question-Answer</a>
+                        </li>
+                    </ul>
                 </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#/updateInterviewQuestionsAnswer">Manage Questions Answers</a>
-                    </li>
             </ul>
             <!-- Left links -->
 
@@ -84,12 +102,14 @@
             <div class="d-flex align-items-center justify-content-start">
                 <!-- Icon -->
                 <div [class]="loginClass">
-                    <a href="login" class="bi bi-person btn btn-primary btn-lg" role="button" (click)="login()" aria-disabled="true">
+                    <a href="login" class="bi bi-person btn btn-primary btn-lg" role="button" (click)="login()"
+                        aria-disabled="true">
                         <i>Login</i>
                     </a>
                 </div>
                 <div [class]="logoutClass">
-                    <a href="logout" class="bi bi-person btn btn-primary btn-lg " role="button" (click)="logout()" aria-disabled="true">
+                    <a href="logout" class="bi bi-person btn btn-primary btn-lg " role="button" (click)="logout()"
+                        aria-disabled="true">
                         <i>Logout</i>
                     </a>
                 </div>

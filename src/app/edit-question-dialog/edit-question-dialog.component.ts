@@ -14,6 +14,11 @@ export class EditQuestionDialogComponent {
   categories: string[] = [];
   subCategories: string[] = [];
 
+  selectedCategory: string = '';
+  selectedSubCategory: string = '';
+  newCategory: string = '';
+  newSubCategory: string = '';
+
   constructor(
     public dialogRef: MatDialogRef<EditQuestionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -37,15 +42,28 @@ export class EditQuestionDialogComponent {
     if (!this.subCategories.includes('Other')) {
       this.subCategories.push('Other');
     }
+
+    // Preselect existing values
+    if (data.newQuestion?.category) {
+      this.selectedCategory = this.normalize(data.newQuestion.category);
+      if (!this.categories.includes(this.selectedCategory)) {
+        this.selectedCategory = 'Other';
+        this.newCategory = data.newQuestion.category;
+      }
+    }
+
+    if (data.newQuestion?.subCategory) {
+      this.selectedSubCategory = this.normalize(data.newQuestion.subCategory);
+      if (!this.subCategories.includes(this.selectedSubCategory)) {
+        this.selectedSubCategory = 'Other';
+        this.newSubCategory = data.newQuestion.subCategory;
+      }
+    }
   }
 
-normalize(value: string): string {
-    return value
-      .trim()
-      .replace(/\s+/g, ' ') // collapse multiple spaces
-      .replace(/\b\w/g, c => c.toUpperCase()); // capitalize words
+  normalize(value: string): string {
+    return value.trim().replace(/\s+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   }
-
 
   onAnswerTypeChange(): void {
     if (this.data.newQuestion.answerType === 'text') {
@@ -82,6 +100,16 @@ normalize(value: string): string {
   }
 
   onSave(): void {
+    this.data.newQuestion.category =
+      this.selectedCategory === 'Other' ? this.newCategory : this.selectedCategory;
+
+    this.data.newQuestion.subCategory =
+      this.selectedSubCategory === 'Other' ? this.newSubCategory : this.selectedSubCategory;
+
     this.dialogRef.close(this.data);
+  }
+
+  trackByIndex(index: number): number {
+    return index;
   }
 }

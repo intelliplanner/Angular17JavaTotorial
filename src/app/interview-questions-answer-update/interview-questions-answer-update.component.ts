@@ -7,25 +7,19 @@ import { environment } from '../../environments/environment.prod';
 import { MatDialog } from '@angular/material/dialog';
 import { EditQuestionDialogComponent } from '../edit-question-dialog/edit-question-dialog.component';
 
-
-
 @Component({
   selector: 'app-interview-questions-answer-update',
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './interview-questions-answer-update.component.html',
-  styleUrl: './interview-questions-answer-update.component.css'
+  styleUrls: ['./interview-questions-answer-update.component.css']
 })
 export class InterviewQuestionsAnswerUpdateComponent {
   questions: any[] = [];
-  editingIndex: number | null = null;
-  editData: any = {};
   notification: string = '';
   notificationType: 'success' | 'error' | '' = '';
 
-  constructor(private http: HttpClient, private dialog: MatDialog) { }
-
-
+  constructor(private http: HttpClient, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadQuestions();
@@ -46,27 +40,41 @@ export class InterviewQuestionsAnswerUpdateComponent {
     return index;
   }
 
-  // editQuestion(index: number): void {
-  //   this.editingIndex = index;
-  //   this.editData = { ...this.questions[index] };
-  // }
+  /** ✅ Open Edit Dialog in Center */
+  editQuestion(index: number): void {
+    const q = this.questions[index];
+    const dialogRef = this.dialog.open(EditQuestionDialogComponent, {
+      width: '900px',
+      maxWidth: '95vw',
+      disableClose: true,
+      autoFocus: true,
+      position: { top: '', left: '' },   // ensures center
+      data: {
+        newQuestion: { ...q },
+        categories: this.questions.map(q => q.category),
+        subCategories: this.questions.map(q => q.subCategory),
+        selectedCategory: q.category,
+        selectedSubCategory: q.subCategory,
+        newCategory: '',
+        newSubCategory: ''
+      }
+    });
 
-  cancelEdit(): void {
-    this.editingIndex = null;
-    this.editData = {};
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.questions[index] = result.newQuestion;
+        this.updateQuestionBackend(result.newQuestion);
+      }
+    });
   }
 
-  updateQuestion(): void {
-    if (this.editingIndex === null) return;
-
-    const payload = { ...this.editData };
+  /** ✅ Update by ID */
+  updateQuestionBackend(payload: any): void {
     this.http.put(`${environment.apiUrl}/updateQuestion/${payload.id}`, payload)
       .subscribe({
         next: () => {
-          this.questions[this.editingIndex!] = payload;
           this.notification = 'Question updated successfully!';
           this.notificationType = 'success';
-          this.cancelEdit();
         },
         error: () => {
           this.notification = 'Failed to update question!';
@@ -75,6 +83,7 @@ export class InterviewQuestionsAnswerUpdateComponent {
       });
   }
 
+  /** ✅ Delete by ID */
   deleteQuestion(index: number): void {
     const q = this.questions[index];
     if (confirm(`Delete question: "${q.question}"?`)) {
@@ -92,47 +101,4 @@ export class InterviewQuestionsAnswerUpdateComponent {
         });
     }
   }
-editQuestion(index: number): void {
-  const q = this.questions[index];
-  const dialogRef = this.dialog.open(EditQuestionDialogComponent, {
-    width: '700px',
-    disableClose: true,
-    autoFocus: true,
-    // Explicitly center
-    position: { top: '', left: '' },
-    data: {
-      newQuestion: { ...q },
-      categories: this.questions.map(q => q.category),
-      subCategories: this.questions.map(q => q.subCategory),
-      selectedCategory: q.category,
-      selectedSubCategory: q.subCategory,
-      newCategory: '',
-      newSubCategory: ''
-    }
-  });
-
-  dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      this.questions[index] = result.newQuestion;
-      this.updateQuestionBackend(result.newQuestion);
-    }
-  });
-}
-
-
-
-  updateQuestionBackend(payload: any): void {
-    this.http.put(`${environment.apiUrl}/updateQuestion/${payload.id}`, payload)
-      .subscribe({
-        next: () => {
-          this.notification = 'Question updated successfully!';
-          this.notificationType = 'success';
-        },
-        error: () => {
-          this.notification = 'Failed to update question!';
-          this.notificationType = 'error';
-        }
-      });
-  }
-
 }
