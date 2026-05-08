@@ -1,21 +1,5 @@
 [
   {
-    "id": 1,
-    "question": "What is an immutable class?",
-    "answerType": "text",
-    "answer": "Immutable class is a class which once created, it’s contents can not be changed. Immutable objects are the objects whose state can not be changed once constructed. e.g. String class",
-    "category": "Core_Java",
-    "subCategory": "String"
-  },
-  {
-    "id": 2,
-    "question": "What are the advantages of immutability Class?",
-    "answerType": "text",
-    "answer": "•Immutable objects are automatically thread-safe, the overhead caused due to use of synchronisation is avoided.\n•\tOnce created the state of the immutable object can not be changed so there is no possibility of them getting into an inconsistent state.\n•\tThe references to the immutable objects can be easily shared or cached without having to copy or clone them as there state can not be changed ever after construction.\n•\tThe best use of the immutable objects is as the keys of a map.",
-    "category": "Core_Java",
-    "subCategory": "String"
-  },
-  {
     "id": 3,
     "question": "Fabonacci Series?",
     "answerType": "text",

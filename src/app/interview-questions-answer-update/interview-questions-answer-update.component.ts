@@ -74,24 +74,53 @@ export class InterviewQuestionsAnswerUpdateComponent {
   }
 
   /** Update by ID */
-  updateQuestion(): void {
-    if (this.editingIndex === null) return;
+ updateQuestion(): void {
+  if (this.editingIndex === null) return;
 
-    const payload = { ...this.editData };
-    this.http.put(`${environment.apiUrl}/updateQuestion/${payload.id}`, payload)
-      .subscribe({
-        next: () => {
-          this.questions[this.editingIndex!] = payload;
-          this.notification = 'Question updated successfully!';
-          this.notificationType = 'success';
-          this.cancelEdit();
-        },
-        error: () => {
-          this.notification = 'Failed to update question!';
-          this.notificationType = 'error';
+  // If "Other" is selected, replace with the new value
+  const categoryToSave =
+    this.editData.category === 'Other' ? this.editData.newCategory : this.editData.category;
+  const subCategoryToSave =
+    this.editData.subCategory === 'Other' ? this.editData.newSubCategory : this.editData.subCategory;
+
+  // Build payload without newCategory/newSubCategory
+  const payload = {
+    ...this.editData,
+    category: categoryToSave,
+    subCategory: subCategoryToSave
+  };
+
+  // Remove temporary fields so they don’t get written into JSON
+  delete (payload as any).newCategory;
+  delete (payload as any).newSubCategory;
+
+  this.http.put(`${environment.apiUrl}/updateQuestion/${payload.id}`, payload)
+    .subscribe({
+      next: () => {
+        this.questions[this.editingIndex!] = payload;
+
+        // Add new category/subcategory to dropdowns if needed
+        if (categoryToSave && !this.categories.includes(categoryToSave)) {
+          this.categories.push(categoryToSave);
+          this.categories.sort();
         }
-      });
-  }
+        if (subCategoryToSave && !this.subCategories.includes(subCategoryToSave)) {
+          this.subCategories.push(subCategoryToSave);
+          this.subCategories.sort();
+        }
+        this.notification = 'Question updated successfully!';
+        this.notificationType = 'success';
+        this.cancelEdit();
+      },
+      error: () => {
+        this.notification = 'Failed to update question!';
+        this.notificationType = 'error';
+      }
+    });
+}
+
+
+
 
   /** Delete by ID */
   deleteQuestion(index: number): void {

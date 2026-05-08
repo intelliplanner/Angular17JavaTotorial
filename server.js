@@ -11,7 +11,7 @@ const app = express();
 // Enable CORS for all routes
 app.use(cors({
   origin: '*',
-  methods: ['GET', 'POST', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type']
 }));
 
@@ -313,7 +313,48 @@ app.get('/getQuestions', (req, res) => {
   }
 });
 
+// ----------------------------- Update Interview Q&A by ID -----------------------------
+app.put('/updateQuestion/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const updatedQuestion = req.body;
 
+  try {
+    const data = fs.readFileSync(qaFilePath, 'utf8');
+    const questions = JSON.parse(data || '[]');
+
+    const index = questions.findIndex(q => q.id === id);
+    if (index === -1) {
+      return res.status(404).json({ message: 'Question not found' });
+    }
+
+    // Merge existing with updated payload
+    questions[index] = { ...questions[index], ...updatedQuestion };
+
+    fs.writeFileSync(qaFilePath, JSON.stringify(questions, null, 2), 'utf8');
+    res.json({ message: 'Question updated successfully', question: questions[index] });
+  } catch (err) {
+    console.error('Error updating question:', err);
+    res.status(500).json({ error: 'Failed to update question' });
+  }
+});
+
+// ----------------------------- Delete Interview Q&A by ID -----------------------------
+app.delete('/deleteQuestion/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  try {
+    const data = fs.readFileSync(qaFilePath, 'utf8');
+    const questions = JSON.parse(data || '[]');
+
+    const newData = questions.filter(q => q.id !== id);
+
+    fs.writeFileSync(qaFilePath, JSON.stringify(newData, null, 2), 'utf8');
+    res.json({ message: 'Deleted successfully', total: newData.length });
+  } catch (err) {
+    console.error('Error deleting question:', err);
+    res.status(500).json({ error: 'Failed to delete question' });
+  }
+});
 
 // Start the server
 

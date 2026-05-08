@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { DesignpatternComponent } from './designpattern/designpattern.component';
-import { HibernateComponent } from './hibernate/hibernate.component';
-import { MicroserviceComponent } from './microservice/microservice.component';
-import { CollectionComponent } from './collection/collection.component';
+// import { DesignpatternComponent } from './designpattern/designpattern.component';
+// import { HibernateComponent } from './hibernate/hibernate.component';
+// import { MicroserviceComponent } from './microservice/microservice.component';
+// import { CollectionComponent } from './collection/collection.component';
 import { InterviewQuestionsComponent } from './interview-questions/interview-questions.component';
-import { ExceptionHandlingComponent } from './exception-handling/exception-handling.component';
+// import { ExceptionHandlingComponent } from './exception-handling/exception-handling.component';
 import { LoginComponent } from './login/login.component';
 import { authGaurd } from './login-guard.guard';
 import { JavaNotesComponent } from './java-notes/java-notes.component';
@@ -21,12 +21,12 @@ export const routes: Routes = [
     { 'path': 'categorizedNotes', component: CategorizedNotesComponent, 'title': 'Categorized Notes' },
     { 'path': '', component: JavaNotesComponent, 'title': 'Java Notes' },
     { 'path': 'dashboard', component: HomeComponent, 'title': 'DashBoard' },
-    { 'path': 'collection', component: CollectionComponent, 'title': 'collection' },
-    { 'path': 'designPattern', component: DesignpatternComponent, 'title': 'DesignPattern', canActivate: [authGaurd] },
-    { 'path': 'hibernate', component: HibernateComponent, 'title': 'Hibernate' },
-    { 'path': 'microservice', component: MicroserviceComponent, 'title': 'Microservice' },
+    // { 'path': 'collection', component: CollectionComponent, 'title': 'collection' },
+    // { 'path': 'designPattern', component: DesignpatternComponent, 'title': 'DesignPattern', canActivate: [authGaurd] },
+    // { 'path': 'hibernate', component: HibernateComponent, 'title': 'Hibernate' },
+    // { 'path': 'microservice', component: MicroserviceComponent, 'title': 'Microservice' },
     { 'path': 'interview', component: InterviewQuestionsComponent, 'title': 'Interview' },
-    { 'path': 'exceptionHandling', component: ExceptionHandlingComponent, 'title': 'Exception Handling' },
+    // { 'path': 'exceptionHandling', component: ExceptionHandlingComponent, 'title': 'Exception Handling' },
     { 'path': 'login', component: LoginComponent, 'title': 'Login Page' },
     { 'path': 'myJavaNotes', component: JavaNotesComponent, 'title': 'Java Notes' },
     { 'path': 'compiler', component: JavaCompilerComponent, 'title': 'Java Compiler' },
