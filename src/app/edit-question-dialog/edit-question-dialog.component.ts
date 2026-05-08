@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-edit-question-dialog',
   standalone: true,
-  imports: [CommonModule, FormsModule],   // <-- add these
+  imports: [CommonModule, FormsModule],
   templateUrl: './edit-question-dialog.component.html',
   styleUrls: ['./edit-question-dialog.component.css']
 })
@@ -18,9 +18,34 @@ export class EditQuestionDialogComponent {
     public dialogRef: MatDialogRef<EditQuestionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.categories = data.categories;
-    this.subCategories = data.subCategories;
+    const cats = new Set<string>();
+    const subs = new Set<string>();
+
+    if (Array.isArray(data.categories)) {
+      data.categories.forEach((cat: string) => cats.add(this.normalize(cat)));
+    }
+    if (Array.isArray(data.subCategories)) {
+      data.subCategories.forEach((sub: string) => subs.add(this.normalize(sub)));
+    }
+
+    this.categories = Array.from(cats).sort();
+    this.subCategories = Array.from(subs).sort();
+
+    if (!this.categories.includes('Other')) {
+      this.categories.push('Other');
+    }
+    if (!this.subCategories.includes('Other')) {
+      this.subCategories.push('Other');
+    }
   }
+
+normalize(value: string): string {
+    return value
+      .trim()
+      .replace(/\s+/g, ' ') // collapse multiple spaces
+      .replace(/\b\w/g, c => c.toUpperCase()); // capitalize words
+  }
+
 
   onAnswerTypeChange(): void {
     if (this.data.newQuestion.answerType === 'text') {
