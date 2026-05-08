@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { DesignpatternComponent } from './designpattern/designpattern.component';
 import { HibernateComponent } from './hibernate/hibernate.component';
-import { SpringbootComponent } from './springboot/springboot.component';
 import { MicroserviceComponent } from './microservice/microservice.component';
 import { CollectionComponent } from './collection/collection.component';
 import { InterviewQuestionsComponent } from './interview-questions/interview-questions.component';
@@ -25,7 +24,6 @@ export const routes: Routes = [
     { 'path': 'collection', component: CollectionComponent, 'title': 'collection' },
     { 'path': 'designPattern', component: DesignpatternComponent, 'title': 'DesignPattern', canActivate: [authGaurd] },
     { 'path': 'hibernate', component: HibernateComponent, 'title': 'Hibernate' },
-    { 'path': 'springBoot', component: SpringbootComponent, 'title': 'SpringBoot' },
     { 'path': 'microservice', component: MicroserviceComponent, 'title': 'Microservice' },
     { 'path': 'interview', component: InterviewQuestionsComponent, 'title': 'Interview' },
     { 'path': 'exceptionHandling', component: ExceptionHandlingComponent, 'title': 'Exception Handling' },

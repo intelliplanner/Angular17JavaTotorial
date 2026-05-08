@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
+// import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-interview-question-answer-categorywise',
