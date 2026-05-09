@@ -1,14 +1,6 @@
 [
   {
-    "id": 3,
-    "question": "Fabonacci Series?",
-    "answerType": "text",
-    "answer": "public class FabonacciSeries {\n\tpublic static void main(String[] args) {\n\t\tint n = 20;\n\t\tfabonacciSeries(n);\n//\t\tfabonacciSeriesByForLoop(n);\n//\t\tSystem.out.println(nth_fabonacciNo(n));\n\t}\n\tpublic static void fabonacciSeriesByForLoop(int n) {\n\t\tint a = 0, b = 1;\n\t\tint c = 0;\n\t\tfor (int i = 0; i < n; i++) {\n\t\t\tif (i == 0) {\n\t\t\t\tc = 0;\n\t\t\t} else {\n\t\t\t\ta = b;\n\t\t\t\tb = c;\n\t\t\t\tc = a + b;\n\t\t\t}\n\t\t\tSystem.out.println(c);\n\t\t}\n\t}\n\n\tprivate static void fabonacciSeries(int n) {\n\t\tint a = 0;\n\t\tint b = 1;\n\t\tint c = 0;\n\t\tint i = 0;\n\t\twhile (i != n) {\n\t\t\tif (i > 0) {\n\t\t\t\ta = b;\n\t\t\t\tb = c; //\n\t\t\t\tc = a + b;\n\t\t\t}\n\t\t\tSystem.out.print(c + \" \");\n\t\t\ti++;\n\t\t}\n\t}\n\tstatic int nth_fabonacciNo(int n) {\n\t\tif (n <= 1)\n\t\t\treturn n;\n\t\treturn nth_fabonacciNo(n - 1) + nth_fabonacciNo(n - 2);\n\t}\n\n}",
-    "category": "Core_Java",
-    "subCategory": "Program"
-  },
-  {
-    "id": 4,
+    "id": 1,
     "question": "Difference between Hashmap and Concurrent Hashmap?",
     "answerType": "text",
     "answer": "HashMap is the Class which is under Traditional Collection and ConcurrentHashMap is a Class which is under Concurrent Collections, apart from this there are various differences between them which are:\n•\tHashMap is non-Synchronized in nature i.e. HashMap is not Thread-safe whereas ConcurrentHashMap is Thread-safe in nature.\n•\tHashMap performance is relatively high because it is non-synchronized in nature and any number of threads can perform simultaneously. But ConcurrentHashMap performance is low sometimes because sometimes Threads are required to wait on ConcurrentHashMap.\n•\tWhile one thread is Iterating the HashMap object, if other thread try to add/modify the contents of Object then we will get Run-time exception saying ConcurrentModificationException.Whereas In ConcurrentHashMap we wont get any exception while performing any modification at the time of Iteration.",
@@ -16,7 +8,7 @@
     "subCategory": "Collection"
   },
   {
-    "id": 5,
+    "id": 2,
     "question": "Spring Bean Configuration: How many type to create Spring bean?",
     "answerType": "text",
     "answer": "Spring Framework provides three ways to configure beans to be used in the application.\n1.\tAnnotation Based Configuration – By using @Service or @Component annotations. Scope details can be provided with @Scope annotation.\n2.\tXML Based Configuration – By creating Spring Configuration XML file to configure the beans. If you are using Spring MVC framework, the xml based configuration can be loaded automatically by writing some boiler plate code in web.xml file.\n3.\tJava Based Configuration – Starting from Spring 3.0, we can configure Spring beans using java programs. Some important annotations used for java based configuration are @Configuration, @ComponentScan and @Bean.\n",
@@ -24,11 +16,45 @@
     "subCategory": "Spring Boot"
   },
   {
-    "id": 6,
-    "question": "test?",
+    "question": "tedt1",
     "answerType": "text",
-    "answer": "fsf",
-    "category": "Core_Java",
-    "subCategory": "Exception"
+    "answer": "fsdf",
+    "subCategory": "Collection",
+    "category": "Core Java",
+    "id": 3
+  },
+  {
+    "question": "sdfs",
+    "answerType": "text",
+    "answer": "sf",
+    "subCategory": "Spring Boot",
+    "category": "Core Java",
+    "id": 4
+  },
+  {
+    "question": "asddas",
+    "answerType": "text",
+    "answer": "asdas",
+    "subCategory": "test",
+    "category": "Core Java",
+    "id": 5
+  },
+  {
+    "question": "rest",
+    "answerType": "text",
+    "answer": "ee",
+    "subCategory": "Collection",
+    "category": "Core Java",
+    "id": 6
+  },
+  {
+    "question": "ds",
+    "answerType": "text",
+    "answer": "s",
+    "subCategory": "Collection",
+    "notification": "",
+    "notificationType": "",
+    "category": "Core Java",
+    "id": 7
   }
 ]

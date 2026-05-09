@@ -1,81 +1,80 @@
 <div class="admin-panel">
   <h2>Interview Q&A Admin Panel</h2>
-
   <!-- Notification -->
   <div *ngIf="notification" [ngClass]="notificationType" class="notification">
     {{ notification }}
   </div>
-
-  <!-- Category -->
-  <label>Category:</label>
-  <select [(ngModel)]="selectedCategory">
-    <option value="">Select Category</option>
-    <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
-  </select>
-  <input *ngIf="selectedCategory === 'Other'" [(ngModel)]="newCategory" placeholder="Enter new category" />
-
-  <!-- SubCategory -->
-  <label>SubCategory:</label>
-  <select [(ngModel)]="selectedSubCategory">
-    <option value="">Select SubCategory</option>
-    <option *ngFor="let s of subCategories" [value]="s">{{ s }}</option>
-  </select>
-  <input *ngIf="selectedSubCategory === 'Other'" [(ngModel)]="newSubCategory" placeholder="Enter new subcategory" />
-
-  <!-- Question -->
-  <label>Question:</label>
-  <input [(ngModel)]="newQuestion.question" />
-
-  <!-- Answer Type -->
-  <label>Answer Type:</label>
-  <select [(ngModel)]="newQuestion.answerType" (change)="onAnswerTypeChange()">
-    <option value="text">Text</option>
-    <option value="table">Table</option>
-  </select>
-
-  <!-- Text Answer -->
-  <textarea *ngIf="newQuestion.answerType === 'text'" [(ngModel)]="newQuestion.answer"></textarea>
-
-  <!-- Table Answer -->
-  <!-- <div *ngIf="newQuestion.answerType === 'table'">
-    <table>
-      <tr *ngFor="let row of newQuestion.answer; let r = index; trackBy: trackByIndex">
-        <ng-container *ngIf="r === 0; else bodyRow">
-          <th *ngFor="let cell of row; let j = index; trackBy: trackByIndex">
-            <input [(ngModel)]="newQuestion.answer[r][j]" placeholder="Header {{j+1}}" />
-          </th>
-        </ng-container>
-        <ng-template #bodyRow>
-          <td *ngFor="let cell of row; let j = index; trackBy: trackByIndex">
-            <input [(ngModel)]="newQuestion.answer[r][j]" />
-          </td>
-        </ng-template>
-      </tr>
-    </table>
-    <button (click)="addRow()">Add Row</button>
-    <button (click)="addColumn()">Add Column</button>
-  </div> -->
-
-  <div *ngIf="newQuestion.answerType === 'table'">
-    <table>
-      <tr *ngFor="let row of newQuestion.answer; let r = index; trackBy: trackByIndex">
-        <ng-container *ngIf="r === 0; else bodyRow">
-          <th *ngFor="let cell of row; let j = index; trackBy: trackByIndex">
-            <input [(ngModel)]="newQuestion.answer[r][j]" placeholder="Header {{j+1}}" />
-          </th>
-        </ng-container>
-        <ng-template #bodyRow>
-          <td *ngFor="let cell of row; let j = index; trackBy: trackByIndex">
-            <input [(ngModel)]="newQuestion.answer[r][j]" />
-          </td>
-        </ng-template>
-      </tr>
-    </table>
-    <button (click)="addRow()">Add Row</button>
-    <button (click)="addColumn()">Add Column</button>
-    <button (click)="deleteRow()">Delete Row</button>
-    <button (click)="deleteColumn()">Delete Column</button>
+  <!-- Common Category Section -->
+  <div class="category-section">
+    <label>Category (shared):</label>
+    <select [(ngModel)]="selectedCategory" required>
+      <option value="">Select Category</option>
+      <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+    </select>
+    <input *ngIf="selectedCategory === 'Other'" [(ngModel)]="newCategory" placeholder="Enter new category" required />
   </div>
 
-  <button (click)="saveQuestion()">Save Question</button>
+  <!-- Multiple Questions -->
+  <div *ngFor="let q of newQuestions; let i = index" class="qa-block">
+    <button class="remove-btn" (click)="removeQuestion(i)">✖</button>
+    <h3>Question {{i+1}}</h3>
+
+    <!-- Per-question notification -->
+    <div *ngIf="q.notification" [ngClass]="q.notificationType" class="notification">
+      {{ q.notification }}
+    </div>
+
+    <!-- SubCategory -->
+    <label>SubCategory:</label>
+    <select [(ngModel)]="q.subCategory" required>
+      <option value="">Select SubCategory</option>
+      <option *ngFor="let s of subCategories" [value]="s">{{ s }}</option>
+    </select>
+    <input *ngIf="q.subCategory === 'Other'" [(ngModel)]="q.newSubCategory" placeholder="Enter new subcategory"
+      required />
+
+    <!-- Question Text -->
+    <label>Question:</label>
+    <input [(ngModel)]="q.question" required />
+
+    <!-- Answer Type -->
+    <label>Answer Type:</label>
+    <select [(ngModel)]="q.answerType" (change)="onAnswerTypeChange(q)" required>
+      <option value="">Select Answer Type</option>
+      <option value="text">Text</option>
+      <option value="table">Table</option>
+    </select>
+
+    <!-- Text Answer -->
+    <textarea *ngIf="q.answerType === 'text'" [(ngModel)]="q.answer" required></textarea>
+
+    <!-- Table Answer -->
+    <div *ngIf="q.answerType === 'table'">
+      <table>
+        <tr *ngFor="let row of q.answer; let r = index; trackBy: trackByIndex">
+          <td *ngFor="let cell of row; let j = index; trackBy: trackByIndex">
+            <input [(ngModel)]="q.answer[r][j]" required />
+          </td>
+        </tr>
+      </table>
+      <button (click)="addRow(q)">Add Row</button>
+      <button (click)="addColumn(q)">Add Column</button>
+      <button (click)="deleteRow(q)">Delete Row</button>
+      <button (click)="deleteColumn(q)">Delete Column</button>
+    </div>
+  </div>
+
+
+<!-- Disable Add until last question is valid -->
+<button (click)="addNewQuestion()" 
+        [disabled]="!checkQuestionValid(newQuestions[newQuestions.length-1])">
+  ➕ Add Another Question
+</button>
+
+<!-- Disable Save until all are valid -->
+<button (click)="saveQuestions()" 
+        [disabled]="isSaveDisabled()">
+  💾 Save All
+</button>
+
 </div>

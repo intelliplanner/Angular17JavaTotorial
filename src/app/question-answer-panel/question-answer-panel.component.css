@@ -1,108 +1,159 @@
 .admin-panel {
   max-width: 900px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background: #fdfdfd;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f3f3f3; /* light neutral background */
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .admin-panel h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #007acc;
-  font-weight: 600;
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: #2d2d2d;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
 }
 
-.admin-panel label {
-  display: block;
-  margin-top: 1rem;
-  font-weight: 500;
+.category-section {
+  background: #ffffff;
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.qa-block {
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 15px;
+  transition: box-shadow 0.2s ease;
+}
+.qa-block:hover {
+  box-shadow: 0 0 6px rgba(0,0,0,0.15);
+}
+
+.qa-block h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
   color: #333;
 }
 
-.admin-panel input,
-.admin-panel select,
-.admin-panel textarea {
-  width: 100%;
-  padding: 8px 10px;
-  margin-top: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  transition: border-color 0.3s, box-shadow 0.3s;
+label {
+  display: block;
+  margin: 8px 0 4px;
+  font-weight: 500;
+  color: #444;
 }
 
-.admin-panel input:focus,
-.admin-panel select:focus,
-.admin-panel textarea:focus {
-  border-color: #007acc;
-  box-shadow: 0 0 6px rgba(0,122,204,0.4);
+select, input, textarea {
+  width: 100%;
+  padding: 6px 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+select:focus, input:focus, textarea:focus {
+  border-color: #0078d7; /* Windows blue */
+  box-shadow: 0 0 4px rgba(0,120,215,0.5);
   outline: none;
 }
 
-.admin-panel button {
-  margin-top: 1rem;
-  margin-right: 0.5rem;
-  padding: 10px 16px;
+button {
+  background: #0078d7; /* Windows blue */
   border: none;
-  border-radius: 6px;
-  background: linear-gradient(135deg, #007acc, #00c6ff);
   color: #fff;
-  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: transform 0.2s, background 0.3s;
+  margin-right: 8px;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
-.admin-panel button:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #005fa3, #0099cc);
+button:hover {
+  background: #005a9e;
 }
 
-.admin-panel table {
+button:active {
+  transform: scale(0.97);
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
+  margin-bottom: 10px;
 }
 
-.admin-panel table td {
-  border: 1px solid #ddd;
+th, td {
+  border: 1px solid #ccc;
   padding: 6px;
+  text-align: left;
 }
 
-.admin-panel table input {
+th input, td input {
   width: 100%;
   border: none;
-  padding: 6px;
-  background: #fafafa;
+  background: transparent;
+}
+.qa-block {
+  position: relative; /* allow absolute positioning inside */
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
 }
 
-.admin-panel table input:focus {
-  background: #fff;
-  border: 1px solid #007acc;
+.remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #e81123; /* Windows-style red close button */
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.selected {
-  background-color: #e6f7ff;
-  border-left: 4px solid #007acc;
-  padding: 0.5rem;
-  transition: background 0.3s;
+.remove-btn:hover {
+  background: #c50f1f;
+}
+.error-msg {
+  color: #e81123; /* Windows red */
+  font-size: 0.85rem;
+  margin-top: -6px;
+  margin-bottom: 8px;
 }
 .notification {
-  margin: 10px 0;
   padding: 10px;
-  border-radius: 6px;
+  margin-bottom: 15px;
+  border-radius: 4px;
   font-weight: 500;
 }
 
 .success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+  background: #e6f4ea;
+  color: #1e4620;
+  border: 1px solid #a5d6a7;
 }
 
 .error {
-  background-color: #f8d7da;
-  color: #721c24;
+  background: #fdecea;
+  color: #611a15;
   border: 1px solid #f5c6cb;
 }

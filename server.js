@@ -313,6 +313,35 @@ app.get('/getQuestions', (req, res) => {
   }
 });
 
+// Save multiple questions at once
+// Save multiple questions at once
+app.post('/saveQuestionsBatch', (req, res) => {
+  const newQuestions = req.body;
+
+  fs.readFile(qaFilePath, 'utf8', (err, data) => {
+    if (err) return res.status(500).send('Error reading file');
+
+    let questions = [];
+    if (data && data.trim().length > 0) {
+      questions = JSON.parse(data);
+    }
+
+    let nextId = questions.length > 0 ? Math.max(...questions.map(q => q.id || 0)) + 1 : 1;
+
+    // Assign IDs sequentially
+    newQuestions.forEach(q => {
+      q.id = nextId++;
+      questions.push(q);
+    });
+
+    fs.writeFile(qaFilePath, JSON.stringify(questions, null, 2), 'utf8', (err) => {
+      if (err) return res.status(500).send('Error writing file');
+      res.json({ message: 'Questions saved successfully!', total: questions.length });
+    });
+  });
+});
+
+
 // ----------------------------- Update Interview Q&A by ID -----------------------------
 app.put('/updateQuestion/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
