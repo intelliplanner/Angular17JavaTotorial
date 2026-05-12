@@ -16,8 +16,8 @@ export class QuestionAnswerPanelComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   questions: any[] = [];
-  categories: string[] = ['Other'];
-  subCategories: string[] = ['Other'];
+  categories: string[] = ['Core_Java', 'Spring Boot', 'Hibernate', 'Kafka', 'Docker', 'Other'];
+  subCategories: string[] = ['String', 'Collection', 'Array', 'Other'];
 
   selectedCategory: string = '';
   selectedSubCategory: string = '';
@@ -28,20 +28,31 @@ export class QuestionAnswerPanelComponent implements OnInit {
   notification: string = '';
   notificationType: 'success' | 'error' | '' = '';
 
-validationTriggered: boolean = false;
+  validationTriggered: boolean = false;
 
   newQuestion: any = {
     question: '',
     answerType: 'text',
-    answer: ''
+    answer: '',
+    subCategory: '',
+    Category: '',
   };
-
- newQuestions: any[] = [
-  { question: '', answerType: 'text', answer: '', subCategory: '', notification: '', notificationType: '' }
-];
+  newQuestions: any[] = [
+    {
+      question: '',
+      answerType: 'text',
+      answer: '',
+      subCategory: '',
+      Category: ''
+    }
+  ];
+  //  newQuestions: any[] = [
+  //   { question: '', answerType: 'text', answer: '', subCategory: '', notification: '', notificationType: '' }
+  // ];
 
   ngOnInit(): void {
     this.loadQuestions();
+    this.validationTriggered = true; // enable validation from the start
   }
 
   private loadQuestions(): void {
@@ -50,8 +61,8 @@ validationTriggered: boolean = false;
         // Ensure data is an array
         this.questions = Array.isArray(data) ? data : [];
 
-        const cats = new Set<string>();
-        const subs = new Set<string>();
+        const cats = new Set<string>(this.categories); // start with defaults
+        const subs = new Set<string>(this.subCategories);
 
         this.questions.forEach(q => {
           if (q.category) cats.add(this.normalize(q.category));
@@ -71,8 +82,9 @@ validationTriggered: boolean = false;
   }
 
   normalize(value: string): string {
-    return value.trim().replace(/_/g, ' ').replace(/\s+/g, ' ')
-      .replace(/\b\w/g, c => c.toUpperCase());
+    return value.trim()
+      .replace(/\s+/g, ' ')              // collapse multiple spaces
+      .replace(/\b\w/g, c => c.toUpperCase()); // capitalize words
   }
 
   trackByIndex(index: number, item: any): number {
@@ -100,47 +112,49 @@ validationTriggered: boolean = false;
     return ids.length ? Math.max(...ids) + 1 : 1;
   }
 
-  saveQuestion(): void {
-    if (!this.validateFields()) {
-      this.notification = 'Please fill all required fields!';
-      this.notificationType = 'error';
-      return;
-    }
+  // saveQuestion(): void {
+  //   if (!this.validateFields()) {
+  //     this.notification = 'Please fill all required fields!';
+  //     this.notificationType = 'error';
+  //     return;
+  //   }
 
-    const categoryToSave = this.selectedCategory === 'Other' ? this.newCategory : this.selectedCategory;
-    const subCategoryToSave = this.selectedSubCategory === 'Other' ? this.newSubCategory : this.selectedSubCategory;
+  //   const categoryToSave = this.selectedCategory === 'Other' ? this.newCategory : this.selectedCategory;
+  //   const subCategoryToSave = this.selectedSubCategory === 'Other' ? this.newSubCategory : this.selectedSubCategory;
 
-    const payload = {
-      ...this.newQuestion,
-      id: this.generateUniqueId(),   // <-- assign unique ID
-      question: this.newQuestion.question.endsWith('?')
-        ? this.newQuestion.question
-        : this.newQuestion.question + '?',
-      category: categoryToSave,
-      subCategory: subCategoryToSave
-    };
+  //   const payload = {
+  //     ...this.newQuestion,
+  //     id: this.generateUniqueId(),   // <-- assign unique ID
+  //     question: this.newQuestion.question.endsWith('?')
+  //       ? this.newQuestion.question
+  //       : this.newQuestion.question + '?',
+  //     category: categoryToSave,
+  //     subCategory: subCategoryToSave
+  //   };
 
-    this.http.post(`${environment.apiUrl}/saveQuestion`, payload)
-      .subscribe({
-        next: () => {
-          this.questions.push(payload);
-          this.notification = 'Question saved successfully!';
-          this.notificationType = 'success';
-          this.resetForm();
-          this.loadQuestions();
-        },
-        error: () => {
-          this.notification = 'Failed to save question!';
-          this.notificationType = 'error';
-        }
-      });
-  }
+  //   this.http.post(`${environment.apiUrl}/saveQuestion`, payload)
+  //     .subscribe({
+  //       next: () => {
+  //         this.questions.push(payload);
+  //         this.notification = 'Question saved successfully!';
+  //         this.notificationType = 'success';
+  //         this.resetForm();
+  //         this.loadQuestions();
+  //       },
+  //       error: () => {
+  //         this.notification = 'Failed to save question!';
+  //         this.notificationType = 'error';
+  //       }
+  //     });
+  // }
 
   resetForm() {
     this.newQuestion = {
       question: '',
       answerType: 'text',
-      answer: ''
+      answer: '',
+      subCategory: '',
+      Category: ''
     };
     this.selectedCategory = '';
     this.selectedSubCategory = '';
@@ -182,153 +196,169 @@ validationTriggered: boolean = false;
     }
   }
 
-// Validate category (shared)
-isCategoryValid(): boolean {
-  if (!this.selectedCategory) {
-    return false;
-  }
-  if (this.selectedCategory === 'Other') {
-    return !!this.newCategory?.trim();
-  }
-  return true;
-}
-
-
-addNewQuestion(): void {
-  this.validationTriggered = true; // enable validation messages
-  const last = this.newQuestions[this.newQuestions.length - 1];
-
-  if (!this.isQuestionValid(last)) {
-    this.notification = '⚠️ Please complete the last question block before adding a new one!';
-    this.notificationType = 'error';
-    return;
-  }
-
-  this.newQuestions.push({ question: '', answerType: 'text', answer: '', subCategory: '', notification: '', notificationType: '' });
-  this.notification = '';
-  this.notificationType = '';
-}
-
-
-
-saveQuestions(): void {
-   this.validationTriggered = true; // enable validation messages
-
-  if (!this.isCategoryValid() || !this.allQuestionsValid()) {
-    this.notification = '⚠️ Please fill all required fields before saving!';
-    this.notificationType = 'error';
-    return;
-  }
-
-  let allValid = true;
-  this.newQuestions.forEach(q => {
-    if (!this.isQuestionValid(q)) {
-      allValid = false;
+  // Validate category (shared)
+  isCategoryValid(): boolean {
+    if (!this.selectedCategory) {
+      return false;
     }
-  });
-
-  if (!allValid) {
-    this.notification = '⚠️ Please fix errors in each question before saving!';
-    this.notificationType = 'error';
-    return;
+    if (this.selectedCategory === 'Other') {
+      return !!this.newCategory?.trim();
+    }
+    return true;
   }
 
-  const categoryToSave = this.selectedCategory === 'Other' ? this.newCategory : this.selectedCategory;
 
-  const payload = this.newQuestions.map(q => {
-    const subCategoryToSave = q.subCategory === 'Other' ? q.newSubCategory : q.subCategory;
-    return {
-      ...q,
-      category: categoryToSave,
-      subCategory: subCategoryToSave
-    };
-  });
+  addNewQuestion(): void {
+    this.validationTriggered = true; // enable validation messages
+    const last = this.newQuestions[this.newQuestions.length - 1];
 
-  payload.forEach(p => delete (p as any).newSubCategory);
+    this.newQuestions.push({
+      question: '',
+      answerType: 'text',
+      answer: '',
+      subCategory: '',
+      category: ''
+    });
+  }
 
-  this.http.post(`${environment.apiUrl}/saveQuestionsBatch`, payload)
-    .subscribe({
-      next: () => {
-        this.notification = '✅ All questions saved successfully!';
-        this.notificationType = 'success';
-        this.newQuestions = [{ question: '', answerType: 'text', answer: '', subCategory: '' }];
-      },
-      error: () => {
-        this.notification = '❌ Failed to save questions!';
-        this.notificationType = 'error';
+
+  saveQuestions(): void {
+    this.validationTriggered = true; // enable validation messages
+
+    let allValid = true;
+    this.newQuestions.forEach(q => {
+      if (!this.isQuestionValid(q)) {
+        allValid = false;
       }
     });
-}
-isQuestionValid(q: any): boolean {
-  if (!q) return false;
 
-  const subCategoryValid = !!q.subCategory && (q.subCategory !== 'Other' || !!q.newSubCategory?.trim());
-  const questionValid = !!q.question?.trim();
-  const answerValid =
-    q.answerType === 'text'
-      ? !!q.answer?.trim()
-      : Array.isArray(q.answer) &&
+    const categoryToSave = this.selectedCategory === 'Other' ? this.newCategory : this.selectedCategory;
+
+    const payload = this.newQuestions.map((q, index) => {
+      const subCategoryToSave = q.subCategory === 'Other' ? q.newSubCategory : q.subCategory;
+      return {
+        id: this.generateUniqueId() + index,   // ensure unique IDs
+        question: q.question.endsWith('?') ? q.question : q.question + '?',
+        answerType: q.answerType,
+        answer: q.answer,
+        subCategory: subCategoryToSave,
+        category: categoryToSave
+      };
+    });
+
+    this.http.post(`${environment.apiUrl}/saveQuestionsBatch`, payload)
+      .subscribe({
+        next: () => {
+          this.notification = '✅ All questions saved successfully!';
+          this.notificationType = 'success';
+          this.newQuestions = [{ question: '', answerType: 'text', answer: '', subCategory: '', category: '' }];
+        },
+        error: () => {
+          this.notification = '❌ Failed to save questions!';
+          this.notificationType = 'error';
+        }
+      });
+  }
+
+
+  isQuestionValid(q: any): boolean {
+    if (!q) return false;
+
+    const subCategoryValid = !!q.subCategory && (q.subCategory !== 'Other' || !!q.newSubCategory?.trim());
+    const questionValid = !!q.question?.trim();
+    const answerValid =
+      q.answerType === 'text'
+        ? !!q.answer?.trim()
+        : Array.isArray(q.answer) &&
         q.answer.length > 0 &&
         q.answer.every((row: string[]) => row.every(cell => cell.trim().length > 0));
 
-  if (!subCategoryValid) {
-    q.notification = '⚠️ SubCategory is required!';
-    q.notificationType = 'error';
-    return false;
+    if (!subCategoryValid) {
+      q.notification = '⚠️ SubCategory is required!';
+      q.notificationType = 'error';
+      return false;
+    }
+    if (!questionValid) {
+      q.notification = '⚠️ Question text is required!';
+      q.notificationType = 'error';
+      return false;
+    }
+    if (!answerValid) {
+      q.notification = '⚠️ Answer is required!';
+      q.notificationType = 'error';
+      return false;
+    }
+
+    q.notification = '';
+    q.notificationType = '';
+    return true;
   }
-  if (!questionValid) {
-    q.notification = '⚠️ Question text is required!';
-    q.notificationType = 'error';
-    return false;
-  }
-  if (!answerValid) {
-    q.notification = '⚠️ Answer is required!';
-    q.notificationType = 'error';
-    return false;
+
+
+  allQuestionsValid(): boolean {
+    return this.newQuestions.every(q => {
+      return this.validationTriggered ? this.isQuestionValid(q) : true;
+    });
   }
 
-  q.notification = '';
-  q.notificationType = '';
-  return true;
-}
+  checkLastQuestionValid(): boolean {
+    const last = this.newQuestions[this.newQuestions.length - 1];
+    if (!last) return false;
+    const subCategoryValid = !!last.subCategory && (last.subCategory !== 'Other' || !!last.newSubCategory?.trim());
+    const questionValid = !!last.question?.trim();
+    const answerValid = last.answerType === 'text'
+      ? !!last.answer?.trim()
+      : Array.isArray(last.answer) && last.answer.length > 0 && last.answer.every((row: string[]) => row.every(cell => cell.trim().length > 0));
+    return subCategoryValid && questionValid && answerValid;
+  }
+  // checkLastQuestionValid(): boolean {
+  //   const last = this.newQuestions[this.newQuestions.length - 1];
+  //   return this.isQuestionValid(last); // reuse your existing validation
+  // }
 
+  isSaveDisabled(): boolean {
+    // Pure validity check, no notifications
+    const allValid = this.newQuestions.every(q => this.checkQuestionValid(q));
+    return !allValid || !this.isCategoryValid();
+  }
 
-allQuestionsValid(): boolean {
-  return this.newQuestions.every(q => {
-    return this.validationTriggered ? this.isQuestionValid(q) : true;
-  });
-}
+  checkQuestionValid(q: any): boolean {
+    if (!q) return false;
 
-checkLastQuestionValid(): boolean {
-  const last = this.newQuestions[this.newQuestions.length - 1];
-  if (!last) return false;
-  const subCategoryValid = !!last.subCategory && (last.subCategory !== 'Other' || !!last.newSubCategory?.trim());
-  const questionValid = !!last.question?.trim();
-  const answerValid = last.answerType === 'text'
-    ? !!last.answer?.trim()
-    : Array.isArray(last.answer) && last.answer.length > 0 && last.answer.every((row: string[]) => row.every(cell => cell.trim().length > 0));
-  return subCategoryValid && questionValid && answerValid;
-}
-
-
-isSaveDisabled(): boolean {
-  // Pure validity check, no notifications
-  const allValid = this.newQuestions.every(q => this.checkQuestionValid(q));
-  return !allValid || !this.isCategoryValid();
-}
-
-checkQuestionValid(q: any): boolean {
-  if (!q) return false;
-
-  const subCategoryValid = !!q.subCategory && (q.subCategory !== 'Other' || !!q.newSubCategory?.trim());
-  const questionValid = !!q.question?.trim();
-  const answerValid =
-    q.answerType === 'text'
-      ? !!q.answer?.trim()
-      : Array.isArray(q.answer) &&
+    const subCategoryValid = !!q.subCategory && (q.subCategory !== 'Other' || !!q.newSubCategory?.trim());
+    const questionValid = !!q.question?.trim();
+    const answerValid =
+      q.answerType === 'text'
+        ? !!q.answer?.trim()
+        : Array.isArray(q.answer) &&
         q.answer.length > 0 &&
         q.answer.every((row: string[]) => row.every(cell => cell.trim().length > 0));
 
-  return subCategoryValid && questionValid && answerValid;
-}
+    return subCategoryValid && questionValid && answerValid;
+  }
+
+  syncDatabase(): void {
+    this.http.get<any[]>(`${environment.apiUrl}/assets/json_files/interview_question_answer.json`)
+      .subscribe({
+        next: (data) => {
+          // Send JSON data to Spring Boot API
+          this.http.post(`${environment.apiUrl}/api/sync/database`, data)
+            .subscribe({
+              next: () => {
+                this.notification = '✅ Database synced successfully!';
+                this.notificationType = 'success';
+              },
+              error: () => {
+                this.notification = '❌ Failed to sync database!';
+                this.notificationType = 'error';
+              }
+            });
+        },
+        error: () => {
+          this.notification = '❌ Failed to read JSON file!';
+          this.notificationType = 'error';
+        }
+      });
+  }
+
 }

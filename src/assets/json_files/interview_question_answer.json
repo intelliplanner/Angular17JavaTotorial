@@ -9,52 +9,26 @@
   },
   {
     "id": 2,
-    "question": "Spring Bean Configuration: How many type to create Spring bean?",
+    "question": "Saga Design Pattern?",
     "answerType": "text",
-    "answer": "Spring Framework provides three ways to configure beans to be used in the application.\n1.\tAnnotation Based Configuration – By using @Service or @Component annotations. Scope details can be provided with @Scope annotation.\n2.\tXML Based Configuration – By creating Spring Configuration XML file to configure the beans. If you are using Spring MVC framework, the xml based configuration can be loaded automatically by writing some boiler plate code in web.xml file.\n3.\tJava Based Configuration – Starting from Spring 3.0, we can configure Spring beans using java programs. Some important annotations used for java based configuration are @Configuration, @ComponentScan and @Bean.\n",
-    "category": "Spring Boot",
-    "subCategory": "Spring Boot"
+    "answer": "The Saga design pattern is a way to manage data consistency across microservices in distributed transaction scenarios. A saga is a sequence of transactions that updates each service and publishes a message or event to trigger the next transaction step.",
+    "subCategory": "Design_Pattern",
+    "category": "Miroservices"
   },
   {
-    "question": "tedt1",
+    "id": 3,
+    "question": "Components of Microservices?",
     "answerType": "text",
-    "answer": "fsdf",
-    "subCategory": "Collection",
-    "category": "Core Java",
-    "id": 3
+    "answer": "There are the following components of microservices:\n•\tSpring Cloud Config Server\n•\tNetflix Eureka Naming Server\n•\tHystrix Server\n•\tNetflix ZuulAPI Gateway Server(https://www.youtube.com/watch?v=XtutSW2zCNw)\n•\tNetflix Ribbon\n•\tZipkin Distributed Tracing Server\n\nSpring Cloud Config Server\nSpring Cloud Config Server provides the HTTP resource-based API for external configuration in the distributed system. We can enable the Spring Cloud Config Server by using the annotation @EnableConfigServer.\n\nNetflix Eureka Naming Server\nNetflix Eureka Server is a discovery server. It provides the REST interface to the outside for communicating with it. A microservice after coming up, register itself as a discovery client. The Eureka server also has another software module called Eureka Client. Eureka client interacts with the Eureka server for service discovery. The Eureka client also balances the client requests.\n•\t@EnableEurekaClient\n•\t@EnableEurekaServer\n\nHystrix Server\nHystrix server acts as a fault-tolerance robust system. It is used to avoid the complete failure of an application. It does this by using the Circuit Breaker mechanism. If the application is running without any issue, the circuit remains closed. If there is an error encountered in the application, the Hystrix Server opens the circuit. The Hystrix server stops the further request to calling service. It provides a highly robust system.\n\nNetflix Zuul API Gateway Server\nNetflix Zuul Server is a gateway server from where all the client request has passed through. It acts as a unified interface to a client. It also has an inbuilt load balancer to load the balance of all incoming requests from the client.\n\nWhy use API Gateway: (Problem with direct API call from UI to many microservices) \n* Many hardcode URL\n* No Security\n* UI Code changes require when changes in backend API \n* Load Balancer\n* Rerouting Issue\n\n\n\nNetflix Ribbon\nNetflix Ribbon is the client-side Inter-Process Communication (IPC) library. It provides the client-side balancing algorithm. It uses a Round Robin Load Balancing:\n•\tLoad balancing\n•\tFault tolerance\n•\tMultiple protocols(HTTP, TCP, UDP)\n•\tCaching and Batching\n\nZipkin Distributed Server\nZipkin is an open-source project. That provides a mechanism for sending, receiving, and visualization traces.\n\nOne thing you need to be focused on that is port number.\nApplication\tPort\nSpring Cloud Config Server\t8888\nNetflix Eureka Naming Server\t8761\nNetflix Zuul API gateway Server\t8765\nZipkin distributed Tracing Server\t9411\n",
+    "subCategory": "Components of Microservices",
+    "category": "Miroservices"
   },
   {
-    "question": "sdfs",
+    "id": 4,
+    "question": "Microservice Design Pattern?",
     "answerType": "text",
-    "answer": "sf",
-    "subCategory": "Spring Boot",
-    "category": "Core Java",
-    "id": 4
-  },
-  {
-    "question": "asddas",
-    "answerType": "text",
-    "answer": "asdas",
-    "subCategory": "test",
-    "category": "Core Java",
-    "id": 5
-  },
-  {
-    "question": "rest",
-    "answerType": "text",
-    "answer": "ee",
-    "subCategory": "Collection",
-    "category": "Core Java",
-    "id": 6
-  },
-  {
-    "question": "ds",
-    "answerType": "text",
-    "answer": "s",
-    "subCategory": "Collection",
-    "notification": "",
-    "notificationType": "",
-    "category": "Core Java",
-    "id": 7
+    "answer": "•\tAPI Gateway Design Pattern\n•\tCircuit Breaker Pattern\n•\tSaga Design pattern\n                \tChoreography (Event Based)\n                \tOrchestration (command based) ",
+    "subCategory": "Design_Pattern",
+    "category": "Miroservices"
   }
 ]
