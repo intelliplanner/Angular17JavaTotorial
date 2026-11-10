@@ -7,7 +7,7 @@ node server.js
 
 Comipler Usage
 - Start your NodeJS server (node server.js).
-- Run Angular (ng serve).
+- Run Angular (ng serve / npm start).
 - Open http://localhost:4200, type Java code, and click Compile & Run.
 - The NodeJS server will invoke your local JDK compiler at D:\Software_Installed_Dir\java\jdk1.8.0_192\bin.
 
@@ -15,3 +15,6 @@ Comipler Usage
 Implement Pending 
 
 Q & A Panel Add image feature
+
+Note: Added file "start-angular.bat" in Startup folder to start angular application on window start
+C:\Users\vicky\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup

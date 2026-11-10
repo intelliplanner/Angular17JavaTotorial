@@ -10,10 +10,7 @@ import { Router } from '@angular/router';
   // preserveWhitespaces:true
 })
 export class LoginComponent implements OnInit { 
-  _forward:Router;
-  constructor(private  _router:Router){
-    this._forward=_router
-  }
+  constructor(private readonly _router: Router) {}
 
   ngOnInit(){
 
@@ -22,7 +19,7 @@ export class LoginComponent implements OnInit {
   login(name:any,pwd:any){
     if(name == 'admin' && pwd == 'admin'){
      sessionStorage.setItem("isLoggedIn","true");
-     this._forward.navigate(['dashboard']);
+     this._router.navigateByUrl('/dashboard');
     }else{
         sessionStorage.setItem("isLoggedIn","false");
         alert("Incorrect Username & Password \n Please enter admin/admin");

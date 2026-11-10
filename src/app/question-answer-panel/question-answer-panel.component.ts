@@ -37,15 +37,15 @@ export class QuestionAnswerPanelComponent implements OnInit {
     subCategory: '',
     Category: '',
   };
-  newQuestions: any[] = [
-    {
-      question: '',
-      answerType: 'text',
-      answer: '',
-      subCategory: '',
-      Category: ''
-    }
-  ];
+  // newQuestions: any[] = [
+  //   {
+  //     question: '',
+  //     answerType: 'text',
+  //     answer: '',
+  //     subCategory: '',
+  //     Category: ''
+  //   }
+  // ];
   //  newQuestions: any[] = [
   //   { question: '', answerType: 'text', answer: '', subCategory: '', notification: '', notificationType: '' }
   // ];
@@ -166,35 +166,35 @@ export class QuestionAnswerPanelComponent implements OnInit {
     this.newQuestions.splice(index, 1);
   }
 
-  onAnswerTypeChange(q: any): void {
-    if (q.answerType === 'text') {
-      q.answer = '';
-    } else if (q.answerType === 'table') {
-      q.answer = [['']]; // start with one header row
-    }
-  }
+  // onAnswerTypeChange(q: any): void {
+  //   if (q.answerType === 'text') {
+  //     q.answer = '';
+  //   } else if (q.answerType === 'table') {
+  //     q.answer = [['']]; // start with one header row
+  //   }
+  // }
 
-  addRow(q: any): void {
-    const cols = q.answer[0]?.length || 1;
-    q.answer.push(Array(cols).fill(''));
-  }
+  // addRow(q: any): void {
+  //   const cols = q.answer[0]?.length || 1;
+  //   q.answer.push(Array(cols).fill(''));
+  // }
 
-  addColumn(q: any): void {
-    q.answer.forEach((row: string[]) => row.push(''));
-  }
+  // addColumn(q: any): void {
+  //   q.answer.forEach((row: string[]) => row.push(''));
+  // }
 
-  deleteRow(q: any): void {
-    if (q.answer.length > 1) {
-      q.answer.pop();
-    }
-  }
+  // deleteRow(q: any): void {
+  //   if (q.answer.length > 1) {
+  //     q.answer.pop();
+  //   }
+  // }
 
-  deleteColumn(q: any): void {
-    const cols = q.answer[0]?.length || 0;
-    if (cols > 1) {
-      q.answer.forEach((row: string[]) => row.pop());
-    }
-  }
+  // deleteColumn(q: any): void {
+  //   const cols = q.answer[0]?.length || 0;
+  //   if (cols > 1) {
+  //     q.answer.forEach((row: string[]) => row.pop());
+  //   }
+  // }
 
   // Validate category (shared)
   isCategoryValid(): boolean {
@@ -208,57 +208,57 @@ export class QuestionAnswerPanelComponent implements OnInit {
   }
 
 
-  addNewQuestion(): void {
-    this.validationTriggered = true; // enable validation messages
-    const last = this.newQuestions[this.newQuestions.length - 1];
+  // addNewQuestion(): void {
+  //   this.validationTriggered = true; // enable validation messages
+  //   const last = this.newQuestions[this.newQuestions.length - 1];
 
-    this.newQuestions.push({
-      question: '',
-      answerType: 'text',
-      answer: '',
-      subCategory: '',
-      category: ''
-    });
-  }
+  //   this.newQuestions.push({
+  //     question: '',
+  //     answerType: 'text',
+  //     answer: '',
+  //     subCategory: '',
+  //     category: ''
+  //   });
+  // }
 
 
-  saveQuestions(): void {
-    this.validationTriggered = true; // enable validation messages
+  // saveQuestions(): void {
+  //   this.validationTriggered = true; // enable validation messages
 
-    let allValid = true;
-    this.newQuestions.forEach(q => {
-      if (!this.isQuestionValid(q)) {
-        allValid = false;
-      }
-    });
+  //   let allValid = true;
+  //   this.newQuestions.forEach(q => {
+  //     if (!this.isQuestionValid(q)) {
+  //       allValid = false;
+  //     }
+  //   });
 
-    const categoryToSave = this.selectedCategory === 'Other' ? this.newCategory : this.selectedCategory;
+  //   const categoryToSave = this.selectedCategory === 'Other' ? this.newCategory : this.selectedCategory;
 
-    const payload = this.newQuestions.map((q, index) => {
-      const subCategoryToSave = q.subCategory === 'Other' ? q.newSubCategory : q.subCategory;
-      return {
-        id: this.generateUniqueId() + index,   // ensure unique IDs
-        question: q.question.endsWith('?') ? q.question : q.question + '?',
-        answerType: q.answerType,
-        answer: q.answer,
-        subCategory: subCategoryToSave,
-        category: categoryToSave
-      };
-    });
+  //   const payload = this.newQuestions.map((q, index) => {
+  //     const subCategoryToSave = q.subCategory === 'Other' ? q.newSubCategory : q.subCategory;
+  //     return {
+  //       id: this.generateUniqueId() + index,   // ensure unique IDs
+  //       question: q.question.endsWith('?') ? q.question : q.question + '?',
+  //       answerType: q.answerType,
+  //       answer: q.answer,
+  //       subCategory: subCategoryToSave,
+  //       category: categoryToSave
+  //     };
+  //   });
 
-    this.http.post(`${environment.apiUrl}/saveQuestionsBatch`, payload)
-      .subscribe({
-        next: () => {
-          this.notification = '✅ All questions saved successfully!';
-          this.notificationType = 'success';
-          this.newQuestions = [{ question: '', answerType: 'text', answer: '', subCategory: '', category: '' }];
-        },
-        error: () => {
-          this.notification = '❌ Failed to save questions!';
-          this.notificationType = 'error';
-        }
-      });
-  }
+  //   this.http.post(`${environment.apiUrl}/saveQuestionsBatch`, payload)
+  //     .subscribe({
+  //       next: () => {
+  //         this.notification = '✅ All questions saved successfully!';
+  //         this.notificationType = 'success';
+  //         this.newQuestions = [{ question: '', answerType: 'text', answer: '', subCategory: '', category: '' }];
+  //       },
+  //       error: () => {
+  //         this.notification = '❌ Failed to save questions!';
+  //         this.notificationType = 'error';
+  //       }
+  //     });
+  // }
 
 
   isQuestionValid(q: any): boolean {
@@ -360,5 +360,141 @@ export class QuestionAnswerPanelComponent implements OnInit {
         }
       });
   }
+
+
+
+
+  // new update
+
+ 
+newQuestions: any[] = [
+  {
+    id: 1,
+    question: '',
+    answer: [],   // start empty, no default text/table
+    subCategory: '',
+    category: ''
+  }
+];
+
+  // Add new question
+  addNewQuestion(): void {
+    this.newQuestions.push({
+      id: this.generateUniqueId(),
+      question: '',
+      answer: [],
+      subCategory: '',
+      category: ''
+    });
+  }
+
+  // Add new answer type
+  addAnswerType(q: any): void {
+    q.answer.push({ answerType: 'text', answerValue: '' });
+  }
+
+  // Remove answer type
+  // removeAnswer(q: any, index: number): void {
+  //   q.answer.splice(index, 1);
+  // }
+
+  // Handle answer type change
+  onAnswerTypeChange(ans: any): void {
+    if (ans.answerType === 'text') {
+      ans.answerValue = '';
+    } else if (ans.answerType === 'table') {
+      ans.answerValue = [['']]; // start with one header row
+    }
+  }
+
+  // Table operations
+  // addRow(ans: any): void {
+  //   ans.answerValue.push(new Array(ans.answerValue[0].length).fill(''));
+  // }
+
+  // addColumn(ans: any): void {
+  //   ans.answerValue.forEach((row: string[]) => row.push(''));
+  // }
+
+  // deleteRow(ans: any): void {
+  //   if (ans.answerValue.length > 1) ans.answerValue.pop();
+  // }
+
+  // deleteColumn(ans: any): void {
+  //   if (ans.answerValue[0].length > 1) {
+  //     ans.answerValue.forEach((row: string[]) => row.pop());
+  //   }
+  // }
+
+
+
+
+  saveQuestions(): void {
+    const categoryToSave = this.selectedCategory === 'Other' ? this.newCategory : this.selectedCategory;
+
+    const payload = this.newQuestions.map((q, index) => {
+      const subCategoryToSave = q.subCategory === 'Other' ? q.newSubCategory : q.subCategory;
+      return {
+        id: this.generateUniqueId() + index,
+        question: q.question.endsWith('?') ? q.question : q.question + '?',
+        answer: q.answer, // now array of {answerType, answerValue}
+        subCategory: subCategoryToSave,
+        category: categoryToSave
+      };
+    });
+
+    this.http.post(`${environment.apiUrl}/saveQuestionsBatch`, payload)
+      .subscribe({
+        next: () => {
+          this.notification = '✅ All questions saved successfully!';
+          this.notificationType = 'success';
+          this.newQuestions = [
+            { id: this.generateUniqueId(), question: '', answer: [], subCategory: '', category: '' }
+          ];
+        },
+        error: () => {
+          this.notification = '❌ Failed to save questions!';
+          this.notificationType = 'error';
+        }
+      });
+  }
+
+
+
+// Add new text answer
+addTextAnswer(q: any): void {
+  q.answer.push({ answerType: 'text', answerValue: '' });
+}
+
+// Add new table answer
+addTableAnswer(q: any): void {
+  q.answer.push({ answerType: 'table', answerValue: [['']] });
+}
+
+// Remove answer type
+removeAnswer(q: any, index: number): void {
+  q.answer.splice(index, 1);
+}
+
+// Table operations
+addRow(ans: any): void {
+  ans.answerValue.push(new Array(ans.answerValue[0].length).fill(''));
+}
+
+addColumn(ans: any): void {
+  ans.answerValue.forEach((row: string[]) => row.push(''));
+}
+
+deleteRow(ans: any): void {
+  if (ans.answerValue.length > 1) ans.answerValue.pop();
+}
+
+deleteColumn(ans: any): void {
+  if (ans.answerValue[0].length > 1) {
+    ans.answerValue.forEach((row: string[]) => row.pop());
+  }
+}
+
+
 
 }

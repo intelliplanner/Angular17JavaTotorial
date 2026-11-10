@@ -102,13 +102,13 @@
             <div class="d-flex align-items-center justify-content-start">
                 <!-- Icon -->
                 <div [class]="loginClass">
-                    <a href="login" class="bi bi-person btn btn-primary btn-lg" role="button" (click)="login()"
+                    <a [routerLink]="['/login']" class="bi bi-person btn btn-primary btn-lg" role="button" (click)="login()"
                         aria-disabled="true">
                         <i>Login</i>
                     </a>
                 </div>
                 <div [class]="logoutClass">
-                    <a href="logout" class="bi bi-person btn btn-primary btn-lg " role="button" (click)="logout()"
+                    <a [routerLink]="['/']" class="bi bi-person btn btn-primary btn-lg " role="button" (click)="logout()"
                         aria-disabled="true">
                         <i>Logout</i>
                     </a>

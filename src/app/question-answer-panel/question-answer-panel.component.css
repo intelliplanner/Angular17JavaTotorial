@@ -81,3 +81,67 @@ button {
   font-size: 0.85rem; /* reduced */
   animation: slideDown 0.4s ease;
 }
+.answer-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.answer-buttons button {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #4caf50, #81c784);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.answer-buttons button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #388e3c, #66bb6a);
+}
+.answer-block {
+  margin-bottom: 15px;
+}
+
+/* .answer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.answer-header label {
+  font-weight: bold;
+} */
+
+.answer-header {
+  display: flex;
+  justify-content: space-between; /* pushes label left, button right */
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.answer-header label {
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.remove-btn {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: #c62828;
+  transform: scale(1.05);
+}
+
+
