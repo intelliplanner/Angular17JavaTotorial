@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -31,46 +31,36 @@ export class CategorizedNotesComponent implements OnInit {
   filesByCategory: { [key: string]: string[] } = {};
 
   ngOnInit(): void {
-  fetch(`${environment.apiUrl}/assets/json_files/categorized_topic.json`)
-    .then(res => res.json())
-    .then((data: { [key: string]: string[] }) => {
-      // Sort files inside each category
-      Object.keys(data).forEach(cat => {
-        data[cat].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-      });
+    this.loadCategorizedFiles();
+  }
 
-      this.filesByCategory = data;
-
-      // Sort categories alphabetically
-      this.categories = Object.keys(data)
-        .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-
-      // Auto-select first file from first category
-      if (this.categories.length > 0) {
-        const firstCategory = this.categories[0];
-        const firstFile = data[firstCategory][0];
-        this.selected = firstFile;
-        const url = this.downloadUrl || '';
-        this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  private loadCategorizedFiles(): void {
+    this.http.get<{ [key: string]: string[] }>(
+      'assets/json_files/categorized_topic.json'
+    ).subscribe({
+      next: (data) => {
+        this.categories = Object.keys(data)
+          .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+        this.filesByCategory = {};
+        this.categories.forEach(category => {
+          this.filesByCategory[category] = [...data[category]]
+            .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+        });
+        this.files = this.categories.flatMap(category => this.filesByCategory[category]);
         this.loadRecent();
-        this.updateRecent(this.selected);
-      }
-    })
-    .catch(err => console.error('Failed to load categorized files manifest', err));
 
-  // Load categories.json again (optional, but keep consistent sorting)
-  this.http.get<{ [key: string]: string[] }>(
-    `${environment.apiUrl}/assets/json_files/categorized_topic.json`
-  ).subscribe({
-    next: (data) => {
-      this.categories = Object.keys(data)
-        .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
-    },
-    error: (err) => console.error('Failed to load categories manifest', err)
-  });
-}
-
-
+        if (!this.selected && this.categories.length > 0) {
+          this.selected = this.filesByCategory[this.categories[0]][0];
+          const url = this.downloadUrl;
+          if (url) {
+            this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+            this.updateRecent(this.selected);
+          }
+        }
+      },
+      error: (err) => console.error('Failed to load categorized files manifest', err)
+    });
+  }
 
   openCategoryDialog() { this.showDialog = true; }
   closeDialog() {
@@ -81,13 +71,7 @@ export class CategorizedNotesComponent implements OnInit {
 
   get downloadUrl(): string | null {
     if (!this.selected) return null;
-
-    // In production, use full URL from apiUrl; in development, use relative path
-    if (environment.production) {
-      return `${environment.apiUrl}/assets/javaNotesPdf/${this.selected}`;
-    } else {
-      return `${environment.apiUrl}/assets/javaNotesPdf/${this.selected}`;
-    }
+    return `assets/javaNotesPdf/${encodeURIComponent(this.selected)}`;
   }
 
   private loadRecent(): void {
@@ -118,20 +102,6 @@ export class CategorizedNotesComponent implements OnInit {
     return this.files.filter(f => !this.recentFiles.includes(f));
   }
 
-  private renderIframe(url: string): void {
-    const viewer = document.getElementById('pdfViewer');
-    if (!viewer) return;
-    viewer.innerHTML = '';
-    const iframe = document.createElement('iframe');
-    iframe.src = url;
-    iframe.width = '100%';
-    iframe.height = '700px';
-    iframe.setAttribute('frameborder', '0');
-    iframe.setAttribute('scrolling', 'auto');
-    iframe.style.overflow = 'auto';
-    viewer.appendChild(iframe);
-  }
-
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -146,8 +116,6 @@ export class CategorizedNotesComponent implements OnInit {
       const url = URL.createObjectURL(file);
       this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
-      // Render in the same pdfViewer
-      this.renderIframe(url);
     }
   }
 
@@ -157,8 +125,6 @@ export class CategorizedNotesComponent implements OnInit {
     this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.updateRecent(this.selected);
 
-    // Render in the same pdfViewer
-    this.renderIframe(url);
   }
 
   savePdf(): void {
@@ -180,11 +146,7 @@ export class CategorizedNotesComponent implements OnInit {
         alert('PDF saved and categorized successfully!');
         this.closeDialog();
         // Refresh categories
-        this.http.get<{ [key: string]: string[] }>(
-          `${environment.apiUrl}/assets/json_files/categorized_topic.json`
-        ).subscribe(data => {
-          this.categories = Object.keys(data);
-        });
+        this.loadCategorizedFiles();
       },
       error: (err) => {
         console.error('Upload failed:', err);

@@ -16,8 +16,7 @@
       <label for="fileSelect" class="me-2">Files in this category:</label>
 
       <select id="fileSelect" class="form-select w-auto"
-              [(ngModel)]="selectedFile">
-              <!-- (change)="onFileChange()"> -->
+              [(ngModel)]="selectedFile" (ngModelChange)="onFileChange()">
         <option *ngFor="let f of selectedFiles" [value]="f">{{ f }}</option>
       </select>
 

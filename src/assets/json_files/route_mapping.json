@@ -1,0 +1,227 @@
+[
+  {
+    "routeMap": "Agile_Methodology",
+    "notesCategory": "Agile_Methodology",
+    "fileName": "Agile Methodology.pdf"
+  },
+  {
+    "routeMap": "Angular",
+    "notesCategory": "Angular",
+    "fileName": "Angular_Interview_Question.pdf"
+  },
+  {
+    "routeMap": "Apache_Question",
+    "notesCategory": "Apache_Question",
+    "fileName": "Apache_and_JBOSS_INTERVIEW_QUETIONS.pdf"
+  },
+  {
+    "routeMap": "Collections",
+    "notesCategory": "Collections",
+    "fileName": "Collections.pdf"
+  },
+  {
+    "routeMap": "Core_Java",
+    "notesCategory": "Core_Java",
+    "fileName": "Java Keep In  Mind.pdf"
+  },
+  {
+    "routeMap": "Core_Java",
+    "notesCategory": "Core_Java",
+    "fileName": "Java Networking.pdf"
+  },
+  {
+    "routeMap": "Core_Java",
+    "notesCategory": "Core_Java",
+    "fileName": "Java Questions Only.pdf"
+  },
+  {
+    "routeMap": "Core_Java",
+    "notesCategory": "Core_Java",
+    "fileName": "Java Topics.pdf"
+  },
+  {
+    "routeMap": "Core_Java",
+    "notesCategory": "Core_Java",
+    "fileName": "JAVA_1.4_1.5.pdf"
+  },
+  {
+    "routeMap": "Core_Java",
+    "notesCategory": "Core_Java",
+    "fileName": "Java_1.7.pdf"
+  },
+  {
+    "routeMap": "Core_Java",
+    "notesCategory": "Core_Java",
+    "fileName": "java_1.8.pdf"
+  },
+  {
+    "routeMap": "Core_Java",
+    "notesCategory": "Core_Java",
+    "fileName": "Java_1.9.pdf"
+  },
+  {
+    "routeMap": "Core_Java",
+    "notesCategory": "Core_Java",
+    "fileName": "Java_OOPs_Misc.pdf"
+  },
+  {
+    "routeMap": "Core_Java",
+    "notesCategory": "Core_Java",
+    "fileName": "Java_Topics.pdf"
+  },
+  {
+    "routeMap": "DataBase_Questions",
+    "notesCategory": "DataBase_Questions",
+    "fileName": "DataBase_Interview_Questions.pdf"
+  },
+  {
+    "routeMap": "Designing_Pattern",
+    "notesCategory": "Designing_Pattern",
+    "fileName": "Designing_Pattern.pdf"
+  },
+  {
+    "routeMap": "Docker",
+    "notesCategory": "Docker",
+    "fileName": "Docker.pdf"
+  },
+  {
+    "routeMap": "Exception_Handling",
+    "notesCategory": "Exception_Handling",
+    "fileName": "Exception_Handling.pdf"
+  },
+  {
+    "routeMap": "Hibernate",
+    "notesCategory": "Hibernate",
+    "fileName": "Hibernate.pdf"
+  },
+  {
+    "routeMap": "Http_Error_Status",
+    "notesCategory": "Http_Error_Status",
+    "fileName": "Http Error Status.pdf"
+  },
+  {
+    "routeMap": "Interview",
+    "notesCategory": "Interview",
+    "fileName": "Interview HR round.pdf"
+  },
+  {
+    "routeMap": "Interview",
+    "notesCategory": "Interview",
+    "fileName": "Interview Online Test.pdf"
+  },
+  {
+    "routeMap": "Interview",
+    "notesCategory": "Interview",
+    "fileName": "Interview_Question_My.pdf"
+  },
+  {
+    "routeMap": "Interview",
+    "notesCategory": "Interview",
+    "fileName": "Interview_Round.pdf"
+  },
+  {
+    "routeMap": "JavaMail_JMS",
+    "notesCategory": "JavaMail_JMS",
+    "fileName": "JavaMail_JMS.pdf"
+  },
+  {
+    "routeMap": "JavaScript",
+    "notesCategory": "JavaScript",
+    "fileName": "JavaScript_Interview_Question.pdf"
+  },
+  {
+    "routeMap": "JavaScript",
+    "notesCategory": "JavaScript",
+    "fileName": "JavaScript.pdf"
+  },
+  {
+    "routeMap": "JSP",
+    "notesCategory": "JSP",
+    "fileName": "JSP.pdf"
+  },
+  {
+    "routeMap": "Junit_Annotation",
+    "notesCategory": "Junit_Annotation",
+    "fileName": "Junit Annotation.pdf"
+  },
+  {
+    "routeMap": "Kafka_Study",
+    "notesCategory": "Kafka_Study",
+    "fileName": "Kafka Study.pdf"
+  },
+  {
+    "routeMap": "Kubernetes",
+    "notesCategory": "Kubernetes",
+    "fileName": "Kubernetes.pdf"
+  },
+  {
+    "routeMap": "Logger_Hibernate",
+    "notesCategory": "Logger_Hibernate",
+    "fileName": "Logger Hibernate.pdf"
+  },
+  {
+    "routeMap": "Maven_pom",
+    "notesCategory": "Maven_pom",
+    "fileName": "Maven pom.pdf"
+  },
+  {
+    "routeMap": "MongoDB",
+    "notesCategory": "MongoDB",
+    "fileName": "MongoDB_Schema_vs_Scaling_Explanation.pdf"
+  },
+  {
+    "routeMap": "MongoDB",
+    "notesCategory": "MongoDB",
+    "fileName": "MongoDB_Sharing_Aggregation_QA.pdf"
+  },
+  {
+    "routeMap": "Multithreading",
+    "notesCategory": "Multithreading",
+    "fileName": "Multi-threading.pdf"
+  },
+  {
+    "routeMap": "Project_Details",
+    "notesCategory": "Project_Details",
+    "fileName": "Project Details.pdf"
+  },
+  {
+    "routeMap": "Spring",
+    "notesCategory": "Spring",
+    "fileName": "Spring Boot Caching.pdf"
+  },
+  {
+    "routeMap": "Spring",
+    "notesCategory": "Spring",
+    "fileName": "Spring Boot.pdf"
+  },
+  {
+    "routeMap": "Spring",
+    "notesCategory": "Spring",
+    "fileName": "SpringBoot_Microservices_Jenkins.pdf"
+  },
+  {
+    "routeMap": "Spring",
+    "notesCategory": "Spring",
+    "fileName": "SpringFrameworkAnnotations.pdf"
+  },
+  {
+    "routeMap": "Spring",
+    "notesCategory": "Spring",
+    "fileName": "SpringStudy.pdf"
+  },
+  {
+    "routeMap": "Virendra_Introduction",
+    "notesCategory": "Virendra_Introduction",
+    "fileName": "Virendra Introduction.pdf"
+  },
+  {
+    "routeMap": "WebServiceNotes",
+    "notesCategory": "WebServiceNotes",
+    "fileName": "WebServiceNotes.pdf"
+  },
+  {
+    "routeMap": "Youtube_Java_Important_Links",
+    "notesCategory": "Youtube_Java_Important_Links",
+    "fileName": "Youtube_Java_Important_Links.pdf"
+  }
+]

@@ -1,31 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';   // <-- add this
+import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { environment } from '../../environments/environment';
+
+interface RouteMapping {
+  routeMap: string;
+  notesCategory: string;
+  fileName: string;
+}
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, HttpClientModule, CommonModule, FormsModule], // <-- include FormsModule
+  imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  categories: { routeMap: string; notesCategory: string; fileName: string }[] = [];
+  categories: RouteMapping[] = [];
   uniqueCategories: { routeMap: string; notesCategory: string }[] = [];
   selectedFiles: string[] = [];
   selectedFile: string | null = null;
   currentUrl: SafeResourceUrl | null = null;
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    fetch(`${environment.apiUrl}/assets/json_files/route_mapping.json`)
-      .then(res => res.json())
-      .then((data: any[]) => {
+    fetch('assets/json_files/route_mapping.json')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`Route mapping request failed: ${res.status} ${res.statusText}`);
+        }
+        return res.json() as Promise<RouteMapping[]>;
+      })
+      .then(data => {
+        if (!Array.isArray(data)) {
+          throw new Error('Route mapping manifest must be a JSON array');
+        }
         this.categories = data;
 
         const seen = new Set<string>();
@@ -34,6 +46,10 @@ export class HomeComponent implements OnInit {
           seen.add(item.routeMap);
           return true;
         });
+
+        if (this.uniqueCategories.length > 0) {
+          this.showFiles(this.uniqueCategories[0].routeMap);
+        }
       })
       .catch(err => console.error('Failed to load route mapping', err));
   }
@@ -48,7 +64,7 @@ showFiles(category: string): void {
     this.selectedFile = this.selectedFiles[0];
 
     // Auto-open the first file
-    const url = `${environment.apiUrl}/assets/javaNotesPdf/${this.selectedFile}`;
+    const url = `assets/javaNotesPdf/${encodeURIComponent(this.selectedFile)}`;
     this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   } else {
     this.selectedFile = null;
@@ -59,13 +75,13 @@ showFiles(category: string): void {
 // Auto-open whenever dropdown changes
 onFileChange(): void {
   if (this.selectedFile) {
-    const url = `${environment.apiUrl}/assets/javaNotesPdf/${this.selectedFile}`;
+    const url = `assets/javaNotesPdf/${encodeURIComponent(this.selectedFile)}`;
     this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
   openSelected(): void {
     if (!this.selectedFile) return;
-    const url = `${environment.apiUrl}/assets/javaNotesPdf/${this.selectedFile}`;
+    const url = `assets/javaNotesPdf/${encodeURIComponent(this.selectedFile)}`;
     this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }

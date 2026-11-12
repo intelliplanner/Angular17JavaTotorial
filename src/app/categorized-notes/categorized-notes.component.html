@@ -26,8 +26,10 @@
       Selected File: {{ selectedFile.name }}
     </div>
 
-    <!-- Single unified viewer -->
-    <div id="pdfViewer" class="pdf-viewer" *ngIf="currentUrl"></div>
+    <div class="pdf-viewer" *ngIf="currentUrl">
+      <iframe [src]="currentUrl" width="100%" height="700px" frameborder="0" scrolling="auto"
+        title="Selected Java notes PDF"></iframe>
+    </div>
   </div>
 </section>
 
