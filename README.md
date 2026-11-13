@@ -77,16 +77,17 @@ The backend API will run on `http://localhost:9090` (or `http://192.168.1.10:909
 
 The login page keeps the existing username/password option and also offers Google sign-in. Google sign-in requires the Express backend:
 
-1. In Google Cloud Console, configure the OAuth client ID used by the app and add the frontend origins you use (for example, `http://localhost:4200` and `http://192.168.1.10:4200`) as authorized JavaScript origins.
-2. Set a random signing secret of at least 32 characters before starting the backend. In PowerShell:
+1. In Google Cloud Console, add `https://intelliplanner.github.io` as an authorized JavaScript origin. For local development, also add `http://localhost:4200`.
+2. Set a random signing secret of at least 32 characters before starting the backend. In PowerShell (optional for development; the server creates a persistent local secret if omitted):
 
    ```powershell
    $env:SESSION_SECRET = (node -e "process.stdout.write(require('crypto').randomBytes(32).toString('hex'))")
    npm run server
    ```
 
-3. Keep the frontend and backend on the same host when developing locally so the secure, HTTP-only sign-in cookies can be sent by the browser. The development app uses the current page hostname and backend port `9090`.
-4. For deployment, set `authApiUrl` in `src/environments/environment.prod.ts` to the public HTTPS backend URL, configure that frontend origin in `FRONTEND_ORIGINS`, and set `COOKIE_SECURE=true` on the backend. Google sign-in will remain unavailable in production until a backend URL is configured.
+3. Keep the frontend and backend on the same host when developing locally. The development app uses the current page hostname and backend port `9090`.
+4. To host the authentication API on Render, create a new Blueprint from this repository and select the `render.yaml` file. Render creates a public HTTPS service and generates a `SESSION_SECRET` automatically.
+5. After Render deploys, copy its service URL into `authApiUrl` in `src/environments/environment.prod.ts`, then push the change so the GitHub Pages workflow rebuilds the frontend. The frontend and backend are separate services: `https://intelliplanner.github.io/Angular17JavaTotorial/#/login` is not an API URL. Configure `https://intelliplanner.github.io` as the frontend origin in both Google Cloud Console and the backend's `FRONTEND_ORIGINS`.
 
 The server validates the Google credential and nonce before issuing an HTTP-only session cookie. Do not expose the session signing secret in frontend environment files.
 
