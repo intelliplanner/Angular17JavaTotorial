@@ -18,7 +18,7 @@ interface GoogleIdentityApi {
     id: {
       initialize(options: {
         client_id: string;
-        nonce: string;
+        nonce?: string;
         callback: (response: GoogleCredentialResponse) => void;
       }): void;
       renderButton(
@@ -74,6 +74,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
 
     if (!getAuthApiUrl()) {
       this.errorMessage = 'Google sign-in is not configured for this deployment. Configure the authentication API URL.';
+      this.initializeGoogleButton();
       return;
     }
 
@@ -84,6 +85,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       next: response => {
         if (!response.nonce) {
           this.errorMessage = 'The authentication server returned an invalid Google sign-in challenge. Restart the backend and try again.';
+          this.initializeGoogleButton();
           return;
         }
         this.nonce = response.nonce;
@@ -97,6 +99,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
         } else {
           this.errorMessage = error.error?.message || 'Could not initialize Google sign-in. Check the authentication server.';
         }
+        this.initializeGoogleButton();
       }
     });
   }
@@ -107,11 +110,19 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
         return;
       }
 
-      window.google.accounts.id.initialize({
+      const options: {
+        client_id: string;
+        callback: (response: GoogleCredentialResponse) => void;
+        nonce?: string;
+      } = {
         client_id: environment.googleClientId,
-        nonce: this.nonce,
         callback: response => this.onGoogleCredential(response)
-      });
+      };
+      if (this.nonce) {
+        options.nonce = this.nonce;
+      }
+
+      window.google.accounts.id.initialize(options);
       window.google.accounts.id.renderButton(this.googleButton.nativeElement, {
         theme: 'outline',
         size: 'large',
@@ -154,6 +165,15 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   }
 
   private onGoogleCredential(response: GoogleCredentialResponse): void {
+    if (!getAuthApiUrl()) {
+      this.errorMessage = 'The Google button is ready, but sign-in cannot finish until the authentication backend is deployed and configured.';
+      return;
+    }
+    if (!this.nonce) {
+      this.errorMessage = 'Google sign-in could not connect to the authentication backend. Please try again later.';
+      return;
+    }
+
     this.errorMessage = '';
     this.isGoogleSubmitting = true;
     this.http.post<{ authenticated: boolean }>(
