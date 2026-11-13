@@ -598,8 +598,8 @@ app.delete('/deleteQuestion/:id', (req, res) => {
 
 // Start the server
 
-const PORT = 9090;
-app.listen(PORT,'0.0.0.0', () => {
+const PORT = Number(process.env.PORT) || 9090;
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`\n🚀 Java Compiler Server running on port ${PORT}`);
   console.log(`📍 http://localhost:${PORT}`);
   console.log(`📍Server running at http://192.168.1.10:${PORT}`);
