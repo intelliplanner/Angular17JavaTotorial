@@ -19,6 +19,7 @@ interface GoogleIdentityApi {
       initialize(options: {
         client_id: string;
         nonce?: string;
+        use_fedcm_for_button?: boolean;
         callback: (response: GoogleCredentialResponse) => void;
       }): void;
       renderButton(
@@ -113,9 +114,11 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       const options: {
         client_id: string;
         callback: (response: GoogleCredentialResponse) => void;
+        use_fedcm_for_button: boolean;
         nonce?: string;
       } = {
         client_id: environment.googleClientId,
+        use_fedcm_for_button: true,
         callback: response => this.onGoogleCredential(response)
       };
       if (this.nonce) {
