@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { InterviewQuestionsComponent } from './interview-questions/interview-questions.component';
 // import { ExceptionHandlingComponent } from './exception-handling/exception-handling.component';
 import { LoginComponent } from './login/login.component';
-import { authGaurd } from './login-guard.guard';
+import { authGuard } from './login-guard.guard';
 import { JavaNotesComponent } from './java-notes/java-notes.component';
 import { JavaCompilerComponent } from './java-compiler/java-compiler.component';
 import { CategorizedNotesComponent } from './categorized-notes/categorized-notes.component';
@@ -17,19 +17,26 @@ import { InterviewQuestionsAnswerUpdateComponent } from './interview-questions-a
 import { InteriorSampleComponent } from './interior-sample/interior-sample.component';
 
 export const routes: Routes = [
- { 'path': '', component: LoginComponent, 'title': 'Login Page' },
-    { 'path': 'javaNotes', component: JavaNotesComponent, 'title': 'Java Notes' },
-    { 'path': 'categorizedNotes', component: CategorizedNotesComponent, 'title': 'Categorized Notes' },
-    { 'path': 'dashboard', component: HomeComponent, 'title': 'DashBoard' },
-    { 'path': 'interior-sample', component: InteriorSampleComponent, 'title': 'Interior Sample' },
-    { 'path': 'interview', component: InterviewQuestionsComponent, 'title': 'Interview' },
-    { 'path': 'login', component: LoginComponent, 'title': 'Login Page' },
-    { 'path': 'myJavaNotes', component: JavaNotesComponent, 'title': 'Java Notes' },
-    { 'path': 'compiler', component: JavaCompilerComponent, 'title': 'Java Compiler' },
-    { 'path': 'questionAnswerPanel', component: QuestionAnswerPanelComponent, 'title': 'Question-Answer-Panel' },
-    { 'path': 'questionAnswerByCategory', component: InterviewQuestionAnswerCategorywiseComponent, 'title': 'Question-Answer by Category' },
-    { 'path': 'updateInterviewQuestionsAnswer', component: InterviewQuestionsAnswerUpdateComponent, 'title': 'Manage Questions Answers' },
-    { 'path': '**', redirectTo: '', pathMatch: 'full' } // Wildcard route - redirect to home
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, title: 'Login Page' },
+  {
+    path: '',
+    canActivate: [authGuard],
+    canActivateChild: [authGuard],
+    children: [
+      { path: 'javaNotes', component: JavaNotesComponent, title: 'Java Notes' },
+      { path: 'categorizedNotes', component: CategorizedNotesComponent, title: 'Categorized Notes' },
+      { path: 'dashboard', component: HomeComponent, title: 'DashBoard' },
+      { path: 'interior-sample', component: InteriorSampleComponent, title: 'Interior Sample' },
+      { path: 'interview', component: InterviewQuestionsComponent, title: 'Interview' },
+      { path: 'myJavaNotes', component: JavaNotesComponent, title: 'Java Notes' },
+      { path: 'compiler', component: JavaCompilerComponent, title: 'Java Compiler' },
+      { path: 'questionAnswerPanel', component: QuestionAnswerPanelComponent, title: 'Question-Answer-Panel' },
+      { path: 'questionAnswerByCategory', component: InterviewQuestionAnswerCategorywiseComponent, title: 'Question-Answer by Category' },
+      { path: 'updateInterviewQuestionsAnswer', component: InterviewQuestionsAnswerUpdateComponent, title: 'Manage Questions Answers' }
+    ]
+  },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
   // { 'path': 'exceptionHandling', component: ExceptionHandlingComponent, 'title': 'Exception Handling' },
      // { 'path': 'collection', component: CollectionComponent, 'title': 'collection' },
     // { 'path': 'designPattern', component: DesignpatternComponent, 'title': 'DesignPattern', canActivate: [authGaurd] },
