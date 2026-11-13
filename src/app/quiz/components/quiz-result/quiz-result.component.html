@@ -1,0 +1,42 @@
+<main class="result-shell" *ngIf="result as summary; else emptyState">
+  <header class="result-heading">
+    <div><span class="eyebrow">PRACTICE TEST COMPLETE</span><h1>Your results</h1><p>{{ summary.category }} · {{ summary.subCategory }} · {{ summary.difficulty }}</p></div>
+    <span class="pass-badge" [class.fail-badge]="!summary.passed">{{ summary.passed ? '✓ Passed' : 'Keep practicing' }}</span>
+  </header>
+  <section class="score-card">
+    <div class="score-ring" [style.background]="barStyle"><div><strong>{{ summary.percentage }}%</strong><span>score</span></div></div>
+    <div class="score-copy"><span class="eyebrow">YOUR SCORE</span><h2>{{ summary.score }} <small>/ {{ summary.totalQuestions }}</small></h2>
+      <p>{{ summary.passed ? 'Great work — keep building on this momentum.' : 'Review the explanations and try again. Every attempt counts.' }}</p>
+    </div>
+    <div class="score-time"><span>TIME TAKEN</span><strong>{{ timer.format(summary.durationSeconds) }}</strong></div>
+  </section>
+
+  <section class="metric-grid">
+    <article><span>Total questions</span><strong>{{ summary.totalQuestions }}</strong></article>
+    <article><span>Attempted</span><strong>{{ summary.attempted }}</strong></article>
+    <article><span>Unattempted</span><strong>{{ summary.totalQuestions - summary.attempted }}</strong></article>
+    <article class="correct-metric"><span>Correct</span><strong>{{ summary.correct }}</strong></article>
+    <article class="wrong-metric"><span>Wrong</span><strong>{{ summary.wrong }}</strong></article>
+  </section>
+
+  <section class="analysis-card">
+    <div class="analysis-title"><div><span class="eyebrow">PERFORMANCE BREAKDOWN</span><h2>Category analysis</h2></div><span class="legend"><i></i> Correct answers</span></div>
+    <div class="category-row" *ngFor="let row of categoryRows">
+      <div class="category-label"><strong>{{ row.name }}</strong><span>{{ row.correct }} / {{ row.total }} correct</span></div>
+      <div class="bar-track"><div [style.width.%]="row.percent"></div></div><strong class="row-percent">{{ row.percent }}%</strong>
+    </div>
+    <p class="analysis-note">The chart shows your score compared with the full question set. Review each answer to see explanations.</p>
+  </section>
+
+  <section class="result-actions">
+    <a class="btn btn-primary" routerLink="/quiz/review">Review answers <span>→</span></a>
+    <a class="btn btn-outline-secondary" routerLink="/quiz">Retake quiz</a>
+    <a class="btn btn-link" routerLink="/dashboard">Back to dashboard</a>
+  </section>
+
+  <section class="history-card" *ngIf="quizService.results.length > 1">
+    <h2>Recent practice tests</h2>
+    <div *ngFor="let item of quizService.results.slice(0, 5)"><span>{{ item.category }} · {{ item.subCategory }}</span><strong>{{ item.percentage }}%</strong><small>{{ item.completedAt | date:'mediumDate' }}</small></div>
+  </section>
+</main>
+<ng-template #emptyState><main class="empty-state"><div class="empty-icon">✓</div><h1>No results yet</h1><p>Complete a practice test to see your analysis and answer review.</p><a class="btn btn-primary" routerLink="/quiz">Choose a quiz</a></main></ng-template>

@@ -1,0 +1,49 @@
+.result-shell{max-width:1000px;margin:42px auto;padding:0 24px 56px}
+.eyebrow{font-size:.68rem;letter-spacing:.13em;font-weight:800;color:#718796}
+.result-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.result-heading h1{font-size:2rem;color:#1b374b;font-weight:800;margin:7px 0}
+.result-heading p{margin:0;color:#7a8b97}
+.pass-badge{border-radius:24px;padding:9px 15px;background:#e4f4eb;color:#33845f;font-size:.82rem;font-weight:750}
+.fail-badge{background:#fff0eb;color:#b85a47}
+.score-card,.analysis-card,.history-card{background:#fff;border:1px solid #e8edf0;border-radius:15px;box-shadow:0 7px 26px #17314a08}
+.score-card{display:flex;align-items:center;gap:26px;padding:27px 32px}
+.score-ring{width:128px;height:128px;border-radius:50%;display:grid;place-items:center;flex:none}
+.score-ring>div{width:100px;height:100px;background:#fff;border-radius:50%;display:grid;align-content:center;justify-items:center}
+.score-ring strong{font-size:1.75rem;color:#1a3e50}
+.score-ring span{font-size:.72rem;color:#7b8b95}
+.score-copy{flex:1}
+.score-copy h2{font-size:2rem;font-weight:800;color:#19394e;margin:8px 0}
+.score-copy h2 small{font-size:.95rem;color:#8796a0;font-weight:600}
+.score-copy p{margin:0;color:#748592}
+.score-time{border-left:1px solid #e8edef;padding-left:28px;display:grid;gap:8px}
+.score-time span{font-size:.67rem;letter-spacing:.12em;font-weight:750;color:#7d8d96}
+.score-time strong{font-size:1.2rem;color:#233f53;font-variant-numeric:tabular-nums}
+.metric-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:18px 0}
+.metric-grid article{background:#fff;border:1px solid #e8edf0;border-radius:12px;padding:18px}
+.metric-grid span{display:block;color:#748693;font-size:.76rem}
+.metric-grid strong{display:block;margin-top:8px;color:#213e52;font-size:1.5rem}
+.metric-grid .correct-metric strong{color:#33845f}
+.metric-grid .wrong-metric strong{color:#c15b48}
+.analysis-card{padding:25px 28px}
+.analysis-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.analysis-title h2,.history-card h2{font-size:1.13rem;color:#1d394d;margin:6px 0;font-weight:750}
+.legend{font-size:.76rem;color:#71828d}
+.legend i{display:inline-block;width:8px;height:8px;background:#42a27c;border-radius:50%;margin-right:5px}
+.category-row{display:grid;grid-template-columns:230px 1fr 48px;align-items:center;gap:15px;margin:16px 0}
+.category-label{display:flex;justify-content:space-between;gap:10px;font-size:.79rem}
+.category-label strong{color:#3a5364}
+.category-label span{color:#83919a;white-space:nowrap}
+.bar-track{height:9px;background:#edf1f2;border-radius:20px;overflow:hidden}
+.bar-track div{height:100%;border-radius:20px;background:#42a27c}
+.row-percent{text-align:right;font-size:.8rem;color:#3e5868}
+.analysis-note{border-top:1px solid #edf0f2;padding-top:15px;margin:20px 0 0;color:#83919a;font-size:.78rem}
+.result-actions{display:flex;align-items:center;gap:12px;margin:22px 0}
+.result-actions .btn-primary{background:#dc9139;border-color:#dc9139;font-weight:700}
+.result-actions .btn-primary span{margin-left:10px}
+.result-actions .btn-link{margin-left:auto;text-decoration:none}
+.history-card{padding:22px 26px}
+.history-card h2{margin-bottom:14px}
+.history-card>div{display:grid;grid-template-columns:1fr 80px 120px;padding:12px 0;border-top:1px solid #edf0f2;color:#566d7c;font-size:.85rem}
+.history-card strong{color:#36805f}
+.history-card small{text-align:right;color:#83919a}
+@media(max-width:700px){.result-shell{margin:25px auto;padding:0 14px 40px}.score-card{flex-wrap:wrap;padding:20px}.score-time{border-left:0;border-top:1px solid #e8edef;padding:14px 0 0;width:100%;grid-template-columns:1fr auto}.metric-grid{grid-template-columns:repeat(2,1fr)}.metric-grid article:last-child{grid-column:span 2}.category-row{grid-template-columns:1fr 45px;gap:8px}.category-label{grid-column:span 2}.analysis-title{align-items:flex-start;gap:12px}.result-actions{flex-wrap:wrap}.result-actions .btn-link{margin-left:0}.history-card>div{grid-template-columns:1fr 50px}.history-card small{display:none}}

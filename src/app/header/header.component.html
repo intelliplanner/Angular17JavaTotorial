@@ -1,124 +1,30 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <!-- Container wrapper -->
-    <div class="container-fluid">
-        <!-- Navbar brand -->
-        <a class="navbar-brand mt-2 mt-lg-0" href="#">
-            <h5 class="pt-1">Java Tutorial</h5>
-        </a>
-        <!-- Toggle button -->
-        <button class="navbar-toggler" type="button" data-mdb-collapse-init data-mdb-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
+<nav class="navbar hub-navbar navbar-expand-lg">
+  <div class="navbar-inner">
+    <a class="navbar-brand hub-brand" routerLink="/home" (click)="closeMenu()" aria-label="Tech Interview Hub home">
+      <span class="hub-brand-icon"><i class="fa-solid fa-terminal"></i></span>
+      <span>Tech Interview<strong>Hub</strong></span>
+    </a>
+    <button class="navbar-toggler hub-toggler" type="button" aria-controls="hubNav" [attr.aria-expanded]="isMenuOpen"
+      aria-label="Toggle navigation" (click)="isMenuOpen = !isMenuOpen">
+      <i class="fa-solid" [ngClass]="isMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
+    </button>
+
+    <div class="collapse navbar-collapse hub-nav-collapse" [class.show]="isMenuOpen" id="hubNav">
+      <div class="navbar-nav hub-nav-links" [hidden]="!isLoggedIn">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a>
+        <a class="nav-link" routerLink="/categorizedNotes" routerLinkActive="active" (click)="closeMenu()">Learn</a>
+        <!-- <a class="nav-link" routerLink="/interview" routerLinkActive="active" (click)="closeMenu()">Interview prep</a> -->
+        <a class="nav-link" routerLink="/quiz" routerLinkActive="active" (click)="closeMenu()">Practice quiz</a>
+        <a class="nav-link" routerLink="/quiz/questions" routerLinkActive="active" (click)="closeMenu()">Question manager</a>
+        <a class="nav-link" routerLink="/quiz/categories" routerLinkActive="active" (click)="closeMenu()">Categories</a>
+      </div>
+      <div class="hub-nav-actions">
+        <button *ngIf="isLoggedIn" type="button" class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="darkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+          <i class="fa-solid" [ngClass]="darkMode ? 'fa-sun' : 'fa-moon'"></i>
         </button>
-
-        <!-- Collapsible wrapper -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left links -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="#/dashboard">Dashboard</a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#/interior-sample">Interior Sample</a>
-                </li> -->
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="java" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Java
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href="#/collection">Collection</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#/java8">Java 8</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#/java9">Java 9</a>
-                        </li>
-                    </ul>
-                </li> -->
-
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#/designPattern">Design Pattern</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#/hibernate">Hibernate</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#/springBoot">Spring Boot</a>
-                </li> -->
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#/microservice">MicroServices</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#/exceptionHandling">Exception Handling</a>
-                </li> -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#/interview">Interview Questions</a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#/javaNotes">Java Notes</a>
-                </li> -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#/compiler">Java Compiler</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#/categorizedNotes">Categorized Notes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#/questionAnswerByCategory">Question-Answer by Category</a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#/questionAnswerPanel">Interview Question-Answer</a>
-                </li> 
-                <li class="nav-item">
-                    <a class="nav-link" href="#/updateInterviewQuestionsAnswer">Manage Questions Answers</a>
-                </li>-->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="java" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Interview Question-Answer
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href="#/questionAnswerPanel">Add Interview Question-Answer</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#/updateInterviewQuestionsAnswer">Update Interview
-                                Question-Answer</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- Left links -->
-
-            <!-- Right elements -->
-            <div class="d-flex align-items-center justify-content-start">
-                <!-- Icon -->
-                <div [hidden]="isLoggedIn">
-                    <a [routerLink]="['/login']" class="bi bi-person btn btn-primary btn-lg" role="button" (click)="login()"
-                        aria-disabled="true">
-                        <i>Login</i>
-                    </a>
-                </div>
-                <div [hidden]="!isLoggedIn">
-                    <button type="button" class="bi bi-person btn btn-primary btn-lg" (click)="logout()">
-                        <i>Logout</i>
-                    </button>
-                </div>
-            </div>
-            <!-- Right elements -->
-        </div>
-        <!-- Collapsible wrapper -->
+        <a *ngIf="!isLoggedIn" routerLink="/login" class="btn hub-signin" (click)="closeMenu()">Sign in</a>
+        <button *ngIf="isLoggedIn" type="button" class="btn hub-signin" (click)="logout(); closeMenu()">Sign out</button>
+      </div>
     </div>
-    <!-- Container wrapper -->
+  </div>
 </nav>

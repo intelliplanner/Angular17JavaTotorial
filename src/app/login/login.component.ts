@@ -59,7 +59,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   login(username: string, password: string): void {
     if (username === 'admin' && password === 'admin') {
       sessionStorage.setItem('isLoggedIn', 'true');
-      this.router.navigateByUrl('/dashboard');
+      this.router.navigateByUrl('/home');
       return;
     }
 
@@ -192,7 +192,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
         }
 
         sessionStorage.setItem('isLoggedIn', 'true');
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/home');
       },
       error: (error: HttpErrorResponse) => {
         this.isGoogleSubmitting = false;

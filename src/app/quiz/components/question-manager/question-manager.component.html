@@ -1,0 +1,36 @@
+<main class="manage-shell">
+  <header class="manage-heading"><div><span class="eyebrow">QUIZ CONTENT</span><h1>Question manager</h1><p>Create, organize and maintain your interview question bank.</p></div><button class="btn btn-primary" (click)="newQuestion()">＋ Add question</button></header>
+  <div class="alert alert-success" *ngIf="message" role="status">{{ message }}</div><div class="alert alert-danger" *ngIf="error" role="alert">{{ error }}</div>
+  <section class="editor-card">
+    <h2>{{ editingId === null ? 'Add a question' : 'Edit question' }}</h2>
+    <div class="form-grid">
+      <label class="wide">Question<textarea class="form-control" rows="3" [(ngModel)]="draft.question" placeholder="Write a clear interview question"></textarea></label>
+      <label>Category<select class="form-select" [(ngModel)]="draft.category" (ngModelChange)="draft.subCategory = draftSubCategories[0]"><option *ngFor="let item of categories" [value]="item.name">{{ item.name }}</option></select></label>
+      <label>Subcategory<select class="form-select" [(ngModel)]="draft.subCategory"><option *ngFor="let item of draftSubCategories" [value]="item">{{ item }}</option></select></label>
+      <label>Difficulty<select class="form-select" [(ngModel)]="draft.difficulty"><option *ngFor="let item of difficulties" [ngValue]="item">{{ item }}</option></select></label>
+      <label *ngFor="let letter of ['A','B','C','D']; let i = index">Option {{ letter }}<input class="form-control" [(ngModel)]="draft.options[i]"></label>
+      <label class="wide">Correct answer<select class="form-select" [(ngModel)]="draft.correctAnswer"><option value="">Select the correct option</option><option *ngFor="let option of draft.options" [value]="option" [disabled]="!option">{{ option }}</option></select></label>
+      <label class="wide">Explanation<textarea class="form-control" rows="2" [(ngModel)]="draft.explanation" placeholder="Explain why this answer is correct"></textarea></label>
+      <label class="wide">Question image <input class="form-control" type="file" accept="image/*" (change)="onImageSelected($event)"><img *ngIf="draft.image" [src]="draft.image" class="image-preview" alt="Question preview"></label>
+    </div>
+    <div class="editor-actions"><button class="btn btn-primary" (click)="save()">{{ editingId === null ? 'Save question' : 'Update question' }}</button><button class="btn btn-outline-secondary" (click)="newQuestion()">Clear form</button></div>
+  </section>
+
+  <section class="library-card">
+    <div class="library-heading"><div><h2>Question library</h2><span>{{ filteredQuestions.length }} questions</span></div><div class="library-actions"><label class="btn btn-outline-secondary import-button">Import JSON<input type="file" accept="application/json,.json" (change)="importFile($event)"></label><button class="btn btn-outline-secondary" (click)="exportJson()">Export JSON</button></div></div>
+    <div class="filters">
+      <input class="form-control search" [(ngModel)]="search" placeholder="Search questions…">
+      <select class="form-select" [(ngModel)]="categoryFilter" (ngModelChange)="subCategoryFilter = ''"><option value="">All categories</option><option *ngFor="let item of categories" [value]="item.name">{{ item.name }}</option></select>
+      <select class="form-select" [(ngModel)]="subCategoryFilter"><option value="">All subcategories</option><option *ngFor="let item of subCategories" [value]="item">{{ item }}</option></select>
+      <select class="form-select" [(ngModel)]="difficultyFilter"><option value="">All levels</option><option *ngFor="let item of difficulties" [value]="item">{{ item }}</option></select>
+    </div>
+    <div class="question-list">
+      <article class="question-row" *ngFor="let question of filteredQuestions">
+        <div class="question-info"><div><span class="category-pill">{{ question.category }} · {{ question.subCategory }}</span><span class="difficulty-pill" [class.hard]="question.difficulty === 'Hard'">{{ question.difficulty }}</span></div><p>{{ question.question }}</p></div>
+        <div class="row-actions"><button class="btn btn-sm btn-outline-secondary" (click)="previewId = previewId === question.id ? null : question.id">Preview</button><button class="btn btn-sm btn-outline-primary" (click)="edit(question)">Edit</button><button class="btn btn-sm btn-outline-danger" (click)="delete(question)">Delete</button></div>
+        <div class="preview-content" *ngIf="previewId === question.id"><img *ngIf="question.image" [src]="question.image" alt=""><ol><li *ngFor="let option of question.options" [class.answer-correct]="option === question.correctAnswer">{{ option }}</li></ol><p><strong>Explanation:</strong> {{ question.explanation }}</p></div>
+      </article>
+      <p *ngIf="!filteredQuestions.length" class="no-questions">No questions match these filters.</p>
+    </div>
+  </section>
+</main>
