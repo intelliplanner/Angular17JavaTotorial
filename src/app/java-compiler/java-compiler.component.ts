@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { JavaVersionService, JavaVersion } from '../services/java-version.service';
-import { environment } from '../../environments/environment';
+import { getAuthApiUrl } from '../auth-api-url';
 
 interface CodeSuggestion {
   label: string;
@@ -33,7 +33,7 @@ export class JavaCompilerComponent implements OnInit {
   programName: string = '';
   savedJavaFiles: string[] = [];
   savedFileSelection: string = '';
-  apiUrl: string = environment.apiUrl;
+  apiUrl: string = getAuthApiUrl();
 
   importSuggestions: ImportSuggestion[] = [
     {
@@ -226,7 +226,7 @@ saveProgram() {
   const fileName = className + '.java';
   const payload = { fileName: fileName, code: fullCode };
 
-  this.http.post<any>(`${this.apiUrl}/saveProgram`, payload)
+  this.http.post<any>(`${this.apiUrl}/saveProgram`, payload, { withCredentials: true })
     .subscribe({
       next: (res) => this.output = res.message,
       error: (err) => this.output = 'Error saving program: ' + (err.error?.message || err.statusText)
@@ -234,7 +234,7 @@ saveProgram() {
 }
 // Add this new method to load Java files from server
 loadSavedJavaFiles() {
-  this.http.get<any>(`${this.apiUrl}/getSavedPrograms`)
+  this.http.get<any>(`${this.apiUrl}/getSavedPrograms`, { withCredentials: true })
     .subscribe({
       next: (res) => {
         this.savedJavaFiles = res.files || [];
@@ -249,7 +249,7 @@ loadSavedJavaFiles() {
 loadSavedProgram(fileName: string) {
   if (!fileName) return;
 
-  this.http.get<any>(`${this.apiUrl}/loadProgram?fileName=${fileName}`)
+  this.http.get<any>(`${this.apiUrl}/loadProgram?fileName=${encodeURIComponent(fileName)}`, { withCredentials: true })
     .subscribe({
       next: (res) => {
         this.code = res.code || '';
@@ -293,7 +293,7 @@ loadSavedProgram(fileName: string) {
     const javaPath = this.getSelectedJavaPath();
     const payload = { code: this.code, javaPath: javaPath };
 
-    this.http.post<any>(`${this.apiUrl}/compile`, payload)
+    this.http.post<any>(`${this.apiUrl}/compile`, payload, { withCredentials: true })
       .subscribe({
         next: (res) => this.output = res.output,
         error: (err) => this.output = 'Error: ' + err.message

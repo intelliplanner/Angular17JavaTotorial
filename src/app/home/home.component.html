@@ -10,7 +10,6 @@
         <a routerLink="/quiz" class="btn btn-outline-light"><i class="fa-solid fa-circle-play"></i> Practice quiz</a>
       </div>
     </div>
-
   </section>
 
   <section class="next-step-wrap" aria-label="Continue your preparation">
@@ -32,16 +31,16 @@
       <p *ngIf="!activeSession && !latestResult">Choose a topic and difficulty to begin a practice session.</p>
     </div>
   </section>
-  <br>
+
   <section class="dashboard-section">
     <div class="section-heading">
       <div>
-        <!-- <span class="eyebrow">YOUR QUESTION BANK</span> -->
+        <span class="eyebrow">YOUR QUESTION BANK</span>
         <h2>Choose a practice area</h2>
       </div>
       <a routerLink="/quiz" class="section-link">View all quizzes <i class="fa-solid fa-arrow-right"></i></a>
     </div>
-    <!-- <div class="catalog-grid">
+    <div class="catalog-grid">
       <a class="catalog-card" *ngFor="let item of categoryCards" [routerLink]="item.route">
         <span class="catalog-icon"><i class="fa-solid" [ngClass]="item.icon"></i></span>
         <span class="catalog-info">
@@ -50,22 +49,22 @@
         </span>
         <i class="fa-solid fa-arrow-up-right-from-square catalog-arrow" aria-hidden="true"></i>
       </a>
-    </div> -->
-    <!-- <p *ngIf="questionLoadError" class="load-error" role="alert">
+    </div>
+    <p *ngIf="questionLoadError" class="load-error" role="alert">
       Question totals are unavailable. You can still browse the practice quizzes.
-    </p> -->
+    </p>
   </section>
-  <br>
+
   <section class="dashboard-section paths-section">
     <div class="section-heading">
       <div>
-        <!-- <span class="eyebrow">STUDY BY SUBJECT</span> -->
+        <span class="eyebrow">STUDY BY SUBJECT</span>
         <h2>Learning paths</h2>
       </div>
       <a routerLink="/categorizedNotes" class="section-link">Browse study notes <i
           class="fa-solid fa-arrow-right"></i></a>
     </div>
-    <!-- <div class="path-grid">
+    <div class="path-grid">
       <a class="path-card" *ngFor="let path of learningPaths" [routerLink]="path.route">
         <span class="path-icon" [ngClass]="'path-' + path.tone"><i class="fa-solid" [ngClass]="path.icon"></i></span>
         <span class="path-content">
@@ -74,7 +73,7 @@
         </span>
         <i class="fa-solid fa-arrow-right path-arrow" aria-hidden="true"></i>
       </a>
-    </div> -->
+    </div>
   </section>
 
 

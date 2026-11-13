@@ -1,55 +1,87 @@
-<section class="vh-100">
-    <div class="container-fluid h-custom">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-md-9 col-lg-6 col-xl-5">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Sample image">
-            </div>
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form (submit)="$event.preventDefault()">
-                    <br>
+<main class="login-page">
+  <div class="login-layout">
+    <section class="brand-panel" aria-label="Tech Interview Hub">
+      <div class="brand" aria-label="Tech Interview Hub">
+        <span class="brand-icon"><i class="fa-solid fa-code" aria-hidden="true"></i></span>
+        <span>Tech Interview <strong>Hub</strong></span>
+      </div>
 
-                    <!-- Email input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                        <input type="text" id="name" class="form-control form-control-lg" #txtName placeholder="Enter Username" />
-                        <label class="form-label" for="form3Example3">Username:admin</label>
-                    </div>
+      <div class="brand-message">
+        <span class="brand-eyebrow">YOUR NEXT OPPORTUNITY STARTS HERE</span>
+        <h1>Build confidence.<br>Make your next move.</h1>
+        <p>Learn technical concepts, practice interview questions, and keep moving toward your career goals.</p>
 
-                    <!-- Password input -->
-                    <div data-mdb-input-init class="form-outline mb-3">
-                        <input type="password" id="pwd" class="form-control form-control-lg" #txtPassword  placeholder="Enter password" />
-                        <label class="form-label" for="form3Example4">Password:admin</label>
-                    </div>
+        <ul class="benefit-list">
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Focused learning paths</li>
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Practice quizzes and mock tests</li>
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Track your preparation</li>
+        </ul>
+      </div>
 
-                    <div class="d-flex justify-content-between align-items-center">
-                        <!-- Checkbox -->
-                        <div class="form-check mb-0">
-                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                            <label class="form-check-label" for="form2Example3">
-                                Remember me
-                            </label>
-                        </div>
-                        <a href="#!" class="text-body">Forgot password?</a>
-                    </div>
+    </section>
 
-                    <div class="text-center text-lg-start mt-4 pt-2">
-                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;"
-                            (click)="login(txtName.value,txtPassword.value)">Login</button>
-                        
-                        <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account?
-                            <a href="#!" class="link-danger">Register</a>
-                        </p>
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <p class="text-muted mb-2">Or</p>
-                        <div #googleButton class="google-sign-in-button"></div>
-                        <p *ngIf="isGoogleSubmitting" class="text-muted mt-2" role="status">Signing in with Google...</p>
-                        <p *ngIf="errorMessage" class="text-danger mt-2" role="alert">{{ errorMessage }}</p>
-                    </div>
-
-                </form>
-            </div>
+    <section class="form-panel" aria-labelledby="login-heading">
+      <div class="login-card">
+        <div class="mobile-brand">
+          <span class="brand-icon"><i class="fa-solid fa-code" aria-hidden="true"></i></span>
+          <span>Tech Interview <strong>Hub</strong></span>
         </div>
-    </div>
 
-</section>
+        <span class="form-eyebrow">WELCOME BACK</span>
+        <h2 id="login-heading">Sign in to your account</h2>
+        <p class="form-intro">Pick up where you left off and continue your preparation.</p>
+
+        <form (ngSubmit)="login(txtName.value, txtPassword.value)">
+          <div class="field-group">
+            <label for="name">Username</label>
+            <div class="input-wrap">
+              <i class="fa-regular fa-user" aria-hidden="true"></i>
+              <input
+                type="text"
+                id="name"
+                name="username"
+                #txtName
+                class="form-control"
+                placeholder="Enter your username"
+                autocomplete="username"
+                required>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="pwd">Password</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-lock" aria-hidden="true"></i>
+              <input
+                type="password"
+                id="pwd"
+                name="password"
+                #txtPassword
+                class="form-control"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required>
+            </div>
+          </div>
+
+          <p *ngIf="errorMessage" class="login-error" role="alert">
+            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+            {{ errorMessage }}
+          </p>
+
+          <button type="submit" class="login-button" [disabled]="isSubmitting">
+            {{ isSubmitting ? 'Signing in…' : 'Sign in' }}
+            <i *ngIf="!isSubmitting" class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </button>
+        </form>
+
+        <p class="demo-hint">
+          <i class="fa-regular fa-circle-question" aria-hidden="true"></i>
+          Learner: <strong>test</strong> / <strong>test</strong>
+          <!-- <span aria-hidden="true"> · </span> -->
+          <!-- Admin: <strong>admin</strong> / <strong>admin</strong> -->
+        </p>
+      </div>
+    </section>
+  </div>
+</main>

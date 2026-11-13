@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { getAuthApiUrl } from '../auth-api-url';
 
 @Component({
   selector: 'app-question-answer-panel',
@@ -443,7 +444,7 @@ newQuestions: any[] = [
       };
     });
 
-    this.http.post(`${environment.apiUrl}/saveQuestionsBatch`, payload)
+    this.http.post(`${getAuthApiUrl()}/saveQuestionsBatch`, payload, { withCredentials: true })
       .subscribe({
         next: () => {
           this.notification = '✅ All questions saved successfully!';

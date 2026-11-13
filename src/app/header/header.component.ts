@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { getAuthApiUrl } from '../auth-api-url';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-header',
@@ -14,13 +13,14 @@ import { getAuthApiUrl } from '../auth-api-url';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnDestroy {
-  isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+  isLoggedIn = false;
+  isAdmin = false;
   darkMode = localStorage.getItem('quiz-dark-mode') === 'true';
   isMenuOpen = false;
   private readonly navigationSubscription: Subscription;
 
   constructor(
-    private readonly http: HttpClient,
+    private readonly authService: AuthService,
     private readonly router: Router
   ) {
     this.applyTheme();
@@ -39,21 +39,12 @@ export class HeaderComponent implements OnDestroy {
     this.isMenuOpen = false;
   }
 
-  login(): void {
-    this.updateLoginState();
-  }
-
   logout(): void {
-    sessionStorage.removeItem('isLoggedIn');
-    this.isLoggedIn = false;
+    this.authService.logout().subscribe({
+      error: error => console.error('Could not clear the server sign-in session:', error)
+    });
+    this.updateLoginState();
     this.router.navigateByUrl('/login');
-
-    const authApiUrl = getAuthApiUrl();
-    if (authApiUrl) {
-      this.http.post(`${authApiUrl}/auth/logout`, {}, { withCredentials: true }).subscribe({
-        error: error => console.error('Could not clear the server sign-in session:', error)
-      });
-    }
   }
 
   ngOnDestroy(): void {
@@ -61,7 +52,9 @@ export class HeaderComponent implements OnDestroy {
   }
 
   private updateLoginState(): void {
-    this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    const user = this.authService.user;
+    this.isLoggedIn = !!user;
+    this.isAdmin = this.authService.hasPermission('admin', user);
     this.closeMenu();
   }
 

@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
   quizCategories: QuizCategory[] = [];
 
   readonly learningPaths: LearningPath[] = [
-    { name: 'Java Full Stack', icon: 'fa-code', tone: 'amber', topics: ['Core Java', 'Collections', 'Multithreading', 'JVM', 'Spring Boot', 'Microservices'], route: '/interview' },
+    { name: 'Java Full Stack', icon: 'fa-code', tone: 'amber', topics: ['Core Java', 'Collections', 'Multithreading', 'JVM', 'Spring Boot', 'Microservices'], route: '/categorizedNotes' },
     { name: 'Database', icon: 'fa-database', tone: 'blue', topics: ['SQL', 'Oracle', 'MySQL', 'PostgreSQL'], route: '/categorizedNotes' },
     { name: 'Cloud & DevOps', icon: 'fa-cloud', tone: 'violet', topics: ['Docker', 'Kubernetes', 'AWS', 'GCP', 'Terraform'], route: '/quiz' },
     { name: 'Frontend Development', icon: 'fa-window-maximize', tone: 'mint', topics: ['Angular', 'React', 'TypeScript', 'JavaScript'], route: '/categorizedNotes' }
@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
 
   get categoryCards(): { name: string; count: number; icon: string; route: string }[] {
     return [
-      { name: 'Java', count: this.getQuestionCount('Java'), icon: 'fa-mug-hot', route: '/interview' },
+      { name: 'Java', count: this.getQuestionCount('Java'), icon: 'fa-mug-hot', route: '/quiz' },
       { name: 'Database', count: this.getQuestionCount('Database'), icon: 'fa-database', route: '/categorizedNotes' },
       { name: 'AWS', count: this.getQuestionCount('AWS'), icon: 'fa-cloud', route: '/quiz' },
       { name: 'Kubernetes', count: this.getQuestionCount('Kubernetes'), icon: 'fa-cubes', route: '/quiz' },
