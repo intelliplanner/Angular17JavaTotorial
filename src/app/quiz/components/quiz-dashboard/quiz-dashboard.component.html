@@ -1,0 +1,67 @@
+<main class="quiz-shell">
+  <section class="hero-panel">
+    <div>
+      <span class="eyebrow">YOUR NEXT CAREER MOVE</span>
+      <h1>Practice with purpose.</h1>
+      <p>Build confidence with timed, focused interview practice and clear feedback.</p>
+    </div>
+    <div class="hero-mark" aria-hidden="true">Q</div>
+  </section>
+
+  <div class="dashboard-grid">
+    <section class="setup-card">
+      <div class="section-heading">
+        <div><span class="eyebrow">QUIZ SETUP</span><h2>Design your practice</h2></div>
+        <span class="step-badge">5 steps</span>
+      </div>
+      <div *ngIf="loading" class="alert alert-info">Loading question bank…</div>
+      <div *ngIf="errorMessage" class="alert alert-warning" role="alert">{{ errorMessage }}</div>
+      <div *ngIf="!loading && available < questionCount" class="alert alert-info" role="status">
+        This selection has {{ available }} question(s). Choose a different category or difficulty, or add questions in Question Manager.
+      </div>
+      <div class="setup-fields" *ngIf="!loading">
+        <label class="setup-field"><span>01 · Number of questions</span>
+          <select class="form-select" [(ngModel)]="questionCount">
+            <option *ngFor="let count of questionCounts" [ngValue]="count">{{ count }} questions</option>
+          </select>
+        </label>
+        <label class="setup-field"><span>02 · Category</span>
+          <select class="form-select" [(ngModel)]="category" (ngModelChange)="updateSubcategory()">
+            <option *ngFor="let item of categories" [value]="item.name">{{ item.name }}</option>
+          </select>
+        </label>
+        <label class="setup-field"><span>03 · Subcategory</span>
+          <select class="form-select" [(ngModel)]="subCategory" (ngModelChange)="updateAvailability()">
+            <option *ngFor="let item of subCategories" [value]="item">{{ item }}</option>
+          </select>
+        </label>
+        <label class="setup-field"><span>04 · Difficulty</span>
+          <select class="form-select" [(ngModel)]="difficulty" (ngModelChange)="updateAvailability()">
+            <option *ngFor="let item of difficulties" [value]="item">{{ item }}</option>
+          </select>
+        </label>
+      </div>
+      <div class="start-row">
+        <span class="availability">{{ available }} matching questions available</span>
+        <button class="btn btn-primary start-button" (click)="startQuiz()" [disabled]="loading || available < questionCount">Start quiz <span aria-hidden="true">→</span></button>
+      </div>
+      <button *ngIf="quizService.activeSession" class="btn btn-link resume-button" (click)="resumeQuiz()">Resume your saved quiz →</button>
+    </section>
+
+    <aside class="side-column">
+      <section class="info-card">
+        <span class="info-icon">◷</span><h3>Built like the real thing</h3>
+        <p>Timed sessions, auto-save, review markers and instant score analysis.</p>
+      </section>
+      <section class="info-card progress-card">
+        <span class="eyebrow">YOUR PRACTICE</span>
+        <strong>{{ quizService.results.length }}</strong><p>completed practice tests</p>
+        <a routerLink="/quiz/result" *ngIf="quizService.results.length">View latest result <span aria-hidden="true">→</span></a>
+      </section>
+      <section class="info-card ranking-card" *ngIf="categoryLeaderboard.length">
+        <span class="eyebrow">PERSONAL BESTS</span><h3>Category leaderboard</h3>
+        <div *ngFor="let item of categoryLeaderboard"><span>{{ item.category }}</span><strong>{{ item.percentage }}%</strong></div>
+      </section>
+    </aside>
+  </div>
+</main>

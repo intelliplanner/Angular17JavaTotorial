@@ -26,14 +26,46 @@ export const routes: Routes = [
     children: [
       { path: 'javaNotes', component: JavaNotesComponent, title: 'Java Notes' },
       { path: 'categorizedNotes', component: CategorizedNotesComponent, title: 'Categorized Notes' },
-      { path: 'dashboard', component: HomeComponent, title: 'DashBoard' },
+      { path: 'home', component: HomeComponent, title: 'Tech Interview Hub' },
+      { path: 'dashboard', redirectTo: 'home', pathMatch: 'full' },
       { path: 'interior-sample', component: InteriorSampleComponent, title: 'Interior Sample' },
       { path: 'interview', component: InterviewQuestionsComponent, title: 'Interview' },
       { path: 'myJavaNotes', component: JavaNotesComponent, title: 'Java Notes' },
       { path: 'compiler', component: JavaCompilerComponent, title: 'Java Compiler' },
       { path: 'questionAnswerPanel', component: QuestionAnswerPanelComponent, title: 'Question-Answer-Panel' },
       { path: 'questionAnswerByCategory', component: InterviewQuestionAnswerCategorywiseComponent, title: 'Question-Answer by Category' },
-      { path: 'updateInterviewQuestionsAnswer', component: InterviewQuestionsAnswerUpdateComponent, title: 'Manage Questions Answers' }
+      { path: 'updateInterviewQuestionsAnswer', component: InterviewQuestionsAnswerUpdateComponent, title: 'Manage Questions Answers' },
+      {
+        path: 'quiz',
+        pathMatch: 'full',
+        title: 'Interview Quiz Portal',
+        loadComponent: () => import('./quiz/components/quiz-dashboard/quiz-dashboard.component').then(module => module.QuizDashboardComponent)
+      },
+      {
+        path: 'quiz/play',
+        title: 'Take a Quiz',
+        loadComponent: () => import('./quiz/components/quiz-player/quiz-player.component').then(module => module.QuizPlayerComponent)
+      },
+      {
+        path: 'quiz/result',
+        title: 'Quiz Results',
+        loadComponent: () => import('./quiz/components/quiz-result/quiz-result.component').then(module => module.QuizResultComponent)
+      },
+      {
+        path: 'quiz/review',
+        title: 'Review Answers',
+        loadComponent: () => import('./quiz/components/review-answer/review-answer.component').then(module => module.ReviewAnswerComponent)
+      },
+      {
+        path: 'quiz/questions',
+        title: 'Question Manager',
+        loadComponent: () => import('./quiz/components/question-manager/question-manager.component').then(module => module.QuestionManagerComponent)
+      },
+      {
+        path: 'quiz/categories',
+        title: 'Category Manager',
+        loadComponent: () => import('./quiz/components/category-manager/category-manager.component').then(module => module.CategoryManagerComponent)
+      }
     ]
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }

@@ -1,0 +1,162 @@
+[
+  {
+    "id": 41,
+    "category": "GCP",
+    "subCategory": "BigQuery",
+    "difficulty": "Medium",
+    "question": "What is BigQuery primarily used for?",
+    "image": "",
+    "options": [
+      "Serverless data warehousing and analytics",
+      "Managing Kubernetes node pools only",
+      "Building virtual machine images",
+      "Sending transactional email"
+    ],
+    "correctAnswer": "Serverless data warehousing and analytics",
+    "explanation": "BigQuery is Google Cloud's managed analytics data warehouse for large-scale SQL analysis."
+  },
+  {
+    "id": 42,
+    "category": "GCP",
+    "subCategory": "BigQuery",
+    "difficulty": "Medium",
+    "question": "What does partitioning a BigQuery table commonly improve?",
+    "image": "",
+    "options": [
+      "Query efficiency by limiting scanned partitions",
+      "The number of project owners",
+      "Cloud Storage object durability",
+      "VM startup time"
+    ],
+    "correctAnswer": "Query efficiency by limiting scanned partitions",
+    "explanation": "Queries that filter on the partitioning column can scan only relevant partitions and reduce processed data."
+  },
+  {
+    "id": 43,
+    "category": "GCP",
+    "subCategory": "BigQuery",
+    "difficulty": "Medium",
+    "question": "Which language is commonly used to query BigQuery tables?",
+    "image": "",
+    "options": [
+      "SQL",
+      "CSS",
+      "Bash only",
+      "Protocol Buffers"
+    ],
+    "correctAnswer": "SQL",
+    "explanation": "BigQuery supports GoogleSQL, a SQL dialect for querying and analyzing data."
+  },
+  {
+    "id": 44,
+    "category": "GCP",
+    "subCategory": "BigQuery",
+    "difficulty": "Medium",
+    "question": "What does a BigQuery dataset contain?",
+    "image": "",
+    "options": [
+      "Tables and views within a project and location",
+      "Only VM disks",
+      "Kubernetes Services",
+      "Cloud DNS zones"
+    ],
+    "correctAnswer": "Tables and views within a project and location",
+    "explanation": "Datasets organize tables, views, and related resources and have location and access settings."
+  },
+  {
+    "id": 45,
+    "category": "GCP",
+    "subCategory": "BigQuery",
+    "difficulty": "Medium",
+    "question": "How can clustering help a BigQuery table?",
+    "image": "",
+    "options": [
+      "Organize storage by selected columns to improve some filtered queries",
+      "Encrypt a dataset with a browser password",
+      "Create a VPC peering link",
+      "Keep a VM running"
+    ],
+    "correctAnswer": "Organize storage by selected columns to improve some filtered queries",
+    "explanation": "Clustering organizes data based on clustering columns, which can improve pruning and query performance."
+  },
+  {
+    "id": 46,
+    "category": "GCP",
+    "subCategory": "BigQuery",
+    "difficulty": "Medium",
+    "question": "What is a BigQuery view?",
+    "image": "",
+    "options": [
+      "A virtual table defined by a SQL query",
+      "A compute instance template",
+      "A subnet firewall rule",
+      "A durable object archive"
+    ],
+    "correctAnswer": "A virtual table defined by a SQL query",
+    "explanation": "A standard view is a logical table defined by a saved SQL query."
+  },
+  {
+    "id": 47,
+    "category": "GCP",
+    "subCategory": "BigQuery",
+    "difficulty": "Medium",
+    "question": "What does BigQuery on-demand pricing primarily consider for query processing?",
+    "image": "",
+    "options": [
+      "Bytes processed by queries",
+      "Number of browser tabs",
+      "Number of SQL keywords",
+      "VM boot duration"
+    ],
+    "correctAnswer": "Bytes processed by queries",
+    "explanation": "On-demand analysis pricing is based primarily on data processed, subject to current service pricing and limits."
+  },
+  {
+    "id": 48,
+    "category": "GCP",
+    "subCategory": "BigQuery",
+    "difficulty": "Medium",
+    "question": "Which feature can prevent accidental overwrites by retaining earlier table versions for a limited period?",
+    "image": "",
+    "options": [
+      "Time travel",
+      "Cloud NAT",
+      "Cloud Armor",
+      "Instance groups"
+    ],
+    "correctAnswer": "Time travel",
+    "explanation": "BigQuery time travel allows access to historical table data within the configured time-travel window."
+  },
+  {
+    "id": 49,
+    "category": "GCP",
+    "subCategory": "BigQuery",
+    "difficulty": "Medium",
+    "question": "What is the purpose of a BigQuery reservation?",
+    "image": "",
+    "options": [
+      "Assign dedicated query capacity through slots",
+      "Reserve a global static IP address",
+      "Store service account keys",
+      "Create an object lifecycle policy"
+    ],
+    "correctAnswer": "Assign dedicated query capacity through slots",
+    "explanation": "Reservations allocate BigQuery slots to workloads, enabling capacity-based resource management."
+  },
+  {
+    "id": 50,
+    "category": "GCP",
+    "subCategory": "BigQuery",
+    "difficulty": "Medium",
+    "question": "Which Google Cloud service is commonly used to store raw files before loading them into BigQuery?",
+    "image": "",
+    "options": [
+      "Cloud Storage",
+      "Cloud DNS",
+      "Cloud NAT",
+      "Secret Manager"
+    ],
+    "correctAnswer": "Cloud Storage",
+    "explanation": "Cloud Storage is object storage frequently used as a source or staging location for analytics data."
+  }
+]

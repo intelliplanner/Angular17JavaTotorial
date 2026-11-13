@@ -1,0 +1,162 @@
+[
+  {
+    "id": 31,
+    "category": "AWS",
+    "subCategory": "EC2",
+    "difficulty": "Medium",
+    "question": "What is an EC2 instance?",
+    "image": "",
+    "options": [
+      "A virtual server in AWS",
+      "An object storage bucket",
+      "A DNS zone",
+      "A relational database schema"
+    ],
+    "correctAnswer": "A virtual server in AWS",
+    "explanation": "Amazon EC2 provides resizable compute capacity as virtual machine instances."
+  },
+  {
+    "id": 32,
+    "category": "AWS",
+    "subCategory": "EC2",
+    "difficulty": "Medium",
+    "question": "Which feature distributes incoming application traffic across multiple targets?",
+    "image": "",
+    "options": [
+      "Elastic Load Balancing",
+      "AWS Artifact",
+      "EBS snapshot",
+      "CloudTrail Lake"
+    ],
+    "correctAnswer": "Elastic Load Balancing",
+    "explanation": "Elastic Load Balancing distributes traffic across registered targets such as EC2 instances."
+  },
+  {
+    "id": 33,
+    "category": "AWS",
+    "subCategory": "EC2",
+    "difficulty": "Medium",
+    "question": "What is an EC2 security group?",
+    "image": "",
+    "options": [
+      "A stateful virtual firewall for instance traffic",
+      "A billing report",
+      "An encrypted AMI",
+      "A network address translator"
+    ],
+    "correctAnswer": "A stateful virtual firewall for instance traffic",
+    "explanation": "Security groups control inbound and outbound traffic for associated resources and are stateful."
+  },
+  {
+    "id": 34,
+    "category": "AWS",
+    "subCategory": "EC2",
+    "difficulty": "Medium",
+    "question": "What does an Auto Scaling group help maintain?",
+    "image": "",
+    "options": [
+      "A desired number of EC2 instances",
+      "A fixed S3 bucket policy",
+      "A DNS record only",
+      "A VPC CIDR block"
+    ],
+    "correctAnswer": "A desired number of EC2 instances",
+    "explanation": "An Auto Scaling group can maintain desired capacity and adjust instance counts according to policies."
+  },
+  {
+    "id": 35,
+    "category": "AWS",
+    "subCategory": "EC2",
+    "difficulty": "Medium",
+    "question": "What is an Amazon Machine Image (AMI)?",
+    "image": "",
+    "options": [
+      "A template used to launch EC2 instances",
+      "A virtual private network",
+      "A load balancer target group",
+      "An IAM permission boundary"
+    ],
+    "correctAnswer": "A template used to launch EC2 instances",
+    "explanation": "An AMI contains the software and configuration used as a launch template for an EC2 instance."
+  },
+  {
+    "id": 36,
+    "category": "AWS",
+    "subCategory": "EC2",
+    "difficulty": "Medium",
+    "question": "Which option provides persistent block storage for an EC2 instance?",
+    "image": "",
+    "options": [
+      "Amazon EBS",
+      "Amazon Route 53",
+      "AWS WAF",
+      "Amazon SQS"
+    ],
+    "correctAnswer": "Amazon EBS",
+    "explanation": "Amazon EBS provides block storage volumes that can be attached to EC2 instances."
+  },
+  {
+    "id": 37,
+    "category": "AWS",
+    "subCategory": "EC2",
+    "difficulty": "Medium",
+    "question": "What is the role of an EC2 key pair for Linux instances?",
+    "image": "",
+    "options": [
+      "Authenticate access using public-key cryptography",
+      "Encrypt all EBS data automatically",
+      "Set the instance's DNS name",
+      "Scale the instance fleet"
+    ],
+    "correctAnswer": "Authenticate access using public-key cryptography",
+    "explanation": "A key pair can provide SSH authentication; private key handling must be kept secure."
+  },
+  {
+    "id": 38,
+    "category": "AWS",
+    "subCategory": "EC2",
+    "difficulty": "Medium",
+    "question": "Which EC2 purchasing option is designed for fault-tolerant workloads that can be interrupted?",
+    "image": "",
+    "options": [
+      "Spot Instances",
+      "Dedicated Hosts only",
+      "On-Demand Capacity Reservations only",
+      "Savings Plans only"
+    ],
+    "correctAnswer": "Spot Instances",
+    "explanation": "Spot Instances use spare EC2 capacity at a discount and can be interrupted when AWS needs the capacity."
+  },
+  {
+    "id": 39,
+    "category": "AWS",
+    "subCategory": "EC2",
+    "difficulty": "Medium",
+    "question": "What does an Elastic IP address provide?",
+    "image": "",
+    "options": [
+      "A static public IPv4 address that can be associated with supported resources",
+      "A private subnet route table",
+      "An encrypted instance volume",
+      "A managed database endpoint"
+    ],
+    "correctAnswer": "A static public IPv4 address that can be associated with supported resources",
+    "explanation": "An Elastic IP is a static public IPv4 address that can be remapped to supported resources."
+  },
+  {
+    "id": 40,
+    "category": "AWS",
+    "subCategory": "EC2",
+    "difficulty": "Medium",
+    "question": "Which service records AWS API activity for auditing?",
+    "image": "",
+    "options": [
+      "AWS CloudTrail",
+      "Amazon CloudFront",
+      "AWS Batch",
+      "Amazon EFS"
+    ],
+    "correctAnswer": "AWS CloudTrail",
+    "explanation": "CloudTrail records account activity and API events, supporting auditing and investigation."
+  }
+]

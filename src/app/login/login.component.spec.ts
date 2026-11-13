@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { NEVER } from 'rxjs';
 
 import { LoginComponent } from './login.component';
 
@@ -15,7 +16,7 @@ describe('LoginComponent', () => {
       imports: [LoginComponent],
       providers: [
         { provide: Router, useValue: router },
-        { provide: HttpClient, useValue: {} }
+        { provide: HttpClient, useValue: { get: () => NEVER } }
       ]
     })
     .compileComponents();
@@ -35,7 +36,7 @@ describe('LoginComponent', () => {
     component.login('admin', 'admin');
 
     expect(sessionStorage.getItem('isLoggedIn')).toBe('true');
-    expect(router.navigateByUrl).toHaveBeenCalledOnceWith('/dashboard');
+    expect(router.navigateByUrl).toHaveBeenCalledOnceWith('/home');
   });
 
   it('keeps the username and password fields alongside Google sign-in', () => {

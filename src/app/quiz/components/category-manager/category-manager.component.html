@@ -1,0 +1,9 @@
+<main class="category-shell">
+  <header class="category-heading"><div><span class="eyebrow">QUIZ CONTENT</span><h1>Category management</h1><p>Keep topics and subtopics organized for focused practice.</p></div><button class="btn btn-outline-secondary" (click)="exportJson()">Export JSON</button></header>
+  <div class="alert alert-success" *ngIf="message" role="status">{{ message }}</div><div class="alert alert-warning" *ngIf="error" role="alert">{{ error }}</div>
+  <section class="add-card"><div><h2>Add a category</h2><p>Start a new subject area for your question bank.</p></div><div class="add-controls"><input class="form-control" [(ngModel)]="newCategory" (keyup.enter)="addCategory()" placeholder="e.g. TypeScript"><button class="btn btn-primary" (click)="addCategory()">Add category</button></div></section>
+  <section class="category-list"><article class="category-card" *ngFor="let category of categories">
+    <header><div><span class="category-icon">{{ category.name.charAt(0) }}</span><div><h2>{{ category.name }}</h2><span>{{ category.subCategories.length }} subcategories</span></div></div><div class="category-actions"><button class="btn btn-sm btn-outline-secondary" (click)="addSubCategory(category)">＋ Subcategory</button><button class="btn btn-sm btn-outline-primary" (click)="editCategory(category)">Edit</button><button class="btn btn-sm btn-outline-danger" (click)="deleteCategory(category)">Delete</button></div></header>
+    <div class="sub-list"><span *ngFor="let subCategory of category.subCategories" class="sub-pill">{{ subCategory }}<button aria-label="Edit subcategory" (click)="editSubCategory(category, subCategory)">✎</button><button aria-label="Delete subcategory" (click)="deleteSubCategory(category, subCategory)">×</button></span><span *ngIf="!category.subCategories.length" class="empty-sub">No subcategories yet</span></div>
+  </article></section>
+</main>

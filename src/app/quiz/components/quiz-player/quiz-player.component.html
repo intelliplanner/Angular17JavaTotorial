@@ -1,0 +1,60 @@
+<main class="player-shell" *ngIf="session && question">
+  <header class="player-header">
+    <a routerLink="/quiz" class="brand-mark">Q<span>uizLab</span></a>
+    <div class="session-label">{{ session.category }} <span>·</span> {{ session.subCategory }} <span>·</span> {{ session.difficulty }}</div>
+    <div class="timer-pill" [class.timer-warning]="session.remainingSeconds <= 300" role="timer">
+      <span aria-hidden="true">◷</span> {{ timer.format(session.remainingSeconds) }}
+      <span class="visually-hidden">remaining</span>
+    </div>
+  </header>
+  <div class="progress-track"><div class="progress-fill" [style.width.%]="progress"></div></div>
+  <div class="time-warning" *ngIf="session.remainingSeconds <= 300 && session.remainingSeconds > 0" role="status">Five minutes remaining. Your answers are saved automatically.</div>
+
+  <div class="player-layout">
+    <section class="question-panel">
+      <div class="question-meta">
+        <span class="question-count">Question {{ index + 1 }} <span class="muted">of {{ session.questions.length }}</span></span>
+        <span class="save-state"><i></i> Answers saved automatically</span>
+      </div>
+      <h1>{{ question.question }}</h1>
+      <img *ngIf="question.image" [src]="question.image" alt="Question illustration" class="question-image">
+      <fieldset class="answer-list">
+        <legend class="visually-hidden">Choose one answer</legend>
+        <label class="answer-option" *ngFor="let option of question.options; let i = index" [class.selected]="answer?.selectedAnswer === option">
+          <input type="radio" [name]="'answer-' + question.id" [value]="option" [checked]="answer?.selectedAnswer === option" (change)="selectAnswer(option)">
+          <span class="option-letter">{{ 'ABCD'[i] }}</span><span>{{ option }}</span>
+        </label>
+      </fieldset>
+      <div class="question-actions">
+        <button class="btn btn-outline-secondary" (click)="move(-1)" [disabled]="index === 0">← Previous</button>
+        <button class="btn btn-outline-warning review-button" [class.review-active]="answer?.markedForReview" (click)="toggleReview()">
+          {{ answer?.markedForReview ? '★ Marked for review' : '☆ Mark for review' }}
+        </button>
+        <button class="btn btn-primary next-button" *ngIf="index < session.questions.length - 1" (click)="move(1)">Next →</button>
+        <button class="btn btn-success next-button" *ngIf="index === session.questions.length - 1" (click)="confirmSubmit = true">Submit test</button>
+      </div>
+      <button class="skip-link" *ngIf="index < session.questions.length - 1" (click)="move(1)">Skip this question →</button>
+    </section>
+
+    <aside class="question-nav">
+      <h2>Question navigator</h2>
+      <p>{{ attemptedCount }} of {{ session.questions.length }} answered</p>
+      <div class="question-grid">
+        <button *ngFor="let item of session.answers; let i = index"
+          [class.current]="i === index" [class.answered]="item.selectedAnswer !== null"
+          [class.flagged]="item.markedForReview" [attr.aria-label]="'Go to question ' + (i + 1)"
+          (click)="goTo(i)">{{ i + 1 }}</button>
+      </div>
+      <div class="legend"><span><i class="legend-answered"></i> Answered</span><span><i class="legend-flagged"></i> Review</span></div>
+      <button class="btn btn-outline-danger finish-button" (click)="confirmSubmit = true">Finish test</button>
+    </aside>
+  </div>
+
+  <div class="submit-overlay" *ngIf="confirmSubmit" role="dialog" aria-modal="true" aria-labelledby="submit-title">
+    <div class="submit-dialog">
+      <h2 id="submit-title">Submit your test?</h2>
+      <p>You have answered {{ attemptedCount }} of {{ session.questions.length }} questions. You can still go back and change your answers.</p>
+      <div><button class="btn btn-outline-secondary" (click)="confirmSubmit = false">Keep practicing</button><button class="btn btn-primary" (click)="submit()">Submit test</button></div>
+    </div>
+  </div>
+</main>

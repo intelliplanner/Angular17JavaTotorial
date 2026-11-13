@@ -1,0 +1,14 @@
+{
+  "Java": "java.json",
+  "Database": "database.json",
+  "Spring Boot": "spring-boot.json",
+  "Microservices": "microservices.json",
+  "Kafka": "kafka.json",
+  "Docker": "docker.json",
+  "Kubernetes": "kubernetes.json",
+  "AWS": "aws.json",
+  "GCP": "gcp.json",
+  "Angular": "angular.json",
+  "React": "react.json",
+  "JavaScript": "javascript.json"
+}

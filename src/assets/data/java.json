@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Medium",
+    "question": "Which statement about Java interfaces is true?",
+    "image": "",
+    "options": [
+      "An interface can be instantiated directly",
+      "An interface can declare abstract and default methods",
+      "An interface can extend a class",
+      "An interface cannot contain static methods"
+    ],
+    "correctAnswer": "An interface can declare abstract and default methods",
+    "explanation": "Interfaces can declare abstract, default, static, and private methods. They cannot be instantiated directly."
+  },
+  {
+    "id": 2,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Medium",
+    "question": "What does the try-with-resources statement guarantee?",
+    "image": "",
+    "options": [
+      "Every exception is suppressed",
+      "Declared resources are closed automatically",
+      "The block executes on another thread",
+      "All resources are serialized"
+    ],
+    "correctAnswer": "Declared resources are closed automatically",
+    "explanation": "Resources implementing AutoCloseable are closed at the end of the statement, including when an exception occurs."
+  },
+  {
+    "id": 3,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Medium",
+    "question": "What is the result of comparing two strings with ==?",
+    "image": "",
+    "options": [
+      "It always compares their text",
+      "It compares object references",
+      "It compares their hash codes",
+      "It always returns true for equal text"
+    ],
+    "correctAnswer": "It compares object references",
+    "explanation": "The == operator compares reference identity for objects. Use equals() to compare String contents."
+  },
+  {
+    "id": 4,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Medium",
+    "question": "Which keyword prevents a class method from being overridden?",
+    "image": "",
+    "options": [
+      "static",
+      "final",
+      "native",
+      "transient"
+    ],
+    "correctAnswer": "final",
+    "explanation": "A final instance method cannot be overridden by a subclass."
+  },
+  {
+    "id": 5,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Medium",
+    "question": "Which collection preserves insertion order and prevents duplicate elements?",
+    "image": "",
+    "options": [
+      "HashSet",
+      "TreeSet",
+      "LinkedHashSet",
+      "ArrayDeque"
+    ],
+    "correctAnswer": "LinkedHashSet",
+    "explanation": "LinkedHashSet combines set uniqueness with predictable insertion-order iteration."
+  },
+  {
+    "id": 6,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Medium",
+    "question": "Which checked exception is declared by a method that reads a file with FileReader?",
+    "image": "",
+    "options": [
+      "NullPointerException",
+      "IOException",
+      "ArithmeticException",
+      "IllegalStateException"
+    ],
+    "correctAnswer": "IOException",
+    "explanation": "FileReader operations can fail with IOException, which callers must catch or declare."
+  },
+  {
+    "id": 7,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Medium",
+    "question": "What is the primary purpose of the volatile keyword?",
+    "image": "",
+    "options": [
+      "Make increment operations atomic",
+      "Ensure visibility of updates across threads",
+      "Prevent object creation",
+      "Lock a method"
+    ],
+    "correctAnswer": "Ensure visibility of updates across threads",
+    "explanation": "Volatile reads and writes establish visibility guarantees, but compound operations such as count++ are not made atomic."
+  },
+  {
+    "id": 8,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Medium",
+    "question": "Which type should a switch expression use to match arbitrary object values in modern Java?",
+    "image": "",
+    "options": [
+      "Any Object without restrictions",
+      "Only boolean",
+      "A supported selector type such as int, enum, or String",
+      "Only primitive numeric types"
+    ],
+    "correctAnswer": "A supported selector type such as int, enum, or String",
+    "explanation": "Java switch supports defined selector types, including integral types, their wrappers, enums, and Strings."
+  },
+  {
+    "id": 9,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Medium",
+    "question": "What does an unhandled exception in a thread normally cause?",
+    "image": "",
+    "options": [
+      "The entire JVM always exits",
+      "That thread terminates after its uncaught-exception handler runs",
+      "The exception is silently ignored",
+      "All other threads are interrupted"
+    ],
+    "correctAnswer": "That thread terminates after its uncaught-exception handler runs",
+    "explanation": "An uncaught exception terminates the affected thread; the JVM invokes its uncaught-exception handler."
+  },
+  {
+    "id": 10,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Medium",
+    "question": "Which statement about Java records is correct?",
+    "image": "",
+    "options": [
+      "They are designed for transparent data carriers",
+      "They must declare a mutable field",
+      "They cannot implement interfaces",
+      "They are always abstract"
+    ],
+    "correctAnswer": "They are designed for transparent data carriers",
+    "explanation": "Records concisely model data and provide component accessors, equals, hashCode, and toString implementations."
+  },
+  {
+    "id": 11,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Hard",
+    "question": "What happens when a key's hashCode changes after it is inserted into a HashMap?",
+    "image": "",
+    "options": [
+      "The map rehashes the key automatically on every lookup",
+      "The key may become unreachable by normal lookup",
+      "The map sorts the key",
+      "The key is removed immediately"
+    ],
+    "correctAnswer": "The key may become unreachable by normal lookup",
+    "explanation": "A HashMap places entries based on the hash at insertion. Mutating hash-relevant state can make lookups search a different bucket."
+  },
+  {
+    "id": 12,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Hard",
+    "question": "Why should equals() and hashCode() be consistent for HashSet elements?",
+    "image": "",
+    "options": [
+      "The set uses hashCode to choose a bucket and equals to compare candidates",
+      "The set calls equals only for sorting",
+      "The methods are required to return the same value",
+      "The set stores only hash codes"
+    ],
+    "correctAnswer": "The set uses hashCode to choose a bucket and equals to compare candidates",
+    "explanation": "Equal objects must have equal hash codes so hash-based collections can find and deduplicate them correctly."
+  },
+  {
+    "id": 13,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Hard",
+    "question": "What does fail-fast iteration in common Java collections generally indicate?",
+    "image": "",
+    "options": [
+      "Concurrent structural modification may be detected",
+      "Iteration is thread-safe",
+      "The collection automatically retries",
+      "The collection is immutable"
+    ],
+    "correctAnswer": "Concurrent structural modification may be detected",
+    "explanation": "Fail-fast iterators best-effort detect structural changes outside the iterator and may throw ConcurrentModificationException."
+  },
+  {
+    "id": 14,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Hard",
+    "question": "Which operation is typically O(1) average time for a well-distributed HashMap?",
+    "image": "",
+    "options": [
+      "Lookup by key",
+      "Sort all keys",
+      "Find the smallest key",
+      "Iterate all entries"
+    ],
+    "correctAnswer": "Lookup by key",
+    "explanation": "Hash-based lookup is expected constant time under suitable hash distribution; worst cases can be higher."
+  },
+  {
+    "id": 15,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Hard",
+    "question": "Which structure does TreeMap use to keep keys sorted?",
+    "image": "",
+    "options": [
+      "A balanced search tree",
+      "A hash table only",
+      "A linked list",
+      "A stack"
+    ],
+    "correctAnswer": "A balanced search tree",
+    "explanation": "TreeMap is a NavigableMap backed by a balanced tree, with logarithmic basic operations."
+  },
+  {
+    "id": 16,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Hard",
+    "question": "What is a key property of CopyOnWriteArrayList iteration?",
+    "image": "",
+    "options": [
+      "The iterator observes a snapshot",
+      "The iterator locks writers for its lifetime",
+      "The iterator supports remove",
+      "The iterator sees every concurrent update"
+    ],
+    "correctAnswer": "The iterator observes a snapshot",
+    "explanation": "Its iterator traverses a snapshot of the backing array and does not reflect later modifications."
+  },
+  {
+    "id": 17,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Hard",
+    "question": "When does ConcurrentHashMap reject a null key?",
+    "image": "",
+    "options": [
+      "Never",
+      "Always",
+      "Only when empty",
+      "Only during iteration"
+    ],
+    "correctAnswer": "Always",
+    "explanation": "ConcurrentHashMap does not permit null keys or values to avoid ambiguity in concurrent retrieval."
+  },
+  {
+    "id": 18,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Hard",
+    "question": "What is the main advantage of ArrayDeque over Stack for stack operations?",
+    "image": "",
+    "options": [
+      "It is a resizable deque without legacy Vector synchronization overhead",
+      "It sorts elements automatically",
+      "It allows null values",
+      "It is immutable"
+    ],
+    "correctAnswer": "It is a resizable deque without legacy Vector synchronization overhead",
+    "explanation": "ArrayDeque is generally preferred for single-threaded stack and queue use; it is not synchronized and disallows null."
+  },
+  {
+    "id": 19,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Hard",
+    "question": "What determines the ordering used by a TreeSet?",
+    "image": "",
+    "options": [
+      "Natural ordering or a supplied Comparator",
+      "Insertion order only",
+      "Hash code order",
+      "Random order"
+    ],
+    "correctAnswer": "Natural ordering or a supplied Comparator",
+    "explanation": "TreeSet uses natural ordering or the Comparator provided at construction."
+  },
+  {
+    "id": 20,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Hard",
+    "question": "What is the effect of using a Comparator inconsistent with equals in a TreeSet?",
+    "image": "",
+    "options": [
+      "Elements comparing as zero can be treated as duplicates",
+      "The set becomes a HashSet",
+      "The comparator is ignored",
+      "All inserts throw an exception"
+    ],
+    "correctAnswer": "Elements comparing as zero can be treated as duplicates",
+    "explanation": "Sorted sets use compareTo/Comparator equality (zero) to determine element uniqueness."
+  }
+]

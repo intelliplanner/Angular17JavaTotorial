@@ -1,0 +1,162 @@
+[
+  {
+    "id": 21,
+    "category": "Kubernetes",
+    "subCategory": "Pods",
+    "difficulty": "Medium",
+    "question": "What is the smallest deployable object in Kubernetes?",
+    "image": "",
+    "options": [
+      "A node",
+      "A pod",
+      "A namespace",
+      "A service"
+    ],
+    "correctAnswer": "A pod",
+    "explanation": "A Pod is the smallest deployable unit and can contain one or more tightly coupled containers."
+  },
+  {
+    "id": 22,
+    "category": "Kubernetes",
+    "subCategory": "Pods",
+    "difficulty": "Medium",
+    "question": "What happens to a container's writable layer when its Pod is removed?",
+    "image": "",
+    "options": [
+      "It is retained indefinitely",
+      "It is discarded unless data is stored elsewhere",
+      "It is copied to every node",
+      "It becomes a PersistentVolume automatically"
+    ],
+    "correctAnswer": "It is discarded unless data is stored elsewhere",
+    "explanation": "Container writable layers are ephemeral. Persistent data should use an appropriate volume."
+  },
+  {
+    "id": 23,
+    "category": "Kubernetes",
+    "subCategory": "Pods",
+    "difficulty": "Medium",
+    "question": "What does a readiness probe control?",
+    "image": "",
+    "options": [
+      "Whether a container should receive service traffic",
+      "Whether an image can be pulled",
+      "Whether a node joins the cluster",
+      "Whether a Secret is encrypted"
+    ],
+    "correctAnswer": "Whether a container should receive service traffic",
+    "explanation": "A failed readiness probe removes the Pod from matching Service endpoints until it becomes ready again."
+  },
+  {
+    "id": 24,
+    "category": "Kubernetes",
+    "subCategory": "Pods",
+    "difficulty": "Medium",
+    "question": "What is the purpose of a liveness probe?",
+    "image": "",
+    "options": [
+      "Detect a stuck container so it can be restarted",
+      "Choose a Service IP",
+      "Scale a Deployment by CPU",
+      "Schedule a Pod onto a GPU node"
+    ],
+    "correctAnswer": "Detect a stuck container so it can be restarted",
+    "explanation": "A failed liveness probe can cause the kubelet to restart the affected container."
+  },
+  {
+    "id": 25,
+    "category": "Kubernetes",
+    "subCategory": "Pods",
+    "difficulty": "Medium",
+    "question": "Which controller commonly maintains a desired number of interchangeable Pods?",
+    "image": "",
+    "options": [
+      "Deployment",
+      "ConfigMap",
+      "Ingress",
+      "PersistentVolume"
+    ],
+    "correctAnswer": "Deployment",
+    "explanation": "A Deployment manages ReplicaSets and declares a desired number of replicated Pods."
+  },
+  {
+    "id": 26,
+    "category": "Kubernetes",
+    "subCategory": "Pods",
+    "difficulty": "Medium",
+    "question": "How can two containers in the same Pod communicate over localhost?",
+    "image": "",
+    "options": [
+      "They share the Pod network namespace",
+      "They must use a NodePort",
+      "They share a filesystem only",
+      "They cannot communicate"
+    ],
+    "correctAnswer": "They share the Pod network namespace",
+    "explanation": "Containers in a Pod share the network namespace and can reach each other through localhost."
+  },
+  {
+    "id": 27,
+    "category": "Kubernetes",
+    "subCategory": "Pods",
+    "difficulty": "Medium",
+    "question": "Which object is intended to provide non-sensitive configuration data to Pods?",
+    "image": "",
+    "options": [
+      "ConfigMap",
+      "Secret",
+      "EndpointSlice",
+      "ServiceAccount"
+    ],
+    "correctAnswer": "ConfigMap",
+    "explanation": "ConfigMaps store configuration values separately from container images. Sensitive values should use Secrets and appropriate protection."
+  },
+  {
+    "id": 28,
+    "category": "Kubernetes",
+    "subCategory": "Pods",
+    "difficulty": "Medium",
+    "question": "What does a Pod's restartPolicy control?",
+    "image": "",
+    "options": [
+      "Whether containers are restarted after termination",
+      "How many replicas a Deployment creates",
+      "How traffic is load balanced",
+      "How long a node is retained"
+    ],
+    "correctAnswer": "Whether containers are restarted after termination",
+    "explanation": "The Pod restart policy (Always, OnFailure, or Never) determines kubelet behavior for terminated containers."
+  },
+  {
+    "id": 29,
+    "category": "Kubernetes",
+    "subCategory": "Pods",
+    "difficulty": "Medium",
+    "question": "Which field requests a minimum amount of CPU or memory for container scheduling?",
+    "image": "",
+    "options": [
+      "resources.requests",
+      "resources.limits",
+      "securityContext",
+      "volumeMounts"
+    ],
+    "correctAnswer": "resources.requests",
+    "explanation": "Resource requests are used by the scheduler to find a suitable node. Limits cap resource consumption."
+  },
+  {
+    "id": 30,
+    "category": "Kubernetes",
+    "subCategory": "Pods",
+    "difficulty": "Medium",
+    "question": "What is an init container used for?",
+    "image": "",
+    "options": [
+      "Run setup tasks to completion before app containers start",
+      "Expose a Pod outside the cluster",
+      "Store cluster-wide credentials",
+      "Replace the node agent"
+    ],
+    "correctAnswer": "Run setup tasks to completion before app containers start",
+    "explanation": "Init containers run sequentially and must complete successfully before application containers are started."
+  }
+]

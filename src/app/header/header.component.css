@@ -1,6 +1,33 @@
-/* .displayNone {
-    display: none;
+:host{display:block;position:relative;z-index:20}
+.hub-navbar{min-height:68px;padding:0 24px;background:#fff;border-bottom:1px solid #e8edf1}
+.navbar-inner{width:100%;max-width:1280px;margin:auto;display:flex;align-items:center}
+.hub-brand{display:inline-flex;align-items:center;gap:10px;color:#18354a;font-size:.95rem;font-weight:750;white-space:nowrap}
+.hub-brand:hover{color:#18354a}
+.hub-brand strong{color:#31857e}
+.hub-brand-icon{width:33px;height:33px;display:grid;place-items:center;border-radius:9px;color:#fff;background:#1f5962;font-size:.83rem}
+.hub-nav-collapse{align-items:center}
+.hub-nav-links{display:flex;align-items:center;gap:3px;margin-left:auto}
+.hub-nav-links[hidden]{display:none!important}
+.hub-nav-links .nav-link{padding:10px 12px;color:#617486;font-size:.79rem;font-weight:650;white-space:nowrap}
+.hub-nav-links .nav-link:hover,.hub-nav-links .nav-link.active{color:#287d78}
+.hub-nav-links .dropdown-toggle{border:0;background:transparent}
+.hub-nav-actions{display:flex;align-items:center;gap:10px;margin-left:17px}
+.theme-toggle{width:35px;height:35px;border:1px solid #e3e9ec;border-radius:9px;color:#647888;background:#fff}
+.theme-toggle:hover{color:#287d78;background:#f2f8f7}
+.hub-signin{padding:8px 15px;border:0;border-radius:8px;color:#fff;background:#1d5961;font-size:.78rem;font-weight:700}
+.hub-signin:hover{color:#fff;background:#15474e}
+.hub-toggler{display:none;margin-left:auto;border:1px solid #e3e9ec;color:#4d6576}
+[data-theme="dark"] .hub-navbar{background:#1b2b36;border-color:#314451}
+[data-theme="dark"] .hub-brand,[data-theme="dark"] .hub-brand:hover{color:#e7eef3}
+[data-theme="dark"] .hub-nav-links .nav-link{color:#b4c3cd}
+[data-theme="dark"] .hub-nav-links .nav-link:hover,[data-theme="dark"] .hub-nav-links .nav-link.active{color:#7ed7c7}
+[data-theme="dark"] .theme-toggle{border-color:#3a4b56;color:#dae5eb;background:#22333e}
+@media(max-width:991px){
+  .hub-navbar{padding:0 16px}
+  .navbar-inner{min-height:64px;flex-wrap:wrap}
+  .hub-toggler{display:block}
+  .hub-nav-collapse{flex-basis:100%;padding:0 0 15px}
+  .hub-nav-links{align-items:stretch;margin:8px 0 0}
+  .hub-nav-links .nav-link{padding:9px 3px;text-align:left}
+  .hub-nav-actions{justify-content:flex-start;margin:8px 0 0}
 }
-.displayBlock{
-    display: initial;
-} */

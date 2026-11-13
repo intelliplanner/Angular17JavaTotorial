@@ -1,36 +1,81 @@
-<div class="app-layout d-flex">
-  <!-- Sidebar -->
-  <div class="vertical-nav bg-light p-2">
-    <p *ngIf="isLoadingCategories" role="status">Loading categories...</p>
-    <p *ngIf="categoryLoadError" class="text-danger" role="alert">Could not load dashboard categories.</p>
-    <ul class="nav flex-column" *ngIf="!isLoadingCategories && !categoryLoadError">
-      <li class="nav-item" *ngFor="let item of uniqueCategories">
-        <a class="nav-link" (click)="showFiles(item.routeMap)">
-          {{ item.notesCategory }}
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Content Area -->
-  <div class="content-area flex-grow-1 p-3">
-    <div *ngIf="selectedFiles.length" class="d-flex align-items-center gap-2">
-      <label for="fileSelect" class="me-2">Files in this category:</label>
-
-      <select id="fileSelect" class="form-select w-auto"
-              [(ngModel)]="selectedFile" (ngModelChange)="onFileChange()">
-        <option *ngFor="let f of selectedFiles" [value]="f">{{ f }}</option>
-      </select>
-
-      <!-- Open button optional now -->
-      <button class="btn btn-primary" (click)="openSelected()" [disabled]="!selectedFile">
-        Open
-      </button>
+<main class="hub-page">
+  <section class="welcome-panel">
+    <div class="welcome-copy">
+      <span class="eyebrow">TECH INTERVIEW HUB</span>
+      <h1>Build skills for your next opportunity.</h1>
+      <p>Learn a topic, practice interview questions, and track your progress—all in one place.</p>
+      <div class="welcome-actions">
+        <a routerLink="/categorizedNotes" class="btn btn-primary">Explore study notes <i
+            class="fa-solid fa-arrow-right"></i></a>
+        <a routerLink="/quiz" class="btn btn-outline-light"><i class="fa-solid fa-circle-play"></i> Practice quiz</a>
+      </div>
     </div>
 
-    <!-- PDF Viewer -->
-    <div *ngIf="currentUrl" class="pdf-viewer mt-3">
-      <iframe [src]="currentUrl" width="100%" height="800" frameborder="0" loading="lazy"></iframe>
+  </section>
+
+  <section class="next-step-wrap" aria-label="Continue your preparation">
+    <div class="next-step-card">
+      <span class="next-step-icon"><i class="fa-solid"
+          [ngClass]="activeSession ? 'fa-play' : latestResult ? 'fa-rotate-left' : 'fa-compass'"></i></span>
+      <div class="next-step-copy">
+        <span class="eyebrow">YOUR NEXT STEP</span>
+        <h2>{{ nextStepTitle }}</h2>
+      </div>
+      <a [routerLink]="nextStepRoute" class="next-step-link">{{ activeSession ? 'Resume quiz' : latestResult ? 'Review
+        answers' : 'Choose a quiz' }} <i class="fa-solid fa-arrow-right"></i></a>
     </div>
-  </div>
-</div>
+    <div>
+      <p *ngIf="activeSession">{{ activeSession.category }} · {{ activeSession.subCategory }} · {{
+        activeSession.questions.length }} questions</p>
+      <p *ngIf="!activeSession && latestResult">Last score: {{ latestResult.percentage }}% · {{ latestResult.category }}
+        / {{ latestResult.subCategory }}</p>
+      <p *ngIf="!activeSession && !latestResult">Choose a topic and difficulty to begin a practice session.</p>
+    </div>
+  </section>
+  <br>
+  <section class="dashboard-section">
+    <div class="section-heading">
+      <div>
+        <!-- <span class="eyebrow">YOUR QUESTION BANK</span> -->
+        <h2>Choose a practice area</h2>
+      </div>
+      <a routerLink="/quiz" class="section-link">View all quizzes <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <!-- <div class="catalog-grid">
+      <a class="catalog-card" *ngFor="let item of categoryCards" [routerLink]="item.route">
+        <span class="catalog-icon"><i class="fa-solid" [ngClass]="item.icon"></i></span>
+        <span class="catalog-info">
+          <strong>{{ item.name }}</strong>
+          <small>{{ isLoadingQuestions && item.name !== 'Mock tests' ? 'Loading…' : (item.count | number) + (item.name === 'Mock tests' ? ' completed' : ' questions') }}</small>
+        </span>
+        <i class="fa-solid fa-arrow-up-right-from-square catalog-arrow" aria-hidden="true"></i>
+      </a>
+    </div> -->
+    <!-- <p *ngIf="questionLoadError" class="load-error" role="alert">
+      Question totals are unavailable. You can still browse the practice quizzes.
+    </p> -->
+  </section>
+  <br>
+  <section class="dashboard-section paths-section">
+    <div class="section-heading">
+      <div>
+        <!-- <span class="eyebrow">STUDY BY SUBJECT</span> -->
+        <h2>Learning paths</h2>
+      </div>
+      <a routerLink="/categorizedNotes" class="section-link">Browse study notes <i
+          class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <!-- <div class="path-grid">
+      <a class="path-card" *ngFor="let path of learningPaths" [routerLink]="path.route">
+        <span class="path-icon" [ngClass]="'path-' + path.tone"><i class="fa-solid" [ngClass]="path.icon"></i></span>
+        <span class="path-content">
+          <strong>{{ path.name }}</strong>
+          <small>{{ path.topics.join(' · ') }}</small>
+        </span>
+        <i class="fa-solid fa-arrow-right path-arrow" aria-hidden="true"></i>
+      </a>
+    </div> -->
+  </section>
+
+
+</main>
