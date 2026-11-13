@@ -15,8 +15,8 @@
         <a class="nav-link" routerLink="/categorizedNotes" routerLinkActive="active" (click)="closeMenu()">Learn</a>
         <!-- <a class="nav-link" routerLink="/interview" routerLinkActive="active" (click)="closeMenu()">Interview prep</a> -->
         <a class="nav-link" routerLink="/quiz" routerLinkActive="active" (click)="closeMenu()">Practice quiz</a>
-        <a class="nav-link" routerLink="/quiz/questions" routerLinkActive="active" (click)="closeMenu()">Question manager</a>
-        <a class="nav-link" routerLink="/quiz/categories" routerLinkActive="active" (click)="closeMenu()">Categories</a>
+        <a *ngIf="isAdmin" class="nav-link" routerLink="/quiz/questions" routerLinkActive="active" (click)="closeMenu()">Question manager</a>
+        <a *ngIf="isAdmin" class="nav-link" routerLink="/quiz/categories" routerLinkActive="active" (click)="closeMenu()">Categories</a>
       </div>
       <div class="hub-nav-actions">
         <button *ngIf="isLoggedIn" type="button" class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="darkMode ? 'Switch to light mode' : 'Switch to dark mode'">

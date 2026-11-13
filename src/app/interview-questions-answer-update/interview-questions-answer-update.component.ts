@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
+import { getAuthApiUrl } from '../auth-api-url';
 
 @Component({
   selector: 'app-interview-questions-answer-update',
@@ -94,7 +95,7 @@ export class InterviewQuestionsAnswerUpdateComponent {
   delete (payload as any).newCategory;
   delete (payload as any).newSubCategory;
 
-  this.http.put(`${environment.apiUrl}/updateQuestion/${payload.id}`, payload)
+  this.http.put(`${getAuthApiUrl()}/updateQuestion/${payload.id}`, payload, { withCredentials: true })
     .subscribe({
       next: () => {
         this.questions[this.editingIndex!] = payload;
@@ -126,7 +127,7 @@ export class InterviewQuestionsAnswerUpdateComponent {
   deleteQuestion(index: number): void {
     const q = this.questions[index];
     if (confirm(`Delete question: "${q.question}"?`)) {
-      this.http.delete(`${environment.apiUrl}/deleteQuestion/${q.id}`)
+      this.http.delete(`${getAuthApiUrl()}/deleteQuestion/${q.id}`, { withCredentials: true })
         .subscribe({
           next: () => {
             this.questions.splice(index, 1);

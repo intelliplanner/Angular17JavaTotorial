@@ -1,0 +1,16 @@
+[
+  {
+    "username": "test",
+    "role": "learner",
+    "permissions": ["home", "learn", "practiceQuiz"],
+    "salt": "ef502b8fb24ee6d6697f39263a2e3490",
+    "passwordHash": "739b35b4b2f46b31566c60c4ca95ba7917bcbbf501eebf63583a814e8653b2af7fe82d70beffd401731c8eefd8b4d34f93ee826c6d079002ca492f8b1d899412"
+  },
+  {
+    "username": "admin",
+    "role": "admin",
+    "permissions": ["*"],
+    "salt": "e53e56b85b2a35b4b8b8fd1eb5c36c5d",
+    "passwordHash": "a6f4e006cad33f0485d80a7e2bfceb80319a13b74d9a3c48c57c111d60403bfcb80af70877f5ec984bc00dbc095f46440502d14853b958bd1346ee6e432e6b35"
+  }
+]

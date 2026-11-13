@@ -35,14 +35,16 @@ describe('HeaderComponent', () => {
   });
 
   it('clears login state and redirects to login on logout', () => {
-    sessionStorage.setItem('isLoggedIn', 'true');
     spyOn(router, 'navigateByUrl').and.returnValue(Promise.resolve(true));
 
     component.logout();
 
-    expect(sessionStorage.getItem('isLoggedIn')).toBeNull();
     expect(component.isLoggedIn).toBeFalse();
     expect(router.navigateByUrl).toHaveBeenCalledOnceWith('/login');
-    expect(http.post).toHaveBeenCalled();
+    expect(http.post).toHaveBeenCalledWith(
+      jasmine.stringMatching(/\/auth\/logout$/),
+      {},
+      { withCredentials: true }
+    );
   });
 });

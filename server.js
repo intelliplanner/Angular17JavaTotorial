@@ -48,6 +48,7 @@ function getSessionSecret() {
 }
 
 const sessionSecret = getSessionSecret();
+const usersFilePath = path.join(__dirname, 'data', 'users.json');
 const allowedOrigins = new Set([
   'http://localhost:4200',
   'http://127.0.0.1:4200',
@@ -137,6 +138,81 @@ function authUnavailable(response) {
   return false;
 }
 
+function requirePermission(permission) {
+  return (request, response, next) => {
+    const session = verifyAuthToken(readCookie(request, 'app_session'));
+    if (!session) {
+      response.status(401).json({ message: 'Please sign in to access this resource.' });
+      return;
+    }
+
+    const permissions = Array.isArray(session.permissions) ? session.permissions : [];
+    if (!permissions.includes('*') && !permissions.includes(permission)) {
+      response.status(403).json({ message: 'You do not have permission to access this resource.' });
+      return;
+    }
+    next();
+  };
+}
+
+app.post('/auth/login', (request, response) => {
+  response.set('Cache-Control', 'no-store');
+  if (!sessionSecret || sessionSecret.length < 32) {
+    response.status(503).json({ message: 'Authentication is unavailable. Configure a SESSION_SECRET of at least 32 characters.' });
+    return;
+  }
+
+  const { username, password } = request.body || {};
+  if (typeof username !== 'string' || typeof password !== 'string' ||
+      username.length > 128 || password.length > 128) {
+    response.status(400).json({ message: 'Enter a valid username and password.' });
+    return;
+  }
+
+  let users;
+  try {
+    users = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
+  } catch (error) {
+    console.error('Could not read the RBAC user configuration:', error);
+    response.status(500).json({ message: 'Authentication user configuration could not be loaded.' });
+    return;
+  }
+  if (!Array.isArray(users)) {
+    response.status(500).json({ message: 'Authentication user configuration must be a JSON array.' });
+    return;
+  }
+
+  const normalizedUsername = username.trim().toLowerCase();
+  const user = users.find(entry => entry && typeof entry.username === 'string' &&
+    entry.username.toLowerCase() === normalizedUsername);
+  const salt = user && typeof user.salt === 'string' ? user.salt : 'unknown-user-salt';
+  const storedHash = user && typeof user.passwordHash === 'string'
+    ? Buffer.from(user.passwordHash, 'hex')
+    : Buffer.alloc(64);
+  const providedHash = crypto.scryptSync(password, salt, 64);
+  const validHash = storedHash.length === providedHash.length &&
+    crypto.timingSafeEqual(storedHash, providedHash);
+
+  if (!user || !validHash || typeof user.role !== 'string' ||
+      !Array.isArray(user.permissions) ||
+      !user.permissions.every(permission => typeof permission === 'string')) {
+    response.status(401).json({ message: 'Invalid username or password.' });
+    return;
+  }
+
+  const publicUser = {
+    username: user.username,
+    role: user.role,
+    permissions: user.permissions
+  };
+  const sessionToken = signAuthToken({
+    ...publicUser,
+    exp: Math.floor(Date.now() / 1000) + 8 * 60 * 60
+  });
+  setCookie(response, 'app_session', sessionToken, { maxAge: 8 * 60 * 60 });
+  response.json({ authenticated: true, user: publicUser });
+});
+
 app.get('/auth/google/nonce', (request, response) => {
   response.set('Cache-Control', 'no-store');
   if (authUnavailable(response)) {
@@ -198,12 +274,21 @@ app.post('/auth/google/verify', async (request, response) => {
       sub: identity.sub,
       email: identity.email,
       name: identity.name || '',
+      username: identity.email,
+      role: 'learner',
+      permissions: ['home', 'learn', 'practiceQuiz'],
       exp: Math.floor(Date.now() / 1000) + 8 * 60 * 60
     });
     setCookie(response, 'app_session', sessionToken, { maxAge: 8 * 60 * 60 });
     response.json({
       authenticated: true,
-      user: { email: identity.email, name: identity.name || '' }
+      user: {
+        username: identity.email,
+        email: identity.email,
+        name: identity.name || '',
+        role: 'learner',
+        permissions: ['home', 'learn', 'practiceQuiz']
+      }
     });
   } catch (error) {
     console.error('Google sign-in verification failed:', error);
@@ -219,7 +304,13 @@ app.get('/auth/session', (request, response) => {
   }
   response.json({
     authenticated: true,
-    user: { email: session.email, name: session.name }
+    user: {
+      username: session.username,
+      email: session.email,
+      name: session.name,
+      role: session.role,
+      permissions: session.permissions
+    }
   });
 });
 
@@ -278,7 +369,7 @@ app.get('/java-versions', (req, res) => {
   }
 });
 
-app.post('/compile', (req, res) => {
+app.post('/compile', requirePermission('admin'), (req, res) => {
   try {
     const code = req.body.code;
     const javaPath = req.body.javaPath || 'D:\\Software_Installed_Dir\\java\\jdk1.8.0_192';
@@ -329,7 +420,7 @@ app.post('/compile', (req, res) => {
   }
 });
 
-app.post('/saveProgram', (req, res) => {
+app.post('/saveProgram', requirePermission('admin'), (req, res) => {
   const { fileName, code } = req.body;
 
   if (!fileName || !code) {
@@ -349,7 +440,7 @@ app.post('/saveProgram', (req, res) => {
 });
 
 // Get list of saved programs
-app.get('/getSavedPrograms', (req, res) => {
+app.get('/getSavedPrograms', requirePermission('admin'), (req, res) => {
   const fs = require('fs');
   const path = require('path');
   const programsDir = 'src\\assets\\JavaPrograms';
@@ -365,7 +456,7 @@ app.get('/getSavedPrograms', (req, res) => {
 
 
 // Load a specific program
-app.get('/loadProgram', (req, res) => {
+app.get('/loadProgram', requirePermission('admin'), (req, res) => {
   const fs = require('fs');
   const path = require('path');
   const fileName = req.query.fileName;
@@ -402,7 +493,7 @@ const upload = multer({ storage });
 app.use('/javaNotesPdf', express.static(pdfDir));
 
 // Upload + categorize endpoint
-app.post('/uploadPdf', upload.single('pdfFile'), (req, res) => {
+app.post('/uploadPdf', requirePermission('admin'), upload.single('pdfFile'), (req, res) => {
   const { category } = req.body;
 
   if (!req.file) {
@@ -481,7 +572,7 @@ if (!fs.existsSync(qaFilePath)) {
 }
 
 // Save Question API
-app.post('/saveQuestion', (req, res) => {
+app.post('/saveQuestion', requirePermission('admin'), (req, res) => {
   const newQ = req.body;
 
   fs.readFile(qaFilePath, 'utf8', (err, data) => {
@@ -513,7 +604,7 @@ app.post('/saveQuestion', (req, res) => {
 });
 
 // Get all Interview Q&A
-app.get('/getQuestions', (req, res) => {
+app.get('/getQuestions', requirePermission('admin'), (req, res) => {
   try {
     const data = fs.readFileSync(qaFilePath, 'utf-8');
     const questions = JSON.parse(data || '[]');
@@ -526,7 +617,7 @@ app.get('/getQuestions', (req, res) => {
 
 // Save multiple questions at once
 // Save multiple questions at once
-app.post('/saveQuestionsBatch', (req, res) => {
+app.post('/saveQuestionsBatch', requirePermission('admin'), (req, res) => {
   const newQuestions = req.body;
 
   fs.readFile(qaFilePath, 'utf8', (err, data) => {
@@ -554,7 +645,7 @@ app.post('/saveQuestionsBatch', (req, res) => {
 
 
 // ----------------------------- Update Interview Q&A by ID -----------------------------
-app.put('/updateQuestion/:id', (req, res) => {
+app.put('/updateQuestion/:id', requirePermission('admin'), (req, res) => {
   const id = parseInt(req.params.id, 10);
   const updatedQuestion = req.body;
 
@@ -579,7 +670,7 @@ app.put('/updateQuestion/:id', (req, res) => {
 });
 
 // ----------------------------- Delete Interview Q&A by ID -----------------------------
-app.delete('/deleteQuestion/:id', (req, res) => {
+app.delete('/deleteQuestion/:id', requirePermission('admin'), (req, res) => {
   const id = parseInt(req.params.id, 10);
 
   try {

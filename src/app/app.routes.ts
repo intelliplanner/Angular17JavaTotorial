@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { InterviewQuestionsComponent } from './interview-questions/interview-questions.component';
 // import { ExceptionHandlingComponent } from './exception-handling/exception-handling.component';
 import { LoginComponent } from './login/login.component';
-import { authGuard } from './login-guard.guard';
+import { authChildGuard, authGuard } from './login-guard.guard';
 import { JavaNotesComponent } from './java-notes/java-notes.component';
 import { JavaCompilerComponent } from './java-compiler/java-compiler.component';
 import { CategorizedNotesComponent } from './categorized-notes/categorized-notes.component';
@@ -22,48 +22,54 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [authGuard],
-    canActivateChild: [authGuard],
+    canActivateChild: [authChildGuard],
     children: [
-      { path: 'javaNotes', component: JavaNotesComponent, title: 'Java Notes' },
-      { path: 'categorizedNotes', component: CategorizedNotesComponent, title: 'Categorized Notes' },
-      { path: 'home', component: HomeComponent, title: 'Tech Interview Hub' },
-      { path: 'dashboard', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'interior-sample', component: InteriorSampleComponent, title: 'Interior Sample' },
-      { path: 'interview', component: InterviewQuestionsComponent, title: 'Interview' },
-      { path: 'myJavaNotes', component: JavaNotesComponent, title: 'Java Notes' },
-      { path: 'compiler', component: JavaCompilerComponent, title: 'Java Compiler' },
-      { path: 'questionAnswerPanel', component: QuestionAnswerPanelComponent, title: 'Question-Answer-Panel' },
-      { path: 'questionAnswerByCategory', component: InterviewQuestionAnswerCategorywiseComponent, title: 'Question-Answer by Category' },
-      { path: 'updateInterviewQuestionsAnswer', component: InterviewQuestionsAnswerUpdateComponent, title: 'Manage Questions Answers' },
+      { path: 'javaNotes', component: JavaNotesComponent, title: 'Java Notes', data: { permission: 'learn' } },
+      { path: 'categorizedNotes', component: CategorizedNotesComponent, title: 'Categorized Notes', data: { permission: 'learn' } },
+      { path: 'home', component: HomeComponent, title: 'Tech Interview Hub', data: { permission: 'home' } },
+      { path: 'dashboard', redirectTo: 'home', pathMatch: 'full', data: { permission: 'home' } },
+      { path: 'interior-sample', component: InteriorSampleComponent, title: 'Interior Sample', data: { permission: 'admin' } },
+      { path: 'interview', component: InterviewQuestionsComponent, title: 'Interview', data: { permission: 'admin' } },
+      { path: 'myJavaNotes', component: JavaNotesComponent, title: 'Java Notes', data: { permission: 'learn' } },
+      { path: 'compiler', component: JavaCompilerComponent, title: 'Java Compiler', data: { permission: 'admin' } },
+      { path: 'questionAnswerPanel', component: QuestionAnswerPanelComponent, title: 'Question-Answer-Panel', data: { permission: 'admin' } },
+      { path: 'questionAnswerByCategory', component: InterviewQuestionAnswerCategorywiseComponent, title: 'Question-Answer by Category', data: { permission: 'admin' } },
+      { path: 'updateInterviewQuestionsAnswer', component: InterviewQuestionsAnswerUpdateComponent, title: 'Manage Questions Answers', data: { permission: 'admin' } },
       {
         path: 'quiz',
         pathMatch: 'full',
         title: 'Interview Quiz Portal',
+        data: { permission: 'practiceQuiz' },
         loadComponent: () => import('./quiz/components/quiz-dashboard/quiz-dashboard.component').then(module => module.QuizDashboardComponent)
       },
       {
         path: 'quiz/play',
         title: 'Take a Quiz',
+        data: { permission: 'practiceQuiz' },
         loadComponent: () => import('./quiz/components/quiz-player/quiz-player.component').then(module => module.QuizPlayerComponent)
       },
       {
         path: 'quiz/result',
         title: 'Quiz Results',
+        data: { permission: 'practiceQuiz' },
         loadComponent: () => import('./quiz/components/quiz-result/quiz-result.component').then(module => module.QuizResultComponent)
       },
       {
         path: 'quiz/review',
         title: 'Review Answers',
+        data: { permission: 'practiceQuiz' },
         loadComponent: () => import('./quiz/components/review-answer/review-answer.component').then(module => module.ReviewAnswerComponent)
       },
       {
         path: 'quiz/questions',
         title: 'Question Manager',
+        data: { permission: 'admin' },
         loadComponent: () => import('./quiz/components/question-manager/question-manager.component').then(module => module.QuestionManagerComponent)
       },
       {
         path: 'quiz/categories',
         title: 'Category Manager',
+        data: { permission: 'admin' },
         loadComponent: () => import('./quiz/components/category-manager/category-manager.component').then(module => module.CategoryManagerComponent)
       }
     ]

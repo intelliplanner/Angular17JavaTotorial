@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { getAuthApiUrl } from '../auth-api-url';
 
 @Component({
   selector: 'app-java-notes',
@@ -161,7 +162,7 @@ export class JavaNotesComponent implements OnInit {
     formData.append('category', category);
   }
 
-  this.http.post(`${environment.apiUrl}/uploadPdf`, formData).subscribe({
+  this.http.post(`${getAuthApiUrl()}/uploadPdf`, formData, { withCredentials: true }).subscribe({
     next: () => {
       alert('PDF saved and categorized successfully!');
       this.closeDialog();
