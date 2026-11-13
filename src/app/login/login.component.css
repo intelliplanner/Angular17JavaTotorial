@@ -1,0 +1,5 @@
+.google-sign-in-button {
+  display: flex;
+  justify-content: center;
+  min-height: 40px;
+}
