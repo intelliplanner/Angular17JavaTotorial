@@ -73,23 +73,26 @@ npm run server
 
 The backend API will run on `http://localhost:9090` (or `http://192.168.1.10:9090` depending on your network configuration).
 
-### Google Sign-In
+### Authentication and GitHub Pages Login
 
-The login page keeps the existing username/password option and also offers Google sign-in. Google sign-in requires the Express backend:
+GitHub Pages only hosts the Angular frontend. Username/password login requires the separate Express authentication API; the GitHub Pages URL is not the API URL.
 
-1. In Google Cloud Console, add `https://intelliplanner.github.io` as an authorized JavaScript origin. For local development, also add `http://localhost:4200`.
-2. Set a random signing secret of at least 32 characters before starting the backend. In PowerShell (optional for development; the server creates a persistent local secret if omitted):
+1. Deploy the Express backend using the repository's `render.yaml` Blueprint. Render generates a `SESSION_SECRET` and enables secure cookies.
+2. In the GitHub repository, open **Settings → Secrets and variables → Actions → Variables**, add `AUTH_API_URL`, and set it to the deployed backend's HTTPS origin (for example, `https://your-service.onrender.com`, without an `/auth` path).
+3. Configure the Render service's `FRONTEND_ORIGINS` variable as `https://intelliplanner.github.io`. The Render Blueprint includes this default. The API must allow credentialed CORS requests and secure cross-site cookies.
+4. Push to `main` or `dev`, or rerun the GitHub Pages workflow. The production build injects `AUTH_API_URL`; the deployment intentionally fails with a clear error if that variable is missing or is not HTTPS.
+5. To run locally, start the backend and Angular frontend:
 
    ```powershell
    $env:SESSION_SECRET = (node -e "process.stdout.write(require('crypto').randomBytes(32).toString('hex'))")
    npm run server
    ```
 
-3. Keep the frontend and backend on the same host when developing locally. The development app uses the current page hostname and backend port `9090`.
-4. To host the authentication API on Render, create a new Blueprint from this repository and select the `render.yaml` file. Render creates a public HTTPS service and generates a `SESSION_SECRET` automatically.
-5. After Render deploys, copy its service URL into `authApiUrl` in `src/environments/environment.prod.ts`, then push the change so the GitHub Pages workflow rebuilds the frontend. The frontend and backend are separate services: `https://intelliplanner.github.io/Angular17JavaTotorial/#/login` is not an API URL. Configure `https://intelliplanner.github.io` as the frontend origin in both Google Cloud Console and the backend's `FRONTEND_ORIGINS`.
+   The configured local development API is `http://localhost:9090`.
 
-The server validates the Google credential and nonce before issuing an HTTP-only session cookie. Do not expose the session signing secret in frontend environment files.
+The backend validates the configured accounts in `data/users.json` and issues an HTTP-only session cookie. Keep `SESSION_SECRET` and password hashes on the backend; never put the signing secret in frontend environment files.
+
+The starter accounts are `test` / `test` (learner access) and `admin` / `admin` (full access). Replace these demo credentials before exposing the service publicly.
 
 ## Build
 
@@ -157,7 +160,7 @@ src/
 ### Environment Configuration
 
 - **Development** (`environment.ts`): API URL `http://192.168.1.10:9090`
-- **Production** (`environment.prod.ts`): API URL `https://intelliplanner.github.io/Angular17JavaTotorial`
+- **Production** (`environment.prod.ts`): the GitHub Pages workflow injects the `AUTH_API_URL` GitHub Actions variable at build time.
 
 ## API Endpoints
 
