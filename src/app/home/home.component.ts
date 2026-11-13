@@ -23,6 +23,8 @@ export class HomeComponent implements OnInit {
   selectedFiles: string[] = [];
   selectedFile: string | null = null;
   currentUrl: SafeResourceUrl | null = null;
+  isLoadingCategories = true;
+  categoryLoadError = false;
 
   constructor(private sanitizer: DomSanitizer) { }
 
@@ -39,6 +41,7 @@ export class HomeComponent implements OnInit {
           throw new Error('Route mapping manifest must be a JSON array');
         }
         this.categories = data;
+        this.isLoadingCategories = false;
 
         const seen = new Set<string>();
         this.uniqueCategories = data.filter(item => {
@@ -51,7 +54,11 @@ export class HomeComponent implements OnInit {
           this.showFiles(this.uniqueCategories[0].routeMap);
         }
       })
-      .catch(err => console.error('Failed to load route mapping', err));
+      .catch(err => {
+        this.isLoadingCategories = false;
+        this.categoryLoadError = true;
+        console.error('Failed to load route mapping', err);
+      });
   }
 
 showFiles(category: string): void {
@@ -60,12 +67,8 @@ showFiles(category: string): void {
     .map(item => item.fileName);
 
   if (this.selectedFiles.length) {
-    // Default to first file
     this.selectedFile = this.selectedFiles[0];
-
-    // Auto-open the first file
-    const url = `assets/javaNotesPdf/${encodeURIComponent(this.selectedFile)}`;
-    this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    this.currentUrl = null;
   } else {
     this.selectedFile = null;
     this.currentUrl = null;

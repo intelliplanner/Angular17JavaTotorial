@@ -73,6 +73,23 @@ npm run server
 
 The backend API will run on `http://localhost:9090` (or `http://192.168.1.10:9090` depending on your network configuration).
 
+### Google Sign-In
+
+The login page keeps the existing username/password option and also offers Google sign-in. Google sign-in requires the Express backend:
+
+1. In Google Cloud Console, configure the OAuth client ID used by the app and add the frontend origins you use (for example, `http://localhost:4200` and `http://192.168.1.10:4200`) as authorized JavaScript origins.
+2. Set a random signing secret of at least 32 characters before starting the backend. In PowerShell:
+
+   ```powershell
+   $env:SESSION_SECRET = (node -e "process.stdout.write(require('crypto').randomBytes(32).toString('hex'))")
+   npm run server
+   ```
+
+3. Keep the frontend and backend on the same host when developing locally so the secure, HTTP-only sign-in cookies can be sent by the browser. The development app uses the current page hostname and backend port `9090`.
+4. For deployment, set `authApiUrl` in `src/environments/environment.prod.ts` to the public HTTPS backend URL, configure that frontend origin in `FRONTEND_ORIGINS`, and set `COOKIE_SECURE=true` on the backend. Google sign-in will remain unavailable in production until a backend URL is configured.
+
+The server validates the Google credential and nonce before issuing an HTTP-only session cookie. Do not expose the session signing secret in frontend environment files.
+
 ## Build
 
 ### Development Build

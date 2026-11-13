@@ -1,7 +1,9 @@
 <div class="app-layout d-flex">
   <!-- Sidebar -->
   <div class="vertical-nav bg-light p-2">
-    <ul class="nav flex-column">
+    <p *ngIf="isLoadingCategories" role="status">Loading categories...</p>
+    <p *ngIf="categoryLoadError" class="text-danger" role="alert">Could not load dashboard categories.</p>
+    <ul class="nav flex-column" *ngIf="!isLoadingCategories && !categoryLoadError">
       <li class="nav-item" *ngFor="let item of uniqueCategories">
         <a class="nav-link" (click)="showFiles(item.routeMap)">
           {{ item.notesCategory }}
@@ -28,7 +30,7 @@
 
     <!-- PDF Viewer -->
     <div *ngIf="currentUrl" class="pdf-viewer mt-3">
-      <iframe [src]="currentUrl" width="100%" height="800" frameborder="0"></iframe>
+      <iframe [src]="currentUrl" width="100%" height="800" frameborder="0" loading="lazy"></iframe>
     </div>
   </div>
 </div>

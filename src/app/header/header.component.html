@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#/dashboard">Dashboard</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#/interior-sample">Interior Sample</a>
+                </li>
                 <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="java" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Java
@@ -101,17 +104,16 @@
             <!-- Right elements -->
             <div class="d-flex align-items-center justify-content-start">
                 <!-- Icon -->
-                <div [class]="loginClass">
+                <div [hidden]="isLoggedIn">
                     <a [routerLink]="['/login']" class="bi bi-person btn btn-primary btn-lg" role="button" (click)="login()"
                         aria-disabled="true">
                         <i>Login</i>
                     </a>
                 </div>
-                <div [class]="logoutClass">
-                    <a [routerLink]="['/']" class="bi bi-person btn btn-primary btn-lg " role="button" (click)="logout()"
-                        aria-disabled="true">
+                <div [hidden]="!isLoggedIn">
+                    <button type="button" class="bi bi-person btn btn-primary btn-lg" (click)="logout()">
                         <i>Logout</i>
-                    </a>
+                    </button>
                 </div>
             </div>
             <!-- Right elements -->

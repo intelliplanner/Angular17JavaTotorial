@@ -5,7 +5,7 @@
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Sample image">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form>
+                <form (submit)="$event.preventDefault()">
                     <br>
 
                     <!-- Email input -->
@@ -41,20 +41,10 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <p class="text-muted mb-2">Or open a provider sign-in page</p>
-                        <div class="d-grid gap-2">
-                            <a href="https://github.com/login" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-outline-dark">
-                                Continue with GitHub
-                            </a>
-                            <a href="https://accounts.google.com/ServiceLogin" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-outline-danger">
-                                Continue with Google
-                            </a>
-                        </div>
-                        <small class="text-muted d-block mt-2">
-                            These links open the provider websites; they do not sign you in to this app.
-                        </small>
+                        <p class="text-muted mb-2">Or</p>
+                        <div #googleButton class="google-sign-in-button"></div>
+                        <p *ngIf="isGoogleSubmitting" class="text-muted mt-2" role="status">Signing in with Google...</p>
+                        <p *ngIf="errorMessage" class="text-danger mt-2" role="alert">{{ errorMessage }}</p>
                     </div>
 
                 </form>

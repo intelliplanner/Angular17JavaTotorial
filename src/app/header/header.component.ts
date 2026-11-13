@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy } from '@angular/core';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { getAuthApiUrl } from '../auth-api-url';
 
 @Component({
   selector: 'app-header',
@@ -8,18 +12,41 @@ import { RouterLink } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
-   loginClass:any="displayBlock";
-   logoutClass:any="displayNone";
-  login(){
-    // alert("test");
-    // this.loginClass = "displayNone";
-    // this.logoutClass = "displayBlock";
-  }
-  logout(){
-    // alert("test");
-    // this.loginClass = "displayNone";
-    // this.logoutClass = "displayBlock";
+export class HeaderComponent implements OnDestroy {
+  isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+  private readonly navigationSubscription: Subscription;
+
+  constructor(
+    private readonly http: HttpClient,
+    private readonly router: Router
+  ) {
+    this.navigationSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => this.updateLoginState());
   }
 
+  login(): void {
+    this.updateLoginState();
+  }
+
+  logout(): void {
+    sessionStorage.removeItem('isLoggedIn');
+    this.isLoggedIn = false;
+    this.router.navigateByUrl('/login');
+
+    const authApiUrl = getAuthApiUrl();
+    if (authApiUrl) {
+      this.http.post(`${authApiUrl}/auth/logout`, {}, { withCredentials: true }).subscribe({
+        error: error => console.error('Could not clear the server sign-in session:', error)
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.navigationSubscription.unsubscribe();
+  }
+
+  private updateLoginState(): void {
+    this.isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+  }
 }

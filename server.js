@@ -5,17 +5,228 @@ const bodyParser = require('body-parser');
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+const os = require('os');
 
 const app = express();
 
-// Enable CORS for all routes
+const googleClientId = process.env.GOOGLE_CLIENT_ID ||
+  '1061518124608-cvv5gk26kq5hps6677h66dt0u7ndbt4q.apps.googleusercontent.com';
+function getSessionSecret() {
+  if (process.env.SESSION_SECRET) {
+    return process.env.SESSION_SECRET;
+  }
+  if (process.env.NODE_ENV === 'production') {
+    return '';
+  }
+
+  const secretDirectory = path.join(
+    process.env.LOCALAPPDATA || os.homedir(),
+    'IntelliPlanner'
+  );
+  const secretPath = path.join(secretDirectory, 'session-secret');
+  fs.mkdirSync(secretDirectory, { recursive: true, mode: 0o700 });
+
+  try {
+    return fs.readFileSync(secretPath, 'utf8').trim();
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      throw error;
+    }
+  }
+
+  const generatedSecret = crypto.randomBytes(32).toString('hex');
+  try {
+    fs.writeFileSync(secretPath, generatedSecret, { encoding: 'utf8', flag: 'wx', mode: 0o600 });
+    return generatedSecret;
+  } catch (error) {
+    if (error.code !== 'EEXIST') {
+      throw error;
+    }
+    return fs.readFileSync(secretPath, 'utf8').trim();
+  }
+}
+
+const sessionSecret = getSessionSecret();
+const allowedOrigins = new Set([
+  'http://localhost:4200',
+  'http://127.0.0.1:4200',
+  'http://192.168.1.10:4200',
+  'https://intelliplanner.github.io',
+  ...(process.env.FRONTEND_ORIGINS || '').split(',').map(origin => origin.trim()).filter(Boolean)
+]);
+const secureCookies = process.env.COOKIE_SECURE === 'true';
+const cookieSameSite = secureCookies ? 'None' : 'Lax';
+const pendingGoogleNonces = new Map();
+
 app.use(cors({
-  origin: '*',
+  origin(origin, callback) {
+    callback(null, !origin || allowedOrigins.has(origin));
+  },
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type']
 }));
 
 app.use(bodyParser.json());
+
+function signAuthToken(payload) {
+  const encodedPayload = Buffer.from(JSON.stringify(payload)).toString('base64url');
+  const signature = crypto.createHmac('sha256', sessionSecret).update(encodedPayload).digest('base64url');
+  return `${encodedPayload}.${signature}`;
+}
+
+function verifyAuthToken(token) {
+  if (!sessionSecret || typeof token !== 'string') {
+    return null;
+  }
+
+  const [encodedPayload, providedSignature] = token.split('.');
+  if (!encodedPayload || !providedSignature) {
+    return null;
+  }
+
+  const expectedSignature = crypto.createHmac('sha256', sessionSecret).update(encodedPayload).digest();
+  let actualSignature;
+  try {
+    actualSignature = Buffer.from(providedSignature, 'base64url');
+  } catch {
+    return null;
+  }
+  if (actualSignature.length !== expectedSignature.length ||
+      !crypto.timingSafeEqual(actualSignature, expectedSignature)) {
+    return null;
+  }
+
+  try {
+    const payload = JSON.parse(Buffer.from(encodedPayload, 'base64url').toString('utf8'));
+    return payload.exp > Math.floor(Date.now() / 1000) ? payload : null;
+  } catch {
+    return null;
+  }
+}
+
+function readCookie(request, name) {
+  const cookieHeader = request.headers.cookie || '';
+  const cookie = cookieHeader.split(';').map(value => value.trim())
+    .find(value => value.startsWith(`${name}=`));
+  return cookie ? decodeURIComponent(cookie.slice(name.length + 1)) : '';
+}
+
+function setCookie(response, name, value, options = {}) {
+  const parts = [
+    `${name}=${encodeURIComponent(value)}`,
+    `Path=${options.path || '/'}`,
+    'HttpOnly',
+    `SameSite=${cookieSameSite}`,
+    `Max-Age=${options.maxAge || 0}`
+  ];
+  if (secureCookies) {
+    parts.push('Secure');
+  }
+  response.append('Set-Cookie', parts.join('; '));
+}
+
+function authUnavailable(response) {
+  if (!googleClientId || !sessionSecret || sessionSecret.length < 32) {
+    response.status(503).json({
+      message: 'Google authentication is unavailable. Configure GOOGLE_CLIENT_ID and a SESSION_SECRET of at least 32 characters.'
+    });
+    return true;
+  }
+  return false;
+}
+
+app.get('/auth/google/nonce', (request, response) => {
+  response.set('Cache-Control', 'no-store');
+  if (authUnavailable(response)) {
+    return;
+  }
+
+  const now = Math.floor(Date.now() / 1000);
+  for (const [pendingNonce, expiresAt] of pendingGoogleNonces) {
+    if (expiresAt <= now) {
+      pendingGoogleNonces.delete(pendingNonce);
+    }
+  }
+
+  const nonce = crypto.randomBytes(32).toString('hex');
+  pendingGoogleNonces.set(nonce, now + 300);
+  response.json({ nonce });
+});
+
+app.post('/auth/google/verify', async (request, response) => {
+  response.set('Cache-Control', 'no-store');
+  if (authUnavailable(response)) {
+    return;
+  }
+
+  const { credential, nonce } = request.body || {};
+  const expiresAt = typeof nonce === 'string' ? pendingGoogleNonces.get(nonce) : undefined;
+  if (typeof credential !== 'string' || typeof nonce !== 'string' ||
+      !expiresAt || expiresAt <= Math.floor(Date.now() / 1000)) {
+    if (typeof nonce === 'string') {
+      pendingGoogleNonces.delete(nonce);
+    }
+    response.status(401).json({ message: 'Google sign-in expired or could not be verified. Please try again.' });
+    return;
+  }
+  pendingGoogleNonces.delete(nonce);
+
+  try {
+    const tokenInfoUrl = new URL('https://oauth2.googleapis.com/tokeninfo');
+    tokenInfoUrl.searchParams.set('id_token', credential);
+    const googleResponse = await fetch(tokenInfoUrl);
+    if (!googleResponse.ok) {
+      response.status(401).json({ message: 'Google could not verify this sign-in. Please try again.' });
+      return;
+    }
+
+    const identity = await googleResponse.json();
+    const tokenExpiry = Number(identity.exp);
+    const validIssuer = identity.iss === 'accounts.google.com' ||
+      identity.iss === 'https://accounts.google.com';
+    const validEmail = identity.email_verified === true || identity.email_verified === 'true';
+    if (identity.aud !== googleClientId || !validIssuer ||
+        !Number.isFinite(tokenExpiry) || tokenExpiry <= Math.floor(Date.now() / 1000) ||
+        identity.nonce !== nonce || !identity.sub || !validEmail) {
+      response.status(401).json({ message: 'Google sign-in could not be verified. Please try again.' });
+      return;
+    }
+
+    const sessionToken = signAuthToken({
+      sub: identity.sub,
+      email: identity.email,
+      name: identity.name || '',
+      exp: Math.floor(Date.now() / 1000) + 8 * 60 * 60
+    });
+    setCookie(response, 'app_session', sessionToken, { maxAge: 8 * 60 * 60 });
+    response.json({
+      authenticated: true,
+      user: { email: identity.email, name: identity.name || '' }
+    });
+  } catch (error) {
+    console.error('Google sign-in verification failed:', error);
+    response.status(502).json({ message: 'Could not reach Google to verify sign-in. Please try again.' });
+  }
+});
+
+app.get('/auth/session', (request, response) => {
+  const session = verifyAuthToken(readCookie(request, 'app_session'));
+  if (!session) {
+    response.status(401).json({ authenticated: false });
+    return;
+  }
+  response.json({
+    authenticated: true,
+    user: { email: session.email, name: session.name }
+  });
+});
+
+app.post('/auth/logout', (request, response) => {
+  setCookie(response, 'app_session', '', { maxAge: 0 });
+  response.status(204).end();
+});
 
 // Serve static files from src/assets directory
 app.use('/assets', express.static(path.join(__dirname, 'src', 'assets')));
@@ -395,4 +606,3 @@ app.listen(PORT,'0.0.0.0', () => {
   console.log(`✅ CORS enabled for Angular frontend\n`);
 
 });
-

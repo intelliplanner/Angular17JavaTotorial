@@ -14,19 +14,15 @@ import { CategorizedNotesComponent } from './categorized-notes/categorized-notes
 import { QuestionAnswerPanelComponent } from './question-answer-panel/question-answer-panel.component';
 import { InterviewQuestionAnswerCategorywiseComponent } from './interview-question-answer-categorywise/interview-question-answer-categorywise.component';
 import { InterviewQuestionsAnswerUpdateComponent } from './interview-questions-answer-update/interview-questions-answer-update.component';
+import { InteriorSampleComponent } from './interior-sample/interior-sample.component';
 
 export const routes: Routes = [
-
+ { 'path': '', component: LoginComponent, 'title': 'Login Page' },
     { 'path': 'javaNotes', component: JavaNotesComponent, 'title': 'Java Notes' },
     { 'path': 'categorizedNotes', component: CategorizedNotesComponent, 'title': 'Categorized Notes' },
-    { 'path': '', component: JavaNotesComponent, 'title': 'Java Notes' },
     { 'path': 'dashboard', component: HomeComponent, 'title': 'DashBoard' },
-    // { 'path': 'collection', component: CollectionComponent, 'title': 'collection' },
-    // { 'path': 'designPattern', component: DesignpatternComponent, 'title': 'DesignPattern', canActivate: [authGaurd] },
-    // { 'path': 'hibernate', component: HibernateComponent, 'title': 'Hibernate' },
-    // { 'path': 'microservice', component: MicroserviceComponent, 'title': 'Microservice' },
+    { 'path': 'interior-sample', component: InteriorSampleComponent, 'title': 'Interior Sample' },
     { 'path': 'interview', component: InterviewQuestionsComponent, 'title': 'Interview' },
-    // { 'path': 'exceptionHandling', component: ExceptionHandlingComponent, 'title': 'Exception Handling' },
     { 'path': 'login', component: LoginComponent, 'title': 'Login Page' },
     { 'path': 'myJavaNotes', component: JavaNotesComponent, 'title': 'Java Notes' },
     { 'path': 'compiler', component: JavaCompilerComponent, 'title': 'Java Compiler' },
@@ -34,5 +30,11 @@ export const routes: Routes = [
     { 'path': 'questionAnswerByCategory', component: InterviewQuestionAnswerCategorywiseComponent, 'title': 'Question-Answer by Category' },
     { 'path': 'updateInterviewQuestionsAnswer', component: InterviewQuestionsAnswerUpdateComponent, 'title': 'Manage Questions Answers' },
     { 'path': '**', redirectTo: '', pathMatch: 'full' } // Wildcard route - redirect to home
+  // { 'path': 'exceptionHandling', component: ExceptionHandlingComponent, 'title': 'Exception Handling' },
+     // { 'path': 'collection', component: CollectionComponent, 'title': 'collection' },
+    // { 'path': 'designPattern', component: DesignpatternComponent, 'title': 'DesignPattern', canActivate: [authGaurd] },
+    // { 'path': 'hibernate', component: HibernateComponent, 'title': 'Hibernate' },
+    // { 'path': 'microservice', component: MicroserviceComponent, 'title': 'Microservice' },
+    // { 'path': '', component: JavaNotesComponent, 'title': 'Java Notes' },
+  
 ];
-
