@@ -35,6 +35,11 @@ describe('QuestionService', () => {
       get: jasmine.createSpy('get').and.callFake((url: string) => of(
         url.endsWith('question-files.json')
           ? { Java: 'java.json', AWS: 'aws.json' }
+          : url.endsWith('/api/categories')
+            ? [
+              { name: 'Java', subCategories: ['Core Java'] },
+              { name: 'AWS', subCategories: ['EC2'] }
+            ]
           : url.endsWith('java.json') ? [javaQuestion] : [awsQuestion]
       ))
     };
@@ -55,7 +60,8 @@ describe('QuestionService', () => {
       { category: 'AWS', filename: 'aws.json', count: 1 }
     ]);
     expect(service.totalQuestionFileCount).toBe(2);
-    expect(http.get).toHaveBeenCalledTimes(3);
+    expect(service.categories.map(category => category.name)).toEqual(['Java', 'AWS']);
+    expect(http.get).toHaveBeenCalledTimes(4);
   });
 
   it('loads JSON file counts even when quiz questions have local edits', async () => {
@@ -76,6 +82,8 @@ describe('QuestionService', () => {
       get: jasmine.createSpy('get').and.callFake((url: string) => of(
         url.endsWith('question-files.json')
           ? { Java: 'java.json' }
+          : url.endsWith('/api/categories')
+            ? [{ name: 'Java', subCategories: ['Core Java'] }]
           : [fileQuestion]
       ))
     };

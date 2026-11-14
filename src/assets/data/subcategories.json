@@ -1,0 +1,82 @@
+{
+  "Java": [
+    "Core Java",
+    "Collections",
+    "Multithreading",
+    "JVM",
+    "Garbage Collection",
+    "Streams",
+    "Java 8"
+  ],
+  "Database": [
+    "SQL",
+    "PL/SQL",
+    "Oracle",
+    "PostgreSQL",
+    "MySQL"
+  ],
+  "Spring Boot": [
+    "Core",
+    "Web",
+    "Security",
+    "Data",
+    "Actuator"
+  ],
+  "Microservices": [
+    "Architecture",
+    "Communication",
+    "Resilience",
+    "Discovery"
+  ],
+  "Kafka": [
+    "Topics",
+    "Partitions",
+    "Consumer Groups",
+    "Delivery Semantics"
+  ],
+  "Docker": [
+    "Images",
+    "Containers",
+    "Networking",
+    "Compose"
+  ],
+  "Kubernetes": [
+    "Pods",
+    "Services",
+    "Deployment",
+    "ConfigMap",
+    "Helm"
+  ],
+  "AWS": [
+    "EC2",
+    "S3",
+    "IAM",
+    "Lambda",
+    "VPC"
+  ],
+  "GCP": [
+    "GKE",
+    "Cloud Run",
+    "PubSub",
+    "BigQuery",
+    "GCS"
+  ],
+  "Angular": [
+    "Components",
+    "Routing",
+    "Signals",
+    "Forms"
+  ],
+  "React": [
+    "Components",
+    "Hooks",
+    "State",
+    "Rendering"
+  ],
+  "JavaScript": [
+    "Language",
+    "Async",
+    "DOM",
+    "ES Modules"
+  ]
+}

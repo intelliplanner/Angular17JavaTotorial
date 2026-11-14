@@ -12,8 +12,9 @@
     <div class="collapse navbar-collapse hub-nav-collapse" [class.show]="isMenuOpen" id="hubNav">
       <div class="navbar-nav hub-nav-links" [hidden]="loginEnabled && !isLoggedIn">
         <a class="nav-link" routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a>
-        <a class="nav-link" routerLink="/categorizedNotes" routerLinkActive="active" (click)="closeMenu()">Learn</a>
         <a class="nav-link" routerLink="/tutorials" routerLinkActive="active" (click)="closeMenu()">Tutorials</a>
+        <a class="nav-link" routerLink="/categorizedNotes" routerLinkActive="active" (click)="closeMenu()">Interview
+          Notes</a>
         <a class="nav-link" routerLink="/quiz" routerLinkActive="active" (click)="closeMenu()">Practice quiz</a>
         <div *ngIf="settingsEnabled && isAdmin" class="settings-menu" [class.open]="isSettingsOpen">
           <button type="button" class="nav-link settings-toggle" (click)="toggleSettings()"
@@ -35,11 +36,14 @@
         </div>
       </div>
       <div class="hub-nav-actions">
-        <button *ngIf="!loginEnabled || isLoggedIn" type="button" class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="darkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+        <button *ngIf="!loginEnabled || isLoggedIn" type="button" class="theme-toggle" (click)="toggleTheme()"
+          [attr.aria-label]="darkMode ? 'Switch to light mode' : 'Switch to dark mode'">
           <i class="fa-solid" [ngClass]="darkMode ? 'fa-sun' : 'fa-moon'"></i>
         </button>
-        <a *ngIf="loginEnabled && !isLoggedIn" routerLink="/login" class="btn hub-signin" (click)="closeMenu()">Sign in</a>
-        <button *ngIf="loginEnabled && isLoggedIn" type="button" class="btn hub-signin" (click)="logout(); closeMenu()">Sign out</button>
+        <a *ngIf="loginEnabled && !isLoggedIn" routerLink="/login" class="btn hub-signin" (click)="closeMenu()">Sign
+          in</a>
+        <button *ngIf="loginEnabled && isLoggedIn" type="button" class="btn hub-signin"
+          (click)="logout(); closeMenu()">Sign out</button>
       </div>
     </div>
   </div>

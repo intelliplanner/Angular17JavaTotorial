@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { QuizCategory } from '../models/category';
 import { QuizDifficulty, QuizQuestion } from '../models/question';
+import { CategoryService } from './category.service';
 import { StorageService } from './storage.service';
 
 const QUESTION_KEY = 'interview-quiz.questions.v1';
-const CATEGORY_KEY = 'interview-quiz.categories.v1';
 
 export const DEFAULT_CATEGORIES: QuizCategory[] = [
   { name: 'Java', subCategories: ['Core Java', 'Collections', 'Multithreading', 'JVM', 'Garbage Collection', 'Streams', 'Java 8'] },
@@ -33,27 +33,29 @@ export interface QuestionFileCount {
 export class QuestionService {
   private readonly questionsSubject = new BehaviorSubject<QuizQuestion[]>([]);
   private readonly questionFileCountsSubject = new BehaviorSubject<QuestionFileCount[]>([]);
-  private readonly categoriesSubject = new BehaviorSubject<QuizCategory[]>(
-    this.storage.get(CATEGORY_KEY, DEFAULT_CATEGORIES)
-  );
+  private readonly categoriesSubject = new BehaviorSubject<QuizCategory[]>(DEFAULT_CATEGORIES);
   readonly questions$ = this.questionsSubject.asObservable();
   readonly categories$ = this.categoriesSubject.asObservable();
   private loading?: Promise<void>;
 
-  constructor(private readonly http: HttpClient, private readonly storage: StorageService) { }
+  constructor(
+    private readonly http: HttpClient,
+    private readonly storage: StorageService,
+    private readonly categoryService: CategoryService
+  ) { }
 
   async load(): Promise<void> {
     if (this.questionsSubject.value.length) return;
     if (this.loading) return this.loading;
     this.loading = (async () => {
       const saved = this.storage.get<QuizQuestion[] | null>(QUESTION_KEY, null);
-      const { questions: fileQuestions, fileCounts } = await this.loadCategoryFiles();
+      const { questions: fileQuestions, fileCounts, categories } = await this.loadCategoryFiles();
       const questions = saved ?? fileQuestions;
       this.validateQuestions(questions);
       this.questionsSubject.next(questions);
       this.questionFileCountsSubject.next(fileCounts);
+      this.saveCategories(categories);
       if (!saved) this.storage.set(QUESTION_KEY, questions);
-      if (!this.categoriesSubject.value.length) this.saveCategories(DEFAULT_CATEGORIES);
     })();
     try {
       await this.loading;
@@ -106,7 +108,6 @@ export class QuestionService {
       category.subCategories = [...new Set(category.subCategories.map(item => item.trim()).filter(Boolean))];
     }
     this.categoriesSubject.next(categories);
-    this.storage.set(CATEGORY_KEY, categories);
   }
 
   renameCategory(previousName: string, category: QuizCategory): void {
@@ -128,7 +129,15 @@ export class QuestionService {
     this.storage.set(QUESTION_KEY, questions);
   }
 
-  private async loadCategoryFiles(): Promise<{ questions: QuizQuestion[]; fileCounts: QuestionFileCount[] }> {
+  private async loadCategoryFiles(): Promise<{
+    questions: QuizQuestion[];
+    fileCounts: QuestionFileCount[];
+    categories: QuizCategory[];
+  }> {
+    const categories = await this.categoryService.getCategories().toPromise();
+    if (!Array.isArray(categories)) {
+      throw new Error('The category configuration must contain a JSON array.');
+    }
     const manifest = await this.http.get<Record<string, string>>('assets/data/question-files.json').toPromise();
     if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
       throw new Error('The question file manifest must be a category-to-filename object.');
@@ -161,7 +170,8 @@ export class QuestionService {
 
     return {
       questions: questionGroups.flatMap(group => group.questions),
-      fileCounts: questionGroups.map(group => group.fileCount)
+      fileCounts: questionGroups.map(group => group.fileCount),
+      categories
     };
   }
 
