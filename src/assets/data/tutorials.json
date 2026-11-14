@@ -1986,5 +1986,398 @@
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
     "published": true
+  },
+  {
+    "id": "what-is-angular",
+    "title": "What is Angular and Why is it Used?",
+    "category": "Angular",
+    "subCategory": "Basics",
+    "description": "Understand Angular fundamentals and its use in modern web development.",
+    "content": "## What is Angular?\n\nAngular is a TypeScript-based open-source frontend framework developed by Google for building dynamic Single Page Applications (SPA).\n\n## Why Use Angular?\n\n- Component-based architecture.\n- Two-way data binding.\n- Dependency Injection support.\n- Routing support.\n- Lazy loading support.\n- Built-in form handling.\n- Powerful CLI.\n\n## Common Use Cases\n\n- Enterprise applications.\n- Admin dashboards.\n- E-commerce applications.\n- CRM and ERP systems.\n\n## Interview Checkpoint\n\nAngular is a complete frontend framework that provides routing, dependency injection, forms, state management integration, and UI component development capabilities.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Angular",
+      "SPA",
+      "Frontend"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "lazy-loading-vs-eager-loading",
+    "title": "Lazy Loading vs Eager Loading in Angular",
+    "category": "Angular",
+    "subCategory": "Routing",
+    "description": "Learn the difference between lazy loading and eager loading modules.",
+    "content": "## Eager Loading\n\nAll modules are loaded during application startup.\n\n### Advantages\n\n- Simple configuration.\n- No delay after navigation.\n\n### Disadvantages\n\n- Larger bundle size.\n- Slower initial application load.\n\n## Lazy Loading\n\nModules are loaded only when required.\n\n```typescript\n{\n  path: 'admin',\n  loadChildren: () => import('./admin/admin.module')\n    .then(m => m.AdminModule)\n}\n```\n\n### Advantages\n\n- Faster initial loading.\n- Smaller bundle size.\n- Better performance.\n\n## Interview Checkpoint\n\nLazy loading improves application startup performance by loading feature modules only when users navigate to them.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Angular",
+      "Lazy Loading",
+      "Routing"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "constructor-vs-ngoninit",
+    "title": "Constructor vs ngOnInit",
+    "category": "Angular",
+    "subCategory": "Lifecycle",
+    "description": "Understand the differences between constructor and ngOnInit lifecycle hook.",
+    "content": "## Constructor\n\nThe constructor is executed when the component class is instantiated.\n\nUsed for:\n\n- Dependency Injection.\n- Basic object initialization.\n\n```typescript\nconstructor(private service: UserService) {}\n```\n\n## ngOnInit\n\nngOnInit is a lifecycle hook called after Angular initializes component properties.\n\n```typescript\nngOnInit(): void {\n  this.loadUsers();\n}\n```\n\nUsed for:\n\n- API calls.\n- Business initialization logic.\n- Component setup.\n\n## Can We Call ngOnInit() From Constructor?\n\nTechnically yes, but it is not recommended. Angular automatically invokes ngOnInit at the proper lifecycle stage.\n\n## Interview Checkpoint\n\nConstructor is for Dependency Injection. ngOnInit is for initialization logic after Angular creates the component.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Angular",
+      "ngOnInit",
+      "Constructor",
+      "Lifecycle"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "one-way-vs-two-way-binding",
+    "title": "One-Way Binding vs Two-Way Binding",
+    "category": "Angular",
+    "subCategory": "Data Binding",
+    "description": "Learn Angular data binding techniques.",
+    "content": "## One-Way Binding\n\nData flows in a single direction.\n\n### Interpolation\n\n```html\n{{name}}\n```\n\n### Property Binding\n\n```html\n<img [src]='imageUrl'>\n```\n\n## Two-Way Binding\n\nData flows in both directions.\n\n```html\n<input [(ngModel)]='username'>\n```\n\nWhen the value changes in UI, component data updates automatically.\n\n## Interview Checkpoint\n\nTwo-way binding is achieved using ngModel and combines property binding with event binding.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Angular",
+      "Data Binding",
+      "ngModel"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "observable-vs-promise",
+    "title": "Observable vs Promise",
+    "category": "Angular",
+    "subCategory": "RxJS",
+    "description": "Compare Observables and Promises used in Angular applications.",
+    "content": "## Promise\n\nA Promise returns a single value asynchronously.\n\n```typescript\npromise.then(data => console.log(data));\n```\n\n## Observable\n\nAn Observable can emit multiple values over time.\n\n```typescript\nobservable.subscribe(data => console.log(data));\n```\n\n## Comparison\n\n| Feature | Promise | Observable |\n|----------|----------|------------|\n| Values | One | Multiple |\n| Cancellation | No | Yes |\n| Lazy Execution | No | Yes |\n| Operators | Limited | Rich RxJS Operators |\n\n## Interview Checkpoint\n\nAngular HttpClient returns Observables because they support cancellation, transformation, and multiple emissions.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Angular",
+      "RxJS",
+      "Observable",
+      "Promise"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "router-outlet",
+    "title": "What is Router Outlet?",
+    "category": "Angular",
+    "subCategory": "Routing",
+    "description": "Understand the purpose of router-outlet in Angular routing.",
+    "content": "## What is Router Outlet?\n\nRouter outlet is a directive that acts as a placeholder for routed components.\n\n```html\n<router-outlet></router-outlet>\n```\n\nWhen navigation occurs, Angular loads the corresponding component inside the router outlet.\n\n## Example\n\n```typescript\n{ path: 'users', component: UserComponent }\n```\n\nNavigating to /users loads UserComponent inside router-outlet.\n\n## Interview Checkpoint\n\nrouter-outlet serves as the container where Angular dynamically displays routed components.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Angular",
+      "Routing",
+      "Router Outlet"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "angular-directives",
+    "title": "What are Directives in Angular?",
+    "category": "Angular",
+    "subCategory": "Directives",
+    "description": "Learn the types of Angular directives and their usage.",
+    "content": "## What is a Directive?\n\nA Directive is used to modify the behavior or appearance of DOM elements.\n\n## Types of Directives\n\n### Component Directive\n\nComponents are directives with templates.\n\n### Structural Directives\n\nChange DOM layout.\n\nExamples:\n\n```html\n*ngIf\n*ngFor\n*ngSwitch\n```\n\n### Attribute Directives\n\nChange element appearance or behavior.\n\nExamples:\n\n```html\nngClass\nngStyle\n```\n\n## Interview Checkpoint\n\nStructural directives add or remove DOM elements, whereas attribute directives modify existing elements.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Angular",
+      "Directive",
+      "ngIf",
+      "ngFor"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "router-component-module",
+    "title": "Router, Component and Module",
+    "category": "Angular",
+    "subCategory": "Architecture",
+    "description": "Understand Angular core building blocks.",
+    "content": "## Component\n\nA component controls a view.\n\n```typescript\n@Component({...})\nexport class UserComponent {}\n```\n\n## Module\n\nA module groups related components, services, pipes, and directives.\n\n```typescript\n@NgModule({...})\nexport class AppModule {}\n```\n\n## Router\n\nThe Angular Router enables navigation between application views.\n\n```typescript\nRouterModule.forRoot(routes)\n```\n\n## Interview Checkpoint\n\nModules organize the application, components represent UI, and the router handles navigation.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Angular",
+      "Component",
+      "Router",
+      "Module"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "angular-pipes",
+    "title": "Pipes in Angular",
+    "category": "Angular",
+    "subCategory": "Templates",
+    "description": "Transform data for display using Angular Pipes.",
+    "content": "## What is a Pipe?\n\nPipes transform data before it is displayed in the view.\n\n## Built-in Pipes\n\n- date\n- currency\n- uppercase\n- lowercase\n- percent\n- json\n\n## Example\n\n```html\n{{ today | date }}\n{{ amount | currency }}\n```\n\n## Custom Pipe\n\n```typescript\n@Pipe({ name: 'capitalize' })\n```\n\n## Interview Checkpoint\n\nPipes are used only for presentation-layer transformations and should not contain business logic.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Angular",
+      "Pipes",
+      "Custom Pipe"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "dependency-injection-angular",
+    "title": "Dependency Injection in Angular",
+    "category": "Angular",
+    "subCategory": "Architecture",
+    "description": "Understand Angular Dependency Injection and service management.",
+    "content": "## What is Dependency Injection?\n\nDependency Injection (DI) is the process of supplying required dependencies to a class rather than creating them manually.\n\n## Example\n\n```typescript\nconstructor(private userService: UserService) {}\n```\n\nAngular automatically creates and injects the service.\n\n## Benefits\n\n- Loose coupling.\n- Better testability.\n- Reusability.\n- Maintainability.\n\n## Interview Checkpoint\n\nAngular uses a hierarchical injector system to manage service instances throughout the application.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Angular",
+      "Dependency Injection",
+      "Service"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "singleton-service-angular",
+    "title": "Singleton Service in Angular",
+    "category": "Angular",
+    "subCategory": "Services",
+    "description": "Single instance service across the application.",
+    "content": "A singleton service has only one instance throughout the application. It is commonly created using providedIn:'root' and is used for shared business logic and application-wide state.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Angular",
+      "Service",
+      "Singleton"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "rxjs",
+    "title": "What is RxJS?",
+    "category": "Angular",
+    "subCategory": "RxJS",
+    "description": "Reactive programming library.",
+    "content": "RxJS is a library for asynchronous and event-based programming using Observables. Angular uses RxJS for HTTP requests, routing events, and real-time data streams.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Angular",
+      "RxJS",
+      "Observable"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "attribute-vs-structural-directive",
+    "title": "Attribute Directive vs Structural Directive",
+    "category": "Angular",
+    "subCategory": "Directives",
+    "description": "Compare Angular directive types.",
+    "content": "Structural directives modify the DOM layout (e.g., *ngIf, *ngFor). Attribute directives modify the appearance or behavior of existing elements (e.g., ngClass, ngStyle).",
+    "difficulty": "Beginner",
+    "tags": [
+      "Angular",
+      "Directive"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "angular-module",
+    "title": "What is Module?",
+    "category": "Angular",
+    "subCategory": "Architecture",
+    "description": "Angular application organization.",
+    "content": "A module is a container that groups components, services, directives, and pipes into a logical unit. Example: AppModule, FeatureModule.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Angular",
+      "Module"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "component-service-module",
+    "title": "Component vs Service vs Module",
+    "category": "Angular",
+    "subCategory": "Architecture",
+    "description": "Angular building blocks.",
+    "content": "Component handles UI, Service contains business logic, and Module organizes related Angular artifacts.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Angular",
+      "Component",
+      "Service",
+      "Module"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "nodejs",
+    "title": "What is Node.js?",
+    "category": "Angular",
+    "subCategory": "Ecosystem",
+    "description": "JavaScript runtime.",
+    "content": "Node.js is a JavaScript runtime built on Chrome V8. It is required for Angular CLI, npm, and project builds.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Node.js",
+      "Angular"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "component-decorator",
+    "title": "@Component Decorator",
+    "category": "Angular",
+    "subCategory": "Components",
+    "description": "Marks a class as Angular Component.",
+    "content": "@Component is a decorator that defines metadata such as selector, template, and styles for a component.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Angular",
+      "Component"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "change-detection",
+    "title": "What is Change Detection?",
+    "category": "Angular",
+    "subCategory": "Performance",
+    "description": "Angular UI update mechanism.",
+    "content": "Change Detection automatically updates the view whenever component data changes. Angular supports Default and OnPush strategies.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Angular",
+      "Change Detection"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "jquery-map-vs-remove",
+    "title": "jQuery map() vs remove()",
+    "category": "JavaScript",
+    "subCategory": "jQuery",
+    "description": "Different jQuery methods.",
+    "content": "map() transforms selected elements into a collection. remove() deletes elements from the DOM.",
+    "difficulty": "Beginner",
+    "tags": [
+      "jQuery",
+      "map",
+      "remove"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "document-ready",
+    "title": "document.ready()",
+    "category": "JavaScript",
+    "subCategory": "jQuery",
+    "description": "DOM initialization.",
+    "content": "document.ready() executes JavaScript code after the DOM is fully loaded.",
+    "difficulty": "Beginner",
+    "tags": [
+      "jQuery",
+      "DOM"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "jquery-chaining",
+    "title": "jQuery Chaining",
+    "category": "JavaScript",
+    "subCategory": "jQuery",
+    "description": "Calling multiple methods together.",
+    "content": "jQuery chaining allows multiple methods to be executed on the same element in a single statement.",
+    "difficulty": "Beginner",
+    "tags": [
+      "jQuery",
+      "Chaining"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "indexeddb",
+    "title": "IndexedDB",
+    "category": "Angular",
+    "subCategory": "Browser Storage",
+    "description": "Client-side database.",
+    "content": "IndexedDB is a browser-based NoSQL database used to store large amounts of structured data for offline and high-performance applications.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "IndexedDB",
+      "HTML5"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
   }
 ]
