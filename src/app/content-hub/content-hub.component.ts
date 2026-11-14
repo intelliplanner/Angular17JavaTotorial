@@ -43,7 +43,11 @@ const categoryTopics: Record<string, string[]> = {
   GCP: ['GKE', 'Cloud Run', 'Pub/Sub', 'BigQuery', 'GCS'],
   Angular: ['Basics', 'Components', 'Routing', 'Forms', 'RxJS'],
   React: ['Basics', 'Components', 'Hooks', 'State Management'],
-  DevOps: ['CI/CD', 'Linux', 'Terraform', 'Monitoring']
+  DevOps: ['CI/CD', 'Linux', 'Terraform', 'Monitoring'],
+  AI: ['Machine Learning', 'Generative AI', 'Large Language Models', 'Responsible AI'],
+  Claude: ['Claude Models', 'Prompt Engineering', 'Claude API', 'AI Safety'],
+  'Data Science': ['Statistics', 'Machine Learning', 'Data Preparation', 'Model Evaluation'],
+  'Data Engineering': ['Data Pipelines', 'Data Warehousing', 'Stream Processing', 'Data Modeling']
 };
 const categories = Object.keys(categoryTopics);
 const emptyTutorial: TutorialDraft = {

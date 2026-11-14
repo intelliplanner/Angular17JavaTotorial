@@ -10,5 +10,9 @@
   "GCP": "gcp.json",
   "Angular": "angular.json",
   "React": "react.json",
-  "JavaScript": "javascript.json"
+  "JavaScript": "javascript.json",
+  "AI": "ai.json",
+  "Claude": "claude.json",
+  "Data Science": "data-science.json",
+  "Data Engineering": "data-engineering.json"
 }

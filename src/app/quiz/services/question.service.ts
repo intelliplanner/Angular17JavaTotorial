@@ -20,7 +20,11 @@ export const DEFAULT_CATEGORIES: QuizCategory[] = [
   { name: 'GCP', subCategories: ['GKE', 'Cloud Run', 'PubSub', 'BigQuery', 'GCS'] },
   { name: 'Angular', subCategories: ['Components', 'Routing', 'Signals', 'Forms'] },
   { name: 'React', subCategories: ['Components', 'Hooks', 'State', 'Rendering'] },
-  { name: 'JavaScript', subCategories: ['Language', 'Async', 'DOM', 'ES Modules'] }
+  { name: 'JavaScript', subCategories: ['Language', 'Async', 'DOM', 'ES Modules'] },
+  { name: 'AI', subCategories: ['Machine Learning', 'Generative AI', 'Large Language Models', 'Responsible AI'] },
+  { name: 'Claude', subCategories: ['Claude Models', 'Prompt Engineering', 'Claude API', 'AI Safety'] },
+  { name: 'Data Science', subCategories: ['Statistics', 'Machine Learning', 'Data Preparation', 'Model Evaluation'] },
+  { name: 'Data Engineering', subCategories: ['Data Pipelines', 'Data Warehousing', 'Stream Processing', 'Data Modeling'] }
 ];
 
 export interface QuestionFileCount {

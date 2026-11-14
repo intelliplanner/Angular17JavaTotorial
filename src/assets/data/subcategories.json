@@ -78,5 +78,29 @@
     "Async",
     "DOM",
     "ES Modules"
+  ],
+  "AI": [
+    "Machine Learning",
+    "Generative AI",
+    "Large Language Models",
+    "Responsible AI"
+  ],
+  "Claude": [
+    "Claude Models",
+    "Prompt Engineering",
+    "Claude API",
+    "AI Safety"
+  ],
+  "Data Science": [
+    "Statistics",
+    "Machine Learning",
+    "Data Preparation",
+    "Model Evaluation"
+  ],
+  "Data Engineering": [
+    "Data Pipelines",
+    "Data Warehousing",
+    "Stream Processing",
+    "Data Modeling"
   ]
 }

@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "category": "Claude",
+    "subCategory": "Prompt Engineering",
+    "difficulty": "Easy",
+    "question": "Which prompt is most likely to produce a useful, well-scoped response from Claude?",
+    "image": "",
+    "options": [
+      "State the goal, provide relevant context, and specify the desired output",
+      "Provide no context and ask for every possible detail",
+      "Use only ambiguous pronouns and unstated assumptions",
+      "Ask the model to ignore the task and guess the output format"
+    ],
+    "correctAnswer": "State the goal, provide relevant context, and specify the desired output",
+    "explanation": "Clear instructions, relevant context, and an explicit response format make the task easier to interpret and evaluate."
+  },
+  {
+    "id": 2,
+    "category": "Claude",
+    "subCategory": "AI Safety",
+    "difficulty": "Medium",
+    "question": "A document supplied to Claude contains instructions that conflict with the user's request. What is the safest application behavior?",
+    "image": "",
+    "options": [
+      "Treat the document as untrusted data and follow the application's trusted instructions",
+      "Let any instruction in the document override system policy",
+      "Execute every command quoted in the document",
+      "Assume the document is safe because it was uploaded by a user"
+    ],
+    "correctAnswer": "Treat the document as untrusted data and follow the application's trusted instructions",
+    "explanation": "Retrieved or user-provided content can contain prompt injection. Applications should clearly separate trusted instructions from untrusted data and enforce permissions outside the model."
+  },
+  {
+    "id": 3,
+    "category": "Claude",
+    "subCategory": "Claude API",
+    "difficulty": "Medium",
+    "question": "When an application gives Claude a tool definition, what should the application do before performing a consequential action?",
+    "image": "",
+    "options": [
+      "Validate the requested arguments and enforce authorization in application code",
+      "Trust the tool request as proof that the user is authorized",
+      "Execute the request without checking its target",
+      "Expose every available tool to every user"
+    ],
+    "correctAnswer": "Validate the requested arguments and enforce authorization in application code",
+    "explanation": "Model-generated tool calls are input to the application, not an authorization boundary. Validate arguments and permissions before executing actions."
+  },
+  {
+    "id": 4,
+    "category": "Claude",
+    "subCategory": "Claude Models",
+    "difficulty": "Hard",
+    "question": "What is an appropriate way to handle an answer from Claude when factual accuracy is critical?",
+    "image": "",
+    "options": [
+      "Verify important claims against authoritative sources and test the workflow",
+      "Treat confident wording as evidence that the answer is correct",
+      "Remove all human review because the model can reason",
+      "Reuse the answer without checking its date or context"
+    ],
+    "correctAnswer": "Verify important claims against authoritative sources and test the workflow",
+    "explanation": "Language models can produce plausible but incorrect information. High-impact workflows need source verification, testing, and appropriate human review."
+  }
+]

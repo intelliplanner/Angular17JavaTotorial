@@ -28,6 +28,7 @@ export const routes: Routes = [
       { path: 'javaNotes', component: JavaNotesComponent, title: 'Java Notes', data: { permission: 'learn' } },
       { path: 'categorizedNotes', component: CategorizedNotesComponent, title: 'Categorized Notes', data: { permission: 'learn' } },
       { path: 'tutorials', loadComponent: () => import('./content-hub/content-hub.component').then(module => module.ContentHubComponent), title: 'Tutorials & Interview Q&A', data: { permission: 'learn' } },
+      { path: 'learn', loadComponent: () => import('./video-learning/video-learning.component').then(module => module.VideoLearningComponent), title: 'Video Learning', data: { permission: 'learn' } },
       { path: 'home', component: HomeComponent, title: 'Tech Interview Hub', data: { permission: 'home' } },
       { path: 'dashboard', redirectTo: 'home', pathMatch: 'full', data: { permission: 'home' } },
       { path: 'admin-panel', loadComponent: () => import('./content-hub/content-hub.component').then(module => module.ContentHubComponent), title: 'Admin Panel', data: { permission: 'admin' } },
