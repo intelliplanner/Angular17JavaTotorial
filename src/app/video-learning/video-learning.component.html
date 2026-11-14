@@ -1,0 +1,96 @@
+<main class="learning-page">
+  <header class="learning-hero">
+    <div class="hero-copy">
+      <a routerLink="/home" class="back-link"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+      <span class="eyebrow"><i class="fa-solid fa-circle-play"></i> VIDEO LEARNING</span>
+      <h1>Learn by watching.<br><span>Grow by building.</span></h1>
+      <p>Explore learning paths by technology and open videos from the two selected YouTube channels.</p>
+    </div>
+    <div class="learning-progress" aria-label="Learning progress">
+      <span class="progress-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+      <div class="progress-copy"><strong>{{ completedCount }} of {{ videos.length }} paths</strong><span>marked complete</span></div>
+      <div class="progress-track"><span [style.width.%]="progressPercent"></span></div>
+      <b>{{ progressPercent }}%</b>
+    </div>
+    <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div>
+  </header>
+
+  <div *ngIf="loading" class="loading-state" role="status"><span class="spinner-border spinner-border-sm"></span> Loading video library…</div>
+  <div *ngIf="errorMessage" class="alert alert-warning learning-error" role="alert">{{ errorMessage }}</div>
+
+  <ng-container *ngIf="!loading && !errorMessage">
+    <section class="category-section" aria-label="Browse technologies">
+      <div class="section-heading"><div><span class="eyebrow">YOUR LEARNING LIBRARY</span><h2>Choose a technology</h2></div><span>{{ bookmarkedCount }} saved · {{ categories.length }} technologies</span></div>
+      <div class="category-scroller">
+        <button type="button" class="category-chip" [class.active]="selectedCategory === 'All'" (click)="selectCategory('All')">
+          <span class="category-icon all-icon"><i class="fa-solid fa-layer-group"></i></span><span>All videos</span><b>{{ videos.length }}</b>
+        </button>
+        <button *ngFor="let category of categories" type="button" class="category-chip"
+          [class.active]="selectedCategory === category.name" (click)="selectCategory(category.name)">
+          <span class="category-icon" [style.--category-color]="category.color"><i [class]="category.icon"></i></span>
+          <span>{{ category.name }}</span><b>{{ categoryCount(category.name) }}</b>
+        </button>
+      </div>
+    </section>
+
+    <section class="library-section">
+      <div class="library-heading">
+        <div><span class="eyebrow">{{ selectedCategory === 'All' ? 'START EXPLORING' : 'LEARNING PATH' }}</span><h2>{{ selectedCategory === 'All' ? 'Explore video channels' : selectedCategory }}</h2>
+          <p *ngIf="selectedCategoryInfo">{{ selectedCategoryInfo.description }}</p>
+        </div>
+        <label class="search-control"><i class="fa-solid fa-magnifying-glass"></i><input type="search" [(ngModel)]="searchText" placeholder="Search videos or topics" aria-label="Search videos"></label>
+      </div>
+
+      <div class="video-layout" *ngIf="filteredVideos.length; else noVideos">
+        <article class="watch-card" *ngIf="selectedVideo">
+          <div class="video-frame">
+            <div class="search-player">
+              <span class="search-play"><i class="fa-brands fa-youtube"></i></span>
+              <span class="eyebrow">{{ selectedVideo.category }} LEARNING PATH</span>
+              <h3>{{ selectedVideo.title }}</h3>
+              <p>Browse video lessons directly from {{ selectedVideo.channel }}.</p>
+              <a [href]="selectedVideo.youtubeUrl" target="_blank" rel="noopener noreferrer" class="youtube-button">
+                <i class="fa-brands fa-youtube"></i> Browse {{ selectedVideo.channel }}
+              </a>
+            </div>
+          </div>
+          <div class="watch-details">
+            <div class="watch-title-row">
+              <div><div class="video-labels"><span class="category-label">{{ selectedVideo.category }}</span><span>{{ selectedVideo.subCategory }}</span><span class="level-label">{{ selectedVideo.level }}</span></div>
+                <h2>{{ selectedVideo.title }}</h2><p>{{ selectedVideo.description }}</p>
+              </div>
+              <button type="button" class="bookmark-button" (click)="toggleBookmark(selectedVideo)"
+                [attr.aria-label]="isBookmarked(selectedVideo) ? 'Remove bookmark' : 'Save video'"
+                [attr.aria-pressed]="isBookmarked(selectedVideo)">
+                <i [class]="isBookmarked(selectedVideo) ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'"></i>
+              </button>
+            </div>
+            <div class="watch-footer"><span><i class="fa-solid fa-circle-play"></i> {{ selectedVideo.channel }} <span class="dot">·</span> {{ selectedVideo.duration }}</span>
+              <button type="button" class="complete-button" [class.completed]="isCompleted(selectedVideo)" (click)="toggleCompleted(selectedVideo)">
+                <i [class]="isCompleted(selectedVideo) ? 'fa-solid fa-circle-check' : 'fa-regular fa-circle-check'"></i>
+                {{ isCompleted(selectedVideo) ? 'Path completed' : 'Mark path complete' }}
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <aside class="playlist-card" aria-label="Video playlist">
+          <div class="playlist-heading"><div><span class="eyebrow">LEARNING PATHS</span><h2>{{ selectedCategory === 'All' ? 'Explore topics' : selectedCategory + ' resources' }}</h2></div><span>{{ filteredVideos.length }} paths</span></div>
+          <div class="playlist-list">
+            <button *ngFor="let video of filteredVideos" type="button" class="playlist-item"
+              [class.selected]="video.id === selectedVideo?.id" (click)="selectVideo(video)">
+              <span class="thumbnail" [style.background-color]="categoryColor(video.category)">
+                <i class="fa-solid fa-play"></i>
+                <span class="thumbnail-duration">{{ video.duration }}</span>
+              </span>
+              <span class="playlist-copy"><strong>{{ video.title }}</strong><span>{{ video.channel }} · YouTube channel</span><span class="playlist-meta">{{ video.category }} <span>·</span> {{ video.level }}</span></span>
+              <i *ngIf="isCompleted(video)" class="fa-solid fa-circle-check complete-icon" aria-label="Completed"></i>
+            </button>
+          </div>
+          <button type="button" class="next-button" (click)="selectNextVideo()"><i class="fa-solid fa-forward-step"></i> Play next video</button>
+        </aside>
+      </div>
+      <ng-template #noVideos><div class="empty-state"><i class="fa-solid fa-magnifying-glass"></i><h3>No matching videos</h3><p>Try a different search or select another technology.</p></div></ng-template>
+    </section>
+  </ng-container>
+</main>

@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "category": "AI",
+    "subCategory": "Machine Learning",
+    "difficulty": "Easy",
+    "question": "What is the main goal of supervised learning?",
+    "image": "",
+    "options": [
+      "Learn patterns from labeled examples to predict outputs",
+      "Group data without using any examples",
+      "Store every input without building a model",
+      "Manually encode every possible prediction"
+    ],
+    "correctAnswer": "Learn patterns from labeled examples to predict outputs",
+    "explanation": "Supervised learning uses examples paired with target labels or values to learn a mapping that can be applied to new inputs."
+  },
+  {
+    "id": 2,
+    "category": "AI",
+    "subCategory": "Machine Learning",
+    "difficulty": "Medium",
+    "question": "What is a common sign that a model is overfitting?",
+    "image": "",
+    "options": [
+      "It performs well on training data but poorly on unseen data",
+      "It performs equally poorly on training and test data",
+      "It uses fewer features than expected",
+      "It was trained with a validation set"
+    ],
+    "correctAnswer": "It performs well on training data but poorly on unseen data",
+    "explanation": "Overfitting occurs when a model captures noise or details specific to training data and fails to generalize."
+  },
+  {
+    "id": 3,
+    "category": "AI",
+    "subCategory": "Large Language Models",
+    "difficulty": "Medium",
+    "question": "In a transformer language model, what does self-attention help determine?",
+    "image": "",
+    "options": [
+      "Which input tokens are relevant to each token's representation",
+      "The physical location of the training servers",
+      "The exact label for every possible future prompt",
+      "Whether a database index should be created"
+    ],
+    "correctAnswer": "Which input tokens are relevant to each token's representation",
+    "explanation": "Self-attention computes context-dependent relationships between tokens, helping representations incorporate relevant information from the sequence."
+  },
+  {
+    "id": 4,
+    "category": "AI",
+    "subCategory": "Responsible AI",
+    "difficulty": "Hard",
+    "question": "Why should a production AI system be evaluated across representative user groups?",
+    "image": "",
+    "options": [
+      "To identify differences in errors, quality, and potential harms",
+      "To guarantee every prediction is correct",
+      "To remove the need for monitoring after release",
+      "To ensure every group produces identical inputs"
+    ],
+    "correctAnswer": "To identify differences in errors, quality, and potential harms",
+    "explanation": "Evaluation across relevant groups can reveal uneven performance or harms that aggregate metrics might hide; it does not guarantee fairness or eliminate the need for monitoring."
+  }
+]

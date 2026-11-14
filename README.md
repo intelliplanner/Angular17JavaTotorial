@@ -113,6 +113,15 @@ The starter accounts are `test` / `test` (learner access) and `admin` / `admin` 
 - The production frontend can read the bundled JSON files when no API URL is configured; creating or editing content requires the Express backend and a configured `authApiUrl`.
 - Browser bookmarks, tutorial completion, and question votes are stored locally in the current browser.
 
+### Video Learning
+
+- Open `/learn` for a responsive, searchable video library grouped by technology.
+- Categories and lessons are loaded from `src/assets/data/learning-categories.json` and `src/assets/data/learning-videos.json`.
+- YouTube links are restricted to `https://www.youtube.com/@Javatechie` and `https://www.youtube.com/@ApnaCollegeOfficial`. Learners browse those channels directly; the catalog does not embed or link to other videos. Bookmarks and completion progress are kept in browser local storage.
+- AI, Claude, Data Science, and Data Engineering paths are included alongside the original technology categories.
+
+The quiz bank includes AI, Claude, Data Science, and Data Engineering question files. Their categories and subcategories are defined in `src/assets/data/categories.json` and `src/assets/data/subcategories.json`, while interview Q&A entries are stored in `src/assets/data/questions-and-answers.json`.
+
 ### Quiz Category Management
 
 - Quiz categories are stored in `src/assets/data/categories.json`; each category's subcategories are stored separately in `src/assets/data/subcategories.json`.

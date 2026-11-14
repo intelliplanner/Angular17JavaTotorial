@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "category": "Data Science",
+    "subCategory": "Model Evaluation",
+    "difficulty": "Easy",
+    "question": "Why should a test set remain separate from model training and tuning?",
+    "image": "",
+    "options": [
+      "To estimate performance on data not used to fit or select the model",
+      "To increase the number of training labels automatically",
+      "To guarantee the model will never make errors",
+      "To replace validation during model selection"
+    ],
+    "correctAnswer": "To estimate performance on data not used to fit or select the model",
+    "explanation": "A held-out test set provides a less biased estimate of generalization when it is not repeatedly used to tune model choices."
+  },
+  {
+    "id": 2,
+    "category": "Data Science",
+    "subCategory": "Model Evaluation",
+    "difficulty": "Medium",
+    "question": "For a rare disease screening model, why might recall be an important metric?",
+    "image": "",
+    "options": [
+      "It measures the fraction of actual positive cases that are found",
+      "It measures the fraction of all predictions that are correct",
+      "It measures the number of input features",
+      "It measures model training time"
+    ],
+    "correctAnswer": "It measures the fraction of actual positive cases that are found",
+    "explanation": "Recall is true positives divided by all actual positives. Missing a positive case can be costly in screening, though precision and other trade-offs must also be considered."
+  },
+  {
+    "id": 3,
+    "category": "Data Science",
+    "subCategory": "Data Preparation",
+    "difficulty": "Medium",
+    "question": "What is data leakage in a machine-learning workflow?",
+    "image": "",
+    "options": [
+      "Using information during training that would not be available at prediction time",
+      "Removing duplicate rows before analysis",
+      "Encoding a categorical feature using training data",
+      "Splitting records into training and test sets"
+    ],
+    "correctAnswer": "Using information during training that would not be available at prediction time",
+    "explanation": "Leakage gives the model access to target-related or future information unavailable in real use, producing overly optimistic evaluation."
+  },
+  {
+    "id": 4,
+    "category": "Data Science",
+    "subCategory": "Statistics",
+    "difficulty": "Hard",
+    "question": "What does a 95% confidence level mean for a procedure used repeatedly?",
+    "image": "",
+    "options": [
+      "About 95% of intervals produced by the procedure would contain the fixed parameter",
+      "There is a 95% probability that this specific computed interval contains the parameter",
+      "95% of observations lie inside every confidence interval",
+      "The null hypothesis has a 95% probability of being true"
+    ],
+    "correctAnswer": "About 95% of intervals produced by the procedure would contain the fixed parameter",
+    "explanation": "In the frequentist interpretation, the confidence level describes the long-run coverage of the interval-generating procedure under its assumptions."
+  }
+]

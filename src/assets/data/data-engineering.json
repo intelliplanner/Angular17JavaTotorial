@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "category": "Data Engineering",
+    "subCategory": "Data Pipelines",
+    "difficulty": "Easy",
+    "question": "What is the primary purpose of an idempotent data pipeline operation?",
+    "image": "",
+    "options": [
+      "Repeated processing of the same input produces the same final state",
+      "Every retry creates a new copy of every record",
+      "The pipeline can only run once",
+      "All records must arrive in chronological order"
+    ],
+    "correctAnswer": "Repeated processing of the same input produces the same final state",
+    "explanation": "Idempotency makes retries safer by preventing duplicate side effects when a job or message is processed more than once."
+  },
+  {
+    "id": 2,
+    "category": "Data Engineering",
+    "subCategory": "Stream Processing",
+    "difficulty": "Medium",
+    "question": "Why do stream-processing systems use event-time watermarks?",
+    "image": "",
+    "options": [
+      "To estimate how far event time has progressed while allowing for late events",
+      "To guarantee that events arrive in perfect order",
+      "To delete all events older than the current clock time",
+      "To convert a streaming job into a batch job"
+    ],
+    "correctAnswer": "To estimate how far event time has progressed while allowing for late events",
+    "explanation": "A watermark is a progress estimate used to decide when to close event-time windows, balancing latency with tolerance for out-of-order data."
+  },
+  {
+    "id": 3,
+    "category": "Data Engineering",
+    "subCategory": "Data Warehousing",
+    "difficulty": "Medium",
+    "question": "In a dimensional warehouse, what does a fact table usually contain?",
+    "image": "",
+    "options": [
+      "Measurements and keys linking to descriptive dimensions",
+      "Only application source code",
+      "One row containing every possible dimension description",
+      "Unstructured logs without defined fields"
+    ],
+    "correctAnswer": "Measurements and keys linking to descriptive dimensions",
+    "explanation": "Fact tables store measurements at a defined grain and foreign keys to dimensions such as time, product, or customer."
+  },
+  {
+    "id": 4,
+    "category": "Data Engineering",
+    "subCategory": "Data Modeling",
+    "difficulty": "Hard",
+    "question": "Why should a data model explicitly document the grain of a fact table?",
+    "image": "",
+    "options": [
+      "It defines what one row represents and prevents incorrect aggregation",
+      "It automatically partitions the table by every dimension",
+      "It guarantees that source records contain no duplicates",
+      "It determines which SQL engine the warehouse must use"
+    ],
+    "correctAnswer": "It defines what one row represents and prevents incorrect aggregation",
+    "explanation": "A clear grain states the business event represented by each row and informs valid joins, deduplication, and aggregation."
+  }
+]
