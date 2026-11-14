@@ -9,9 +9,11 @@ describe('ContentHubComponent', () => {
   let contentService: jasmine.SpyObj<ContentService>;
   let tutorials: Tutorial[];
   let questions: InterviewQuestion[];
+  let adminRoute = false;
 
   beforeEach(async () => {
     localStorage.clear();
+    adminRoute = false;
     tutorials = [{
       id: 'java-collections', title: 'Java Collections', category: 'Java', subCategory: 'Collections',
       description: 'Learn lists and maps.', content: 'Collections content', difficulty: 'Beginner',
@@ -38,7 +40,12 @@ describe('ContentHubComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            snapshot: { routeConfig: { path: 'tutorials' } },
+            get snapshot() {
+              return {
+                routeConfig: { path: adminRoute ? 'admin-panel' : 'tutorials' },
+                queryParamMap: convertToParamMap({})
+              };
+            },
             queryParamMap: of(convertToParamMap({}))
           }
         }
@@ -53,6 +60,7 @@ describe('ContentHubComponent', () => {
     expect(contentService.getTutorials).toHaveBeenCalledWith(false);
     expect(fixture.nativeElement.textContent).toContain('Java Collections');
     expect(fixture.componentInstance.filteredQuestions.length).toBe(1);
+    expect(fixture.nativeElement.textContent).not.toContain('tutorials.json');
   });
 
   it('filters tutorials by search text and difficulty', () => {
@@ -76,5 +84,17 @@ describe('ContentHubComponent', () => {
     component.markQuestionViewed(questions[0]);
     component.markQuestionViewed(questions[0]);
     expect(questions[0].viewCount).toBe(6);
+  });
+
+  it('shows the tutorials.json count but not quiz file counts in the admin panel', async () => {
+    adminRoute = true;
+    const fixture = TestBed.createComponent(ContentHubComponent);
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.tutorialJsonCount).toBe(1);
+    expect(fixture.nativeElement.textContent).toContain('tutorials.json');
+    expect(fixture.nativeElement.textContent).toContain('1 tutorials');
+    expect(fixture.nativeElement.textContent).not.toContain('Quiz question counts by JSON file');
+    expect(fixture.nativeElement.textContent).not.toContain('java.json');
   });
 });

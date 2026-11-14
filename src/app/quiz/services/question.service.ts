@@ -23,9 +23,16 @@ export const DEFAULT_CATEGORIES: QuizCategory[] = [
   { name: 'JavaScript', subCategories: ['Language', 'Async', 'DOM', 'ES Modules'] }
 ];
 
+export interface QuestionFileCount {
+  category: string;
+  filename: string;
+  count: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class QuestionService {
   private readonly questionsSubject = new BehaviorSubject<QuizQuestion[]>([]);
+  private readonly questionFileCountsSubject = new BehaviorSubject<QuestionFileCount[]>([]);
   private readonly categoriesSubject = new BehaviorSubject<QuizCategory[]>(
     this.storage.get(CATEGORY_KEY, DEFAULT_CATEGORIES)
   );
@@ -40,9 +47,11 @@ export class QuestionService {
     if (this.loading) return this.loading;
     this.loading = (async () => {
       const saved = this.storage.get<QuizQuestion[] | null>(QUESTION_KEY, null);
-      const questions = saved ?? await this.loadCategoryFiles();
+      const { questions: fileQuestions, fileCounts } = await this.loadCategoryFiles();
+      const questions = saved ?? fileQuestions;
       this.validateQuestions(questions);
       this.questionsSubject.next(questions);
+      this.questionFileCountsSubject.next(fileCounts);
       if (!saved) this.storage.set(QUESTION_KEY, questions);
       if (!this.categoriesSubject.value.length) this.saveCategories(DEFAULT_CATEGORIES);
     })();
@@ -55,6 +64,10 @@ export class QuestionService {
 
   get questions(): QuizQuestion[] { return this.questionsSubject.value; }
   get categories(): QuizCategory[] { return this.categoriesSubject.value; }
+  get questionFileCounts(): QuestionFileCount[] { return this.questionFileCountsSubject.value; }
+  get totalQuestionFileCount(): number {
+    return this.questionFileCounts.reduce((total, item) => total + item.count, 0);
+  }
 
   findQuestions(category: string, subCategory: string, difficulty: QuizDifficulty): QuizQuestion[] {
     return this.questions.filter(question =>
@@ -115,7 +128,7 @@ export class QuestionService {
     this.storage.set(QUESTION_KEY, questions);
   }
 
-  private async loadCategoryFiles(): Promise<QuizQuestion[]> {
+  private async loadCategoryFiles(): Promise<{ questions: QuizQuestion[]; fileCounts: QuestionFileCount[] }> {
     const manifest = await this.http.get<Record<string, string>>('assets/data/question-files.json').toPromise();
     if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
       throw new Error('The question file manifest must be a category-to-filename object.');
@@ -140,10 +153,16 @@ export class QuestionService {
       if (questions.some(question => question.category !== category)) {
         throw new Error(`Question file "${filename}" contains a question assigned to another category.`);
       }
-      return questions;
+      return {
+        questions,
+        fileCount: { category, filename, count: questions.length }
+      };
     }));
 
-    return questionGroups.flat();
+    return {
+      questions: questionGroups.flatMap(group => group.questions),
+      fileCounts: questionGroups.map(group => group.fileCount)
+    };
   }
 
   private validateQuestions(value: unknown): asserts value is QuizQuestion[] {

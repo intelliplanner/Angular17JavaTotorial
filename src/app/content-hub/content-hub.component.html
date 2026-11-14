@@ -9,6 +9,7 @@
         : 'Focused tutorials and interview answers to help you build practical skills.' }}</p>
     </div>
     <div class="page-actions">
+      <span class="stat-chip"><i class="fa-solid fa-chart-line"></i> {{ completedTutorialCount }} / {{ publishedTutorialCount }} lessons complete</span>
       <span class="stat-chip"><i class="fa-regular fa-bookmark"></i>
         {{ bookmarkedTutorials.size + bookmarkedQuestions.size }} saved</span>
       <span *ngIf="isAdminPanel" class="admin-chip"><i class="fa-solid fa-shield-halved"></i> Admin access</span>
@@ -69,7 +70,7 @@
       <article *ngIf="selectedTutorial && view === 'tutorials'" class="reading-layout">
         <section class="reading-main">
           <nav class="breadcrumbs" aria-label="Breadcrumb">
-            <button type="button" (click)="selectedTutorial = null">Tutorials</button><span>/</span>
+          <button type="button" (click)="backToTutorials()">Tutorials</button><span>/</span>
             <button type="button" (click)="selectCategory(selectedTutorial.category)">{{ selectedTutorial.category }}</button><span>/</span>
             <span>{{ selectedTutorial.subCategory }}</span>
           </nav>
@@ -84,7 +85,7 @@
               <i [class]="isTutorialBookmarked(selectedTutorial.id) ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'"></i>
               {{ isTutorialBookmarked(selectedTutorial.id) ? 'Saved' : 'Bookmark' }}
             </button>
-            <button type="button" (click)="share('/tutorials', selectedTutorial.title)"><i class="fa-solid fa-arrow-up-from-bracket"></i> Share</button>
+            <button type="button" (click)="shareTutorial(selectedTutorial)"><i class="fa-solid fa-arrow-up-from-bracket"></i> Share</button>
           </div>
           <div class="article-content">
             <ng-container *ngFor="let section of selectedTutorial.content.split('\n\n')">
@@ -148,7 +149,7 @@
               </div>
               <div class="question-actions">
                 <button type="button" class="quiet-action" (click)="copyQuestion(question)"><i class="fa-regular fa-copy"></i> Copy</button>
-                <button type="button" class="quiet-action" (click)="share('/tutorials?view=questions', question.question)"><i class="fa-solid fa-arrow-up-from-bracket"></i> Share</button>
+                <button type="button" class="quiet-action" (click)="shareQuestion(question)"><i class="fa-solid fa-arrow-up-from-bracket"></i> Share</button>
                 <button type="button" class="text-action" (click)="markQuestionViewed(question)">{{ showAnswer[question.id] ? 'Hide answer' : 'Show answer' }} <i [class]="showAnswer[question.id] ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'"></i></button>
               </div>
             </div>
@@ -163,6 +164,10 @@
         <button type="button" [class.active]="view === 'tutorials'" (click)="changeView('tutorials')"><i class="fa-solid fa-book-open"></i> Tutorials</button>
         <button type="button" [class.active]="view === 'questions'" (click)="changeView('questions')"><i class="fa-regular fa-circle-question"></i> Questions &amp; answers</button>
       </nav>
+      <section class="tutorial-file-count-card" aria-label="Tutorial JSON file count">
+        <div><i class="fa-solid fa-file-code"></i><span>tutorials.json</span></div>
+        <strong>{{ tutorialJsonCount }} <span>tutorials</span></strong>
+      </section>
 
       <section *ngIf="view === 'tutorials'" class="admin-workspace">
         <form class="editor-card" (ngSubmit)="saveTutorial()">

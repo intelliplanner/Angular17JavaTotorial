@@ -10,7 +10,16 @@
 .hub-nav-links[hidden]{display:none!important}
 .hub-nav-links .nav-link{padding:10px 12px;color:#617486;font-size:.79rem;font-weight:650;white-space:nowrap}
 .hub-nav-links .nav-link:hover,.hub-nav-links .nav-link.active{color:#287d78}
-.hub-nav-links .dropdown-toggle{border:0;background:transparent}
+.settings-menu{position:relative}
+.hub-nav-links .settings-toggle{display:flex;align-items:center;gap:8px;border:0;background:transparent}
+.settings-caret{font-size:.62rem;transition:transform .15s ease}
+.settings-menu.open .settings-caret{transform:rotate(180deg)}
+.settings-dropdown{position:absolute;top:calc(100% + 5px);right:0;z-index:30;min-width:205px;padding:6px;border:1px solid #e3eaed;border-radius:10px;background:#fff;box-shadow:0 12px 30px #17314a1c}
+.settings-dropdown[hidden]{display:none!important}
+.settings-dropdown a{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:7px;color:#526b7a;font-size:.79rem;font-weight:650;text-decoration:none;white-space:nowrap}
+.settings-dropdown a i{width:15px;color:#708791;text-align:center}
+.settings-dropdown a:hover,.settings-dropdown a.active{background:#edf7f5;color:#18766f}
+.settings-dropdown a:hover i,.settings-dropdown a.active i{color:#18766f}
 .hub-nav-actions{display:flex;align-items:center;gap:10px;margin-left:17px}
 .theme-toggle{width:35px;height:35px;border:1px solid #e3e9ec;border-radius:9px;color:#647888;background:#fff}
 .theme-toggle:hover{color:#287d78;background:#f2f8f7}
@@ -21,6 +30,9 @@
 [data-theme="dark"] .hub-brand,[data-theme="dark"] .hub-brand:hover{color:#e7eef3}
 [data-theme="dark"] .hub-nav-links .nav-link{color:#b4c3cd}
 [data-theme="dark"] .hub-nav-links .nav-link:hover,[data-theme="dark"] .hub-nav-links .nav-link.active{color:#7ed7c7}
+[data-theme="dark"] .settings-dropdown{border-color:#3a4b56;background:#22333e}
+[data-theme="dark"] .settings-dropdown a{color:#c3d0d7}
+[data-theme="dark"] .settings-dropdown a:hover,[data-theme="dark"] .settings-dropdown a.active{background:#2b454a;color:#7ed7c7}
 [data-theme="dark"] .theme-toggle{border-color:#3a4b56;color:#dae5eb;background:#22333e}
 @media(max-width:991px){
   .hub-navbar{padding:0 16px}
@@ -29,5 +41,9 @@
   .hub-nav-collapse{flex-basis:100%;padding:0 0 15px}
   .hub-nav-links{align-items:stretch;margin:8px 0 0}
   .hub-nav-links .nav-link{padding:9px 3px;text-align:left}
+  .settings-menu{width:100%}
+  .hub-nav-links .settings-toggle{width:100%}
+  .settings-dropdown{position:static;margin:2px 0 6px 12px;border:0;border-left:2px solid #dcebe8;border-radius:0;background:transparent;box-shadow:none}
+  .settings-dropdown a{padding:9px 11px}
   .hub-nav-actions{justify-content:flex-start;margin:8px 0 0}
 }

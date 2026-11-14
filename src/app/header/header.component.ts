@@ -15,10 +15,12 @@ import { environment } from '../../environments/environment';
 })
 export class HeaderComponent implements OnDestroy {
   readonly loginEnabled = environment.loginEnabled;
+  readonly settingsEnabled = environment.settingsEnabled;
   isLoggedIn = false;
   isAdmin = !this.loginEnabled;
   darkMode = localStorage.getItem('quiz-dark-mode') === 'true';
   isMenuOpen = false;
+  isSettingsOpen = false;
   private readonly navigationSubscription: Subscription;
 
   constructor(
@@ -39,6 +41,11 @@ export class HeaderComponent implements OnDestroy {
 
   closeMenu(): void {
     this.isMenuOpen = false;
+    this.isSettingsOpen = false;
+  }
+
+  toggleSettings(): void {
+    this.isSettingsOpen = !this.isSettingsOpen;
   }
 
   logout(): void {

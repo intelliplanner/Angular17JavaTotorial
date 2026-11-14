@@ -98,6 +98,7 @@ export class ContentHubComponent implements OnInit {
     this.isAdminPanel = this.route.snapshot.routeConfig?.path === 'admin-panel';
     this.route.queryParamMap.subscribe(params => {
       this.view = params.get('view') === 'questions' ? 'questions' : 'tutorials';
+      this.applyDeepLink(params.get('tutorial'), params.get('question'));
     });
   }
 
@@ -164,12 +165,28 @@ export class ContentHubComponent implements OnInit {
     return this.filteredTutorials.findIndex(item => item.id === this.selectedTutorial?.id);
   }
 
+  get completedTutorialCount(): number {
+    return this.tutorials.filter(item => item.published && this.readTutorials.has(item.id)).length;
+  }
+
+  get publishedTutorialCount(): number {
+    return this.tutorials.filter(item => item.published).length;
+  }
+
+  get tutorialJsonCount(): number {
+    return this.tutorials.length;
+  }
+
   changeView(view: HubView): void {
     this.view = view;
     this.selectedTutorial = null;
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { view: view === 'questions' ? 'questions' : null },
+      queryParams: {
+        view: view === 'questions' ? 'questions' : null,
+        tutorial: null,
+        question: null
+      },
       queryParamsHandling: 'merge'
     });
   }
@@ -182,6 +199,20 @@ export class ContentHubComponent implements OnInit {
   openTutorial(tutorial: Tutorial): void {
     this.selectedTutorial = tutorial;
     this.searchText = '';
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { view: null, tutorial: tutorial.id, question: null },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  backToTutorials(): void {
+    this.selectedTutorial = null;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { tutorial: null },
+      queryParamsHandling: 'merge'
+    });
   }
 
   goToTutorial(offset: number): void {
@@ -238,6 +269,10 @@ export class ContentHubComponent implements OnInit {
   }
 
   copyQuestion(question: InterviewQuestion): void {
+    if (!navigator.clipboard?.writeText) {
+      this.notify('Clipboard access is unavailable in this browser.', true);
+      return;
+    }
     navigator.clipboard.writeText(question.question).then(
       () => this.notify('Question copied to clipboard.'),
       error => {
@@ -247,8 +282,15 @@ export class ContentHubComponent implements OnInit {
     );
   }
 
-  share(urlPath: string, title: string): void {
-    const url = new URL(urlPath, window.location.href).toString();
+  shareTutorial(tutorial: Tutorial): void {
+    this.shareUrl(this.sharePath('/tutorials', { tutorial: tutorial.id }), tutorial.title);
+  }
+
+  shareQuestion(question: InterviewQuestion): void {
+    this.shareUrl(this.sharePath('/tutorials', { view: 'questions', question: question.id }), question.question);
+  }
+
+  private shareUrl(url: string, title: string): void {
     if (navigator.share) {
       navigator.share({ title, url }).catch(error => {
         if (error?.name !== 'AbortError') {
@@ -258,6 +300,10 @@ export class ContentHubComponent implements OnInit {
       });
       return;
     }
+    if (!navigator.clipboard?.writeText) {
+      this.notify('Sharing and clipboard access are unavailable in this browser.', true);
+      return;
+    }
     navigator.clipboard.writeText(url).then(
       () => this.notify('Link copied to clipboard.'),
       error => {
@@ -265,6 +311,11 @@ export class ContentHubComponent implements OnInit {
         this.notify('Could not copy the link. Check browser clipboard permissions.', true);
       }
     );
+  }
+
+  private sharePath(path: string, queryParams: Record<string, string>): string {
+    const appUrl = this.router.serializeUrl(this.router.createUrlTree([path], { queryParams }));
+    return `${window.location.origin}${window.location.pathname}#${appUrl}`;
   }
 
   editTutorial(tutorial: Tutorial): void {
@@ -358,6 +409,8 @@ export class ContentHubComponent implements OnInit {
           next: questions => {
             this.questions = questions;
             this.loading = false;
+            const params = this.route.snapshot.queryParamMap;
+            this.applyDeepLink(params.get('tutorial'), params.get('question'));
           },
           error: error => {
             this.loading = false;
@@ -455,5 +508,15 @@ export class ContentHubComponent implements OnInit {
     window.setTimeout(() => {
       if (this.notification === `${isError ? 'Error: ' : ''}${message}`) this.notification = '';
     }, 5000);
+  }
+
+  private applyDeepLink(tutorialId: string | null, questionId: string | null): void {
+    if (tutorialId) {
+      this.selectedTutorial = this.tutorials.find(item => item.id === tutorialId) ?? null;
+    }
+    if (questionId && this.questions.some(item => item.id === questionId)) {
+      this.view = 'questions';
+      this.showAnswer[questionId] = true;
+    }
   }
 }
