@@ -751,5 +751,427 @@
     "likeCount": 0,
     "dislikeCount": 0,
     "viewCount": 0
+  },
+
+  {
+    "id": "what-is-spring-cloud-config-server",
+    "title": "What is Spring Cloud Config Server?",
+    "category": "Microservices",
+    "subCategory": "Spring Cloud",
+    "question": "What is Spring Cloud Config Server?",
+    "answer": "Spring Cloud Config Server provides centralized external configuration management for distributed microservices using a REST-based API.",
+    "difficulty": "Intermediate",
+    "tags": ["Spring Cloud", "Config Server"]
+  },
+  {
+    "id": "what-is-eureka-server",
+    "title": "What is Netflix Eureka Server?",
+    "category": "Microservices",
+    "subCategory": "Service Discovery",
+    "question": "What is Eureka Server?",
+    "answer": "Eureka Server is a service registry where microservices register themselves and discover other services dynamically.",
+    "difficulty": "Intermediate",
+    "tags": ["Eureka", "Discovery"]
+  },
+  {
+    "id": "enableeurekaclient-vs-enablediscoveryclient",
+    "title": "@EnableEurekaClient vs @EnableDiscoveryClient",
+    "category": "Microservices",
+    "subCategory": "Service Discovery",
+    "question": "Difference between @EnableEurekaClient and @EnableDiscoveryClient?",
+    "answer": "@EnableEurekaClient works only with Eureka, whereas @EnableDiscoveryClient is registry-independent and supports Eureka, Consul, and Zookeeper.",
+    "difficulty": "Intermediate",
+    "tags": ["Eureka", "Discovery Client"]
+  },
+  {
+    "id": "what-is-hystrix",
+    "title": "What is Hystrix?",
+    "category": "Microservices",
+    "subCategory": "Fault Tolerance",
+    "question": "What is Hystrix?",
+    "answer": "Hystrix is a fault-tolerance library that implements the Circuit Breaker pattern to prevent cascading failures in microservices.",
+    "difficulty": "Intermediate",
+    "tags": ["Hystrix", "Circuit Breaker"]
+  },
+  {
+    "id": "what-is-api-gateway",
+    "title": "What is API Gateway?",
+    "category": "Microservices",
+    "subCategory": "Architecture",
+    "question": "What is an API Gateway?",
+    "answer": "An API Gateway is a single entry point that handles routing, security, monitoring, and load balancing for microservices.",
+    "difficulty": "Intermediate",
+    "tags": ["Gateway", "Microservices"]
+  },
+  {
+    "id": "why-api-gateway",
+    "title": "Why Use API Gateway?",
+    "category": "Microservices",
+    "subCategory": "Architecture",
+    "question": "Why do we need an API Gateway?",
+    "answer": "API Gateway centralizes security, routing, load balancing, and prevents frontend changes when backend service URLs change.",
+    "difficulty": "Intermediate",
+    "tags": ["Gateway", "Architecture"]
+  },
+  {
+    "id": "what-is-ribbon",
+    "title": "What is Netflix Ribbon?",
+    "category": "Microservices",
+    "subCategory": "Load Balancing",
+    "question": "What is Netflix Ribbon?",
+    "answer": "Ribbon is a client-side load balancing library that distributes requests among available service instances.",
+    "difficulty": "Intermediate",
+    "tags": ["Ribbon", "Load Balancer"]
+  },
+  {
+    "id": "what-is-zipkin",
+    "title": "What is Zipkin?",
+    "category": "Microservices",
+    "subCategory": "Monitoring",
+    "question": "What is Zipkin used for?",
+    "answer": "Zipkin is a distributed tracing tool used to track and visualize requests across multiple microservices.",
+    "difficulty": "Intermediate",
+    "tags": ["Zipkin", "Tracing"]
+  },
+  {
+    "id": "common-spring-cloud-ports",
+    "title": "Important Spring Cloud Port Numbers",
+    "category": "Microservices",
+    "subCategory": "Interview Facts",
+    "question": "What are commonly used Spring Cloud ports?",
+    "answer": "Config Server: 8888, Eureka Server: 8761, API Gateway: 8765, Zipkin: 9411.",
+    "difficulty": "Beginner",
+    "tags": ["Spring Cloud", "Ports"]
+  },
+  {
+    "id": "what-is-jenkins",
+    "title": "What is Jenkins?",
+    "category": "DevOps",
+    "subCategory": "CI/CD",
+    "question": "What is Jenkins?",
+    "answer": "Jenkins is an open-source CI/CD automation tool used to build, test, and deploy applications automatically.",
+    "difficulty": "Beginner",
+    "tags": ["Jenkins", "CI/CD"]
+  },
+  {
+    "id": "jenkins-poll-scm",
+    "title": "What is POLL SCM in Jenkins?",
+    "category": "DevOps",
+    "subCategory": "Jenkins",
+    "question": "What is POLL SCM in Jenkins?",
+    "answer": "POLL SCM checks the source repository periodically and triggers a build when changes are detected.",
+    "difficulty": "Beginner",
+    "tags": ["Jenkins", "SCM"]
+  },
+  {
+    "id": "jenkins-cron",
+    "title": "Jenkins Cron Expression",
+    "category": "DevOps",
+    "subCategory": "Jenkins",
+    "question": "How does Jenkins schedule jobs?",
+    "answer": "Jenkins uses cron expressions such as */5 * * * * for every 5 minutes and 0 8 * * * for daily execution at 8:00 AM.",
+    "difficulty": "Beginner",
+    "tags": ["Jenkins", "Cron"]
+  },
+  {
+    "id": "what-is-saga-pattern",
+    "title": "What is Saga Pattern?",
+    "category": "Microservices",
+    "subCategory": "Transaction Management",
+    "question": "What is Saga Pattern?",
+    "answer": "Saga Pattern manages distributed transactions using multiple local transactions and compensating actions.",
+    "difficulty": "Advanced",
+    "tags": ["Saga", "Distributed Transactions"]
+  },
+  {
+    "id": "saga-choreography-vs-orchestration",
+    "title": "Choreography vs Orchestration",
+    "category": "Microservices",
+    "subCategory": "Saga Pattern",
+    "question": "Difference between Choreography and Orchestration?",
+    "answer": "Choreography uses event-driven communication between services. Orchestration uses a central coordinator to manage the workflow.",
+    "difficulty": "Advanced",
+    "tags": ["Saga", "Choreography", "Orchestration"]
+  },
+  {
+    "id": "what-is-resilience4j",
+    "title": "What is Resilience4j?",
+    "category": "Microservices",
+    "subCategory": "Fault Tolerance",
+    "question": "What is Resilience4j?",
+    "answer": "Resilience4j is a lightweight fault-tolerance library that provides Circuit Breaker, Retry, Rate Limiter, Bulkhead, Cache, and Time Limiter patterns.",
+    "difficulty": "Intermediate",
+    "tags": ["Resilience4j"]
+  },
+  {
+    "id": "circuit-breaker-pattern",
+    "title": "Circuit Breaker Pattern",
+    "category": "Microservices",
+    "subCategory": "Resilience4j",
+    "question": "What is Circuit Breaker?",
+    "answer": "Circuit Breaker prevents repeated calls to a failing service and returns fallback responses until the service recovers.",
+    "difficulty": "Intermediate",
+    "tags": ["Circuit Breaker"]
+  },
+  {
+    "id": "rate-limiter",
+    "title": "Rate Limiter",
+    "category": "Microservices",
+    "subCategory": "Resilience4j",
+    "question": "What is Rate Limiter?",
+    "answer": "Rate Limiter restricts the number of requests allowed within a specific time period.",
+    "difficulty": "Intermediate",
+    "tags": ["Rate Limiter"]
+  },
+  {
+    "id": "retry-pattern",
+    "title": "Retry Pattern",
+    "category": "Microservices",
+    "subCategory": "Resilience4j",
+    "question": "What is Retry Mechanism?",
+    "answer": "Retry automatically re-executes failed requests based on predefined retry configurations.",
+    "difficulty": "Intermediate",
+    "tags": ["Retry"]
+  },
+  {
+    "id": "bulkhead-pattern",
+    "title": "Bulkhead Pattern",
+    "category": "Microservices",
+    "subCategory": "Resilience4j",
+    "question": "What is Bulkhead Pattern?",
+    "answer": "Bulkhead isolates resources and limits concurrent requests to prevent one service failure from affecting others.",
+    "difficulty": "Intermediate",
+    "tags": ["Bulkhead"]
+  },
+  {
+    "id": "time-limiter",
+    "title": "Time Limiter",
+    "category": "Microservices",
+    "subCategory": "Resilience4j",
+    "question": "What is Time Limiter?",
+    "answer": "Time Limiter defines a maximum execution time for remote service calls and triggers timeout handling if exceeded.",
+    "difficulty": "Intermediate",
+    "tags": ["Time Limiter"]
+  },
+  {
+    "id": "spring-cloud-stream",
+    "title": "What is Spring Cloud Stream?",
+    "category": "Microservices",
+    "subCategory": "Messaging",
+    "question": "What is Spring Cloud Stream?",
+    "answer": "Spring Cloud Stream is a framework for building event-driven microservices using messaging platforms such as Kafka and RabbitMQ.",
+    "difficulty": "Intermediate",
+    "tags": ["Spring Cloud Stream", "Kafka", "RabbitMQ"]
+  },
+  {
+    "id": "webflux-integration-test",
+    "title": "WebFlux Integration Testing",
+    "category": "Spring Boot",
+    "subCategory": "Testing",
+    "question": "How do you write integration tests in Spring WebFlux?",
+    "answer": "Spring WebFlux integration tests are typically written using JUnit, Mockito, WebTestClient, and @SpringBootTest.",
+    "difficulty": "Intermediate",
+    "tags": ["WebFlux", "JUnit", "Mockito"]
+  },
+  {
+    "id": "what-is-microservice",
+    "title": "What is Microservice Architecture?",
+    "category": "Microservices",
+    "subCategory": "Architecture",
+    "question": "What is Microservice Architecture?",
+    "answer": "Microservice architecture is an approach where an application is divided into small, independent services that communicate through APIs.",
+    "difficulty": "Beginner",
+    "tags": ["Microservices", "Architecture"]
+  },
+  {
+    "id": "microservices-vs-monolith",
+    "title": "Microservices vs Monolithic",
+    "category": "Microservices",
+    "subCategory": "Architecture",
+    "question": "Difference between Monolithic and Microservices Architecture?",
+    "answer": "Monolithic applications are deployed as a single unit, while Microservices are independently deployable services.",
+    "difficulty": "Intermediate",
+    "tags": ["Microservices", "Monolithic"]
+  },
+  {
+    "id": "benefits-of-microservices",
+    "title": "Advantages of Microservices",
+    "category": "Microservices",
+    "subCategory": "Architecture",
+    "question": "What are the advantages of Microservices?",
+    "answer": "Independent deployment, scalability, fault isolation, technology flexibility, and faster development.",
+    "difficulty": "Beginner",
+    "tags": ["Microservices", "Advantages"]
+  },
+  {
+    "id": "disadvantages-of-microservices",
+    "title": "Disadvantages of Microservices",
+    "category": "Microservices",
+    "subCategory": "Architecture",
+    "question": "What are the disadvantages of Microservices?",
+    "answer": "Increased complexity, distributed transactions, network latency, monitoring challenges, and deployment overhead.",
+    "difficulty": "Intermediate",
+    "tags": ["Microservices", "Disadvantages"]
+  },
+  {
+    "id": "service-discovery",
+    "title": "Service Discovery",
+    "category": "Microservices",
+    "subCategory": "Discovery",
+    "question": "What is Service Discovery?",
+    "answer": "Service Discovery allows services to find and communicate with each other dynamically without hardcoded URLs.",
+    "difficulty": "Intermediate",
+    "tags": ["Eureka", "Service Discovery"]
+  },
+  {
+    "id": "client-side-load-balancing",
+    "title": "Client Side Load Balancing",
+    "category": "Microservices",
+    "subCategory": "Load Balancing",
+    "question": "What is Client Side Load Balancing?",
+    "answer": "The client chooses the service instance using a load balancing algorithm such as Round Robin.",
+    "difficulty": "Intermediate",
+    "tags": ["Ribbon", "Load Balancing"]
+  },
+  {
+    "id": "server-side-load-balancing",
+    "title": "Server Side Load Balancing",
+    "category": "Microservices",
+    "subCategory": "Load Balancing",
+    "question": "What is Server Side Load Balancing?",
+    "answer": "A dedicated load balancer receives requests and forwards them to available service instances.",
+    "difficulty": "Intermediate",
+    "tags": ["Load Balancer"]
+  },
+  {
+    "id": "circuit-breaker-state",
+    "title": "Circuit Breaker States",
+    "category": "Microservices",
+    "subCategory": "Fault Tolerance",
+    "question": "What are the states of Circuit Breaker?",
+    "answer": "Closed, Open, and Half-Open.",
+    "difficulty": "Intermediate",
+    "tags": ["Circuit Breaker"]
+  },
+  {
+    "id": "fallback-method",
+    "title": "Fallback Method",
+    "category": "Microservices",
+    "subCategory": "Fault Tolerance",
+    "question": "What is a Fallback Method?",
+    "answer": "A fallback method provides an alternative response when a remote service call fails.",
+    "difficulty": "Intermediate",
+    "tags": ["Circuit Breaker", "Fallback"]
+  },
+  {
+    "id": "distributed-transaction",
+    "title": "Distributed Transaction",
+    "category": "Microservices",
+    "subCategory": "Transaction",
+    "question": "What is a Distributed Transaction?",
+    "answer": "A transaction that spans multiple microservices or databases.",
+    "difficulty": "Advanced",
+    "tags": ["Distributed Transaction"]
+  },
+  {
+    "id": "cqrs-pattern",
+    "title": "CQRS Pattern",
+    "category": "Microservices",
+    "subCategory": "Design Pattern",
+    "question": "What is CQRS?",
+    "answer": "CQRS separates read operations (queries) from write operations (commands) to improve scalability and performance.",
+    "difficulty": "Advanced",
+    "tags": ["CQRS", "Design Pattern"]
+  },
+  {
+    "id": "event-driven-microservices",
+    "title": "Event Driven Microservices",
+    "category": "Microservices",
+    "subCategory": "Messaging",
+    "question": "What is Event-Driven Architecture?",
+    "answer": "Services communicate through events instead of direct synchronous API calls.",
+    "difficulty": "Intermediate",
+    "tags": ["Kafka", "Event Driven"]
+  },
+  {
+    "id": "sync-vs-async-communication",
+    "title": "Synchronous vs Asynchronous Communication",
+    "category": "Microservices",
+    "subCategory": "Communication",
+    "question": "Difference between synchronous and asynchronous communication?",
+    "answer": "Synchronous waits for a response, while asynchronous continues processing without waiting.",
+    "difficulty": "Intermediate",
+    "tags": ["REST", "Kafka"]
+  },
+  {
+    "id": "feign-client",
+    "title": "What is Feign Client?",
+    "category": "Microservices",
+    "subCategory": "Communication",
+    "question": "What is Feign Client?",
+    "answer": "Feign Client is a declarative REST client used for service-to-service communication in Spring Cloud.",
+    "difficulty": "Intermediate",
+    "tags": ["Feign", "REST"]
+  },
+  {
+    "id": "resttemplate-vs-webclient",
+    "title": "RestTemplate vs WebClient",
+    "category": "Microservices",
+    "subCategory": "Communication",
+    "question": "Difference between RestTemplate and WebClient?",
+    "answer": "RestTemplate is synchronous and blocking, whereas WebClient is asynchronous and non-blocking.",
+    "difficulty": "Intermediate",
+    "tags": ["WebClient", "RestTemplate"]
+  },
+  {
+    "id": "observability",
+    "title": "Observability in Microservices",
+    "category": "Microservices",
+    "subCategory": "Monitoring",
+    "question": "What is Observability?",
+    "answer": "Observability is the ability to understand a system using logs, metrics, and traces.",
+    "difficulty": "Intermediate",
+    "tags": ["Monitoring", "Observability"]
+  },
+  {
+    "id": "distributed-tracing",
+    "title": "Distributed Tracing",
+    "category": "Microservices",
+    "subCategory": "Monitoring",
+    "question": "Why is Distributed Tracing used?",
+    "answer": "Distributed tracing helps track requests across multiple microservices to identify bottlenecks and failures.",
+    "difficulty": "Intermediate",
+    "tags": ["Zipkin", "Tracing"]
+  },
+  {
+    "id": "config-server-benefit",
+    "title": "Why Use Config Server?",
+    "category": "Microservices",
+    "subCategory": "Configuration",
+    "question": "Why use Spring Cloud Config Server?",
+    "answer": "It centralizes configuration management and avoids storing properties in every microservice.",
+    "difficulty": "Intermediate",
+    "tags": ["Config Server"]
+  },
+  {
+    "id": "database-per-service",
+    "title": "Database Per Service Pattern",
+    "category": "Microservices",
+    "subCategory": "Database",
+    "question": "What is Database Per Service Pattern?",
+    "answer": "Each microservice owns its database and does not directly access another service's database.",
+    "difficulty": "Intermediate",
+    "tags": ["Database", "Microservices"]
+  },
+  {
+    "id": "api-versioning",
+    "title": "API Versioning",
+    "category": "Microservices",
+    "subCategory": "API Design",
+    "question": "Why is API Versioning important?",
+    "answer": "API versioning allows introducing changes without breaking existing clients.",
+    "difficulty": "Beginner",
+    "tags": ["API", "Versioning"]
   }
+
 ]
