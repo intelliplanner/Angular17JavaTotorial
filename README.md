@@ -11,6 +11,8 @@ A comprehensive web-based platform for Java learning and coding practice. This a
 - 💾 **Save Programs** - Save your Java programs for later access
 - 🔧 **Multiple Java Versions** - Support for different Java compiler versions
 - 📖 **Interview Questions** - Prepare for technical interviews with curated questions
+- 🧭 **Tutorials & Interview Q&A** - Search lessons, filter by topic and difficulty, track reading progress, and save or share content
+- 🛠️ **Admin Panel** - Create, edit, publish, and delete tutorials and interview answers with server-side admin authorization
 - 🎯 **Code Snippets** - Quick access to common code patterns and examples
 - ✨ **Syntax Highlighting** - Beautiful code editor with suggestions
 
@@ -82,6 +84,8 @@ The `loginEnabled` property in each `src/environments/environment*.ts` file cont
 
 Change `loginEnabled` in `environment.prod.ts` and redeploy to change the GitHub Pages behavior. Disabling frontend login only changes access to application pages; protected backend write/admin APIs continue to require server authentication.
 
+The `settingsEnabled` property in each `src/environments/environment*.ts` file controls whether the administrator Settings menu appears in the header. Set it to `false` to hide the menu or `true` to show it for administrators. This is a navigation visibility option; it does not replace route guards or backend authorization.
+
 When login is enabled on GitHub Pages, username/password login requires the separate Express API:
 
 1. Deploy the Express backend using the repository's `render.yaml` Blueprint. Render generates a `SESSION_SECRET` and enables secure cookies.
@@ -100,6 +104,14 @@ When login is enabled on GitHub Pages, username/password login requires the sepa
 The backend validates the configured accounts in `data/users.json` and issues an HTTP-only session cookie. Keep `SESSION_SECRET` and password hashes on the backend; never put the signing secret in frontend environment files.
 
 The starter accounts are `test` / `test` (learner access) and `admin` / `admin` (full access). Replace these demo credentials before exposing the service publicly.
+
+### Tutorials and Interview Q&A
+
+- Open `/tutorials` to browse published tutorials or use the Interview Q&A tab. Search and filters support all configured categories, topics, and difficulty levels.
+- Open `/admin-panel` while signed in as an administrator to manage tutorial drafts/publication and Q&A entries.
+- Seed content is stored in `src/assets/data/tutorials.json` and `src/assets/data/questions-and-answers.json`. The Express API persists admin changes to those JSON files.
+- The production frontend can read the bundled JSON files when no API URL is configured; creating or editing content requires the Express backend and a configured `authApiUrl`.
+- Browser bookmarks, tutorial completion, and question votes are stored locally in the current browser.
 
 ## Build
 
@@ -175,6 +187,13 @@ src/
 - `POST /saveProgram` - Save a Java program
 - `GET /getSavedPrograms` - Retrieve saved programs
 - `GET /loadProgram?fileName=` - Load a specific program
+- `GET /api/tutorials` - List published tutorials
+- `GET /api/admin/tutorials` - List all tutorials (admin)
+- `POST /api/tutorials` - Create a tutorial (admin)
+- `PUT`, `DELETE /api/tutorials/:id` - Update or delete a tutorial (admin)
+- `GET /api/questions` - List interview Q&A
+- `POST /api/questions` - Create an interview question (admin)
+- `PUT`, `DELETE /api/questions/:id` - Update or delete an interview question (admin)
 
 ## Contributing
 

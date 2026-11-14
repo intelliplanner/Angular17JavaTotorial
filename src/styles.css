@@ -17,3 +17,19 @@ button,select,input,textarea{font:inherit}
 [data-theme="dark"] .review-option.wrong-option{background:#3c2927}
 [data-theme="dark"] .question-grid button{background:#17242d;border-color:#3a4b56}
 [data-theme="dark"] .question-grid button.answered{background:#1e382e}
+.manage-shell .file-counts-card{margin-bottom:20px;padding:20px 22px;border:1px solid #e5ecef;border-radius:14px;background:#fff;box-shadow:0 7px 26px #17314a08}
+.manage-shell .file-counts-heading{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:15px}
+.manage-shell .file-counts-heading h2{margin:0;color:#203b4f;font-size:1.05rem;font-weight:750}
+.manage-shell .file-counts-heading p{margin:5px 0 0;color:#7d8c96;font-size:.8rem}
+.manage-shell .file-counts-heading>strong{color:#18766f;font-size:1.45rem;white-space:nowrap}
+.manage-shell .file-counts-heading>strong span{color:#748791;font-size:.72rem;font-weight:600}
+.manage-shell .file-count-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.manage-shell .file-count-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 12px;border:1px solid #e9eff1;border-radius:9px;background:#f9fbfc}
+.manage-shell .file-count-item div{display:grid;gap:3px;min-width:0}
+.manage-shell .file-count-item div strong,.manage-shell .file-count-item div span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.manage-shell .file-count-item div strong{color:#3c596a;font-size:.78rem}
+.manage-shell .file-count-item div span{color:#8a989f;font-size:.67rem}
+.manage-shell .file-count-item>b{display:grid;min-width:30px;height:30px;place-items:center;border-radius:8px;background:#e8f4f1;color:#207b70;font-size:.82rem}
+.manage-shell .file-count-empty{margin:0;color:#82919a;font-size:.82rem}
+@media(max-width:800px){.manage-shell .file-count-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:480px){.manage-shell .file-counts-card{padding:16px}.manage-shell .file-count-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.manage-shell .file-counts-heading{align-items:flex-start}}

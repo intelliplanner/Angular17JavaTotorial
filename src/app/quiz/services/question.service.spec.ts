@@ -50,6 +50,49 @@ describe('QuestionService', () => {
     await service.load();
 
     expect(service.questions.map(question => question.category)).toEqual(['Java', 'AWS']);
+    expect(service.questionFileCounts).toEqual([
+      { category: 'Java', filename: 'java.json', count: 1 },
+      { category: 'AWS', filename: 'aws.json', count: 1 }
+    ]);
+    expect(service.totalQuestionFileCount).toBe(2);
     expect(http.get).toHaveBeenCalledTimes(3);
+  });
+
+  it('loads JSON file counts even when quiz questions have local edits', async () => {
+    const storedQuestion: QuizQuestion = {
+      id: 99,
+      category: 'Java',
+      subCategory: 'Core Java',
+      difficulty: 'Easy',
+      question: 'Locally edited question?',
+      image: '',
+      options: ['A', 'B', 'C', 'D'],
+      correctAnswer: 'A',
+      explanation: 'A is correct.'
+    };
+    localStorage.setItem('interview-quiz.questions.v1', JSON.stringify([storedQuestion]));
+    const fileQuestion: QuizQuestion = { ...storedQuestion, id: 1, question: 'Bundled question?' };
+    const http = {
+      get: jasmine.createSpy('get').and.callFake((url: string) => of(
+        url.endsWith('question-files.json')
+          ? { Java: 'java.json' }
+          : [fileQuestion]
+      ))
+    };
+    TestBed.configureTestingModule({
+      providers: [
+        QuestionService,
+        StorageService,
+        { provide: HttpClient, useValue: http }
+      ]
+    });
+    const service = TestBed.inject(QuestionService);
+
+    await service.load();
+
+    expect(service.questions.map(question => question.id)).toEqual([99]);
+    expect(service.questionFileCounts).toEqual([
+      { category: 'Java', filename: 'java.json', count: 1 }
+    ]);
   });
 });

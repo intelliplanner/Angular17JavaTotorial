@@ -14,10 +14,25 @@
         <a class="nav-link" routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a>
         <a class="nav-link" routerLink="/categorizedNotes" routerLinkActive="active" (click)="closeMenu()">Learn</a>
         <a class="nav-link" routerLink="/tutorials" routerLinkActive="active" (click)="closeMenu()">Tutorials</a>
-        <a *ngIf="isAdmin" class="nav-link" routerLink="/admin-panel" routerLinkActive="active" (click)="closeMenu()">Admin Panel</a>
         <a class="nav-link" routerLink="/quiz" routerLinkActive="active" (click)="closeMenu()">Practice quiz</a>
-        <a *ngIf="isAdmin" class="nav-link" routerLink="/quiz/questions" routerLinkActive="active" (click)="closeMenu()">Question manager</a>
-        <a *ngIf="isAdmin" class="nav-link" routerLink="/quiz/categories" routerLinkActive="active" (click)="closeMenu()">Categories</a>
+        <div *ngIf="settingsEnabled && isAdmin" class="settings-menu" [class.open]="isSettingsOpen">
+          <button type="button" class="nav-link settings-toggle" (click)="toggleSettings()"
+            [attr.aria-expanded]="isSettingsOpen" aria-controls="adminSettings">
+            <i class="fa-solid fa-gear"></i> Settings
+            <i class="fa-solid fa-chevron-down settings-caret"></i>
+          </button>
+          <div class="settings-dropdown" id="adminSettings" [hidden]="!isSettingsOpen">
+            <a routerLink="/admin-panel" routerLinkActive="active" (click)="closeMenu()">
+              <i class="fa-solid fa-sliders"></i> Admin Panel
+            </a>
+            <a routerLink="/quiz/questions" routerLinkActive="active" (click)="closeMenu()">
+              <i class="fa-regular fa-circle-question"></i> Question Manager
+            </a>
+            <a routerLink="/quiz/categories" routerLinkActive="active" (click)="closeMenu()">
+              <i class="fa-solid fa-layer-group"></i> Categories
+            </a>
+          </div>
+        </div>
       </div>
       <div class="hub-nav-actions">
         <button *ngIf="!loginEnabled || isLoggedIn" type="button" class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="darkMode ? 'Switch to light mode' : 'Switch to dark mode'">

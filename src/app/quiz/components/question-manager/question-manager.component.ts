@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { QuizCategory } from '../../models/category';
 import { QuizDifficulty, QuizQuestion } from '../../models/question';
-import { QuestionService } from '../../services/question.service';
+import { QuestionFileCount, QuestionService } from '../../services/question.service';
 
 @Component({
   selector: 'app-question-manager',
@@ -16,6 +16,8 @@ export class QuestionManagerComponent implements OnInit {
   readonly difficulties: QuizDifficulty[] = ['Easy', 'Medium', 'Hard'];
   categories: QuizCategory[] = [];
   questions: QuizQuestion[] = [];
+  questionFileCounts: QuestionFileCount[] = [];
+  totalQuestionFileCount = 0;
   search = '';
   categoryFilter = '';
   subCategoryFilter = '';
@@ -146,6 +148,8 @@ export class QuestionManagerComponent implements OnInit {
   private refresh(): void {
     this.questions = this.questionService.questions;
     this.categories = this.questionService.categories;
+    this.questionFileCounts = this.questionService.questionFileCounts;
+    this.totalQuestionFileCount = this.questionService.totalQuestionFileCount;
     if (!this.draft.category && this.categories.length) {
       this.draft.category = this.categories[0].name;
       this.draft.subCategory = this.categories[0].subCategories[0] ?? '';
