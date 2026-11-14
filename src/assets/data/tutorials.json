@@ -1,0 +1,56 @@
+[
+  {
+    "id": "java-collections-basics",
+    "title": "Java Collections: choosing the right collection",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Understand the core collection interfaces and select the right data structure for common interview problems.",
+    "content": "## The collection hierarchy\n\nThe Java Collections Framework provides interfaces such as List, Set, Queue, and Map. List preserves order and allows duplicates. Set enforces uniqueness. Queue models processing order, while Map associates keys with values.\n\n## Choosing a collection\n\nUse ArrayList for indexed access and iteration. LinkedList can be useful for frequent operations at both ends, but ArrayDeque is usually a better queue or stack. HashSet and HashMap provide average constant-time lookup when hashCode and equals are implemented consistently. Choose TreeSet or TreeMap when sorted order is required.\n\n## Interview checkpoint\n\nExplain the ordering, uniqueness, and lookup requirements before selecting a collection. Include expected time complexity and any thread-safety requirements in your answer.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "Collections",
+      "Data Structures"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "spring-rest-api-fundamentals",
+    "title": "Building REST endpoints with Spring Boot",
+    "category": "Spring Boot",
+    "subCategory": "REST API",
+    "description": "Review controller responsibilities, request mapping, validation, and response status codes.",
+    "content": "## Controller fundamentals\n\nA Spring MVC controller maps HTTP requests to application behavior. Use @RestController for JSON APIs and map resources with annotations such as @GetMapping and @PostMapping.\n\n## Keep responsibilities clear\n\nControllers should validate request shape, delegate business rules to a service, and return suitable HTTP responses. Use request DTOs rather than binding persistence entities directly. Add Bean Validation constraints and handle errors consistently.\n\n## Interview checkpoint\n\nBe ready to explain why POST creates a resource, why PUT replaces a resource, and when PATCH is appropriate. Return 201 Created for a successful creation and include a Location header when practical.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Spring Boot",
+      "REST",
+      "HTTP"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "kubernetes-pod-probes",
+    "title": "Kubernetes readiness and liveness probes",
+    "category": "Kubernetes",
+    "subCategory": "Pods",
+    "description": "Learn how probes help Kubernetes route traffic and recover unhealthy containers.",
+    "content": "## Readiness\n\nA readiness probe indicates whether a container is ready to receive traffic. When it fails, Kubernetes removes the Pod from matching Service endpoints while leaving the container running.\n\n## Liveness\n\nA liveness probe detects a container that cannot make progress. Repeated failures cause the container to restart. Avoid making a liveness check depend on a temporary external service, which could trigger unnecessary restart loops.\n\n## Startup probes\n\nA startup probe gives slow-starting applications time to initialize before liveness and readiness checks begin. Configure thresholds and periods based on real application startup behavior.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Kubernetes",
+      "Pods",
+      "Health Checks"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  }
+]

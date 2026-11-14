@@ -26,7 +26,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/app/home/home.component.scss"
+              "src/app/home/home.component.scss",
+              "src/app/content-hub/content-hub.component.scss"
             ],
             "scripts": []
           },
@@ -99,7 +100,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/app/content-hub/content-hub.component.scss"
             ],
             "scripts": []
           }

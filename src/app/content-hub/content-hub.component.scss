@@ -1,0 +1,119 @@
+app-content-hub{display:block;min-height:calc(100vh - 130px);background:#f5f8fa;color:#233b4b}
+app-content-hub .content-page{max-width:1180px;padding:42px 24px 80px}
+app-content-hub .page-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin:0 0 28px}
+app-content-hub .breadcrumb-link{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;color:#57717e;font-size:.82rem;text-decoration:none}
+app-content-hub .breadcrumb-link:hover,app-content-hub .breadcrumbs button:hover{color:#147e73}
+app-content-hub .eyebrow{margin:0 0 8px;color:#178278;font-size:.68rem;font-weight:800;letter-spacing:.13em}
+app-content-hub .page-heading h1{margin:0;color:#17384b;font-size:clamp(1.8rem,4vw,2.65rem);font-weight:750;letter-spacing:-.04em}
+app-content-hub .intro{max-width:620px;margin:10px 0 0;color:#667e8d;font-size:.98rem}
+app-content-hub .page-actions{display:flex;gap:10px;flex-wrap:wrap}
+app-content-hub .stat-chip,app-content-hub .admin-chip{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid #e0e9ec;border-radius:999px;background:#fff;color:#5d7481;font-size:.77rem;font-weight:650;white-space:nowrap}
+app-content-hub .admin-chip{border-color:#bfe7df;background:#eaf8f5;color:#187368}
+app-content-hub .notice{margin:0 0 18px;padding:12px 15px;border:1px solid #c5e7df;border-radius:10px;background:#eef9f5;color:#23675c;font-size:.9rem}
+app-content-hub .loading-state{display:flex;align-items:center;gap:11px;padding:60px 0;color:#607987}
+app-content-hub .content-tabs{display:flex;gap:9px;margin:0 0 18px;padding:0 0 12px;border-bottom:1px solid #dfe8eb}
+app-content-hub .content-tabs button{display:inline-flex;align-items:center;gap:9px;padding:11px 15px;border:1px solid transparent;border-radius:9px;background:transparent;color:#607785;font-size:.87rem;font-weight:700}
+app-content-hub .content-tabs button span{display:inline-grid;min-width:22px;height:22px;place-items:center;border-radius:99px;background:#eaf0f2;font-size:.69rem}
+app-content-hub .content-tabs button.active{border-color:#d4ebe5;background:#eaf7f4;color:#176f68}
+app-content-hub .workspace{padding:21px;border:1px solid #e4ebee;border-radius:15px;background:#fff;box-shadow:0 10px 32px #1f3b4b08}
+app-content-hub .filter-panel{display:grid;grid-template-columns:minmax(220px,1.8fr) repeat(3,minmax(130px,1fr));gap:10px;margin-bottom:21px}
+app-content-hub .filter-panel select,app-content-hub .list-filter,app-content-hub .editor-card input:not([type=checkbox]),app-content-hub .editor-card select,app-content-hub .editor-card textarea{width:100%;min-height:43px;padding:10px 12px;border:1px solid #dce5e9;border-radius:8px;background:#fff;color:#263f4e;font:inherit;font-size:.84rem;outline:none}
+app-content-hub .filter-panel select:focus,app-content-hub .search-box:focus-within,app-content-hub .editor-card input:focus,app-content-hub .editor-card select:focus,app-content-hub .editor-card textarea:focus,app-content-hub .list-filter:focus{border-color:#64b7aa;box-shadow:0 0 0 3px #68b7a821}
+app-content-hub .filter-panel select:disabled{background:#f4f6f7;color:#9aa8ae}
+app-content-hub .search-box{display:flex;align-items:center;gap:10px;min-height:43px;padding:0 13px;border:1px solid #dce5e9;border-radius:8px;background:#fff;color:#83959e}
+app-content-hub .search-box input{width:100%;border:0;outline:0;background:transparent;color:#263f4e;font:inherit;font-size:.84rem}
+app-content-hub .tutorial-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+app-content-hub .tutorial-card,app-content-hub .question-card{padding:18px;border:1px solid #e6edef;border-radius:12px;background:#fff;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+app-content-hub .tutorial-card:hover,app-content-hub .question-card:hover{transform:translateY(-2px);border-color:#cfe4df;box-shadow:0 10px 24px #2648580d}
+app-content-hub .card-topline{display:flex;justify-content:space-between;align-items:center;gap:8px}
+app-content-hub .category-label{color:#218277;font-size:.72rem;font-weight:750}
+app-content-hub .icon-button{width:33px;height:33px;border:1px solid #e3eaed;border-radius:8px;background:#fff;color:#70858e}
+app-content-hub .icon-button:hover,app-content-hub .icon-button .fa-solid{color:#187d73}
+app-content-hub .tutorial-card h2,app-content-hub .question-card h2{margin:11px 0 8px;color:#1b394b;font-size:1.04rem;font-weight:720;line-height:1.45}
+app-content-hub .card-description{min-height:60px;margin:0 0 14px;color:#6b808c;font-size:.84rem;line-height:1.6}
+app-content-hub .tag-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+app-content-hub .level-tag,app-content-hub .tag{display:inline-flex;align-items:center;padding:5px 8px;border-radius:6px;background:#edf5f4;color:#38766f;font-size:.67rem;font-weight:700}
+app-content-hub .tag{background:#f1f4f6;color:#637985;font-weight:550}
+app-content-hub .card-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px;padding-top:13px;border-top:1px solid #edf1f3;color:#81919a;font-size:.73rem}
+app-content-hub .card-footer span{display:flex;gap:6px;align-items:center}
+app-content-hub .text-action,app-content-hub .quiet-action{padding:5px 0;border:0;background:transparent;color:#187970;font-size:.78rem;font-weight:750}
+app-content-hub .text-action i{margin-left:4px;font-size:.68rem}
+app-content-hub .empty-state{padding:72px 15px;text-align:center;color:#71858f}
+app-content-hub .empty-state>i{color:#8faaa9;font-size:2rem}
+app-content-hub .empty-state h2{margin:14px 0 4px;color:#294758;font-size:1.15rem}
+app-content-hub .empty-state p{margin:0;font-size:.87rem}
+app-content-hub .reading-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:22px;align-items:start}
+app-content-hub .reading-main,app-content-hub .related-panel{padding:25px;border:1px solid #e3ebee;border-radius:14px;background:#fff;box-shadow:0 10px 32px #1f3b4b08}
+app-content-hub .breadcrumbs{display:flex;align-items:center;gap:9px;margin-bottom:24px;color:#8798a0;font-size:.78rem}
+app-content-hub .breadcrumbs button{padding:0;border:0;background:none;color:#44736f;font:inherit}
+app-content-hub .article-meta{display:flex;align-items:center;gap:12px}
+app-content-hub .article-title{margin:13px 0 10px;color:#19384b;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:760;letter-spacing:-.035em;line-height:1.2}
+app-content-hub .article-description{color:#607987;font-size:1rem;line-height:1.65}
+app-content-hub .author-line{display:flex;gap:8px;align-items:center;color:#637b88;font-size:.77rem}
+app-content-hub .author-line span{margin-left:auto;color:#8a9aa1}
+app-content-hub .article-tools{display:flex;gap:8px;margin:20px 0;padding:13px 0;border-top:1px solid #edf1f2;border-bottom:1px solid #edf1f2}
+app-content-hub .article-tools button,app-content-hub .article-pager button{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid #dfe8e9;border-radius:8px;background:#fff;color:#526e7b;font-size:.77rem;font-weight:650}
+app-content-hub .article-tools button:hover,app-content-hub .article-pager button:not(:disabled):hover{border-color:#b4d9d2;color:#16766d}
+app-content-hub .article-content{color:#405a68;font-size:.95rem;line-height:1.8}
+app-content-hub .article-content h2{margin:26px 0 8px;color:#1d4655;font-size:1.16rem;font-weight:730}
+app-content-hub .article-content p{margin:0 0 15px;white-space:pre-line}
+app-content-hub .read-complete{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:25px;padding:17px;border:1px solid #dceee9;border-radius:10px;background:#f3faf8}
+app-content-hub .read-complete strong{color:#244b56;font-size:.87rem}
+app-content-hub .read-complete p{margin:4px 0 0;color:#72868c;font-size:.76rem}
+app-content-hub .primary-button{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:10px 14px;border:0;border-radius:8px;background:#19776f;color:#fff;font-size:.8rem;font-weight:750;white-space:nowrap}
+app-content-hub .primary-button:hover{background:#125f5a}
+app-content-hub .article-pager{display:flex;justify-content:space-between;gap:10px;margin-top:19px}
+app-content-hub .article-pager button:disabled{opacity:.45}
+app-content-hub .related-panel h2{margin:0 0 15px;color:#29495a;font-size:1rem}
+app-content-hub .related-link{display:grid;width:100%;grid-template-columns:1fr auto;gap:5px;padding:13px 0;border:0;border-top:1px solid #edf1f2;background:none;text-align:left}
+app-content-hub .related-link span{grid-column:1/-1;color:#178075;font-size:.68rem;font-weight:700}
+app-content-hub .related-link strong{color:#385261;font-size:.79rem;line-height:1.45}
+app-content-hub .related-link i{align-self:center;color:#72918f;font-size:.7rem}
+app-content-hub .muted{color:#80919a;font-size:.82rem}
+app-content-hub .question-list{display:grid;gap:12px}
+app-content-hub .question-card h2{font-size:1.02rem}
+app-content-hub .question-card .tag-row{margin-top:11px}
+app-content-hub .answer-content{margin-top:16px;padding:15px;border-left:3px solid #62b9a8;border-radius:0 8px 8px 0;background:#f3faf8}
+app-content-hub .answer-content strong{color:#1e635b;font-size:.81rem}
+app-content-hub .answer-content p{margin:6px 0 0;color:#526c76;font-size:.87rem;line-height:1.7;white-space:pre-line}
+app-content-hub .question-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:15px;padding-top:12px;border-top:1px solid #edf1f2}
+app-content-hub .vote-actions,app-content-hub .question-actions{display:flex;align-items:center;gap:11px}
+app-content-hub .vote-actions button,app-content-hub .vote-actions>span,app-content-hub .quiet-action{display:inline-flex;align-items:center;gap:6px;color:#768992;font-size:.74rem}
+app-content-hub .vote-actions button{padding:4px;border:0;background:none}
+app-content-hub .vote-actions button.selected{color:#17766e}
+app-content-hub .question-actions .quiet-action{padding:4px;border:0;background:transparent}
+app-content-hub .admin-workspace{display:grid;grid-template-columns:minmax(320px,.9fr) minmax(0,1.1fr);gap:16px;align-items:start}
+app-content-hub .editor-card,app-content-hub .admin-list{padding:20px;border:1px solid #e2eaed;border-radius:13px;background:#fff;box-shadow:0 8px 24px #1f3b4b08}
+app-content-hub .editor-heading,app-content-hub .list-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+app-content-hub .editor-heading h2,app-content-hub .list-heading h2{margin:0;color:#234354;font-size:1.08rem;font-weight:740}
+app-content-hub .editor-card>label,app-content-hub .editor-card .form-grid label{display:block;margin:0 0 12px;color:#455f6d;font-size:.77rem;font-weight:700}
+app-content-hub .editor-card input:not([type=checkbox]),app-content-hub .editor-card select,app-content-hub .editor-card textarea{display:block;margin-top:6px;font-size:.8rem;font-weight:400}
+app-content-hub .editor-card textarea{resize:vertical;line-height:1.5}
+app-content-hub .editor-card .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+app-content-hub .field-hint{color:#8a9aa0;font-size:.67rem;font-weight:450}
+app-content-hub .publish-toggle{display:flex!important;align-items:center;gap:8px}
+app-content-hub .publish-toggle input{accent-color:#19776f}
+app-content-hub .list-heading h2 span{margin-left:4px;color:#80949d;font-size:.76rem}
+app-content-hub .search-box.compact{max-width:205px;min-height:37px}
+app-content-hub .search-box.compact input{min-width:0}
+app-content-hub .list-filter{width:auto;min-width:175px;min-height:37px;margin-bottom:10px;padding:7px 10px;font-size:.77rem}
+app-content-hub .manage-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 0;border-top:1px solid #edf1f2}
+app-content-hub .manage-row h3{margin:5px 0;color:#2d4857;font-size:.84rem;font-weight:700;line-height:1.4}
+app-content-hub .status-pill{display:inline-block;padding:4px 7px;border-radius:99px;background:#f1f3f4;color:#73848a;font-size:.64rem;font-weight:700}
+app-content-hub .status-pill.published{background:#e8f7f1;color:#287660}
+app-content-hub .manage-actions{display:flex;flex-shrink:0;gap:5px}
+app-content-hub .manage-actions button{padding:6px 8px;border:1px solid #e0e8ea;border-radius:6px;background:#fff;color:#59717d;font-size:.68rem;font-weight:650}
+app-content-hub .manage-actions button:hover{border-color:#9bd3c8;color:#17776c}
+app-content-hub .manage-actions .danger-action{color:#a65555}
+app-content-hub .manage-actions .danger-action:hover{border-color:#e8bebe;color:#a33d3d}
+app-content-hub .empty-list{padding:20px 0}
+[data-theme="dark"] app-content-hub,[data-theme="dark"] app-content-hub{background:#14232c;color:#d9e4e9}
+[data-theme="dark"] app-content-hub .page-heading h1,[data-theme="dark"] app-content-hub .article-title,[data-theme="dark"] app-content-hub .tutorial-card h2,[data-theme="dark"] app-content-hub .question-card h2,[data-theme="dark"] app-content-hub .editor-heading h2,[data-theme="dark"] app-content-hub .list-heading h2{color:#e1ebef}
+[data-theme="dark"] app-content-hub .intro,[data-theme="dark"] app-content-hub .card-description,[data-theme="dark"] app-content-hub .article-description,[data-theme="dark"] app-content-hub .article-content,[data-theme="dark"] app-content-hub .muted{color:#aabac2}
+[data-theme="dark"] app-content-hub .workspace,[data-theme="dark"] app-content-hub .tutorial-card,[data-theme="dark"] app-content-hub .question-card,[data-theme="dark"] app-content-hub .reading-main,[data-theme="dark"] app-content-hub .related-panel,[data-theme="dark"] app-content-hub .editor-card,[data-theme="dark"] app-content-hub .admin-list,[data-theme="dark"] app-content-hub .stat-chip{border-color:#314652;background:#1b2c36;color:#d8e3e7}
+[data-theme="dark"] app-content-hub .filter-panel select,[data-theme="dark"] app-content-hub .search-box,[data-theme="dark"] app-content-hub .editor-card input:not([type=checkbox]),[data-theme="dark"] app-content-hub .editor-card select,[data-theme="dark"] app-content-hub .editor-card textarea,[data-theme="dark"] app-content-hub .article-tools button,[data-theme="dark"] app-content-hub .article-pager button,[data-theme="dark"] app-content-hub .manage-actions button{border-color:#3a4e59;background:#1b2c36;color:#d5e0e5}
+[data-theme="dark"] app-content-hub .tutorial-card h2,[data-theme="dark"] app-content-hub .question-card h2,[data-theme="dark"] app-content-hub .related-link strong,[data-theme="dark"] app-content-hub .manage-row h3,[data-theme="dark"] app-content-hub .article-content h2{color:#dbe7eb}
+[data-theme="dark"] app-content-hub .card-footer,[data-theme="dark"] app-content-hub .manage-row,[data-theme="dark"] app-content-hub .article-tools{border-color:#31444e}
+@media(max-width:900px){app-content-hub .tutorial-grid{grid-template-columns:repeat(2,minmax(0,1fr))}app-content-hub .admin-workspace{grid-template-columns:1fr}app-content-hub .reading-layout{grid-template-columns:1fr}app-content-hub .related-panel{order:2}app-content-hub .filter-panel{grid-template-columns:repeat(2,minmax(0,1fr))}app-content-hub .search-box{grid-column:1/-1}}
+@media(max-width:600px){app-content-hub .content-page{padding:28px 14px 55px}app-content-hub .page-heading{display:block}app-content-hub .page-actions{margin-top:14px}app-content-hub .workspace{padding:13px}app-content-hub .content-tabs{overflow-x:auto}app-content-hub .content-tabs button{white-space:nowrap;padding:9px 11px}app-content-hub .tutorial-grid{grid-template-columns:1fr}app-content-hub .filter-panel{grid-template-columns:1fr}app-content-hub .search-box{grid-column:auto}app-content-hub .reading-main,app-content-hub .related-panel{padding:17px}app-content-hub .article-title{font-size:1.8rem}app-content-hub .author-line{flex-wrap:wrap}app-content-hub .author-line span{margin-left:0}app-content-hub .read-complete{align-items:flex-start;flex-direction:column}app-content-hub .question-footer{align-items:flex-start;flex-direction:column}app-content-hub .question-actions{flex-wrap:wrap}app-content-hub .editor-card,app-content-hub .admin-list{padding:15px}app-content-hub .editor-card .form-grid{grid-template-columns:1fr}app-content-hub .list-heading{align-items:flex-start;flex-direction:column}app-content-hub .search-box.compact{width:100%;max-width:none}app-content-hub .manage-row{align-items:flex-start;flex-direction:column}app-content-hub .manage-actions{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){app-content-hub *,app-content-hub *::before,app-content-hub *::after{scroll-behavior:auto!important;transition:none!important}}
