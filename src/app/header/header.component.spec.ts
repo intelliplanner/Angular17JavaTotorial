@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { provideRouter, Router } from '@angular/router';
 import { of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 import { HeaderComponent } from './header.component';
 
@@ -12,6 +13,7 @@ describe('HeaderComponent', () => {
   let http: jasmine.SpyObj<HttpClient>;
 
   beforeEach(async () => {
+    environment.loginEnabled = true;
     sessionStorage.clear();
     http = jasmine.createSpyObj<HttpClient>('HttpClient', ['post']);
     http.post.and.returnValue(of({}));
@@ -30,6 +32,10 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    environment.loginEnabled = true;
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -46,5 +52,20 @@ describe('HeaderComponent', () => {
       {},
       { withCredentials: true }
     );
+  });
+
+  it('shows all navigation tabs without sign-in controls when login is disabled', () => {
+    environment.loginEnabled = false;
+    fixture.destroy();
+    fixture = TestBed.createComponent(HeaderComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    const element = fixture.nativeElement as HTMLElement;
+    expect(element.querySelector('.hub-nav-links')?.hasAttribute('hidden')).toBeFalse();
+    expect(element.textContent).toContain('Question manager');
+    expect(element.textContent).toContain('Categories');
+    expect(element.textContent).not.toContain('Sign in');
+    expect(element.textContent).not.toContain('Sign out');
   });
 });

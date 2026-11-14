@@ -3,7 +3,9 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree, provideRo
 import { Observable, of } from 'rxjs';
 
 import { AuthService, AuthUser } from './auth.service';
-import { authChildGuard, authGuard } from './login-guard.guard';
+import { environment } from '../environments/environment';
+import { routes } from './app.routes';
+import { authChildGuard, authGuard, loginPageGuard } from './login-guard.guard';
 
 describe('auth guards', () => {
   let authService: jasmine.SpyObj<AuthService>;
@@ -27,8 +29,13 @@ describe('auth guards', () => {
   );
   const resolveGuardResult = (result: ReturnType<typeof executeGuard>) =>
     (result as Observable<boolean | UrlTree>).toPromise();
+  const executeLoginPageGuard = () => TestBed.runInInjectionContext(() => loginPageGuard(
+    {} as ActivatedRouteSnapshot,
+    {} as RouterStateSnapshot
+  ));
 
   beforeEach(() => {
+    environment.loginEnabled = true;
     authService = jasmine.createSpyObj<AuthService>('AuthService', ['getSession', 'hasPermission']);
     authService.hasPermission.and.callFake((permission, user) =>
       !!user && (user.permissions.includes('*') || user.permissions.includes(permission))
@@ -39,6 +46,10 @@ describe('auth guards', () => {
         { provide: AuthService, useValue: authService }
       ]
     });
+  });
+
+  afterEach(() => {
+    environment.loginEnabled = true;
   });
 
   it('redirects unauthenticated users to login', async () => {
@@ -76,5 +87,28 @@ describe('auth guards', () => {
     authService.getSession.and.returnValue(of(admin));
 
     expect(await resolveGuardResult(executeChildGuard('admin'))).toBeTrue();
+  });
+
+  it('allows all routes without resolving a session when login is disabled', () => {
+    environment.loginEnabled = false;
+
+    expect(executeGuard('admin')).toBeTrue();
+    expect(executeChildGuard('practiceQuiz')).toBeTrue();
+    expect(authService.getSession).not.toHaveBeenCalled();
+  });
+
+  it('redirects the login page to home when login is disabled', () => {
+    environment.loginEnabled = false;
+
+    const router = TestBed.inject(Router);
+    const loginResult = executeLoginPageGuard() as UrlTree;
+
+    expect(router.serializeUrl(loginResult)).toBe('/home');
+  });
+
+  it('uses a direct root redirect selected by the login setting', () => {
+    const rootRoute = routes.find(route => route.path === '' && route.pathMatch === 'full');
+
+    expect(rootRoute?.redirectTo).toBe(environment.loginEnabled ? 'login' : 'home');
   });
 });
