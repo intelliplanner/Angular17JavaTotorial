@@ -24,7 +24,7 @@ export class QuizResultComponent {
   get categoryRows(): { name: string; correct: number; total: number; percent: number }[] {
     if (!this.result) return [];
     return [{
-      name: `${this.result.category} · ${this.result.subCategory}`,
+      name: `${this.result.category} · ${this.result.subCategory || 'All subcategories'}`,
       correct: this.result.correct,
       total: this.result.totalQuestions,
       percent: this.result.percentage

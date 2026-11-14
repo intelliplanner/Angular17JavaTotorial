@@ -1,1 +1,802 @@
-[]
+[
+  {
+    "id": 1,
+    "category": "Docker",
+    "subCategory": "Basics",
+    "difficulty": "Easy",
+    "question": "What is Docker?",
+    "image": "",
+    "options": [
+      "An open platform for building, shipping, and running applications in containers",
+      "Database",
+      "Operating System",
+      "Programming Language"
+    ],
+    "correctAnswer": "An open platform for building, shipping, and running applications in containers",
+    "explanation": "Docker is a platform for building, shipping, and running applications in containers."
+  },
+  {
+    "id": 2,
+    "category": "Docker",
+    "subCategory": "Basics",
+    "difficulty": "Easy",
+    "question": "What problem does Docker primarily solve?",
+    "image": "",
+    "options": [
+      "Environment consistency",
+      "Database tuning",
+      "Network routing",
+      "Source control"
+    ],
+    "correctAnswer": "Environment consistency",
+    "explanation": "Docker ensures applications run consistently across environments."
+  },
+  {
+    "id": 3,
+    "category": "Docker",
+    "subCategory": "Basics",
+    "difficulty": "Easy",
+    "question": "What is containerization?",
+    "image": "",
+    "options": [
+      "Packaging application and dependencies together",
+      "Creating databases",
+      "Managing users",
+      "Building networks"
+    ],
+    "correctAnswer": "Packaging application and dependencies together",
+    "explanation": "Containers package code, runtime, libraries, and dependencies."
+  },
+  {
+    "id": 4,
+    "category": "Docker",
+    "subCategory": "Basics",
+    "difficulty": "Medium",
+    "question": "What is the major advantage of Docker over traditional VMs?",
+    "image": "",
+    "options": [
+      "Lightweight and fast startup",
+      "Larger storage",
+      "More operating systems",
+      "Higher RAM usage"
+    ],
+    "correctAnswer": "Lightweight and fast startup",
+    "explanation": "Linux containers generally share the Linux kernel of their host environment, avoiding the separate guest kernel used by a virtual machine."
+  },
+  {
+    "id": 5,
+    "category": "Docker",
+    "subCategory": "Basics",
+    "difficulty": "Medium",
+    "question": "Which command displays Docker version information?",
+    "image": "",
+    "options": [
+      "docker version",
+      "docker check",
+      "docker info version",
+      "docker status"
+    ],
+    "correctAnswer": "docker version",
+    "explanation": "docker version displays client and server version details."
+  },
+  {
+    "id": 6,
+    "category": "Docker",
+    "subCategory": "Dockerfile",
+    "difficulty": "Easy",
+    "question": "What is a Dockerfile?",
+    "image": "",
+    "options": [
+      "Text file containing image build instructions",
+      "Container log file",
+      "Volume definition",
+      "Network policy"
+    ],
+    "correctAnswer": "Text file containing image build instructions",
+    "explanation": "Dockerfile contains instructions for image creation."
+  },
+  {
+    "id": 7,
+    "category": "Docker",
+    "subCategory": "Dockerfile",
+    "difficulty": "Easy",
+    "question": "Which instruction specifies the base image?",
+    "image": "",
+    "options": [
+      "FROM",
+      "RUN",
+      "COPY",
+      "CMD"
+    ],
+    "correctAnswer": "FROM",
+    "explanation": "FROM defines the base image used for image creation."
+  },
+  {
+    "id": 8,
+    "category": "Docker",
+    "subCategory": "Dockerfile",
+    "difficulty": "Medium",
+    "question": "What is the purpose of the RUN instruction?",
+    "image": "",
+    "options": [
+      "Execute commands during image build",
+      "Start container",
+      "Expose ports",
+      "Create volumes"
+    ],
+    "correctAnswer": "Execute commands during image build",
+    "explanation": "RUN executes commands while building the image."
+  },
+  {
+    "id": 9,
+    "category": "Docker",
+    "subCategory": "Dockerfile",
+    "difficulty": "Medium",
+    "question": "What is the difference between CMD and ENTRYPOINT?",
+    "image": "",
+    "options": [
+      "ENTRYPOINT defines the executable; CMD provides default arguments or a command",
+      "Both are identical",
+      "CMD builds image",
+      "ENTRYPOINT exposes ports"
+    ],
+    "correctAnswer": "ENTRYPOINT defines the executable; CMD provides default arguments or a command",
+    "explanation": "ENTRYPOINT sets the executable, while CMD supplies default arguments or a default command; command-line arguments can override CMD."
+  },
+  {
+    "id": 10,
+    "category": "Docker",
+    "subCategory": "Dockerfile",
+    "difficulty": "Hard",
+    "question": "What is a multi-stage build?",
+    "image": "",
+    "options": [
+      "Multiple build stages in one Dockerfile",
+      "Multiple containers",
+      "Multiple networks",
+      "Multiple registries"
+    ],
+    "correctAnswer": "Multiple build stages in one Dockerfile",
+    "explanation": "Multi-stage builds reduce final image size."
+  },
+  {
+    "id": 11,
+    "category": "Docker",
+    "subCategory": "Image Management",
+    "difficulty": "Easy",
+    "question": "What is a Docker image?",
+    "image": "",
+    "options": [
+      "Read-only container template",
+      "Running container",
+      "Volume",
+      "Network"
+    ],
+    "correctAnswer": "Read-only container template",
+    "explanation": "Images contain application code and dependencies."
+  },
+  {
+    "id": 12,
+    "category": "Docker",
+    "subCategory": "Image Management",
+    "difficulty": "Easy",
+    "question": "Which command pulls an image?",
+    "image": "",
+    "options": [
+      "docker pull",
+      "docker get",
+      "docker copy",
+      "docker fetch"
+    ],
+    "correctAnswer": "docker pull",
+    "explanation": "docker pull downloads images from a registry."
+  },
+  {
+    "id": 13,
+    "category": "Docker",
+    "subCategory": "Image Management",
+    "difficulty": "Medium",
+    "question": "Which command builds an image?",
+    "image": "",
+    "options": [
+      "docker build",
+      "docker create",
+      "docker image-run",
+      "docker generate"
+    ],
+    "correctAnswer": "docker build",
+    "explanation": "docker build uses a Dockerfile to create an image."
+  },
+  {
+    "id": 14,
+    "category": "Docker",
+    "subCategory": "Image Management",
+    "difficulty": "Medium",
+    "question": "What is image tagging?",
+    "image": "",
+    "options": [
+      "Assigning a reference name, often including a version label, to an image",
+      "Deleting images",
+      "Scanning images",
+      "Encrypting images"
+    ],
+    "correctAnswer": "Assigning a reference name, often including a version label, to an image",
+    "explanation": "A tag is a human-readable reference such as 1.2 or latest; tags can be moved and should not be treated as immutable digests."
+  },
+  {
+    "id": 15,
+    "category": "Docker",
+    "subCategory": "Image Management",
+    "difficulty": "Hard",
+    "question": "What is image layering?",
+    "image": "",
+    "options": [
+      "Images are built in reusable layers",
+      "Multiple images combined",
+      "Multiple containers running",
+      "Volume replication"
+    ],
+    "correctAnswer": "Images are built in reusable layers",
+    "explanation": "Docker caches image layers to improve build performance."
+  },
+  {
+    "id": 16,
+    "category": "Docker",
+    "subCategory": "Containers",
+    "difficulty": "Easy",
+    "question": "Which command starts a new container?",
+    "image": "",
+    "options": [
+      "docker run",
+      "docker pull",
+      "docker logs",
+      "docker ps"
+    ],
+    "correctAnswer": "docker run",
+    "explanation": "docker run creates and starts a container."
+  },
+  {
+    "id": 17,
+    "category": "Docker",
+    "subCategory": "Containers",
+    "difficulty": "Easy",
+    "question": "Which command lists running containers?",
+    "image": "",
+    "options": [
+      "docker ps",
+      "docker images",
+      "docker logs",
+      "docker inspect"
+    ],
+    "correctAnswer": "docker ps",
+    "explanation": "docker ps shows active containers."
+  },
+  {
+    "id": 18,
+    "category": "Docker",
+    "subCategory": "Containers",
+    "difficulty": "Medium",
+    "question": "Which command executes a command inside a container?",
+    "image": "",
+    "options": [
+      "docker exec",
+      "docker shell",
+      "docker attach",
+      "docker cmd"
+    ],
+    "correctAnswer": "docker exec",
+    "explanation": "docker exec runs commands inside a running container."
+  },
+  {
+    "id": 19,
+    "category": "Docker",
+    "subCategory": "Containers",
+    "difficulty": "Medium",
+    "question": "Which command displays a container's captured stdout and stderr logs?",
+    "image": "",
+    "options": [
+      "docker logs",
+      "docker history",
+      "docker info",
+      "docker inspect"
+    ],
+    "correctAnswer": "docker logs",
+    "explanation": "docker logs displays the output captured for a container by its logging configuration."
+  },
+  {
+    "id": 20,
+    "category": "Docker",
+    "subCategory": "Containers",
+    "difficulty": "Hard",
+    "question": "By default, what happens when a container's main process exits and no restart policy is configured?",
+    "image": "",
+    "options": [
+      "Container stops",
+      "Container restarts automatically",
+      "Host machine shuts down",
+      "Nothing happens"
+    ],
+    "correctAnswer": "Container stops",
+    "explanation": "A container lifecycle depends on its main process."
+  },
+  {
+    "id": 21,
+    "category": "Docker",
+    "subCategory": "Volumes",
+    "difficulty": "Easy",
+    "question": "Why are Docker volumes used?",
+    "image": "",
+    "options": [
+      "Persistent storage",
+      "Container security",
+      "Networking",
+      "Logging"
+    ],
+    "correctAnswer": "Persistent storage",
+    "explanation": "Volumes are managed separately from a container's writable layer and can persist after the container is removed."
+  },
+  {
+    "id": 22,
+    "category": "Docker",
+    "subCategory": "Volumes",
+    "difficulty": "Medium",
+    "question": "What is a bind mount?",
+    "image": "",
+    "options": [
+      "Host directory mounted into container",
+      "Volume backup",
+      "Container image",
+      "Docker network"
+    ],
+    "correctAnswer": "Host directory mounted into container",
+    "explanation": "Bind mounts directly map host filesystem paths."
+  },
+  {
+    "id": 23,
+    "category": "Docker",
+    "subCategory": "Volumes",
+    "difficulty": "Medium",
+    "question": "Which command creates a Docker volume?",
+    "image": "",
+    "options": [
+      "docker volume create",
+      "docker create volume",
+      "docker add volume",
+      "docker make volume"
+    ],
+    "correctAnswer": "docker volume create",
+    "explanation": "docker volume create creates a volume; provide a name to create a named volume."
+  },
+  {
+    "id": 24,
+    "category": "Docker",
+    "subCategory": "Networking",
+    "difficulty": "Easy",
+    "question": "Which network does a standalone container use by default when none is specified?",
+    "image": "",
+    "options": [
+      "bridge",
+      "host",
+      "overlay",
+      "none"
+    ],
+    "correctAnswer": "bridge",
+    "explanation": "Docker automatically creates a bridge network."
+  },
+  {
+    "id": 25,
+    "category": "Docker",
+    "subCategory": "Networking",
+    "difficulty": "Easy",
+    "question": "Which docker run flag publishes a container port with a specified host-port mapping?",
+    "image": "",
+    "options": [
+      "-p",
+      "-v",
+      "-e",
+      "-it"
+    ],
+    "correctAnswer": "-p",
+    "explanation": "The -p option publishes ports."
+  },
+  {
+    "id": 26,
+    "category": "Docker",
+    "subCategory": "Networking",
+    "difficulty": "Medium",
+    "question": "On Linux, what does Docker host network mode do?",
+    "image": "",
+    "options": [
+      "Container shares host network",
+      "Container uses overlay",
+      "Container uses VPN",
+      "Container is isolated"
+    ],
+    "correctAnswer": "Container shares host network",
+    "explanation": "Host mode removes network isolation."
+  },
+  {
+    "id": 27,
+    "category": "Docker",
+    "subCategory": "Networking",
+    "difficulty": "Medium",
+    "question": "Which network driver enables multi-host networking for Docker Swarm services?",
+    "image": "",
+    "options": [
+      "overlay",
+      "bridge",
+      "host",
+      "none"
+    ],
+    "correctAnswer": "overlay",
+    "explanation": "Overlay network supports communication across hosts."
+  },
+  {
+    "id": 28,
+    "category": "Docker",
+    "subCategory": "Networking",
+    "difficulty": "Hard",
+    "question": "How do containers communicate on the same custom network?",
+    "image": "",
+    "options": [
+      "Using container names as DNS",
+      "Only IP addresses",
+      "Only localhost",
+      "SSH tunneling"
+    ],
+    "correctAnswer": "Using container names as DNS",
+    "explanation": "Docker provides built-in DNS resolution."
+  },
+  {
+    "id": 29,
+    "category": "Docker",
+    "subCategory": "Compose",
+    "difficulty": "Easy",
+    "question": "What is Docker Compose?",
+    "image": "",
+    "options": [
+      "Tool for multi-container applications",
+      "Security scanner",
+      "Monitoring system",
+      "Container registry"
+    ],
+    "correctAnswer": "Tool for multi-container applications",
+    "explanation": "Compose defines and manages multi-container environments."
+  },
+  {
+    "id": 30,
+    "category": "Docker",
+    "subCategory": "Compose",
+    "difficulty": "Easy",
+    "question": "Which is a commonly used filename for defining Docker Compose services?",
+    "image": "",
+    "options": [
+      "docker-compose.yml",
+      "Dockerfile",
+      "docker.json",
+      "docker.xml"
+    ],
+    "correctAnswer": "docker-compose.yml",
+    "explanation": "docker-compose.yml defines services, networks, and volumes."
+  },
+  {
+    "id": 31,
+    "category": "Docker",
+    "subCategory": "Compose",
+    "difficulty": "Medium",
+    "question": "Which command starts services in Docker Compose?",
+    "image": "",
+    "options": [
+      "docker compose up",
+      "docker compose run-all",
+      "docker compose start-all",
+      "docker compose create"
+    ],
+    "correctAnswer": "docker compose up",
+    "explanation": "Starts all defined services."
+  },
+  {
+    "id": 32,
+    "category": "Docker",
+    "subCategory": "Compose",
+    "difficulty": "Hard",
+    "question": "What is the main advantage of Docker Compose?",
+    "image": "",
+    "options": [
+      "Manage application stack as code",
+      "Increase VM memory",
+      "Create registries",
+      "Replace Kubernetes"
+    ],
+    "correctAnswer": "Manage application stack as code",
+    "explanation": "Compose enables reproducible environments."
+  },
+  {
+    "id": 33,
+    "category": "Docker",
+    "subCategory": "Registry",
+    "difficulty": "Easy",
+    "question": "What is Docker Hub?",
+    "image": "",
+    "options": [
+      "Cloud-based image registry with public and private repositories",
+      "Container runtime",
+      "IDE",
+      "Operating System"
+    ],
+    "correctAnswer": "Cloud-based image registry with public and private repositories",
+    "explanation": "Docker Hub is a cloud-based registry that hosts both public and private container images."
+  },
+  {
+    "id": 34,
+    "category": "Docker",
+    "subCategory": "Registry",
+    "difficulty": "Medium",
+    "question": "Which command pushes an image to a registry?",
+    "image": "",
+    "options": [
+      "docker push",
+      "docker upload",
+      "docker publish",
+      "docker deploy"
+    ],
+    "correctAnswer": "docker push",
+    "explanation": "Uploads image layers to a registry."
+  },
+  {
+    "id": 35,
+    "category": "Docker",
+    "subCategory": "Security",
+    "difficulty": "Medium",
+    "question": "Why should containers avoid running as root?",
+    "image": "",
+    "options": [
+      "Reduce security risks",
+      "Improve networking",
+      "Save memory",
+      "Increase storage"
+    ],
+    "correctAnswer": "Reduce security risks",
+    "explanation": "Running with only the permissions required reduces the potential impact if a container is compromised."
+  },
+  {
+    "id": 36,
+    "category": "Docker",
+    "subCategory": "Security",
+    "difficulty": "Hard",
+    "question": "What are Docker Secrets used for?",
+    "image": "",
+    "options": [
+      "Store sensitive values securely",
+      "Store logs",
+      "Store volumes",
+      "Store images"
+    ],
+    "correctAnswer": "Store sensitive values securely",
+    "explanation": "Secrets securely manage passwords and keys."
+  },
+  {
+    "id": 37,
+    "category": "Docker",
+    "subCategory": "Security",
+    "difficulty": "Hard",
+    "question": "What is image scanning?",
+    "image": "",
+    "options": [
+      "Detect vulnerabilities in images",
+      "Compress images",
+      "Deploy images",
+      "Share images"
+    ],
+    "correctAnswer": "Detect vulnerabilities in images",
+    "explanation": "Security scanners identify known CVEs."
+  },
+  {
+    "id": 38,
+    "category": "Docker",
+    "subCategory": "Docker Swarm",
+    "difficulty": "Medium",
+    "question": "What is Docker Swarm?",
+    "image": "",
+    "options": [
+      "Native container orchestration",
+      "Monitoring tool",
+      "Database",
+      "Registry"
+    ],
+    "correctAnswer": "Native container orchestration",
+    "explanation": "Swarm clusters Docker hosts."
+  },
+  {
+    "id": 39,
+    "category": "Docker",
+    "subCategory": "Docker Swarm",
+    "difficulty": "Hard",
+    "question": "What is a Swarm Manager node?",
+    "image": "",
+    "options": [
+      "Controls cluster state",
+      "Runs only databases",
+      "Stores images",
+      "Hosts volumes"
+    ],
+    "correctAnswer": "Controls cluster state",
+    "explanation": "Managers maintain cluster orchestration."
+  },
+  {
+    "id": 40,
+    "category": "Docker",
+    "subCategory": "Docker Swarm",
+    "difficulty": "Hard",
+    "question": "What is a Swarm Worker node?",
+    "image": "",
+    "options": [
+      "Executes containers",
+      "Manages cluster",
+      "Stores logs only",
+      "Stores images only"
+    ],
+    "correctAnswer": "Executes containers",
+    "explanation": "Worker nodes run application workloads."
+  },
+  {
+    "id": 41,
+    "category": "Docker",
+    "subCategory": "Performance",
+    "difficulty": "Medium",
+    "question": "What is a common benefit of using an Alpine-based image?",
+    "image": "",
+    "options": [
+      "Smaller image size",
+      "More CPU",
+      "More memory",
+      "Better networking"
+    ],
+    "correctAnswer": "Smaller image size",
+    "explanation": "Alpine-based images are lightweight."
+  },
+  {
+    "id": 42,
+    "category": "Docker",
+    "subCategory": "Performance",
+    "difficulty": "Hard",
+    "question": "How do multi-stage builds help produce smaller runtime images?",
+    "image": "",
+    "options": [
+      "Reduce final image size",
+      "Increase CPU cores",
+      "Add memory",
+      "Create more containers"
+    ],
+    "correctAnswer": "Reduce final image size",
+    "explanation": "Only required artifacts are copied to the final image."
+  },
+  {
+    "id": 43,
+    "category": "Docker",
+    "subCategory": "Performance",
+    "difficulty": "Hard",
+    "question": "What improves Docker image build speed?",
+    "image": "",
+    "options": [
+      "Layer caching",
+      "Larger volumes",
+      "More logs",
+      "Extra networks"
+    ],
+    "correctAnswer": "Layer caching",
+    "explanation": "Docker can reuse unchanged cached layers, reducing the work needed during a subsequent build."
+  },
+  {
+    "id": 44,
+    "category": "Docker",
+    "subCategory": "Troubleshooting",
+    "difficulty": "Easy",
+    "question": "Which command lists stopped as well as running containers?",
+    "image": "",
+    "options": [
+      "docker ps -a",
+      "docker logs",
+      "docker info",
+      "docker start"
+    ],
+    "correctAnswer": "docker ps -a",
+    "explanation": "docker ps -a lists containers in all states, including containers that have exited."
+  },
+  {
+    "id": 45,
+    "category": "Docker",
+    "subCategory": "Troubleshooting",
+    "difficulty": "Medium",
+    "question": "Which command shows detailed configuration of a container?",
+    "image": "",
+    "options": [
+      "docker inspect",
+      "docker ps",
+      "docker run",
+      "docker info"
+    ],
+    "correctAnswer": "docker inspect",
+    "explanation": "Provides detailed metadata and settings."
+  },
+  {
+    "id": 46,
+    "category": "Docker",
+    "subCategory": "Troubleshooting",
+    "difficulty": "Hard",
+    "question": "Which command streams Docker daemon events to help trace container lifecycle changes?",
+    "image": "",
+    "options": [
+      "docker events",
+      "docker volume ls",
+      "docker network ls",
+      "docker image ls"
+    ],
+    "correctAnswer": "docker events",
+    "explanation": "docker events streams events from the Docker daemon; options such as --since can be used to inspect recent events."
+  },
+  {
+    "id": 47,
+    "category": "Docker",
+    "subCategory": "Troubleshooting",
+    "difficulty": "Hard",
+    "question": "How can you troubleshoot networking between containers?",
+    "image": "",
+    "options": [
+      "docker network inspect",
+      "docker image ls",
+      "docker tag",
+      "docker rename"
+    ],
+    "correctAnswer": "docker network inspect",
+    "explanation": "Inspect network configuration and memberships."
+  },
+  {
+    "id": 48,
+    "category": "Docker",
+    "subCategory": "Security",
+    "difficulty": "Hard",
+    "question": "What is the principle of least privilege?",
+    "image": "",
+    "options": [
+      "Grant minimum required permissions",
+      "Grant all permissions",
+      "Disable authentication",
+      "Use root everywhere"
+    ],
+    "correctAnswer": "Grant minimum required permissions",
+    "explanation": "Reduces attack surface and security risks."
+  },
+  {
+    "id": 49,
+    "category": "Docker",
+    "subCategory": "Registry",
+    "difficulty": "Medium",
+    "question": "What is a private Docker registry?",
+    "image": "",
+    "options": [
+      "Registry accessible only to authorized users",
+      "Local volume",
+      "Container network",
+      "Dockerfile"
+    ],
+    "correctAnswer": "Registry accessible only to authorized users",
+    "explanation": "Private registries secure internal images."
+  },
+  {
+    "id": 50,
+    "category": "Docker",
+    "subCategory": "Compose",
+    "difficulty": "Hard",
+    "question": "What is the main distinction between Docker Compose and Docker Swarm?",
+    "image": "",
+    "options": [
+      "Compose defines and runs multi-container applications; Swarm orchestrates services across a cluster",
+      "They are identical",
+      "Swarm builds images",
+      "Compose replaces Docker Engine"
+    ],
+    "correctAnswer": "Compose defines and runs multi-container applications; Swarm orchestrates services across a cluster",
+    "explanation": "Swarm provides clustering, scaling, and orchestration capabilities."
+  }
+]

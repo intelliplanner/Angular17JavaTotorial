@@ -1,1 +1,939 @@
-[]
+[
+  {
+    "id": 1,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Easy",
+    "question": "Which SQL statement is used to retrieve data from a table?",
+    "image": "",
+    "options": [
+      "GET",
+      "FETCH",
+      "SELECT",
+      "READ"
+    ],
+    "correctAnswer": "SELECT",
+    "explanation": "SELECT is the standard SQL command used to retrieve data from database tables."
+  },
+  {
+    "id": 2,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Easy",
+    "question": "Which key uniquely identifies each record in a table?",
+    "image": "",
+    "options": [
+      "Foreign Key",
+      "Composite Key",
+      "Primary Key",
+      "Candidate Key"
+    ],
+    "correctAnswer": "Primary Key",
+    "explanation": "A Primary Key uniquely identifies every row in a database table."
+  },
+  {
+    "id": 3,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Easy",
+    "question": "Which SQL clause is used to filter rows?",
+    "image": "",
+    "options": [
+      "ORDER BY",
+      "GROUP BY",
+      "WHERE",
+      "HAVING"
+    ],
+    "correctAnswer": "WHERE",
+    "explanation": "The WHERE clause filters rows based on specified conditions."
+  },
+  {
+    "id": 4,
+    "category": "Database",
+    "subCategory": "Transactions",
+    "difficulty": "Medium",
+    "question": "What does ACID stand for in databases?",
+    "image": "",
+    "options": [
+      "Atomicity, Consistency, Isolation, Durability",
+      "Availability, Consistency, Integrity, Durability",
+      "Atomicity, Concurrency, Isolation, Durability",
+      "Accuracy, Consistency, Isolation, Dependency"
+    ],
+    "correctAnswer": "Atomicity, Consistency, Isolation, Durability",
+    "explanation": "ACID properties ensure reliable database transactions."
+  },
+  {
+    "id": 5,
+    "category": "Database",
+    "subCategory": "SQL Joins",
+    "difficulty": "Medium",
+    "question": "Which JOIN returns only matching rows from both tables?",
+    "image": "",
+    "options": [
+      "LEFT JOIN",
+      "RIGHT JOIN",
+      "INNER JOIN",
+      "FULL JOIN"
+    ],
+    "correctAnswer": "INNER JOIN",
+    "explanation": "INNER JOIN returns rows that have matching values in both tables."
+  },
+
+  {
+    "id": 6,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Easy",
+    "question": "Which SQL command is used to remove a table from the database?",
+    "image": "",
+    "options": ["DELETE", "REMOVE", "DROP", "TRUNCATE"],
+    "correctAnswer": "DROP",
+    "explanation": "DROP TABLE permanently removes the table structure and data."
+  },
+  {
+    "id": 7,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Easy",
+    "question": "Which SQL function returns the number of rows?",
+    "image": "",
+    "options": ["SUM()", "COUNT()", "TOTAL()", "NUMBER()"],
+    "correctAnswer": "COUNT()",
+    "explanation": "COUNT() returns the total number of rows matching a condition."
+  },
+  {
+    "id": 8,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Easy",
+    "question": "Which clause is used to sort query results?",
+    "image": "",
+    "options": ["GROUP BY", "SORT BY", "ORDER BY", "ARRANGE BY"],
+    "correctAnswer": "ORDER BY",
+    "explanation": "ORDER BY sorts records in ascending or descending order."
+  },
+  {
+    "id": 9,
+    "category": "Database",
+    "subCategory": "SQL Joins",
+    "difficulty": "Medium",
+    "question": "Which JOIN returns all rows from the left table and matching rows from the right table?",
+    "image": "",
+    "options": ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "CROSS JOIN"],
+    "correctAnswer": "LEFT JOIN",
+    "explanation": "LEFT JOIN returns all rows from the left table and matching rows from the right table."
+  },
+  {
+    "id": 10,
+    "category": "Database",
+    "subCategory": "SQL Joins",
+    "difficulty": "Medium",
+    "question": "What is a CROSS JOIN?",
+    "image": "",
+    "options": [
+      "Returns matching rows only",
+      "Returns Cartesian product",
+      "Returns distinct rows",
+      "Returns grouped rows"
+    ],
+    "correctAnswer": "Returns Cartesian product",
+    "explanation": "CROSS JOIN returns every combination of rows from both tables."
+  },
+  {
+    "id": 11,
+    "category": "Database",
+    "subCategory": "Normalization",
+    "difficulty": "Medium",
+    "question": "What is the primary purpose of normalization?",
+    "image": "",
+    "options": [
+      "Increase redundancy",
+      "Reduce redundancy",
+      "Improve UI",
+      "Encrypt data"
+    ],
+    "correctAnswer": "Reduce redundancy",
+    "explanation": "Normalization minimizes duplicate data and improves consistency."
+  },
+  {
+    "id": 12,
+    "category": "Database",
+    "subCategory": "Normalization",
+    "difficulty": "Medium",
+    "question": "Which normal form removes partial dependencies?",
+    "image": "",
+    "options": ["1NF", "2NF", "3NF", "BCNF"],
+    "correctAnswer": "2NF",
+    "explanation": "Second Normal Form (2NF) removes partial dependency from tables."
+  },
+  {
+    "id": 13,
+    "category": "Database",
+    "subCategory": "Transactions",
+    "difficulty": "Medium",
+    "question": "Which SQL command permanently saves a transaction?",
+    "image": "",
+    "options": ["SAVE", "COMMIT", "PERSIST", "FINISH"],
+    "correctAnswer": "COMMIT",
+    "explanation": "COMMIT makes all transaction changes permanent."
+  },
+  {
+    "id": 14,
+    "category": "Database",
+    "subCategory": "Transactions",
+    "difficulty": "Medium",
+    "question": "Which command undoes changes since the last COMMIT?",
+    "image": "",
+    "options": ["UNDO", "REVERSE", "ROLLBACK", "RESET"],
+    "correctAnswer": "ROLLBACK",
+    "explanation": "ROLLBACK reverts all uncommitted changes."
+  },
+  {
+    "id": 15,
+    "category": "Database",
+    "subCategory": "Indexes",
+    "difficulty": "Medium",
+    "question": "What is the main purpose of an index?",
+    "image": "",
+    "options": [
+      "Reduce table size",
+      "Speed up data retrieval",
+      "Store backups",
+      "Encrypt data"
+    ],
+    "correctAnswer": "Speed up data retrieval",
+    "explanation": "Indexes improve query performance by reducing data scans."
+  },
+  {
+    "id": 16,
+    "category": "Database",
+    "subCategory": "Indexes",
+    "difficulty": "Hard",
+    "question": "What is a clustered index?",
+    "image": "",
+    "options": [
+      "Stores duplicate values",
+      "Physically orders table rows",
+      "Stores only foreign keys",
+      "Creates table partitions"
+    ],
+    "correctAnswer": "Physically orders table rows",
+    "explanation": "A clustered index determines the physical order of data in a table."
+  },
+  {
+    "id": 17,
+    "category": "Database",
+    "subCategory": "MySQL",
+    "difficulty": "Easy",
+    "question": "Which storage engine is the default in modern MySQL versions?",
+    "image": "",
+    "options": ["MyISAM", "InnoDB", "MEMORY", "ARCHIVE"],
+    "correctAnswer": "InnoDB",
+    "explanation": "InnoDB supports transactions, ACID compliance, and foreign keys."
+  },
+  {
+    "id": 18,
+    "category": "Database",
+    "subCategory": "MySQL",
+    "difficulty": "Medium",
+    "question": "Which MySQL command displays table structure?",
+    "image": "",
+    "options": ["SHOW TABLE", "DESCRIBE", "VIEW TABLE", "TABLE INFO"],
+    "correctAnswer": "DESCRIBE",
+    "explanation": "DESCRIBE table_name shows the table schema."
+  },
+  {
+    "id": 19,
+    "category": "Database",
+    "subCategory": "Oracle",
+    "difficulty": "Medium",
+    "question": "Which Oracle object generates unique numbers automatically?",
+    "image": "",
+    "options": ["Trigger", "Sequence", "Cursor", "View"],
+    "correctAnswer": "Sequence",
+    "explanation": "Oracle sequences are commonly used to generate primary key values."
+  },
+  {
+    "id": 20,
+    "category": "Database",
+    "subCategory": "PL/SQL",
+    "difficulty": "Medium",
+    "question": "What is a cursor in PL/SQL?",
+    "image": "",
+    "options": [
+      "A database table",
+      "A query result pointer",
+      "An index",
+      "A constraint"
+    ],
+    "correctAnswer": "A query result pointer",
+    "explanation": "A cursor points to the result set of a query for row-by-row processing."
+  },
+  {
+    "id": 21,
+    "category": "Database",
+    "subCategory": "PostgreSQL",
+    "difficulty": "Easy",
+    "question": "Which PostgreSQL command lists all databases?",
+    "image": "",
+    "options": ["SHOW DATABASES", "\\l", "\\dt", "LIST DATABASE"],
+    "correctAnswer": "\\l",
+    "explanation": "\\l is used in psql to display all databases."
+  },
+  {
+    "id": 22,
+    "category": "Database",
+    "subCategory": "Constraints",
+    "difficulty": "Easy",
+    "question": "Which constraint prevents duplicate values?",
+    "image": "",
+    "options": [
+      "CHECK",
+      "NOT NULL",
+      "UNIQUE",
+      "DEFAULT"
+    ],
+    "correctAnswer": "UNIQUE",
+    "explanation": "UNIQUE ensures all values in a column are distinct."
+  },
+  {
+    "id": 23,
+    "category": "Database",
+    "subCategory": "Constraints",
+    "difficulty": "Easy",
+    "question": "Which constraint ensures a column cannot contain NULL values?",
+    "image": "",
+    "options": [
+      "UNIQUE",
+      "CHECK",
+      "NOT NULL",
+      "PRIMARY KEY"
+    ],
+    "correctAnswer": "NOT NULL",
+    "explanation": "NOT NULL requires every row to contain a value."
+  },
+  {
+    "id": 24,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Medium",
+    "question": "Which SQL operator is used for pattern matching?",
+    "image": "",
+    "options": ["IN", "BETWEEN", "LIKE", "EXISTS"],
+    "correctAnswer": "LIKE",
+    "explanation": "LIKE is used with wildcards such as % and _ for pattern matching."
+  },
+  {
+    "id": 25,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Medium",
+    "question": "Which clause is used to group rows having similar values?",
+    "image": "",
+    "options": ["ORDER BY", "HAVING", "WHERE", "GROUP BY"],
+    "correctAnswer": "GROUP BY",
+    "explanation": "GROUP BY groups rows and is often used with aggregate functions."
+  },
+  {
+    "id": 26,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Medium",
+    "question": "Which SQL clause is used to filter groups after aggregation?",
+    "image": "",
+    "options": ["WHERE", "GROUP BY", "HAVING", "ORDER BY"],
+    "correctAnswer": "HAVING",
+    "explanation": "HAVING filters grouped records after GROUP BY has been applied."
+  },
+  {
+    "id": 27,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Easy",
+    "question": "Which SQL statement is used to insert new data into a table?",
+    "image": "",
+    "options": ["ADD", "CREATE", "INSERT INTO", "APPEND"],
+    "correctAnswer": "INSERT INTO",
+    "explanation": "INSERT INTO is used to add new rows into a table."
+  },
+  {
+    "id": 28,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Easy",
+    "question": "Which SQL statement is used to modify existing records?",
+    "image": "",
+    "options": ["MODIFY", "ALTER", "UPDATE", "CHANGE"],
+    "correctAnswer": "UPDATE",
+    "explanation": "UPDATE modifies existing rows in a table."
+  },
+  {
+    "id": 29,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Easy",
+    "question": "Which SQL statement removes rows but keeps the table structure?",
+    "image": "",
+    "options": ["DROP", "REMOVE", "DELETE", "CLEAR"],
+    "correctAnswer": "DELETE",
+    "explanation": "DELETE removes rows while preserving the table structure."
+  },
+  {
+    "id": 30,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Medium",
+    "question": "What is the difference between DELETE and TRUNCATE?",
+    "image": "",
+    "options": [
+      "DELETE removes structure",
+      "TRUNCATE can use WHERE clause",
+      "TRUNCATE removes all rows faster",
+      "Both are identical"
+    ],
+    "correctAnswer": "TRUNCATE removes all rows faster",
+    "explanation": "TRUNCATE removes all rows without logging individual row deletions."
+  },
+  {
+    "id": 31,
+    "category": "Database",
+    "subCategory": "Constraints",
+    "difficulty": "Easy",
+    "question": "Which constraint establishes a relationship between two tables?",
+    "image": "",
+    "options": ["PRIMARY KEY", "FOREIGN KEY", "UNIQUE", "CHECK"],
+    "correctAnswer": "FOREIGN KEY",
+    "explanation": "A FOREIGN KEY links records between two tables."
+  },
+  {
+    "id": 32,
+    "category": "Database",
+    "subCategory": "Constraints",
+    "difficulty": "Medium",
+    "question": "What is the purpose of the CHECK constraint?",
+    "image": "",
+    "options": [
+      "Ensure uniqueness",
+      "Validate data against a condition",
+      "Create an index",
+      "Define relationships"
+    ],
+    "correctAnswer": "Validate data against a condition",
+    "explanation": "CHECK restricts values based on a logical condition."
+  },
+  {
+    "id": 33,
+    "category": "Database",
+    "subCategory": "Normalization",
+    "difficulty": "Medium",
+    "question": "What is First Normal Form (1NF)?",
+    "image": "",
+    "options": [
+      "Remove transitive dependencies",
+      "Remove partial dependencies",
+      "Ensure atomic column values",
+      "Remove duplicate tables"
+    ],
+    "correctAnswer": "Ensure atomic column values",
+    "explanation": "1NF requires each column to contain indivisible values."
+  },
+  {
+    "id": 34,
+    "category": "Database",
+    "subCategory": "Normalization",
+    "difficulty": "Hard",
+    "question": "Which normal form removes transitive dependency?",
+    "image": "",
+    "options": ["1NF", "2NF", "3NF", "4NF"],
+    "correctAnswer": "3NF",
+    "explanation": "Third Normal Form removes transitive dependencies."
+  },
+  {
+    "id": 35,
+    "category": "Database",
+    "subCategory": "Indexes",
+    "difficulty": "Medium",
+    "question": "Which index can enforce uniqueness of values?",
+    "image": "",
+    "options": [
+      "Composite Index",
+      "Clustered Index",
+      "Unique Index",
+      "Bitmap Index"
+    ],
+    "correctAnswer": "Unique Index",
+    "explanation": "A Unique Index prevents duplicate values in indexed columns."
+  },
+  {
+    "id": 36,
+    "category": "Database",
+    "subCategory": "Transactions",
+    "difficulty": "Hard",
+    "question": "Which ACID property ensures changes survive system failures?",
+    "image": "",
+    "options": [
+      "Atomicity",
+      "Consistency",
+      "Isolation",
+      "Durability"
+    ],
+    "correctAnswer": "Durability",
+    "explanation": "Durability guarantees committed data remains even after crashes."
+  },
+  {
+    "id": 37,
+    "category": "Database",
+    "subCategory": "Transactions",
+    "difficulty": "Hard",
+    "question": "Which ACID property ensures transactions execute independently?",
+    "image": "",
+    "options": [
+      "Atomicity",
+      "Consistency",
+      "Isolation",
+      "Durability"
+    ],
+    "correctAnswer": "Isolation",
+    "explanation": "Isolation prevents transactions from interfering with each other."
+  },
+  {
+    "id": 38,
+    "category": "Database",
+    "subCategory": "MySQL",
+    "difficulty": "Medium",
+    "question": "Which MySQL command shows all tables in a database?",
+    "image": "",
+    "options": [
+      "SHOW TABLES",
+      "LIST TABLES",
+      "DISPLAY TABLES",
+      "SHOW DATABASES"
+    ],
+    "correctAnswer": "SHOW TABLES",
+    "explanation": "SHOW TABLES lists all tables in the current database."
+  },
+  {
+    "id": 39,
+    "category": "Database",
+    "subCategory": "Oracle",
+    "difficulty": "Medium",
+    "question": "Which Oracle pseudo-column returns row numbers?",
+    "image": "",
+    "options": [
+      "ROWNO",
+      "ROWID",
+      "ROWNUM",
+      "ROWCOUNT"
+    ],
+    "correctAnswer": "ROWNUM",
+    "explanation": "ROWNUM assigns sequential numbers to rows returned by a query."
+  },
+  {
+    "id": 40,
+    "category": "Database",
+    "subCategory": "PostgreSQL",
+    "difficulty": "Medium",
+    "question": "Which PostgreSQL feature stores JSON documents efficiently?",
+    "image": "",
+    "options": [
+      "XML",
+      "BLOB",
+      "JSONB",
+      "VARCHAR"
+    ],
+    "correctAnswer": "JSONB",
+    "explanation": "JSONB stores JSON data in a binary format for fast querying."
+  },
+  {
+    "id": 41,
+    "category": "Database",
+    "subCategory": "PL/SQL",
+    "difficulty": "Medium",
+    "question": "Which PL/SQL block section is mandatory?",
+    "image": "",
+    "options": [
+      "DECLARE",
+      "EXCEPTION",
+      "BEGIN-END",
+      "CURSOR"
+    ],
+    "correctAnswer": "BEGIN-END",
+    "explanation": "Every PL/SQL block must contain a BEGIN-END executable section."
+  },
+  {
+    "id": 42,
+    "category": "Database",
+    "subCategory": "SQL Joins",
+    "difficulty": "Medium",
+    "question": "Which JOIN returns all rows from both tables including unmatched rows?",
+    "image": "",
+    "options": [
+      "INNER JOIN",
+      "LEFT JOIN",
+      "RIGHT JOIN",
+      "FULL OUTER JOIN"
+    ],
+    "correctAnswer": "FULL OUTER JOIN",
+    "explanation": "FULL OUTER JOIN returns matched and unmatched rows from both tables."
+  },
+  {
+    "id": 43,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Medium",
+    "question": "What does the DISTINCT keyword do?",
+    "image": "",
+    "options": [
+      "Sort rows",
+      "Filter duplicates",
+      "Create index",
+      "Join tables"
+    ],
+    "correctAnswer": "Filter duplicates",
+    "explanation": "DISTINCT returns only unique values from the result set."
+  },
+  {
+    "id": 44,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Hard",
+    "question": "What is a subquery?",
+    "image": "",
+    "options": [
+      "A nested query inside another query",
+      "A temporary table",
+      "A database object",
+      "An index"
+    ],
+    "correctAnswer": "A nested query inside another query",
+    "explanation": "A subquery is a query embedded within another SQL query."
+  },
+  {
+    "id": 45,
+    "category": "Database",
+    "subCategory": "Performance",
+    "difficulty": "Hard",
+    "question": "Which SQL command is commonly used to analyze a query execution plan?",
+    "image": "",
+    "options": [
+      "EXPLAIN",
+      "ANALYZE TABLE",
+      "PROFILE",
+      "DESCRIBE"
+    ],
+    "correctAnswer": "EXPLAIN",
+    "explanation": "EXPLAIN shows how the database engine plans to execute a query."
+  },
+  {
+    "id": 46,
+    "category": "Database",
+    "subCategory": "PostgreSQL",
+    "difficulty": "Easy",
+    "question": "Which PostgreSQL command connects to a database in psql?",
+    "image": "",
+    "options": ["\\c", "\\d", "\\l", "\\dt"],
+    "correctAnswer": "\\c",
+    "explanation": "\\c is used to connect to a specific database."
+  },
+  {
+    "id": 47,
+    "category": "Database",
+    "subCategory": "PostgreSQL",
+    "difficulty": "Easy",
+    "question": "Which command lists all tables in PostgreSQL?",
+    "image": "",
+    "options": ["\\dt", "\\d", "\\l", "\\ds"],
+    "correctAnswer": "\\dt",
+    "explanation": "\\dt displays all tables in the current schema."
+  },
+  {
+    "id": 48,
+    "category": "Database",
+    "subCategory": "PostgreSQL",
+    "difficulty": "Medium",
+    "question": "What is PostgreSQL best known for?",
+    "image": "",
+    "options": [
+      "No ACID support",
+      "Object-relational capabilities",
+      "Only document storage",
+      "In-memory processing only"
+    ],
+    "correctAnswer": "Object-relational capabilities",
+    "explanation": "PostgreSQL is a powerful object-relational database system."
+  },
+  {
+    "id": 49,
+    "category": "Database",
+    "subCategory": "PostgreSQL",
+    "difficulty": "Medium",
+    "question": "Which PostgreSQL data type is used to store JSON in binary format?",
+    "image": "",
+    "options": ["JSON", "JSONB", "BSON", "TEXT"],
+    "correctAnswer": "JSONB",
+    "explanation": "JSONB provides efficient storage and indexing of JSON data."
+  },
+  {
+    "id": 50,
+    "category": "Database",
+    "subCategory": "PostgreSQL",
+    "difficulty": "Medium",
+    "question": "Which PostgreSQL function returns the current date and time?",
+    "image": "",
+    "options": ["NOW()", "DATE()", "CURRENT()", "SYSDATE()"],
+    "correctAnswer": "NOW()",
+    "explanation": "NOW() returns the current timestamp."
+  },
+  {
+    "id": 51,
+    "category": "Database",
+    "subCategory": "PostgreSQL",
+    "difficulty": "Hard",
+    "question": "Which PostgreSQL feature enables automatic partitioning of large tables?",
+    "image": "",
+    "options": [
+      "Inheritance",
+      "Partitioned Tables",
+      "Materialized Views",
+      "Triggers"
+    ],
+    "correctAnswer": "Partitioned Tables",
+    "explanation": "PostgreSQL supports declarative table partitioning."
+  },
+  {
+    "id": 52,
+    "category": "Database",
+    "subCategory": "PostgreSQL",
+    "difficulty": "Medium",
+    "question": "What is a Materialized View in PostgreSQL?",
+    "image": "",
+    "options": [
+      "A virtual table",
+      "A stored query result",
+      "A backup table",
+      "A temporary table"
+    ],
+    "correctAnswer": "A stored query result",
+    "explanation": "Materialized views store query results physically for faster access."
+  },
+  {
+    "id": 53,
+    "category": "Database",
+    "subCategory": "MongoDB",
+    "difficulty": "Easy",
+    "question": "MongoDB is classified as which type of database?",
+    "image": "",
+    "options": [
+      "Relational Database",
+      "Document Database",
+      "Graph Database",
+      "Column Database"
+    ],
+    "correctAnswer": "Document Database",
+    "explanation": "MongoDB stores data as JSON-like documents."
+  },
+  {
+    "id": 54,
+    "category": "Database",
+    "subCategory": "MongoDB",
+    "difficulty": "Easy",
+    "question": "What is the equivalent of a table in MongoDB?",
+    "image": "",
+    "options": [
+      "Document",
+      "Collection",
+      "Schema",
+      "Record"
+    ],
+    "correctAnswer": "Collection",
+    "explanation": "A collection is similar to a table in relational databases."
+  },
+  {
+    "id": 55,
+    "category": "Database",
+    "subCategory": "MongoDB",
+    "difficulty": "Easy",
+    "question": "What is the equivalent of a row in MongoDB?",
+    "image": "",
+    "options": [
+      "Column",
+      "Document",
+      "Collection",
+      "Index"
+    ],
+    "correctAnswer": "Document",
+    "explanation": "A document represents a single record in MongoDB."
+  },
+  {
+    "id": 56,
+    "category": "Database",
+    "subCategory": "MongoDB",
+    "difficulty": "Medium",
+    "question": "Which format is used internally by MongoDB to store documents?",
+    "image": "",
+    "options": [
+      "XML",
+      "JSON",
+      "BSON",
+      "YAML"
+    ],
+    "correctAnswer": "BSON",
+    "explanation": "MongoDB stores documents using Binary JSON (BSON)."
+  },
+  {
+    "id": 57,
+    "category": "Database",
+    "subCategory": "MongoDB",
+    "difficulty": "Medium",
+    "question": "Which command is used to insert a document into MongoDB?",
+    "image": "",
+    "options": [
+      "db.collection.save()",
+      "db.collection.insertOne()",
+      "db.collection.add()",
+      "db.collection.create()"
+    ],
+    "correctAnswer": "db.collection.insertOne()",
+    "explanation": "insertOne() inserts a single document into a collection."
+  },
+  {
+    "id": 58,
+    "category": "Database",
+    "subCategory": "MongoDB",
+    "difficulty": "Medium",
+    "question": "Which method is used to retrieve documents from a collection?",
+    "image": "",
+    "options": [
+      "get()",
+      "search()",
+      "find()",
+      "select()"
+    ],
+    "correctAnswer": "find()",
+    "explanation": "find() retrieves documents matching a query."
+  },
+  {
+    "id": 59,
+    "category": "Database",
+    "subCategory": "MongoDB",
+    "difficulty": "Medium",
+    "question": "Which field is automatically created for every MongoDB document?",
+    "image": "",
+    "options": [
+      "id",
+      "_id",
+      "primaryKey",
+      "key"
+    ],
+    "correctAnswer": "_id",
+    "explanation": "MongoDB automatically creates a unique _id field."
+  },
+  {
+    "id": 60,
+    "category": "Database",
+    "subCategory": "MongoDB",
+    "difficulty": "Hard",
+    "question": "What is sharding in MongoDB?",
+    "image": "",
+    "options": [
+      "Data encryption",
+      "Data replication",
+      "Horizontal scaling of data",
+      "Vertical scaling"
+    ],
+    "correctAnswer": "Horizontal scaling of data",
+    "explanation": "Sharding distributes data across multiple servers."
+  },
+  {
+    "id": 61,
+    "category": "Database",
+    "subCategory": "MongoDB",
+    "difficulty": "Hard",
+    "question": "What is a Replica Set in MongoDB?",
+    "image": "",
+    "options": [
+      "Multiple indexes",
+      "Multiple collections",
+      "Group of MongoDB servers providing redundancy",
+      "Clustered collection"
+    ],
+    "correctAnswer": "Group of MongoDB servers providing redundancy",
+    "explanation": "Replica Sets improve availability and fault tolerance."
+  },
+  {
+    "id": 62,
+    "category": "Database",
+    "subCategory": "MongoDB",
+    "difficulty": "Medium",
+    "question": "Which MongoDB operator is used to compare equality?",
+    "image": "",
+    "options": [
+      "$eq",
+      "$equal",
+      "$is",
+      "$same"
+    ],
+    "correctAnswer": "$eq",
+    "explanation": "$eq matches documents where the value equals the specified value."
+  },
+  {
+    "id": 63,
+    "category": "Database",
+    "subCategory": "Performance",
+    "difficulty": "Hard",
+    "question": "What is database denormalization?",
+    "image": "",
+    "options": [
+      "Removing indexes",
+      "Adding redundancy for performance",
+      "Deleting duplicate records",
+      "Converting SQL to NoSQL"
+    ],
+    "correctAnswer": "Adding redundancy for performance",
+    "explanation": "Denormalization improves read performance by reducing joins."
+  },
+  {
+    "id": 64,
+    "category": "Database",
+    "subCategory": "SQL",
+    "difficulty": "Hard",
+    "question": "Which SQL function is commonly used to handle NULL values?",
+    "image": "",
+    "options": [
+      "NVL/COALESCE",
+      "NULLIF",
+      "COUNT",
+      "DISTINCT"
+    ],
+    "correctAnswer": "NVL/COALESCE",
+    "explanation": "NVL (Oracle) and COALESCE replace NULL values with a specified value."
+  },
+  {
+    "id": 65,
+    "category": "Database",
+    "subCategory": "Performance",
+    "difficulty": "Hard",
+    "question": "Which type of index is generally preferred for equality searches?",
+    "image": "",
+    "options": [
+      "Bitmap Index",
+      "B-Tree Index",
+      "Hash Index",
+      "Clustered Index"
+    ],
+    "correctAnswer": "B-Tree Index",
+    "explanation": "B-Tree indexes are commonly used and optimized for equality and range searches."
+  }
+
+
+
+
+
+
+
+
+
+
+
+]

@@ -103,4 +103,58 @@ describe('QuestionService', () => {
       { category: 'Java', filename: 'java.json', count: 1 }
     ]);
   });
+
+  it('returns questions from every subcategory when no subcategory filter is selected', async () => {
+    const firstQuestion: QuizQuestion = {
+      id: 1,
+      category: 'Java',
+      subCategory: 'Core Java',
+      difficulty: 'Easy',
+      question: 'Core Java question?',
+      image: '',
+      options: ['A', 'B', 'C', 'D'],
+      correctAnswer: 'A',
+      explanation: 'A is correct.'
+    };
+    const collectionQuestion: QuizQuestion = {
+      ...firstQuestion,
+      id: 2,
+      subCategory: 'Collections',
+      question: 'Collections question?'
+    };
+    const otherCategoryQuestion: QuizQuestion = {
+      ...firstQuestion,
+      id: 3,
+      category: 'AWS',
+      subCategory: 'EC2',
+      question: 'AWS question?'
+    };
+    const http = {
+      get: jasmine.createSpy('get').and.callFake((url: string) => of(
+        url.endsWith('question-files.json')
+          ? { Java: 'java.json', AWS: 'aws.json' }
+          : url.endsWith('/api/categories')
+            ? [
+              { name: 'Java', subCategories: ['Core Java', 'Collections'] },
+              { name: 'AWS', subCategories: ['EC2'] }
+            ]
+          : url.endsWith('java.json')
+            ? [firstQuestion, collectionQuestion]
+            : [otherCategoryQuestion]
+      ))
+    };
+    TestBed.configureTestingModule({
+      providers: [
+        QuestionService,
+        StorageService,
+        { provide: HttpClient, useValue: http }
+      ]
+    });
+    const service = TestBed.inject(QuestionService);
+
+    await service.load();
+
+    expect(service.findQuestions('Java', '', 'Easy').map(question => question.id)).toEqual([1, 2]);
+    expect(service.findQuestions('Java', 'Collections', 'Easy').map(question => question.id)).toEqual([2]);
+  });
 });

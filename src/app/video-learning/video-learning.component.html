@@ -50,7 +50,8 @@
               <h3>{{ selectedVideo.title }}</h3>
               <p>Browse video lessons directly from {{ selectedVideo.channel }}.</p>
               <a [href]="selectedVideo.youtubeUrl" target="_blank" rel="noopener noreferrer" class="youtube-button">
-                <i class="fa-brands fa-youtube"></i> Browse {{ selectedVideo.channel }}
+                <i class="fa-brands fa-youtube"></i>
+                {{ isDirectVideo(selectedVideo) ? 'Watch on YouTube' : 'Browse ' + selectedVideo.channel }}
               </a>
             </div>
           </div>

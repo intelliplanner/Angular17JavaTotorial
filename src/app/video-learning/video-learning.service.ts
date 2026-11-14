@@ -2,20 +2,32 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CategoryService } from '../quiz/services/category.service';
 import { LearningCatalog, LearningCategory, LearningVideo } from './video-learning.models';
 
 const ALLOWED_YOUTUBE_CHANNELS = new Set([
   'https://www.youtube.com/@Javatechie',
   'https://www.youtube.com/@ApnaCollegeOfficial'
 ]);
+const ALLOWED_CHANNEL_NAMES = new Set(['JavaTechie', 'Apna College']);
 
 @Injectable({ providedIn: 'root' })
 export class VideoLearningService {
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly categoryService: CategoryService
+  ) {}
 
   getCatalog(): Observable<LearningCatalog> {
     return forkJoin({
-      categories: this.http.get<LearningCategory[]>('assets/data/learning-categories.json'),
+      categories: this.categoryService.getCategories().pipe(map(categories =>
+        categories.map(category => ({
+          ...category,
+          icon: category.icon ?? 'fa-solid fa-layer-group',
+          description: category.description ?? `${category.name} learning resources`,
+          color: category.color ?? '#5264ae'
+        }))
+      )),
       videos: this.http.get<LearningVideo[]>('assets/data/learning-videos.json')
     }).pipe(map(({ categories, videos }) => {
       if (!Array.isArray(categories) || !Array.isArray(videos)) {
@@ -41,7 +53,7 @@ export class VideoLearningService {
         typeof video.duration !== 'string' || !video.duration.trim() ||
         !['Beginner', 'Intermediate', 'Advanced'].includes(video.level) ||
         !Array.isArray(video.tags) || video.tags.some(tag => typeof tag !== 'string') ||
-        !ALLOWED_YOUTUBE_CHANNELS.has(video.youtubeUrl)
+        !this.isAllowedYoutubeLink(video.youtubeUrl, video.channel)
       );
       if (invalidVideo) {
         throw new Error(`The learning video "${invalidVideo.id || 'unknown'}" has invalid or incomplete data.`);
@@ -51,5 +63,19 @@ export class VideoLearningService {
       }
       return { categories, videos };
     }));
+  }
+
+  private isAllowedYoutubeLink(value: string, channel: string): boolean {
+    if (!ALLOWED_CHANNEL_NAMES.has(channel)) return false;
+    if (ALLOWED_YOUTUBE_CHANNELS.has(value)) return true;
+
+    try {
+      const url = new URL(value);
+      return url.origin === 'https://www.youtube.com' &&
+        url.pathname === '/watch' &&
+        /^[\w-]{11}$/.test(url.searchParams.get('v') ?? '');
+    } catch {
+      return false;
+    }
   }
 }

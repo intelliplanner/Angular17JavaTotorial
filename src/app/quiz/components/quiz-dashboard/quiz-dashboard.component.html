@@ -32,6 +32,7 @@
         </label>
         <label class="setup-field"><span>03 · Subcategory</span>
           <select class="form-select" [(ngModel)]="subCategory" (ngModelChange)="updateAvailability()">
+            <option value="">All subcategories</option>
             <option *ngFor="let item of subCategories" [value]="item">{{ item }}</option>
           </select>
         </label>

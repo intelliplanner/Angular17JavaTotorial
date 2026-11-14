@@ -125,7 +125,7 @@ export class CategoryManagerComponent implements OnInit {
     const url = URL.createObjectURL(new Blob([JSON.stringify(this.categories, null, 2)], { type: 'application/json' }));
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'categories.json';
+    link.download = 'topic_categories.json';
     link.click();
     URL.revokeObjectURL(url);
   }

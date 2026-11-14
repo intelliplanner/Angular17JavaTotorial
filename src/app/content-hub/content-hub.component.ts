@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { InterviewQuestion, ContentDifficulty, Tutorial } from './content.models';
 import { ContentService } from './content.service';
+import { CategoryService } from '../quiz/services/category.service';
+import { QuizCategory } from '../quiz/models/category';
 
 type HubView = 'tutorials' | 'questions';
 type Vote = 'like' | 'dislike';
@@ -29,27 +31,6 @@ interface QuestionDraft {
   tags: string;
 }
 
-const categoryTopics: Record<string, string[]> = {
-  Java: ['Basics', 'OOPS', 'Collections', 'Exception Handling', 'Multithreading', 'Stream API', 'JVM'],
-  'Spring Boot': ['Basics', 'REST API', 'Security', 'JPA', 'Microservices'],
-  Microservices: ['Architecture', 'Communication', 'Resilience', 'Service Discovery'],
-  Hibernate: ['Basics', 'Entities', 'Relationships', 'Caching', 'HQL'],
-  MySQL: ['Basics', 'SQL', 'Indexes', 'Transactions'],
-  PostgreSQL: ['Basics', 'SQL', 'Indexes', 'Transactions'],
-  Oracle: ['Basics', 'SQL', 'PL/SQL', 'Indexes'],
-  Docker: ['Basics', 'Images', 'Containers', 'Networking', 'Compose'],
-  Kubernetes: ['Pods', 'Services', 'Deployments', 'ConfigMap', 'Helm'],
-  AWS: ['EC2', 'S3', 'IAM', 'Lambda', 'VPC'],
-  GCP: ['GKE', 'Cloud Run', 'Pub/Sub', 'BigQuery', 'GCS'],
-  Angular: ['Basics', 'Components', 'Routing', 'Forms', 'RxJS'],
-  React: ['Basics', 'Components', 'Hooks', 'State Management'],
-  DevOps: ['CI/CD', 'Linux', 'Terraform', 'Monitoring'],
-  AI: ['Machine Learning', 'Generative AI', 'Large Language Models', 'Responsible AI'],
-  Claude: ['Claude Models', 'Prompt Engineering', 'Claude API', 'AI Safety'],
-  'Data Science': ['Statistics', 'Machine Learning', 'Data Preparation', 'Model Evaluation'],
-  'Data Engineering': ['Data Pipelines', 'Data Warehousing', 'Stream Processing', 'Data Modeling']
-};
-const categories = Object.keys(categoryTopics);
 const emptyTutorial: TutorialDraft = {
   title: '', category: 'Java', subCategory: 'Basics', description: '', content: '',
   difficulty: 'Beginner', tags: '', published: false
@@ -66,8 +47,8 @@ const emptyQuestion: QuestionDraft = {
   templateUrl: './content-hub.component.html'
 })
 export class ContentHubComponent implements OnInit {
-  readonly categories = categories;
-  readonly categoryTopics = categoryTopics;
+  categories: string[] = [];
+  categoryTopics: Record<string, string[]> = {};
   readonly difficulties: ContentDifficulty[] = ['Beginner', 'Intermediate', 'Advanced'];
   readonly isAdminPanel: boolean;
   view: HubView = 'tutorials';
@@ -96,6 +77,7 @@ export class ContentHubComponent implements OnInit {
 
   constructor(
     private readonly contentService: ContentService,
+    private readonly categoryService: CategoryService,
     private readonly route: ActivatedRoute,
     private readonly router: Router
   ) {
@@ -107,19 +89,28 @@ export class ContentHubComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadContent();
+    this.categoryService.getCategories().subscribe({
+      next: categories => {
+        this.setCategories(categories);
+        this.loadContent();
+      },
+      error: error => {
+        this.loading = false;
+        this.handleError('Could not load topic categories', error);
+      }
+    });
   }
 
   get subCategories(): string[] {
-    return categoryTopics[this.selectedCategory] ?? [];
+    return this.categoryTopics[this.selectedCategory] ?? [];
   }
 
   get tutorialSubCategories(): string[] {
-    return this.selectedTutorial ? categoryTopics[this.selectedTutorial.category] ?? [] : [];
+    return this.selectedTutorial ? this.categoryTopics[this.selectedTutorial.category] ?? [] : [];
   }
 
   get questionSubCategories(): string[] {
-    return categoryTopics[this.questionDraft.category] ?? [];
+    return this.categoryTopics[this.questionDraft.category] ?? [];
   }
 
   get filteredTutorials(): Tutorial[] {
@@ -427,6 +418,19 @@ export class ContentHubComponent implements OnInit {
         this.handleError('Could not load tutorials', error);
       }
     });
+  }
+
+  private setCategories(categories: QuizCategory[]): void {
+    this.categories = categories.map(category => category.name);
+    this.categoryTopics = Object.fromEntries(
+      categories.map(category => [category.name, category.subCategories])
+    );
+    if (!this.categoryTopics[this.tutorialDraft.category]) {
+      this.tutorialDraft = { ...this.tutorialDraft, category: this.categories[0] ?? '', subCategory: '' };
+    }
+    if (!this.categoryTopics[this.questionDraft.category]) {
+      this.questionDraft = { ...this.questionDraft, category: this.categories[0] ?? '', subCategory: '' };
+    }
   }
 
   private tutorialPayload(): Partial<Tutorial> {

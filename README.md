@@ -116,16 +116,16 @@ The starter accounts are `test` / `test` (learner access) and `admin` / `admin` 
 ### Video Learning
 
 - Open `/learn` for a responsive, searchable video library grouped by technology.
-- Categories and lessons are loaded from `src/assets/data/learning-categories.json` and `src/assets/data/learning-videos.json`.
+- Topic categories and subcategories come from `src/assets/data/topic_categories.json`; video entries are loaded from `src/assets/data/learning-videos.json`.
 - YouTube links are restricted to `https://www.youtube.com/@Javatechie` and `https://www.youtube.com/@ApnaCollegeOfficial`. Learners browse those channels directly; the catalog does not embed or link to other videos. Bookmarks and completion progress are kept in browser local storage.
 - AI, Claude, Data Science, and Data Engineering paths are included alongside the original technology categories.
 
-The quiz bank includes AI, Claude, Data Science, and Data Engineering question files. Their categories and subcategories are defined in `src/assets/data/categories.json` and `src/assets/data/subcategories.json`, while interview Q&A entries are stored in `src/assets/data/questions-and-answers.json`.
+The quiz bank includes AI, Claude, Data Science, and Data Engineering question files. Categories and subcategories for the quiz, tutorials, interview Q&A, and video learning are defined in `src/assets/data/topic_categories.json`; interview Q&A entries are stored in `src/assets/data/questions-and-answers.json`.
 
 ### Quiz Category Management
 
-- Quiz categories are stored in `src/assets/data/categories.json`; each category's subcategories are stored separately in `src/assets/data/subcategories.json`.
-- The quiz reads these files directly when no backend URL is configured. The Express API exposes `GET /api/categories` and administrator-only `POST`, `PUT`, and `DELETE /api/categories` routes to persist changes to both files.
+- Categories, subcategories, and shared display metadata are stored together in `src/assets/data/topic_categories.json`.
+- The app reads this file directly when no backend URL is configured. The Express API exposes `GET /api/categories` and administrator-only `POST`, `PUT`, and `DELETE /api/categories` routes to persist changes to the same file.
 - Category and subcategory edits that would orphan existing questions are rejected. Persistent changes require the Express backend and a configured `authApiUrl`.
 
 ## Build
