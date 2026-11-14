@@ -1,5 +1,131 @@
 [
   {
+    "id": "angular-route-guards",
+    "title": "Protecting Angular routes with route guards",
+    "category": "Angular",
+    "subCategory": "Routing",
+    "description": "Use functional guards for navigation while keeping the server as the authorization boundary.",
+    "content": "## Functional guards\n\nAngular functional guards can decide whether navigation may continue, redirect to another route, or wait for an asynchronous result. They are useful for checking session state and improving the navigation experience.\n\n## Handle permissions clearly\n\nA guard can read route metadata to determine which permission is needed and return a UrlTree when the current user should be redirected. Prefer a single, consistent authorization helper over duplicating permission checks across routes.\n\n## Protect APIs too\n\nA route guard runs in the browser and can be bypassed by a user who controls that browser. Every protected backend endpoint must independently authenticate the request and verify permissions before returning or changing data.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Angular",
+      "Routing",
+      "Route Guards"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "aws-iam-roles-workloads",
+    "title": "Using IAM roles instead of long-lived AWS access keys",
+    "category": "AWS",
+    "subCategory": "IAM",
+    "description": "Give applications temporary credentials through IAM roles and reduce key-management risk.",
+    "content": "## Prefer temporary credentials\n\nApplications running on AWS can obtain temporary credentials through an attached IAM role rather than storing long-lived access keys. The AWS SDK credential provider chain can retrieve and refresh these credentials automatically in supported environments.\n\n## Apply least privilege\n\nAttach policies that grant only the actions and resources the workload needs. Use separate roles for different applications or environments, and avoid sharing a powerful role across unrelated systems.\n\n## Review identity access\n\nAudit role trust policies, permissions, and usage. Never commit access keys to source control or bake them into container images; rotate and revoke any exposed credentials promptly.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "AWS",
+      "IAM",
+      "Security"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "devops-ci-pipeline-quality-gates",
+    "title": "Building reliable quality gates in a CI pipeline",
+    "category": "DevOps",
+    "subCategory": "CI/CD",
+    "description": "Use repeatable builds, automated checks, and clear release evidence to reduce deployment risk.",
+    "content": "## Validate every change\n\nA useful CI pipeline checks out a specific revision, restores dependencies reproducibly, compiles the application, and runs appropriate tests and static checks. Failures should be visible and tied to the change that introduced them.\n\n## Promote one artifact\n\nBuild an immutable artifact once and promote that same artifact through environments. Rebuilding separately for production can produce different outputs and makes release verification less reliable.\n\n## Keep secrets and approvals safe\n\nProvide credentials through the CI platform's protected secret mechanism, scope them to the smallest required job, and avoid printing them. Add human approval where policy or risk requires it, and keep a rollback path for failed releases.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "DevOps",
+      "CI/CD",
+      "Release Engineering"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "docker-container-networking",
+    "title": "Docker container networking fundamentals",
+    "category": "Docker",
+    "subCategory": "Networking",
+    "description": "Connect containers with Docker networks and understand service-name discovery.",
+    "content": "## User-defined bridge networks\n\nContainers attached to the same user-defined bridge network can communicate using their container or service names. Docker provides DNS-based discovery on these networks, which is generally more reliable than hard-coding container IP addresses.\n\n## Publish ports deliberately\n\nA container port is not automatically exposed to the host. Publish only the ports that need to be reachable from outside the Docker network, and bind to a specific host interface when broad exposure is not desired.\n\n## Keep network boundaries clear\n\nSeparate unrelated services into appropriate networks and avoid assuming that a published port is private. Review firewall rules and the application's own authentication and authorization independently of Docker networking.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Docker",
+      "Networking",
+      "Containers"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "gcp-cloud-run-deployments",
+    "title": "Deploying a stateless service to Google Cloud Run",
+    "category": "GCP",
+    "subCategory": "Cloud Run",
+    "description": "Package an HTTP service in a container and configure Cloud Run for scalable requests.",
+    "content": "## Prepare the service\n\nCloud Run runs a container that serves HTTP requests and listens on the port provided by the runtime environment. Build a reproducible image, keep the process in the foreground, and handle termination signals so the service can shut down cleanly.\n\n## Design for stateless instances\n\nInstances can scale out or stop at any time. Store durable state in managed storage rather than the container's local filesystem, and make request handling safe when traffic reaches different instances.\n\n## Configure access and scaling\n\nChoose whether the service is public or requires authentication, grant the runtime service account only the permissions it needs, and set concurrency and scaling limits based on load tests and downstream capacity.",
+    "difficulty": "Beginner",
+    "tags": [
+      "GCP",
+      "Cloud Run",
+      "Containers"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "hibernate-entity-lifecycle",
+    "title": "Understanding the Hibernate entity lifecycle",
+    "category": "Hibernate",
+    "subCategory": "Entities",
+    "description": "Learn the transient, managed, detached, and removed entity states.",
+    "content": "## Entity states\n\nA transient entity is a newly created Java object not associated with a persistence context. A managed entity is tracked by an EntityManager or Session, and changes can be synchronized during flush. A detached entity has an identity but is no longer tracked by that context. A removed entity is scheduled for deletion.\n\n## Dirty checking\n\nHibernate detects changes to managed entities and can generate SQL during flush without an explicit update call. This behavior applies only while the entity is managed and within the persistence context.\n\n## Work with detached data carefully\n\nWhen updating from an API request, avoid blindly merging client-supplied entities. Load the managed entity, validate the requested changes, and update allowed fields to avoid overwriting data the client should not control.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Hibernate",
+      "JPA",
+      "Entity Lifecycle"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "hibernate-n-plus-one-problem",
+    "title": "Avoiding the N+1 Query Problem in Hibernate",
+    "category": "Hibernate",
+    "subCategory": "Performance",
+    "description": "Learn how N+1 issues occur and techniques to optimize data fetching.",
+    "content": "## What is N+1?\n\nThe N+1 problem occurs when Hibernate executes one query to fetch parent entities and additional queries for each associated entity.\n\n## Common causes\n\nImproper lazy loading and frequent access to child collections inside loops often create N+1 performance issues.\n\n## Interview checkpoint\n\nDiscuss JOIN FETCH, EntityGraph, batch fetching, lazy loading, and eager loading strategies.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Hibernate",
+      "Performance",
+      "N+1"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
     "id": "java-collections-basics",
     "title": "Java Collections: choosing the right collection",
     "category": "Java",
@@ -18,17 +144,1663 @@
     "published": true
   },
   {
-    "id": "spring-rest-api-fundamentals",
-    "title": "Building REST endpoints with Spring Boot",
-    "category": "Spring Boot",
-    "subCategory": "REST API",
-    "description": "Review controller responsibilities, request mapping, validation, and response status codes.",
-    "content": "## Controller fundamentals\n\nA Spring MVC controller maps HTTP requests to application behavior. Use @RestController for JSON APIs and map resources with annotations such as @GetMapping and @PostMapping.\n\n## Keep responsibilities clear\n\nControllers should validate request shape, delegate business rules to a service, and return suitable HTTP responses. Use request DTOs rather than binding persistence entities directly. Add Bean Validation constraints and handle errors consistently.\n\n## Interview checkpoint\n\nBe ready to explain why POST creates a resource, why PUT replaces a resource, and when PATCH is appropriate. Return 201 Created for a successful creation and include a Location header when practical.",
+    "id": "synchronize-arraylist",
+    "title": "How to Synchronize ArrayList?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Making ArrayList thread-safe.",
+    "content": "ArrayList is not synchronized by default. It can be synchronized using Collections.synchronizedList(list) or by using CopyOnWriteArrayList. These approaches make ArrayList safe for use in multi-threaded applications.",
     "difficulty": "Intermediate",
     "tags": [
-      "Spring Boot",
-      "REST",
-      "HTTP"
+      "ArrayList",
+      "Synchronization"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "when-to-use-arraylist-linkedlist",
+    "title": "When to Use ArrayList and LinkedList?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Choosing the right List implementation.",
+    "content": "Use ArrayList when frequent search and read operations are required. Use LinkedList when insertion and deletion operations occur frequently. ArrayList provides faster random access whereas LinkedList provides faster updates.",
+    "difficulty": "Beginner",
+    "tags": [
+      "ArrayList",
+      "LinkedList"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "collection-traversal-techniques",
+    "title": "Ways to Traverse Collection Elements",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Collection traversal methods.",
+    "content": "Collections can be traversed using Iterator, ListIterator, enhanced for-loop, traditional for-loop, forEach() method, and forEachRemaining() method. Each technique is suited for different requirements.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Iterator",
+      "Traversal"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "foreach-method",
+    "title": "What is forEach() Method?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Java 8 collection traversal.",
+    "content": "forEach() was introduced in Java 8 and uses lambda expressions to iterate through elements. It provides a concise and readable way to process collection elements.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java8",
+      "forEach",
+      "Lambda"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "foreachremaining-method",
+    "title": "What is forEachRemaining() Method?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Iterator enhancement in Java 8.",
+    "content": "forEachRemaining() is available on Iterator and processes all remaining elements using a Consumer implementation. It simplifies iteration using lambda expressions.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Iterator",
+      "Java8"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "compare-arraylists",
+    "title": "How to Compare Two ArrayLists?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "ArrayList comparison techniques.",
+    "content": "Two ArrayLists can be compared using equals(), removeAll(), retainAll(), contains(), Streams API, and contentEquals(). The choice depends on whether you need exact matching or common elements.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "ArrayList",
+      "Comparison"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "retainall-method",
+    "title": "What is retainAll() Method?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Finding common collection elements.",
+    "content": "retainAll() retains only the elements present in both collections. It is commonly used to find intersection/common values between lists or sets.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "retainAll",
+      "Collection"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "removeall-method",
+    "title": "What is removeAll() Method?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Removing common collection elements.",
+    "content": "removeAll() removes all elements that exist in another collection. It is useful for finding the differences between collections.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "removeAll",
+      "Collection"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "contains-method",
+    "title": "What is contains() Method?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Checking element existence.",
+    "content": "contains() checks whether a collection contains a specified element. It internally uses equals() to perform comparisons.",
+    "difficulty": "Beginner",
+    "tags": [
+      "contains",
+      "Collection"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "collections-sort-method",
+    "title": "What is Collections.sort()?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Sorting collections.",
+    "content": "Collections.sort() sorts List elements in ascending order. Elements must implement Comparable or a Comparator must be supplied.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Collections",
+      "Sorting"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "list-interface",
+    "title": "Explain List Interface",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Overview of List interface.",
+    "content": "List interface is the child interface of Collection interface. It maintains insertion order and allows duplicate elements. Elements can be accessed using indexes. The main implementations are ArrayList, LinkedList, Vector, and Stack.",
+    "difficulty": "Beginner",
+    "tags": [
+      "List",
+      "Collections"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "arraylist",
+    "title": "Explain ArrayList",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "ArrayList overview.",
+    "content": "ArrayList is a resizable implementation of the List interface. It uses a dynamic array internally, maintains insertion order, allows duplicates and null values, and provides fast random access. Default capacity is 10.",
+    "difficulty": "Beginner",
+    "tags": [
+      "ArrayList",
+      "List"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "linkedlist",
+    "title": "Explain LinkedList",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "LinkedList overview.",
+    "content": "LinkedList uses a doubly linked list data structure. It implements both List and Deque interfaces. It maintains insertion order, allows duplicates, and provides efficient insertion and deletion operations.",
+    "difficulty": "Beginner",
+    "tags": [
+      "LinkedList",
+      "List",
+      "Deque"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "concurrenthashmap",
+    "title": "Explain ConcurrentHashMap",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Thread-safe Map implementation.",
+    "content": "ConcurrentHashMap is a thread-safe implementation of Map introduced in Java 5. It allows concurrent read and write operations without locking the entire map. It provides better performance than Hashtable in multi-threaded environments and does not allow null keys or null values.",
+    "difficulty": "Advanced",
+    "tags": [
+      "ConcurrentHashMap",
+      "Thread Safety",
+      "Map"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "hashmap-vs-concurrenthashmap",
+    "title": "Difference Between HashMap and ConcurrentHashMap",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "HashMap vs ConcurrentHashMap.",
+    "content": "HashMap is not thread-safe while ConcurrentHashMap is thread-safe. HashMap allows one null key and multiple null values; ConcurrentHashMap does not allow null keys or values. HashMap throws ConcurrentModificationException during concurrent modification whereas ConcurrentHashMap does not.",
+    "difficulty": "Advanced",
+    "tags": [
+      "HashMap",
+      "ConcurrentHashMap"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "concurrenthashmap-vs-synchronizedmap",
+    "title": "ConcurrentHashMap vs SynchronizedMap",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Comparison of thread-safe maps.",
+    "content": "ConcurrentHashMap uses segment/bucket-level locking and supports concurrent reads and writes. SynchronizedMap locks the entire map during operations. ConcurrentHashMap provides better scalability and performance in multi-threaded applications.",
+    "difficulty": "Advanced",
+    "tags": [
+      "ConcurrentHashMap",
+      "SynchronizedMap",
+      "Thread Safety"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "vector",
+    "title": "Explain Vector",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Legacy List implementation.",
+    "content": "Vector is a legacy class that implements List interface. It uses a dynamic array internally and is synchronized. It is thread-safe but slower than ArrayList because every method is synchronized.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Vector",
+      "Legacy"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "stack",
+    "title": "Explain Stack",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "LIFO data structure.",
+    "content": "Stack extends Vector and follows Last-In-First-Out (LIFO) principle. Important methods include push(), pop(), peek(), empty(), and search().",
+    "difficulty": "Beginner",
+    "tags": [
+      "Stack",
+      "LIFO"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "queue-interface",
+    "title": "Explain Queue Interface",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Queue interface overview.",
+    "content": "Queue represents a FIFO data structure. Elements are inserted at the rear and removed from the front. Common implementations include PriorityQueue, LinkedList, ArrayDeque, and BlockingQueue.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Queue",
+      "FIFO"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "priorityqueue",
+    "title": "Explain PriorityQueue",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Priority-based queue implementation.",
+    "content": "PriorityQueue stores elements according to their priority rather than insertion order. It does not allow null values and uses a heap data structure internally.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "PriorityQueue",
+      "Queue"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "deque-interface",
+    "title": "Explain Deque Interface",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Double-ended queue.",
+    "content": "Deque stands for Double Ended Queue. It allows insertion and deletion from both ends. It can work as both a Queue (FIFO) and a Stack (LIFO).",
+    "difficulty": "Beginner",
+    "tags": [
+      "Deque",
+      "Queue"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "arraydeque",
+    "title": "Explain ArrayDeque",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "High-performance deque implementation.",
+    "content": "ArrayDeque implements Deque and uses a resizable array internally. It does not allow null values and is faster than Stack and LinkedList for stack and queue operations.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "ArrayDeque",
+      "Deque"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "set-interface",
+    "title": "Explain Set Interface",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Set interface overview.",
+    "content": "Set represents a collection of unique elements. It does not allow duplicates. Implementations include HashSet, LinkedHashSet, and TreeSet.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Set"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "hashset",
+    "title": "Explain HashSet",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "HashSet overview.",
+    "content": "HashSet implements Set interface and uses HashMap internally. It stores unique elements, does not maintain insertion order, allows one null value, and provides fast search operations.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "HashSet"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "linkedhashset",
+    "title": "Explain LinkedHashSet",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Insertion-ordered Set implementation.",
+    "content": "LinkedHashSet extends HashSet and maintains insertion order. It provides unique elements like HashSet while preserving the order in which elements were inserted.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "LinkedHashSet",
+      "Set"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "sortedset",
+    "title": "Explain SortedSet",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Sorted collection interface.",
+    "content": "SortedSet is an alternative to Set that maintains elements in sorted order. Elements are arranged according to their natural ordering or a Comparator.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "SortedSet",
+      "Set"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "treeset",
+    "title": "Explain TreeSet",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Sorted Set implementation.",
+    "content": "TreeSet implements NavigableSet and SortedSet. It stores unique elements in ascending order, does not allow null values, and uses TreeMap internally.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "TreeSet",
+      "SortedSet"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "enumset",
+    "title": "Explain EnumSet",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Specialized Set for enums.",
+    "content": "EnumSet is a specialized Set implementation designed specifically for enum types. It provides high performance and type safety when working with enum constants.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "EnumSet",
+      "Set",
+      "Enum"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "map-interface",
+    "title": "Explain Map Interface",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Map overview.",
+    "content": "Map stores data as key-value pairs. Keys must be unique while values can be duplicated. Map does not extend Collection interface. Common implementations are HashMap, LinkedHashMap, TreeMap, and Hashtable.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Map"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "hashmap",
+    "title": "Explain HashMap",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "HashMap overview.",
+    "content": "HashMap stores key-value pairs using hashing. It allows one null key and multiple null values. It is non-synchronized and provides average O(1) insertion and retrieval time.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "HashMap"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "linkedhashmap",
+    "title": "Explain LinkedHashMap",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Ordered HashMap implementation.",
+    "content": "LinkedHashMap extends HashMap and maintains insertion order. It combines the performance benefits of HashMap with predictable iteration order.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "LinkedHashMap",
+      "HashMap"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "treemap",
+    "title": "Explain TreeMap",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Sorted Map implementation.",
+    "content": "TreeMap implements SortedMap and NavigableMap. It stores entries in ascending order of keys using a Red-Black Tree. Null keys are not allowed.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "TreeMap",
+      "SortedMap"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "hashtable",
+    "title": "Explain Hashtable",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Legacy synchronized map.",
+    "content": "Hashtable is a legacy synchronized implementation of Map. It does not allow null keys or values. Because of synchronization overhead, it is slower than HashMap.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Hashtable",
+      "Legacy",
+      "Map"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "collection-framework",
+    "title": "What is Collection Framework in Java?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Introduction to Java Collection Framework.",
+    "content": "Collection Framework is a combination of classes and interfaces used to store and manipulate data in the form of objects. It provides ready-to-use data structures such as ArrayList, LinkedList, Vector, Stack, HashSet, TreeSet, HashMap, and Hashtable. The framework offers reusable architecture for storing, retrieving, sorting, and manipulating data efficiently.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "Collections",
+      "Framework"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "array-vs-collection",
+    "title": "What is the difference between Array and Collection?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Compare Array and Collection.",
+    "content": "Arrays are fixed in size while collections are dynamically resizable. Arrays can store only homogeneous elements whereas collections can store heterogeneous objects. Arrays do not provide built-in methods for searching and sorting, while collections provide ready-made utility methods through Collections class.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Array",
+      "Collection"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "collection-interfaces",
+    "title": "Explain Collection Framework Interfaces",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Major interfaces of Collection Framework.",
+    "content": "The major interfaces are Collection, List, Set, Queue, Deque, and Map. List maintains order and duplicates. Set stores unique elements. Queue follows FIFO. Deque supports insertion and deletion from both ends. Map stores key-value pairs.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Collection",
+      "List",
+      "Set",
+      "Queue",
+      "Deque",
+      "Map"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "legacy-classes",
+    "title": "What are Legacy Classes in Collection Framework?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Legacy collection classes.",
+    "content": "Legacy classes are classes introduced before Collection Framework in JDK 1.2. Examples include Vector, Stack, Hashtable, Dictionary, and Properties. Most of these classes are synchronized and considered legacy implementations.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Legacy",
+      "Vector",
+      "Hashtable",
+      "Stack"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "enumeration-interface",
+    "title": "What is Enumeration Interface?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Legacy traversal interface.",
+    "content": "Enumeration is a legacy cursor used to traverse legacy collections such as Vector and Hashtable. It supports only reading elements. It does not support element removal and is not fail-fast.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Enumeration",
+      "Legacy"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "arraylist-vs-vector",
+    "title": "Difference Between ArrayList and Vector",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "ArrayList vs Vector comparison.",
+    "content": "ArrayList is non-synchronized and not thread-safe. Vector is synchronized and thread-safe. ArrayList grows by 50% when capacity is exceeded, whereas Vector doubles its capacity. ArrayList provides better performance than Vector because it avoids synchronization overhead.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "ArrayList",
+      "Vector"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "arraylist-vs-linkedlist",
+    "title": "Difference Between ArrayList and LinkedList",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "ArrayList vs LinkedList.",
+    "content": "ArrayList uses a dynamic array internally and provides fast random access. LinkedList uses a doubly linked list and offers faster insertions and deletions. ArrayList consumes less memory, while LinkedList requires additional memory for node references.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "ArrayList",
+      "LinkedList"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "iterator-vs-listiterator",
+    "title": "Difference Between Iterator and ListIterator",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Iterator vs ListIterator.",
+    "content": "Iterator supports forward traversal only and can remove elements. ListIterator supports both forward and backward traversal and can perform add(), set(), and remove() operations while iterating.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Iterator",
+      "ListIterator"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "iterator-vs-enumeration",
+    "title": "Difference Between Iterator and Enumeration",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Iterator vs Enumeration.",
+    "content": "Iterator works with both legacy and modern collections and supports remove operation. Enumeration works only with legacy collections and supports traversal only. Iterator is fail-fast while Enumeration is not fail-fast.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Iterator",
+      "Enumeration"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "list-vs-set",
+    "title": "Difference Between List and Set",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "List vs Set.",
+    "content": "List maintains insertion order and allows duplicate elements. Set does not allow duplicate elements. List can contain multiple null values whereas Set typically allows only one null value.",
+    "difficulty": "Beginner",
+    "tags": [
+      "List",
+      "Set"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "hashset-vs-treeset",
+    "title": "Difference Between HashSet and TreeSet",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "HashSet vs TreeSet.",
+    "content": "HashSet stores elements using hashing and does not maintain order. TreeSet stores elements in sorted ascending order using a tree structure. HashSet provides better performance for search operations compared to TreeSet.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "HashSet",
+      "TreeSet"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "set-vs-map",
+    "title": "Difference Between Set and Map",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Set vs Map.",
+    "content": "Set stores only values and enforces uniqueness. Map stores key-value pairs. A Map contains unique keys but may contain duplicate values.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Set",
+      "Map"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "hashset-vs-hashmap",
+    "title": "Difference Between HashSet and HashMap",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "HashSet vs HashMap.",
+    "content": "HashSet stores unique objects only and internally uses HashMap. HashMap stores key-value pairs. HashSet uses object as key internally and a dummy object as value.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "HashSet",
+      "HashMap"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "hashmap-vs-treemap",
+    "title": "Difference Between HashMap and TreeMap",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "HashMap vs TreeMap.",
+    "content": "HashMap stores entries without maintaining order. TreeMap stores entries in ascending order of keys. HashMap uses hashing whereas TreeMap uses Red-Black Tree implementation.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "HashMap",
+      "TreeMap"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "hashmap-vs-hashtable",
+    "title": "Difference Between HashMap and Hashtable",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "HashMap vs Hashtable.",
+    "content": "HashMap is non-synchronized and allows one null key and multiple null values. Hashtable is synchronized and does not allow null keys or values. HashMap is faster whereas Hashtable is slower due to synchronization overhead.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "HashMap",
+      "Hashtable"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "collection-vs-collections",
+    "title": "Difference Between Collection and Collections",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Collection vs Collections.",
+    "content": "Collection is an interface representing a group of objects. Collections is a utility class that provides static methods such as sort(), reverse(), binarySearch(), synchronizedList(), and unmodifiableList().",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Collection",
+      "Collections"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "comparable-vs-comparator",
+    "title": "Difference Between Comparable and Comparator",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Comparable vs Comparator.",
+    "content": "Comparable provides a single natural sorting order through compareTo(). Comparator provides multiple sorting strategies through compare(). Comparable belongs to java.lang package, while Comparator belongs to java.util package.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Comparable",
+      "Comparator"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "hashmap-working",
+    "title": "How HashMap Works Internally?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "HashMap internal working.",
+    "content": "HashMap works on the principle of hashing. When a key-value pair is inserted, hashCode() determines the bucket location. If multiple keys produce the same bucket, collision handling occurs using linked lists or balanced trees. equals() is used to identify the correct key.",
+    "difficulty": "Advanced",
+    "tags": [
+      "HashMap",
+      "Hashing",
+      "Java"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "hashing",
+    "title": "What is Hashing?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Hashing mechanism in Java.",
+    "content": "Hashing is the process of converting an object into a fixed numeric value called hash code using hashCode() method. Equal objects must produce the same hash code. Hashing is used to store and retrieve objects efficiently in HashMap, HashSet, and Hashtable.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Hashing",
+      "hashCode"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "entry-class-in-hashmap",
+    "title": "What is Entry Class in HashMap?",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "HashMap Entry structure.",
+    "content": "HashMap internally stores data in Entry objects. An Entry contains key, value, hash, and reference to the next Entry. Entries form linked structures inside buckets to handle collisions. Each bucket can contain one or multiple Entry objects.",
+    "difficulty": "Advanced",
+    "tags": [
+      "HashMap",
+      "Entry",
+      "Internal Working"
+    ],
+    "author": "Tech Interview Hub",
+    "published": true
+  },
+  {
+    "id": "java-arraylist-vs-linkedlist",
+    "title": "ArrayList vs LinkedList in Java",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Understand the differences between ArrayList and LinkedList and when to use each implementation.",
+    "content": "## ArrayList\n\nArrayList is backed by a dynamic array. It provides fast random access using indexes and is the preferred choice for most List operations.\n\n## LinkedList\n\nLinkedList stores elements as nodes connected through references. It can efficiently add or remove elements at the beginning or end of the list.\n\n## Comparison\n\nArrayList provides O(1) access by index and generally better iteration performance. LinkedList requires traversal for index-based access but can perform insertions and deletions efficiently when a node reference is already available.\n\n## Interview checkpoint\n\nExplain internal data structures, memory consumption, resizing behavior, and the time complexities of common operations.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "Collections",
+      "ArrayList",
+      "LinkedList"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "java-hashmap-internals",
+    "title": "HashMap Internal Working",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Learn how HashMap stores data and provides efficient lookup performance.",
+    "content": "## Hashing mechanism\n\nHashMap stores key-value pairs using buckets. The hashCode() method determines the bucket location, while equals() resolves collisions.\n\n## Collision handling\n\nBefore Java 8, collisions were handled using linked lists. Since Java 8, buckets with many collisions can be converted into balanced trees for improved performance.\n\n## Performance\n\nInsertion, deletion, and retrieval operations typically run in O(1) time under good hash distribution.\n\n## Interview checkpoint\n\nExplain hashCode(), equals(), load factor, capacity, rehashing, bucket structure, and collision resolution techniques.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "Collections",
+      "HashMap"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "java-hashset-vs-treeset",
+    "title": "HashSet vs TreeSet",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Compare HashSet and TreeSet based on ordering, performance, and implementation.",
+    "content": "## HashSet\n\nHashSet is implemented using HashMap internally. It does not maintain insertion order and offers fast lookup operations.\n\n## TreeSet\n\nTreeSet stores elements in sorted order using a Red-Black Tree implementation. Elements are automatically sorted based on natural ordering or a custom Comparator.\n\n## Performance Comparison\n\nHashSet operations generally run in O(1) time, while TreeSet operations run in O(log n) time.\n\n## Interview checkpoint\n\nDiscuss ordering guarantees, null value handling, underlying data structures, and performance characteristics.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "Collections",
+      "HashSet",
+      "TreeSet"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "java-comparable-vs-comparator",
+    "title": "Comparable vs Comparator",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Learn how object sorting works in Java collections.",
+    "content": "## Comparable\n\nComparable provides natural ordering for objects. The class implements the Comparable interface and overrides compareTo().\n\n## Comparator\n\nComparator allows custom sorting logic without modifying the target class. Multiple sorting strategies can be implemented using different Comparator classes or lambda expressions.\n\n## Use Cases\n\nUse Comparable when there is a single natural ordering. Use Comparator when multiple sorting criteria are required.\n\n## Interview checkpoint\n\nExplain compareTo(), compare(), sorting collections, lambda-based comparators, and method references.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "Collections",
+      "Comparable",
+      "Comparator"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "java-concurrenthashmap",
+    "title": "ConcurrentHashMap for Thread-Safe Collections",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Understand how ConcurrentHashMap supports high-performance concurrent access.",
+    "content": "## Why not HashMap?\n\nHashMap is not thread-safe. Concurrent modifications by multiple threads may lead to inconsistent results.\n\n## ConcurrentHashMap\n\nConcurrentHashMap allows multiple threads to perform read and write operations with better scalability than Hashtable or synchronized collections.\n\n## Benefits\n\nIt minimizes locking and improves throughput in multithreaded environments.\n\n## Interview checkpoint\n\nExplain segment locking (pre-Java 8), bucket locking, thread safety, atomic operations, computeIfAbsent(), and concurrent performance advantages.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "Collections",
+      "ConcurrentHashMap",
+      "Multithreading"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "hashmap-string-key-equality",
+    "title": "HashMap String Key Equality Example",
+    "category": "Java",
+    "subCategory": "Collections",
+    "description": "Understand how HashMap handles String keys using equals() and hashCode().",
+    "content": "## Scenario\n\n```java\nString a1 = \"ABC\";\nString a2 = \"ABC\";\nString a3 = new String(\"ABC\");\n\nHashMap<String,Integer> hm = new HashMap<>();\nhm.put(a1,2);\nhm.put(a2,1);\nhm.put(a3,3);\n\nSystem.out.println(hm.size());\n```\n\n## Output\n\n```text\n{ABC=3}\nsize = 1\n```\n\n## Explanation\n\nAll three String objects contain the same value 'ABC'.\n\nString overrides both equals() and hashCode().\n\nWhen HashMap inserts a2 and a3, it finds an existing key because:\n\n- hashCode() is the same.\n- equals() returns true.\n\nAs a result, the value is updated instead of creating a new entry.\n\n## Interview Checkpoint\n\nHashMap uses hashCode() to find the bucket and equals() to identify the exact key. Equal String values always map to the same logical key.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "HashMap",
+      "String",
+      "equals",
+      "hashCode"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "runasync-vs-supplyasync",
+    "title": "runAsync vs supplyAsync",
+    "category": "Java",
+    "subCategory": "CompletableFuture",
+    "description": "Compare runAsync() and supplyAsync() methods in CompletableFuture.",
+    "content": "## runAsync()\n\nrunAsync() executes an asynchronous task without returning a result.\n\n```java\nCompletableFuture.runAsync(() -> {\n    System.out.println(\"Task Executed\");\n});\n```\n\nReturns:\n\n```java\nCompletableFuture<Void>\n```\n\n## supplyAsync()\n\nsupplyAsync() executes an asynchronous task and returns a value.\n\n```java\nCompletableFuture<String> future =\n    CompletableFuture.supplyAsync(() -> \"Success\");\n```\n\nReturns:\n\n```java\nCompletableFuture<T>\n```\n\n## Comparison\n\n| Feature | runAsync() | supplyAsync() |\n|----------|------------|--------------|\n| Functional Interface | Runnable | Supplier<T> |\n| Returns Result | No | Yes |\n| Return Type | CompletableFuture<Void> | CompletableFuture<T> |\n| Use Case | Fire and Forget | Compute and Return |\n\n## Interview Checkpoint\n\nUse runAsync() when no result is needed and supplyAsync() when the task produces a return value.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "CompletableFuture",
+      "runAsync",
+      "supplyAsync"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "native-library-and-jni",
+    "title": "Native Library and JNI",
+    "category": "Java",
+    "subCategory": "Core Java",
+    "description": "Understand native code, native libraries, and the role of JNI.",
+    "content": "## What is Native Code?\n\nNative code is code compiled specifically for an operating system or hardware platform such as Windows, Linux, x86, or ARM.\n\n## Native Library\n\nA native library usually contains C or C++ code.\n\nExamples:\n\n- DLL files on Windows.\n- SO files on Linux.\n\n## JNI (Java Native Interface)\n\nJNI allows Java programs to interact with native libraries.\n\n```java\npublic native void calculate();\n```\n\nThe implementation is written in a native language such as C or C++.\n\n## Interview Checkpoint\n\nUsing native libraries may impact Java's platform independence because native code is platform specific.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "JNI",
+      "Native Library"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "varargs-overloading",
+    "title": "Can We Overload Varargs Methods?",
+    "category": "Java",
+    "subCategory": "Core Java",
+    "description": "Understand method overloading with variable arguments.",
+    "content": "## Answer\n\nYes, varargs methods can be overloaded.\n\n## Example\n\n```java\nclass Test {\n\n    void test(String a1, String a2) {\n        System.out.println(\"2 arguments\");\n    }\n\n    void test(String... args) {\n        System.out.println(\"Varargs\");\n    }\n}\n```\n\n## Output\n\n```java\ntest(\"A\", \"B\")\n```\n\nOutput:\n\n```text\n2 arguments\n```\n\n```java\ntest(\"A\", \"B\", \"C\")\n```\n\nOutput:\n\n```text\nVarargs\n```\n\n## Method Resolution\n\nJava always prefers the most specific method.\n\n## Interview Checkpoint\n\nVarargs methods can be overloaded, but care should be taken to avoid ambiguous method calls.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "Varargs",
+      "Method Overloading"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "java-exception-handling",
+    "title": "Java exception handling and custom exceptions",
+    "category": "Java",
+    "subCategory": "Exception Handling",
+    "description": "Choose checked and unchecked exceptions appropriately and preserve useful error context.",
+    "content": "## Checked and unchecked exceptions\n\nChecked exceptions must be declared or handled, while RuntimeException and its subclasses are unchecked. Use checked exceptions when callers can reasonably recover and are expected to account for the failure. Use unchecked exceptions for programming errors or failures that callers cannot meaningfully handle at that level.\n\n## Preserve context\n\nWhen translating an exception at an application boundary, keep the original cause so logs retain the underlying failure. Avoid catching broad exceptions only to return a success-shaped value or silently ignore the problem.\n\n## Custom exceptions\n\nUse a domain-specific exception when it makes an expected failure clearer to the caller, such as AccountNotFoundException. Keep exception names and messages useful, but do not place secrets or sensitive user data in messages that may be logged.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "Exceptions",
+      "Error Handling"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "parallel-stream",
+    "title": "Parallel Stream in Java",
+    "category": "Java",
+    "subCategory": "Java 8",
+    "description": "Learn how Parallel Stream improves performance using multiple threads.",
+    "content": "## What is Parallel Stream?\n\nParallel Stream processes data using multiple threads from ForkJoinPool.\n\n## Example\n\n```java\nlist.parallelStream()\n    .forEach(System.out::println);\n```\n\n## Advantages\n\n- Faster processing for large datasets.\n- Utilizes multicore processors.\n- Simplifies concurrent programming.\n\n## Disadvantages\n\n- Overhead for small datasets.\n- Order may not be preserved.\n- Shared mutable state can cause issues.\n\n## Interview Checkpoint\n\nUse parallel streams only for CPU-intensive operations on sufficiently large datasets.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java 8",
+      "Parallel Stream",
+      "ForkJoinPool"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "function-vs-predicate",
+    "title": "Function vs Predicate",
+    "category": "Java",
+    "subCategory": "Java 8",
+    "description": "Compare Function and Predicate functional interfaces.",
+    "content": "## Function<T,R>\n\nFunction accepts an input and returns a transformed result.\n\nMethod:\n\n```java\nR apply(T t)\n```\n\nUsed with map().\n\n## Predicate<T>\n\nPredicate accepts input and returns a boolean value.\n\nMethod:\n\n```java\nboolean test(T t)\n```\n\nUsed with filter().\n\n## Comparison\n\n| Feature | Function | Predicate |\n|----------|----------|-----------|\n| Input | Yes | Yes |\n| Output | Any Type | Boolean |\n| Method | apply() | test() |\n| Stream Usage | map() | filter() |\n\n## Interview Checkpoint\n\nPredicate is mainly used for conditional checks whereas Function is used for data transformation.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java 8",
+      "Function",
+      "Predicate",
+      "Lambda"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "stream-reduce-method",
+    "title": "Stream reduce() Method",
+    "category": "Java",
+    "subCategory": "Java 8",
+    "description": "Use reduce() for aggregation and accumulation operations.",
+    "content": "## What is reduce()?\n\nThe reduce() method performs a reduction operation on stream elements and returns a single result.\n\n## Common Uses\n\n- Sum\n- Maximum\n- Minimum\n- Product\n- Longest String\n\n## Example\n\n```java\nOptional<String> longest = words.stream()\n    .reduce((a,b) -> a.length() > b.length() ? a : b);\n```\n\n## Interview Checkpoint\n\nreduce() combines multiple stream elements into a single result using an associative accumulation function.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java 8",
+      "Streams",
+      "Reduce"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "optional-class",
+    "title": "Optional Class in Java 8",
+    "category": "Java",
+    "subCategory": "Java 8",
+    "description": "Learn how Optional helps prevent NullPointerException.",
+    "content": "## What is Optional?\n\nOptional is a container object introduced in Java 8 to represent the presence or absence of a value.\n\n## Why Use Optional?\n\nIt helps avoid NullPointerException and makes code more readable.\n\n## Example\n\n```java\nOptional<String> name = Optional.of(\"Virendra\");\n\nname.ifPresent(System.out::println);\n```\n\n## Common Methods\n\n- of()\n- ofNullable()\n- empty()\n- isPresent()\n- ifPresent()\n- orElse()\n- orElseGet()\n- orElseThrow()\n\n## Interview Checkpoint\n\nOptional should be used as a return type when a value may be absent. Avoid using Optional for entity fields and method parameters.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java 8",
+      "Optional",
+      "NullPointerException"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "stateful-vs-stateless-stream",
+    "title": "Stateful vs Stateless Stream Operations",
+    "category": "Java",
+    "subCategory": "Java 8",
+    "description": "Learn the difference between stateful and stateless stream operations.",
+    "content": "## Stateless Operations\n\nStateless operations process each element independently.\n\nExamples:\n\n- map()\n- filter()\n- flatMap()\n- peek()\n\n### Characteristics\n\n- No dependency on previous elements.\n- Parallel processing friendly.\n- Better performance.\n\n## Stateful Operations\n\nStateful operations depend on other stream elements.\n\nExamples:\n\n- sorted()\n- distinct()\n- limit()\n- skip()\n\n### Characteristics\n\n- Maintain state.\n- Require additional memory.\n- Less efficient in parallel processing.\n\n## Interview Checkpoint\n\nStateless operations process elements independently, whereas stateful operations need information from other elements before producing results.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java 8",
+      "Streams",
+      "Stateful",
+      "Stateless"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "stream-intermediate-vs-terminal",
+    "title": "Intermediate vs Terminal Stream Operations",
+    "category": "Java",
+    "subCategory": "Java 8",
+    "description": "Understand how Stream pipelines are built and executed.",
+    "content": "## Intermediate Operations\n\nIntermediate operations return another Stream.\n\nExamples:\n\n```java\nmap()\nfilter()\ndistinct()\nsorted()\nlimit()\nskip()\n```\n\n### Characteristics\n\n- Lazy.\n- Can be chained.\n- No execution until terminal operation is invoked.\n\n## Terminal Operations\n\nTerminal operations produce the final result.\n\nExamples:\n\n```java\nforEach()\ncollect()\ncount()\nreduce()\nfindFirst()\nmin()\nmax()\n```\n\n### Characteristics\n\n- Trigger stream execution.\n- End the pipeline.\n\n## Interview Checkpoint\n\nIntermediate operations build the pipeline; terminal operations execute the pipeline and produce results.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java 8",
+      "Streams",
+      "Intermediate Operation",
+      "Terminal Operation"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "jvm-working",
+    "title": "How JVM Works",
+    "category": "Java",
+    "subCategory": "JVM",
+    "description": "Understand JVM architecture, class loading, execution, and memory management.",
+    "content": "## JVM Overview\n\nThe Java Virtual Machine (JVM) executes Java bytecode and provides platform independence.\n\n## Execution Flow\n\n1. Java source code (.java) is compiled into bytecode (.class) using javac.\n2. ClassLoader loads required classes into memory.\n3. Bytecode Verifier validates bytecode.\n4. Execution Engine executes bytecode using Interpreter and JIT Compiler.\n5. Garbage Collector manages memory automatically.\n\n## Main Components\n\n### Class Loader Subsystem\n\nLoads classes dynamically into memory.\n\n### Runtime Data Areas\n\n- Method Area\n- Heap Memory\n- Java Stack\n- PC Register\n- Native Method Stack\n\n### Execution Engine\n\nResponsible for executing bytecode.\n\n### Garbage Collector\n\nAutomatically removes unreachable objects.\n\n## Interview Checkpoint\n\nA JVM converts bytecode into machine-specific instructions using the interpreter and JIT compiler while managing memory and garbage collection automatically.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "JVM",
+      "ClassLoader",
+      "Garbage Collection"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "gc-reachability-analysis",
+    "title": "How JVM Identifies Objects for Garbage Collection",
+    "category": "Java",
+    "subCategory": "JVM",
+    "description": "Understand how the JVM determines whether an object is eligible for garbage collection.",
+    "content": "## Reachability Analysis\n\nThe JVM uses a process called Reachability Analysis to identify objects eligible for Garbage Collection.\n\nThe Garbage Collector starts from special references called GC Roots and checks whether an object can still be reached.\n\nIf an object cannot be reached from any GC Root, it becomes eligible for garbage collection.\n\n## GC Roots\n\nCommon GC Roots include:\n\n- Local variables in active stack frames.\n- Static variables.\n- Active threads.\n- JNI (Native) references.\n\n## Interview Checkpoint\n\nGarbage Collection does not use reference counting. Modern JVMs use Reachability Analysis starting from GC Roots to determine whether an object is alive.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "JVM",
+      "Garbage Collection",
+      "GC Roots"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "metaspace-vs-permgen",
+    "title": "MetaSpace vs PermGen",
+    "category": "Java",
+    "subCategory": "JVM",
+    "description": "Understand the replacement of PermGen with MetaSpace in Java 8.",
+    "content": "## PermGen\n\n- Available before Java 8.\n- Fixed maximum size.\n- Part of JVM heap memory.\n- Frequent OutOfMemoryError issues.\n\n## MetaSpace\n\n- Introduced in Java 8.\n- Uses native OS memory.\n- Automatically grows when required.\n- More efficient garbage collection.\n\n## Comparison\n\n| PermGen | MetaSpace |\n|----------|-----------|\n| Removed in Java 8 | Introduced in Java 8 |\n| Fixed Size | Auto Expand |\n| Heap Memory | Native Memory |\n| Less Efficient | More Efficient |\n\n## Interview Checkpoint\n\nMetaSpace replaced PermGen in Java 8 and stores class metadata in native memory instead of heap memory.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "JVM",
+      "MetaSpace",
+      "PermGen"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "outofmemoryerror",
+    "title": "What is OutOfMemoryError?",
+    "category": "Java",
+    "subCategory": "JVM",
+    "description": "Understand causes and types of OutOfMemoryError in Java.",
+    "content": "## Definition\n\nOutOfMemoryError occurs when the JVM cannot allocate memory for new objects.\n\nIt is a subclass of VirtualMachineError.\n\n## Common Causes\n\n- Memory leak.\n- Very large collections.\n- Improper caching.\n- Insufficient heap size.\n\n## Common Types\n\n### Java Heap Space\n\nOccurs when heap memory is exhausted.\n\n### Metaspace\n\nOccurs when class metadata consumes excessive native memory.\n\n### GC Overhead Limit Exceeded\n\nOccurs when JVM spends too much time performing garbage collection without recovering meaningful memory.\n\n## Interview Checkpoint\n\nOutOfMemoryError is typically caused by insufficient memory allocation or application memory leaks.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "JVM",
+      "OutOfMemoryError",
+      "Heap",
+      "Memory"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "memory-leak-in-java",
+    "title": "Memory Leak in Java",
+    "category": "Java",
+    "subCategory": "JVM",
+    "description": "Learn about memory leaks, detection methods, and troubleshooting techniques.",
+    "content": "## What is a Memory Leak?\n\nA memory leak occurs when objects are no longer needed but are still reachable, preventing garbage collection.\n\n## Common Causes\n\n- Static collections.\n- Unclosed resources.\n- Event listeners.\n- Caching objects indefinitely.\n\n## Detection Techniques\n\n### Heap Dump Analysis\n\nHeap dumps capture snapshots of all objects currently in memory.\n\n### Memory Analyzer Tool (MAT)\n\nUsed to identify retained objects and memory leaks.\n\n### JVM Profilers\n\n- VisualVM\n- JProfiler\n- YourKit\n\n## Interview Checkpoint\n\nMemory leaks are caused by unintended object retention, not by JVM garbage collectors failing to work.",
+    "difficulty": "Advanced",
+    "tags": [
+      "Memory Leak",
+      "JVM",
+      "Heap Dump",
+      "Garbage Collection"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "fix-java-heap-space",
+    "title": "How to Solve Java Heap Space Error",
+    "category": "Java",
+    "subCategory": "JVM",
+    "description": "Common approaches to troubleshoot and fix heap space issues.",
+    "content": "## Problem\n\n```text\njava.lang.OutOfMemoryError: Java heap space\n```\n\n## Solution 1: Increase Heap Size\n\n```bash\n-Xms1024m\n-Xmx1024m\n```\n\nWhere:\n\n- Xms = Initial Heap Size\n- Xmx = Maximum Heap Size\n\n## Solution 2: Identify Memory Leaks\n\nAnalyze:\n\n- Heap Dumps\n- Eclipse MAT\n- VisualVM\n- JProfiler\n\n## Solution 3: Optimize Collections\n\nAvoid keeping unnecessary objects in memory.\n\n## Interview Checkpoint\n\nIncreasing heap memory may solve the symptom, but memory leak analysis is required to solve the root cause.",
+    "difficulty": "Advanced",
+    "tags": [
+      "Heap",
+      "OutOfMemoryError",
+      "JVM",
+      "Heap Dump"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "classnotfound-vs-noclassdeffounderror",
+    "title": "ClassNotFoundException vs NoClassDefFoundError",
+    "category": "Java",
+    "subCategory": "JVM",
+    "description": "Understand the difference between runtime class loading problems.",
+    "content": "## ClassNotFoundException\n\nOccurs when a class is explicitly loaded using:\n\n```java\nClass.forName()\n```\n\nor\n\n```java\nClassLoader.loadClass()\n```\n\nand the class is not found in the classpath.\n\n## NoClassDefFoundError\n\nOccurs when a class was available during compilation but not found at runtime.\n\n## Comparison\n\n| Feature | ClassNotFoundException | NoClassDefFoundError |\n|----------|----------------------|---------------------|\n| Type | Exception | Error |\n| Cause | Class not found during explicit loading | Class missing at runtime |\n| Recoverable | Yes | Usually No |\n\n## Interview Checkpoint\n\nClassNotFoundException occurs while loading a class explicitly. NoClassDefFoundError occurs when JVM expects a class that existed at compile time but is missing during execution.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "JVM",
+      "ClassLoader",
+      "ClassNotFoundException",
+      "NoClassDefFoundError"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "java-concurrency-basics",
+    "title": "Java Concurrency and Thread Safety",
+    "category": "Java",
+    "subCategory": "Multithreading",
+    "description": "Learn thread creation, synchronization, and common concurrency utilities used in enterprise applications.",
+    "content": "## Understanding threads\n\nA thread is the smallest unit of execution within a Java process. Multiple threads can execute concurrently, allowing applications to perform background processing without blocking the main workflow.\n\n## Thread safety\n\nWhen multiple threads access shared data, race conditions can occur. Synchronization, locks, atomic variables, and concurrent collections help protect shared resources.\n\n## Interview checkpoint\n\nBe prepared to explain synchronized, volatile, ReentrantLock, AtomicInteger, and the difference between ConcurrentHashMap and HashMap.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "Multithreading",
+      "Concurrency"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "callable-vs-runnable",
+    "title": "Callable vs Runnable",
+    "category": "Java",
+    "subCategory": "Multithreading",
+    "description": "Understand the differences between Callable and Runnable interfaces.",
+    "content": "## Runnable\n\nRunnable is a functional interface used to execute a task in a separate thread.\n\n```java\nRunnable task = () -> {\n    System.out.println(\"Running task\");\n};\n```\n\n### Characteristics\n\n- Does not return a result.\n- Cannot throw checked exceptions.\n- Can be executed using Thread or ExecutorService.\n\n## Callable\n\nCallable is a functional interface introduced in Java 5.\n\n```java\nCallable<String> task = () -> \"Success\";\n```\n\n### Characteristics\n\n- Returns a result.\n- Can throw checked exceptions.\n- Executed using ExecutorService.\n- Returns Future object.\n\n## Comparison\n\n| Feature | Runnable | Callable |\n|----------|----------|----------|\n| Return Value | No | Yes |\n| Checked Exception | No | Yes |\n| Method | run() | call() |\n| Return Type | void | Generic Type |\n\n## Interview Checkpoint\n\nUse Runnable when no result is needed. Use Callable when a task must return data or throw checked exceptions.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "Callable",
+      "Runnable",
+      "Multithreading"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "completablefuture",
+    "title": "What is CompletableFuture?",
+    "category": "Java",
+    "subCategory": "Multithreading",
+    "description": "Understand asynchronous programming using CompletableFuture.",
+    "content": "## What is CompletableFuture?\n\nCompletableFuture was introduced in Java 8 to support asynchronous and non-blocking programming.\n\nIt belongs to:\n\n```java\njava.util.concurrent\n```\n\n## Advantages\n\n- Non-blocking execution.\n- Supports callback chaining.\n- Better exception handling.\n- Combines multiple asynchronous tasks.\n\n## Example\n\n```java\nCompletableFuture.supplyAsync(() -> \"Java\")\n    .thenApply(String::toUpperCase)\n    .thenAccept(System.out::println);\n```\n\n## Common Methods\n\n- supplyAsync()\n- runAsync()\n- thenApply()\n- thenAccept()\n- thenCombine()\n- exceptionally()\n- join()\n\n## Interview Checkpoint\n\nCompletableFuture extends Future and solves many limitations such as chaining, combining tasks, and exception handling.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "CompletableFuture",
+      "Asynchronous Programming"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "future-vs-completablefuture",
+    "title": "Future vs CompletableFuture",
+    "category": "Java",
+    "subCategory": "Multithreading",
+    "description": "Compare Future and CompletableFuture APIs.",
+    "content": "## Future\n\nFuture represents the result of an asynchronous computation.\n\n### Limitations\n\n- No chaining support.\n- No combining of multiple futures.\n- Limited exception handling.\n- Blocking get() method.\n\n## CompletableFuture\n\nCompletableFuture extends Future and supports asynchronous pipelines.\n\n### Advantages\n\n- Chaining operations.\n- Combining multiple tasks.\n- Better exception handling.\n- Non-blocking execution.\n\n## Comparison\n\n| Feature | Future | CompletableFuture |\n|----------|--------|------------------|\n| Chaining | No | Yes |\n| Combine Tasks | No | Yes |\n| Exception Handling | Limited | Advanced |\n| Async Pipeline | No | Yes |\n\n## Interview Checkpoint\n\nCompletableFuture is the preferred modern approach for asynchronous programming because it supports chaining, composition, and exception handling.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "Future",
+      "CompletableFuture"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "executorsubmit-vs-execute",
+    "title": "ExecutorService submit() vs execute()",
+    "category": "Java",
+    "subCategory": "Multithreading",
+    "description": "Compare execute() and submit() methods of ExecutorService.",
+    "content": "## execute()\n\nThe execute() method accepts a Runnable task and returns nothing.\n\n```java\nexecutor.execute(() -> System.out.println(\"Task\"));\n```\n\nReturn Type:\n\n```java\nvoid\n```\n\n## submit()\n\nThe submit() method accepts Runnable or Callable and returns a Future.\n\n```java\nFuture<String> future = executor.submit(() -> \"Success\");\n```\n\n## Comparison\n\n| Feature | execute() | submit() |\n|----------|-----------|----------|\n| Return Value | No | Future |\n| Runnable Support | Yes | Yes |\n| Callable Support | No | Yes |\n| Result Retrieval | No | Yes |\n\n## Interview Checkpoint\n\nUse execute() when no result is required. Use submit() when task status or return value is needed.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "ExecutorService",
+      "submit",
+      "execute",
+      "Future"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "abstract-class-vs-interface",
+    "title": "Abstract Class vs Interface",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Understand the differences, use cases, and interview expectations around Abstract Classes and Interfaces.",
+    "content": "## Abstract Class\n\nAn abstract class can contain both abstract and concrete methods. It can have constructors, instance variables, static members, and method implementations. It is used when related classes share common state or behavior.\n\n## Interface\n\nAn interface defines a contract that implementing classes must follow. Since Java 8, interfaces can contain default and static methods. Since Java 9, interfaces can also contain private methods.\n\n## Key Differences\n\n- Abstract class supports constructors.\n- Interface supports multiple inheritance.\n- Abstract class can contain state.\n- Interface focuses on behavior.\n- A class can extend only one abstract class but implement multiple interfaces.\n\n## Interview Checkpoint\n\nUse an abstract class when multiple related classes share common logic. Use an interface when different classes need to provide the same behavior contract.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "OOPS",
+      "Abstract Class",
+      "Interface"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "class-vs-interface",
+    "title": "Class vs Interface",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Learn the purpose and differences between Class and Interface in Java.",
+    "content": "## Class\n\nA class is a blueprint for creating objects. It contains fields, methods, constructors, and business logic. Objects are created from classes.\n\n## Interface\n\nAn interface is a contract that defines what a class should do. It contains method declarations and supports abstraction.\n\n## Key Differences\n\n- Class can contain implementation and state.\n- Interface defines behavior.\n- Classes support single inheritance.\n- Interfaces support multiple inheritance.\n\n## Interview Checkpoint\n\nExplain that a class represents an object while an interface represents a capability or contract.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "Class",
+      "Interface"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "string-vs-stringbuffer-vs-stringbuilder",
+    "title": "String vs StringBuffer vs StringBuilder",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Compare mutability, thread safety, and performance of String, StringBuffer, and StringBuilder.",
+    "content": "## String\n\nString is immutable. Every modification creates a new object. String literals are stored in the String Constant Pool.\n\n## StringBuffer\n\nStringBuffer is mutable and thread-safe because its methods are synchronized.\n\n## StringBuilder\n\nStringBuilder is mutable but not thread-safe. It provides better performance than StringBuffer.\n\n## Performance\n\nStringBuilder > StringBuffer > String (for multiple concatenations).\n\n## Interview Checkpoint\n\nUse String for constants, StringBuilder for single-threaded string manipulation, and StringBuffer for multithreaded string manipulation.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "String",
+      "StringBuffer",
+      "StringBuilder"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "immutable-class",
+    "title": "What is an Immutable Class?",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Understand immutable objects and why they are important in Java.",
+    "content": "## Definition\n\nAn immutable class is a class whose state cannot be changed after object creation.\n\n## Example\n\nString is the most common immutable class in Java.\n\n## Characteristics\n\n- State never changes after creation.\n- Thread-safe by design.\n- Suitable for caching and HashMap keys.\n\n## Benefits\n\n- Improved thread safety.\n- Easier debugging.\n- Predictable behavior.\n\n## Interview Checkpoint\n\nMention String, wrapper classes, LocalDate, and LocalDateTime as common immutable classes.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "Immutable",
+      "String"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "how-to-create-immutable-class",
+    "title": "How to Create an Immutable Class",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Steps and best practices to create an immutable class in Java.",
+    "content": "## Rules\n\n1. Make the class final.\n2. Make all fields private and final.\n3. Initialize fields only through constructor.\n4. Do not provide setters.\n5. Return defensive copies for mutable objects.\n6. Create defensive copies inside constructor.\n\n## Mutable Object Handling\n\nIf the class contains mutable objects such as Date, create copies instead of storing external references.\n\n## Interview Checkpoint\n\nThe most important interview point is defensive copying of mutable fields like Date to preserve immutability.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "Immutable Class",
+      "OOPS"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "oops-pillars",
+    "title": "Four Pillars of OOPS",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Learn the fundamental object-oriented principles of Java.",
+    "content": "## Encapsulation\n\nBinding data and methods together while restricting direct access using private access modifiers.\n\n## Inheritance\n\nAcquiring properties and behavior from another class to improve code reusability.\n\n## Polymorphism\n\nOne interface, multiple implementations. Achieved through method overloading and method overriding.\n\n## Abstraction\n\nHiding implementation details while exposing only essential functionality using abstract classes and interfaces.\n\n## Interview Checkpoint\n\nExplain each pillar with practical examples from real-world projects.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "OOPS",
+      "Encapsulation",
+      "Inheritance",
+      "Polymorphism",
+      "Abstraction"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "shallow-vs-deep-cloning",
+    "title": "Shallow Cloning vs Deep Cloning",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Understand the differences between shallow copy and deep copy, common interview scenarios, and practical use cases.",
+    "content": "## Shallow Cloning\n\nShallow cloning creates a new object but copies references of nested objects instead of creating independent copies. Changes made to referenced child objects are visible in both original and cloned objects.\n\nObject.clone() performs shallow copy by default.\n\n### Example\n\nIf an Employee object contains an Address object, a shallow clone will create a new Employee object but both Employee objects will point to the same Address instance.\n\n## Deep Cloning\n\nDeep cloning creates a completely independent copy of the object including all referenced child objects. Changes in the cloned object's nested objects do not affect the original object.\n\n### Example\n\nIf an Employee object contains an Address object, deep cloning creates both a new Employee object and a new Address object.\n\n## Real-Life Example\n\nThink of a house:\n\n- Shallow Clone: Two people have different keys for the same house.\n- Deep Clone: A completely new house is built with its own key.\n\n## Comparison\n\n| Feature | Shallow Clone | Deep Clone |\n|----------|--------------|-------------|\n| Main Object | Copied | Copied |\n| Child Objects | Shared References | Independent Copies |\n| Memory Usage | Lower | Higher |\n| Performance | Faster | Slower |\n| Object Independence | No | Yes |\n\n## Interview Checkpoint\n\nObject.clone() performs shallow copy by default. Deep copy requires manually copying all referenced objects or using serialization-based cloning techniques. Shallow Copy = Shared References. Deep Copy = Independent References.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "Cloning",
+      "Object Clone",
+      "Deep Copy",
+      "Shallow Copy"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "string-concatenation-performance",
+    "title": "Best Choice for String Concatenation",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Learn when to use String, StringBuffer, and StringBuilder for string concatenation.",
+    "content": "## String\n\nString is immutable. Every concatenation operation creates a new String object. Excessive concatenation leads to memory overhead and performance degradation.\n\n## StringBuffer\n\nStringBuffer is mutable and thread-safe because all modification methods are synchronized. It is suitable for multithreaded environments.\n\n## StringBuilder\n\nStringBuilder is mutable and not synchronized. Since it avoids synchronization overhead, it provides better performance than StringBuffer.\n\n## Performance Ranking\n\nStringBuilder > StringBuffer > String\n\nfor repeated concatenation operations.\n\n## When to Use\n\n- Use String for constant and read-only values.\n- Use StringBuilder in single-threaded applications.\n- Use StringBuffer in multi-threaded applications where thread safety is required.\n\n## Interview Checkpoint\n\nFor repeated string concatenation, StringBuilder is the most efficient choice. String should not be used in loops that perform frequent concatenation.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "String",
+      "StringBuffer",
+      "StringBuilder",
+      "Performance"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "can-we-extend-string-class",
+    "title": "Can We Extend String Class?",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Understand why String cannot be inherited in Java.",
+    "content": "## Answer\n\nNo, we cannot extend the String class.\n\n## Reason\n\nThe String class is declared as final.\n\n```java\npublic final class String\n```\n\nBecause it is final, inheritance is not allowed.\n\n## Why String is Final\n\n- Security\n- Performance optimization\n- Immutability guarantee\n- String Pool consistency\n\n## Interview Checkpoint\n\nString is final to preserve immutability. If inheritance were allowed, subclasses could break String behavior and compromise security.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "String",
+      "Final Class"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "method-visibility-overriding",
+    "title": "Method Visibility Rules in Overriding",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Learn how method visibility works during method overriding.",
+    "content": "## Rule\n\nA subclass cannot reduce the visibility of an overridden method.\n\n## Examples\n\n- public → public ✅\n- protected → protected or public ✅\n- default → default, protected, or public ✅\n- private → cannot be overridden\n\n## Invalid Example\n\n```java\nclass Parent {\n    public void display() {}\n}\n\nclass Child extends Parent {\n    protected void display() {}\n}\n```\n\nThis results in a compilation error because visibility is reduced.\n\n## Interview Checkpoint\n\nOverriding methods can maintain or increase visibility, but never decrease it.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "Method Overriding",
+      "Access Modifier"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "main-method-parent-child",
+    "title": "Main Method in Parent and Child Classes",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Understand how main() behaves in inheritance.",
+    "content": "## Can Parent and Child Both Have main()?\n\nYes, both parent and child classes can define their own main() methods.\n\n```java\nclass Parent {\n    public static void main(String[] args) {\n        System.out.println(\"Parent Main\");\n    }\n}\n\nclass Child extends Parent {\n    public static void main(String[] args) {\n        System.out.println(\"Child Main\");\n    }\n}\n```\n\n## Why?\n\nmain() is static and static methods are not overridden.\n\nThis is called method hiding rather than method overriding.\n\n## Interview Checkpoint\n\nStatic methods belong to the class rather than the object, so main() methods in parent and child classes are independent of each other.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "Main Method",
+      "Static Method",
+      "Inheritance"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "cohesion-in-java",
+    "title": "Cohesion in Java",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Understand high cohesion and why it is important for maintainable code.",
+    "content": "## What is Cohesion?\n\nCohesion measures how closely related the responsibilities of a class are.\n\n## High Cohesion\n\nA class focuses on a single responsibility.\n\nBenefits:\n\n- Easier maintenance.\n- Better readability.\n- Improved reusability.\n- Easier testing.\n\n## Low Cohesion Example\n\nA class that performs mathematical calculations and displays UI windows.\n\n## High Cohesion Example\n\n```java\nclass Calculator {}\nclass Display {}\n```\n\nEach class has a single responsibility.\n\n## Interview Checkpoint\n\nHigh Cohesion means a class performs one well-defined task. High cohesion and low coupling are considered good design principles.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "OOPS",
+      "Cohesion",
+      "Design Principles"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "marker-interface",
+    "title": "Marker Interface in Java",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Learn what marker interfaces are and their purpose in Java.",
+    "content": "## What is a Marker Interface?\n\nA marker interface is an interface that contains no methods or fields.\n\nIt is used to provide metadata to the JVM or a framework.\n\n## Examples\n\n```java\nSerializable\nCloneable\nRemote\n```\n\n## Example\n\n```java\npublic interface Serializable {\n}\n```\n\n## Purpose\n\nThe interface acts as a marker indicating special behavior.\n\n## Interview Checkpoint\n\nMarker interfaces communicate capabilities to the JVM or framework without requiring method implementation.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java",
+      "Marker Interface",
+      "Serializable",
+      "Cloneable"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "constructor-in-abstract-class",
+    "title": "Why Can Abstract Classes Have Constructors?",
+    "category": "Java",
+    "subCategory": "OOPS",
+    "description": "Understand why abstract classes can define constructors and how they are used.",
+    "content": "## Can Abstract Classes Have Constructors?\n\nYes.\n\nAlthough abstract classes cannot be instantiated directly, their constructors are executed when child classes are instantiated.\n\n## Why?\n\nConstructors initialize inherited fields and common state.\n\n## Example\n\n```java\nabstract class Vehicle {\n\n    Vehicle() {\n        System.out.println(\"Vehicle Constructor\");\n    }\n}\n\nclass Car extends Vehicle {\n}\n```\n\nCreating a Car object automatically executes the Vehicle constructor.\n\n## Interview Checkpoint\n\nConstructors in abstract classes help initialize common properties shared across subclasses.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "Abstract Class",
+      "Constructor"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "serialversionuid",
+    "title": "Why Use SerialVersionUID?",
+    "category": "Java",
+    "subCategory": "Serialization",
+    "description": "Understand the role of SerialVersionUID during serialization and deserialization.",
+    "content": "## Purpose\n\nSerialVersionUID ensures that the same class version is used during serialization and deserialization.\n\n## Example\n\n```java\nprivate static final long serialVersionUID = 1L;\n```\n\n## Custom SerialVersionUID\n\n- Defined by developer.\n- Stable across versions.\n- Recommended for production.\n\n## JVM Generated SerialVersionUID\n\n- Generated automatically.\n- Changes when class structure changes.\n- May break backward compatibility.\n\n## Interview Checkpoint\n\nAlways define SerialVersionUID explicitly in serializable classes to avoid InvalidClassException.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "Serialization",
+      "SerialVersionUID"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "vertical-vs-horizontal-scaling",
+    "title": "Vertical Scaling vs Horizontal Scaling",
+    "category": "Java",
+    "subCategory": "System Design",
+    "description": "Compare scale-up and scale-out approaches used in enterprise systems.",
+    "content": "## Vertical Scaling (Scale Up)\n\nVertical scaling increases resources on the same machine.\n\nExamples:\n\n- More CPU\n- More RAM\n- Faster SSD\n\n## Horizontal Scaling (Scale Out)\n\nHorizontal scaling adds additional servers or machines.\n\nExamples:\n\n- Multiple application servers\n- Load balancing across nodes\n- Distributed systems\n\n## Comparison\n\n| Feature | Vertical Scaling | Horizontal Scaling |\n|----------|------------------|--------------------|\n| Resources | Increase server power | Add servers |\n| Cost | High | Flexible |\n| Availability | Lower | Higher |\n| Scalability | Limited | Almost unlimited |\n\n## Interview Checkpoint\n\nModern microservices architectures prefer horizontal scaling because it increases availability and fault tolerance.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Scaling",
+      "Vertical Scaling",
+      "Horizontal Scaling",
+      "System Design"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "kafka-offset-management",
+    "title": "Kafka Consumer Offset Management",
+    "category": "Kafka",
+    "subCategory": "Consumers",
+    "description": "Understand Kafka offsets, commits, and message consumption strategies.",
+    "content": "## What is an offset?\n\nAn offset represents the position of a record within a Kafka partition. Consumers use offsets to track processed messages.\n\n## Auto and manual commits\n\nAuto commits simplify implementation but may lead to duplicate processing. Manual commits provide better control and reliability.\n\n## Interview checkpoint\n\nExplain auto.offset.reset, earliest vs latest, consumer groups, offset commit strategies, and rebalancing.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Kafka",
+      "Consumers",
+      "Offsets"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "kubernetes-configmaps",
+    "title": "Managing application configuration with Kubernetes ConfigMaps",
+    "category": "Kubernetes",
+    "subCategory": "ConfigMap",
+    "description": "Separate non-sensitive configuration from container images and understand update behavior.",
+    "content": "## Store non-sensitive settings\n\nA ConfigMap stores non-confidential key-value configuration separately from an application image. Pods can consume its values as environment variables, command arguments, or mounted files.\n\n## Understand when changes take effect\n\nEnvironment variables are set when a container starts, so changing a ConfigMap does not update a running process's environment. Mounted ConfigMap files may update eventually, but the application must be able to reload them. A rollout restart is a common way to ensure Pods use updated configuration.\n\n## Keep secrets separate\n\nDo not put credentials or tokens in a ConfigMap. Use a Secret with appropriate access controls, and remember that default base64 encoding is not encryption.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Kubernetes",
+      "ConfigMap",
+      "Configuration"
     ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
@@ -54,34 +1826,6 @@
     "published": true
   },
   {
-    "id": "java-exception-handling",
-    "title": "Java exception handling and custom exceptions",
-    "category": "Java",
-    "subCategory": "Exception Handling",
-    "description": "Choose checked and unchecked exceptions appropriately and preserve useful error context.",
-    "content": "## Checked and unchecked exceptions\n\nChecked exceptions must be declared or handled, while RuntimeException and its subclasses are unchecked. Use checked exceptions when callers can reasonably recover and are expected to account for the failure. Use unchecked exceptions for programming errors or failures that callers cannot meaningfully handle at that level.\n\n## Preserve context\n\nWhen translating an exception at an application boundary, keep the original cause so logs retain the underlying failure. Avoid catching broad exceptions only to return a success-shaped value or silently ignore the problem.\n\n## Custom exceptions\n\nUse a domain-specific exception when it makes an expected failure clearer to the caller, such as AccountNotFoundException. Keep exception names and messages useful, but do not place secrets or sensitive user data in messages that may be logged.",
-    "difficulty": "Beginner",
-    "tags": ["Java", "Exceptions", "Error Handling"],
-    "author": "Tech Interview Hub",
-    "createdAt": "2026-11-14T00:00:00.000Z",
-    "updatedAt": "2026-11-14T00:00:00.000Z",
-    "published": true
-  },
-  {
-    "id": "spring-security-request-authorization",
-    "title": "Spring Security: authentication and request authorization",
-    "category": "Spring Boot",
-    "subCategory": "Security",
-    "description": "Separate authentication from authorization and apply least-privilege access to Spring APIs.",
-    "content": "## Authentication versus authorization\n\nAuthentication establishes who is making a request. Authorization decides whether that identity may perform a particular action on a resource. A valid login alone should not grant every application permission.\n\n## Protect request routes\n\nConfigure security rules so public endpoints are explicitly identified and protected routes require an authenticated principal and the appropriate authority. Prefer denying access by default over leaving new endpoints unintentionally public.\n\n## Check access at the resource boundary\n\nFor sensitive operations, enforce authorization on the server and consider method-level checks for business actions. Client-side route guards and hidden controls improve user experience but are not a security boundary. Test both unauthenticated and insufficiently privileged requests.",
-    "difficulty": "Intermediate",
-    "tags": ["Spring Boot", "Spring Security", "Authorization"],
-    "author": "Tech Interview Hub",
-    "createdAt": "2026-11-14T00:00:00.000Z",
-    "updatedAt": "2026-11-14T00:00:00.000Z",
-    "published": true
-  },
-  {
     "id": "microservices-service-boundaries",
     "title": "Designing clear service boundaries in microservices",
     "category": "Microservices",
@@ -89,21 +1833,29 @@
     "description": "Use business capabilities and data ownership to define services that can evolve independently.",
     "content": "## Start with business capabilities\n\nA service boundary should reflect a cohesive business capability, not simply a technical layer or database table. Group behavior and the data it owns together so the service can enforce its rules consistently.\n\n## Make ownership explicit\n\nEach service should be the source of truth for its data. Other services interact through stable APIs or events rather than directly changing its database. This reduces hidden coupling and allows internal schemas to evolve.\n\n## Avoid premature splitting\n\nA distributed boundary adds network failures, operational overhead, and consistency challenges. Start with a modular design and split a service when independent scaling, deployment, ownership, or fault isolation provides a concrete benefit.",
     "difficulty": "Intermediate",
-    "tags": ["Microservices", "Architecture", "Service Boundaries"],
+    "tags": [
+      "Microservices",
+      "Architecture",
+      "Service Boundaries"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
     "published": true
   },
   {
-    "id": "hibernate-entity-lifecycle",
-    "title": "Understanding the Hibernate entity lifecycle",
-    "category": "Hibernate",
-    "subCategory": "Entities",
-    "description": "Learn the transient, managed, detached, and removed entity states.",
-    "content": "## Entity states\n\nA transient entity is a newly created Java object not associated with a persistence context. A managed entity is tracked by an EntityManager or Session, and changes can be synchronized during flush. A detached entity has an identity but is no longer tracked by that context. A removed entity is scheduled for deletion.\n\n## Dirty checking\n\nHibernate detects changes to managed entities and can generate SQL during flush without an explicit update call. This behavior applies only while the entity is managed and within the persistence context.\n\n## Work with detached data carefully\n\nWhen updating from an API request, avoid blindly merging client-supplied entities. Load the managed entity, validate the requested changes, and update allowed fields to avoid overwriting data the client should not control.",
+    "id": "microservices-circuit-breaker",
+    "title": "Circuit Breaker Pattern in Microservices",
+    "category": "Microservices",
+    "subCategory": "Design Patterns",
+    "description": "Prevent cascading failures by isolating failing services using circuit breakers.",
+    "content": "## Purpose\n\nA circuit breaker prevents repeated requests to an unavailable service, reducing resource consumption and improving system stability.\n\n## States\n\nThe circuit breaker operates in Closed, Open, and Half-Open states. Requests are blocked when the circuit is Open.\n\n## Interview checkpoint\n\nBe ready to explain Resilience4j, fallback methods, retry patterns, timeout configuration, and bulkhead isolation.",
     "difficulty": "Intermediate",
-    "tags": ["Hibernate", "JPA", "Entity Lifecycle"],
+    "tags": [
+      "Microservices",
+      "Resilience4j",
+      "Circuit Breaker"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -117,21 +1869,11 @@
     "description": "Combine related rows, group results, and avoid common aggregate-query mistakes.",
     "content": "## Join related data\n\nAn INNER JOIN returns rows that match in both inputs. A LEFT JOIN preserves every row from the left input and returns nulls for missing right-side matches. Put conditions in ON when they define a match; a filter on the right-side table in WHERE may remove null-extended rows and effectively change a LEFT JOIN into an inner filter.\n\n## Group and aggregate\n\nGROUP BY produces one result per group, and aggregate functions such as COUNT and SUM calculate values for each group. Use HAVING to filter groups after aggregation; use WHERE to filter input rows before grouping.\n\n## Verify query behavior\n\nCheck whether joins multiply rows before summing values, add indexes to frequently joined or filtered columns where appropriate, and inspect the execution plan with EXPLAIN.",
     "difficulty": "Beginner",
-    "tags": ["MySQL", "SQL", "Joins"],
-    "author": "Tech Interview Hub",
-    "createdAt": "2026-11-14T00:00:00.000Z",
-    "updatedAt": "2026-11-14T00:00:00.000Z",
-    "published": true
-  },
-  {
-    "id": "postgresql-explain-analyze",
-    "title": "Reading PostgreSQL query plans with EXPLAIN",
-    "category": "PostgreSQL",
-    "subCategory": "Indexes",
-    "description": "Use query plans and measured row counts to investigate slow PostgreSQL queries.",
-    "content": "## Inspect the plan\n\nEXPLAIN shows the plan PostgreSQL expects to use, including scans, joins, estimated costs, and estimated row counts. EXPLAIN ANALYZE executes the statement and reports actual timing and row counts, which can reveal where estimates differ from reality.\n\n## Compare estimates and actuals\n\nLarge differences may indicate stale statistics, correlated data, or a query shape the planner cannot estimate well. Review the most expensive nodes and the number of rows processed rather than assuming an index scan is always faster than a sequential scan.\n\n## Use care with write statements\n\nEXPLAIN ANALYZE executes the query. For a statement that changes data, test in a safe transaction or on representative non-production data and roll back when appropriate.",
-    "difficulty": "Intermediate",
-    "tags": ["PostgreSQL", "EXPLAIN", "Performance"],
+    "tags": [
+      "MySQL",
+      "SQL",
+      "Joins"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -145,77 +1887,29 @@
     "description": "Use analytic functions to calculate rankings and aggregates without collapsing result rows.",
     "content": "## Analytic function structure\n\nAn analytic function uses an OVER clause with optional PARTITION BY and ORDER BY clauses. Unlike GROUP BY, it can calculate a value across a set of related rows while keeping each input row in the output.\n\n## Ranking examples\n\nROW_NUMBER assigns a unique sequence within each partition. RANK gives ties the same rank and leaves gaps afterward, while DENSE_RANK gives ties the same rank without gaps. Use a deterministic tie-breaker in ORDER BY when the result must be repeatable.\n\n## Running totals\n\nSUM(amount) OVER (PARTITION BY account_id ORDER BY transaction_time, id) can calculate a running total for each account. Choose the window frame intentionally, especially when rows share the same ordering value.",
     "difficulty": "Intermediate",
-    "tags": ["Oracle", "SQL", "Analytic Functions"],
+    "tags": [
+      "Oracle",
+      "SQL",
+      "Analytic Functions"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
     "published": true
   },
   {
-    "id": "docker-container-networking",
-    "title": "Docker container networking fundamentals",
-    "category": "Docker",
-    "subCategory": "Networking",
-    "description": "Connect containers with Docker networks and understand service-name discovery.",
-    "content": "## User-defined bridge networks\n\nContainers attached to the same user-defined bridge network can communicate using their container or service names. Docker provides DNS-based discovery on these networks, which is generally more reliable than hard-coding container IP addresses.\n\n## Publish ports deliberately\n\nA container port is not automatically exposed to the host. Publish only the ports that need to be reachable from outside the Docker network, and bind to a specific host interface when broad exposure is not desired.\n\n## Keep network boundaries clear\n\nSeparate unrelated services into appropriate networks and avoid assuming that a published port is private. Review firewall rules and the application's own authentication and authorization independently of Docker networking.",
-    "difficulty": "Beginner",
-    "tags": ["Docker", "Networking", "Containers"],
-    "author": "Tech Interview Hub",
-    "createdAt": "2026-11-14T00:00:00.000Z",
-    "updatedAt": "2026-11-14T00:00:00.000Z",
-    "published": true
-  },
-  {
-    "id": "kubernetes-configmaps",
-    "title": "Managing application configuration with Kubernetes ConfigMaps",
-    "category": "Kubernetes",
-    "subCategory": "ConfigMap",
-    "description": "Separate non-sensitive configuration from container images and understand update behavior.",
-    "content": "## Store non-sensitive settings\n\nA ConfigMap stores non-confidential key-value configuration separately from an application image. Pods can consume its values as environment variables, command arguments, or mounted files.\n\n## Understand when changes take effect\n\nEnvironment variables are set when a container starts, so changing a ConfigMap does not update a running process's environment. Mounted ConfigMap files may update eventually, but the application must be able to reload them. A rollout restart is a common way to ensure Pods use updated configuration.\n\n## Keep secrets separate\n\nDo not put credentials or tokens in a ConfigMap. Use a Secret with appropriate access controls, and remember that default base64 encoding is not encryption.",
-    "difficulty": "Beginner",
-    "tags": ["Kubernetes", "ConfigMap", "Configuration"],
-    "author": "Tech Interview Hub",
-    "createdAt": "2026-11-14T00:00:00.000Z",
-    "updatedAt": "2026-11-14T00:00:00.000Z",
-    "published": true
-  },
-  {
-    "id": "aws-iam-roles-workloads",
-    "title": "Using IAM roles instead of long-lived AWS access keys",
-    "category": "AWS",
-    "subCategory": "IAM",
-    "description": "Give applications temporary credentials through IAM roles and reduce key-management risk.",
-    "content": "## Prefer temporary credentials\n\nApplications running on AWS can obtain temporary credentials through an attached IAM role rather than storing long-lived access keys. The AWS SDK credential provider chain can retrieve and refresh these credentials automatically in supported environments.\n\n## Apply least privilege\n\nAttach policies that grant only the actions and resources the workload needs. Use separate roles for different applications or environments, and avoid sharing a powerful role across unrelated systems.\n\n## Review identity access\n\nAudit role trust policies, permissions, and usage. Never commit access keys to source control or bake them into container images; rotate and revoke any exposed credentials promptly.",
+    "id": "postgresql-explain-analyze",
+    "title": "Reading PostgreSQL query plans with EXPLAIN",
+    "category": "PostgreSQL",
+    "subCategory": "Indexes",
+    "description": "Use query plans and measured row counts to investigate slow PostgreSQL queries.",
+    "content": "## Inspect the plan\n\nEXPLAIN shows the plan PostgreSQL expects to use, including scans, joins, estimated costs, and estimated row counts. EXPLAIN ANALYZE executes the statement and reports actual timing and row counts, which can reveal where estimates differ from reality.\n\n## Compare estimates and actuals\n\nLarge differences may indicate stale statistics, correlated data, or a query shape the planner cannot estimate well. Review the most expensive nodes and the number of rows processed rather than assuming an index scan is always faster than a sequential scan.\n\n## Use care with write statements\n\nEXPLAIN ANALYZE executes the query. For a statement that changes data, test in a safe transaction or on representative non-production data and roll back when appropriate.",
     "difficulty": "Intermediate",
-    "tags": ["AWS", "IAM", "Security"],
-    "author": "Tech Interview Hub",
-    "createdAt": "2026-11-14T00:00:00.000Z",
-    "updatedAt": "2026-11-14T00:00:00.000Z",
-    "published": true
-  },
-  {
-    "id": "gcp-cloud-run-deployments",
-    "title": "Deploying a stateless service to Google Cloud Run",
-    "category": "GCP",
-    "subCategory": "Cloud Run",
-    "description": "Package an HTTP service in a container and configure Cloud Run for scalable requests.",
-    "content": "## Prepare the service\n\nCloud Run runs a container that serves HTTP requests and listens on the port provided by the runtime environment. Build a reproducible image, keep the process in the foreground, and handle termination signals so the service can shut down cleanly.\n\n## Design for stateless instances\n\nInstances can scale out or stop at any time. Store durable state in managed storage rather than the container's local filesystem, and make request handling safe when traffic reaches different instances.\n\n## Configure access and scaling\n\nChoose whether the service is public or requires authentication, grant the runtime service account only the permissions it needs, and set concurrency and scaling limits based on load tests and downstream capacity.",
-    "difficulty": "Beginner",
-    "tags": ["GCP", "Cloud Run", "Containers"],
-    "author": "Tech Interview Hub",
-    "createdAt": "2026-11-14T00:00:00.000Z",
-    "updatedAt": "2026-11-14T00:00:00.000Z",
-    "published": true
-  },
-  {
-    "id": "angular-route-guards",
-    "title": "Protecting Angular routes with route guards",
-    "category": "Angular",
-    "subCategory": "Routing",
-    "description": "Use functional guards for navigation while keeping the server as the authorization boundary.",
-    "content": "## Functional guards\n\nAngular functional guards can decide whether navigation may continue, redirect to another route, or wait for an asynchronous result. They are useful for checking session state and improving the navigation experience.\n\n## Handle permissions clearly\n\nA guard can read route metadata to determine which permission is needed and return a UrlTree when the current user should be redirected. Prefer a single, consistent authorization helper over duplicating permission checks across routes.\n\n## Protect APIs too\n\nA route guard runs in the browser and can be bypassed by a user who controls that browser. Every protected backend endpoint must independently authenticate the request and verify permissions before returning or changing data.",
-    "difficulty": "Intermediate",
-    "tags": ["Angular", "Routing", "Route Guards"],
+    "tags": [
+      "PostgreSQL",
+      "EXPLAIN",
+      "Performance"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -229,21 +1923,65 @@
     "description": "Synchronize a component with external systems and clean up before effects are replaced.",
     "content": "## Effects and synchronization\n\nuseEffect is intended for synchronizing a component with an external system, such as a browser event listener, timer, or network connection. It is not required for every calculation that can be derived directly while rendering.\n\n## Return a cleanup function\n\nAn effect can return a cleanup function to remove listeners, clear timers, or cancel supported work. React runs cleanup before the effect is set up again with changed dependencies and when the component unmounts.\n\n## Keep dependencies accurate\n\nInclude reactive values used by the effect. Missing dependencies can cause stale values, while unstable objects or functions can cause repeated runs. Simplify the effect or stabilize the inputs when repeated setup is not intended.",
     "difficulty": "Intermediate",
-    "tags": ["React", "Hooks", "useEffect"],
+    "tags": [
+      "React",
+      "Hooks",
+      "useEffect"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
     "published": true
   },
   {
-    "id": "devops-ci-pipeline-quality-gates",
-    "title": "Building reliable quality gates in a CI pipeline",
-    "category": "DevOps",
-    "subCategory": "CI/CD",
-    "description": "Use repeatable builds, automated checks, and clear release evidence to reduce deployment risk.",
-    "content": "## Validate every change\n\nA useful CI pipeline checks out a specific revision, restores dependencies reproducibly, compiles the application, and runs appropriate tests and static checks. Failures should be visible and tied to the change that introduced them.\n\n## Promote one artifact\n\nBuild an immutable artifact once and promote that same artifact through environments. Rebuilding separately for production can produce different outputs and makes release verification less reliable.\n\n## Keep secrets and approvals safe\n\nProvide credentials through the CI platform's protected secret mechanism, scope them to the smallest required job, and avoid printing them. Add human approval where policy or risk requires it, and keep a rollback path for failed releases.",
+    "id": "spring-boot-bean-lifecycle",
+    "title": "Spring Bean Lifecycle Explained",
+    "category": "Spring Boot",
+    "subCategory": "Core",
+    "description": "Understand how Spring creates, manages, and destroys beans within the application context.",
+    "content": "## Bean creation\n\nSpring creates beans when the application context starts. Dependencies are injected before initialization methods are executed.\n\n## Bean lifecycle stages\n\nInstantiation, dependency injection, initialization, usage, and destruction are the major stages of the bean lifecycle.\n\n## Interview checkpoint\n\nExplain @PostConstruct, @PreDestroy, BeanPostProcessor, singleton scope, and prototype scope.",
     "difficulty": "Intermediate",
-    "tags": ["DevOps", "CI/CD", "Release Engineering"],
+    "tags": [
+      "Spring",
+      "Beans",
+      "Dependency Injection"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "spring-rest-api-fundamentals",
+    "title": "Building REST endpoints with Spring Boot",
+    "category": "Spring Boot",
+    "subCategory": "REST API",
+    "description": "Review controller responsibilities, request mapping, validation, and response status codes.",
+    "content": "## Controller fundamentals\n\nA Spring MVC controller maps HTTP requests to application behavior. Use @RestController for JSON APIs and map resources with annotations such as @GetMapping and @PostMapping.\n\n## Keep responsibilities clear\n\nControllers should validate request shape, delegate business rules to a service, and return suitable HTTP responses. Use request DTOs rather than binding persistence entities directly. Add Bean Validation constraints and handle errors consistently.\n\n## Interview checkpoint\n\nBe ready to explain why POST creates a resource, why PUT replaces a resource, and when PATCH is appropriate. Return 201 Created for a successful creation and include a Location header when practical.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Spring Boot",
+      "REST",
+      "HTTP"
+    ],
+    "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
+    "published": true
+  },
+  {
+    "id": "spring-security-request-authorization",
+    "title": "Spring Security: authentication and request authorization",
+    "category": "Spring Boot",
+    "subCategory": "Security",
+    "description": "Separate authentication from authorization and apply least-privilege access to Spring APIs.",
+    "content": "## Authentication versus authorization\n\nAuthentication establishes who is making a request. Authorization decides whether that identity may perform a particular action on a resource. A valid login alone should not grant every application permission.\n\n## Protect request routes\n\nConfigure security rules so public endpoints are explicitly identified and protected routes require an authenticated principal and the appropriate authority. Prefer denying access by default over leaving new endpoints unintentionally public.\n\n## Check access at the resource boundary\n\nFor sensitive operations, enforce authorization on the server and consider method-level checks for business actions. Client-side route guards and hidden controls improve user experience but are not a security boundary. Test both unauthenticated and insufficiently privileged requests.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Spring Boot",
+      "Spring Security",
+      "Authorization"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",

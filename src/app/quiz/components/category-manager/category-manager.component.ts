@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { QuizCategory } from '../../models/category';
+import { CategoryService } from '../../services/category.service';
 import { QuestionService } from '../../services/question.service';
 
 @Component({
@@ -18,7 +21,10 @@ export class CategoryManagerComponent implements OnInit {
   message = '';
   error = '';
 
-  constructor(private readonly questionService: QuestionService) { }
+  constructor(
+    private readonly questionService: QuestionService,
+    private readonly categoryService: CategoryService
+  ) { }
 
   async ngOnInit(): Promise<void> {
     try {
@@ -29,46 +35,46 @@ export class CategoryManagerComponent implements OnInit {
     }
   }
 
-  addCategory(): void {
+  async addCategory(): Promise<void> {
     const name = this.newCategory.trim();
     if (!name || this.categories.some(category => category.name.toLowerCase() === name.toLowerCase())) {
       this.error = 'Enter a category name that is not already in use.';
       return;
     }
-    this.save([...this.categories, { name, subCategories: [] }], `Added ${name}.`);
-    this.newCategory = '';
+    const saved = await this.persist(
+      this.categoryService.createCategory({ name, subCategories: [] }),
+      `Added ${name}.`
+    );
+    if (saved) this.newCategory = '';
   }
 
-  addSubCategory(category: QuizCategory): void {
+  async addSubCategory(category: QuizCategory): Promise<void> {
     const subCategory = window.prompt(`New subcategory for ${category.name}:`)?.trim();
     if (!subCategory) return;
     if (category.subCategories.some(item => item.toLowerCase() === subCategory.toLowerCase())) {
       this.error = 'That subcategory already exists.';
       return;
     }
-    this.save(this.categories.map(item => item.name === category.name
-      ? { ...item, subCategories: [...item.subCategories, subCategory] }
-      : item), `Added ${subCategory}.`);
+    const updated = { ...category, subCategories: [...category.subCategories, subCategory] };
+    await this.persist(this.categoryService.updateCategory(category.name, updated), `Added ${subCategory}.`);
   }
 
-  editCategory(category: QuizCategory): void {
+  async editCategory(category: QuizCategory): Promise<void> {
     const name = window.prompt('Edit category name:', category.name)?.trim();
     if (!name || name === category.name) return;
     if (this.categories.some(item => item.name !== category.name && item.name.toLowerCase() === name.toLowerCase())) {
       this.error = 'A category with that name already exists.';
       return;
     }
-    try {
-      this.questionService.renameCategory(category.name, { ...category, name });
-      this.refresh();
-      this.message = `Renamed category to ${name}.`;
-      this.error = '';
-    } catch (error) {
-      this.error = error instanceof Error ? error.message : 'Could not rename this category.';
-    }
+    const updated = { ...category, name };
+    await this.persist(
+      this.categoryService.updateCategory(category.name, updated),
+      `Renamed category to ${name}.`,
+      () => this.questionService.renameCategory(category.name, updated)
+    );
   }
 
-  editSubCategory(category: QuizCategory, previous: string): void {
+  async editSubCategory(category: QuizCategory, previous: string): Promise<void> {
     const name = window.prompt('Edit subcategory name:', previous)?.trim();
     if (!name || name === previous) return;
     if (category.subCategories.some(item => item !== previous && item.toLowerCase() === name.toLowerCase())) {
@@ -78,36 +84,41 @@ export class CategoryManagerComponent implements OnInit {
     const categories = this.categories.map(item => item.name === category.name
       ? { ...item, subCategories: item.subCategories.map(sub => sub === previous ? name : sub) }
       : item);
-    try {
-      const questions = this.questions.map(question =>
-        question.category === category.name && question.subCategory === previous
-          ? { ...question, subCategory: name }
-          : question
-      );
-      this.questionService.importQuestions(questions);
-      this.save(categories, `Renamed subcategory to ${name}.`);
-    } catch (error) {
-      this.error = error instanceof Error ? error.message : 'Could not rename this subcategory.';
-    }
+    const updated = categories.find(item => item.name === category.name);
+    if (!updated) return;
+    await this.persist(
+      this.categoryService.updateCategory(category.name, updated),
+      `Renamed subcategory to ${name}.`,
+      () => {
+        const questions = this.questions.map(question =>
+          question.category === category.name && question.subCategory === previous
+            ? { ...question, subCategory: name }
+            : question
+        );
+        this.questionService.importQuestions(questions);
+      }
+    );
   }
 
-  deleteSubCategory(category: QuizCategory, subCategory: string): void {
+  async deleteSubCategory(category: QuizCategory, subCategory: string): Promise<void> {
     if (this.questions.some(question => question.category === category.name && question.subCategory === subCategory)) {
       this.error = 'This subcategory is used by questions. Move or delete those questions first.';
       return;
     }
-    this.save(this.categories.map(item => item.name === category.name
-      ? { ...item, subCategories: item.subCategories.filter(sub => sub !== subCategory) }
-      : item), `Deleted ${subCategory}.`);
+    const updated = {
+      ...category,
+      subCategories: category.subCategories.filter(sub => sub !== subCategory)
+    };
+    await this.persist(this.categoryService.updateCategory(category.name, updated), `Deleted ${subCategory}.`);
   }
 
-  deleteCategory(category: QuizCategory): void {
+  async deleteCategory(category: QuizCategory): Promise<void> {
     if (this.questions.some(question => question.category === category.name)) {
       this.error = 'This category is used by questions. Move or delete those questions first.';
       return;
     }
     if (!window.confirm(`Delete category "${category.name}" and its subcategories?`)) return;
-    this.save(this.categories.filter(item => item.name !== category.name), `Deleted ${category.name}.`);
+    await this.persist(this.categoryService.deleteCategory(category.name), `Deleted ${category.name}.`);
   }
 
   exportJson(): void {
@@ -119,14 +130,25 @@ export class CategoryManagerComponent implements OnInit {
     URL.revokeObjectURL(url);
   }
 
-  private save(categories: QuizCategory[], message: string): void {
+  private async persist(
+    request: Observable<QuizCategory[]>,
+    message: string,
+    updateLocalQuestions?: () => void
+  ): Promise<boolean> {
     try {
+      const categories = await request.toPromise();
+      if (!Array.isArray(categories)) throw new Error('The category API returned an invalid response.');
+      updateLocalQuestions?.();
       this.questionService.saveCategories(categories);
       this.refresh();
       this.message = message;
       this.error = '';
+      return true;
     } catch (error) {
-      this.error = error instanceof Error ? error.message : 'Could not save categories.';
+      this.error = error instanceof HttpErrorResponse && typeof error.error?.message === 'string'
+        ? error.error.message
+        : error instanceof Error ? error.message : 'Could not save categories.';
+      return false;
     }
   }
 

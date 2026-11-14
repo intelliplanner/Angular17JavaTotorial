@@ -113,6 +113,12 @@ The starter accounts are `test` / `test` (learner access) and `admin` / `admin` 
 - The production frontend can read the bundled JSON files when no API URL is configured; creating or editing content requires the Express backend and a configured `authApiUrl`.
 - Browser bookmarks, tutorial completion, and question votes are stored locally in the current browser.
 
+### Quiz Category Management
+
+- Quiz categories are stored in `src/assets/data/categories.json`; each category's subcategories are stored separately in `src/assets/data/subcategories.json`.
+- The quiz reads these files directly when no backend URL is configured. The Express API exposes `GET /api/categories` and administrator-only `POST`, `PUT`, and `DELETE /api/categories` routes to persist changes to both files.
+- Category and subcategory edits that would orphan existing questions are rejected. Persistent changes require the Express backend and a configured `authApiUrl`.
+
 ## Build
 
 ### Development Build

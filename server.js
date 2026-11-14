@@ -567,6 +567,9 @@ app.post('/uploadPdf', requirePermission('admin'), upload.single('pdfFile'), (re
 const qaFilePath = path.join(__dirname, 'src', 'assets', 'json_files', 'interview_question_answer.json');
 const tutorialsFilePath = path.join(__dirname, 'src', 'assets', 'data', 'tutorials.json');
 const interviewQaFilePath = path.join(__dirname, 'src', 'assets', 'data', 'questions-and-answers.json');
+const quizCategoriesFilePath = path.join(__dirname, 'src', 'assets', 'data', 'categories.json');
+const quizSubcategoriesFilePath = path.join(__dirname, 'src', 'assets', 'data', 'subcategories.json');
+const quizQuestionManifestPath = path.join(__dirname, 'src', 'assets', 'data', 'question-files.json');
 
 function readContentList(filePath) {
   const value = JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -579,6 +582,150 @@ function readContentList(filePath) {
 function writeContentList(filePath, items) {
   fs.writeFileSync(filePath, `${JSON.stringify(items, null, 2)}\n`, 'utf8');
 }
+
+function readQuizCategories() {
+  const names = JSON.parse(fs.readFileSync(quizCategoriesFilePath, 'utf8'));
+  const subcategories = JSON.parse(fs.readFileSync(quizSubcategoriesFilePath, 'utf8'));
+  if (!Array.isArray(names) || !subcategories || typeof subcategories !== 'object' || Array.isArray(subcategories)) {
+    throw new Error('Category configuration files have an invalid format.');
+  }
+  if (names.some(name => typeof name !== 'string' || !name.trim()) ||
+      new Set(names.map(name => name.toLowerCase())).size !== names.length ||
+      names.some(name => !Array.isArray(subcategories[name]) ||
+        subcategories[name].some(subcategory => typeof subcategory !== 'string' || !subcategory.trim())) ||
+      Object.keys(subcategories).some(name => !names.includes(name))) {
+    throw new Error('Category and subcategory entries must be valid and correspond to each other.');
+  }
+  return names.map(name => ({
+    name,
+    subCategories: subcategories[name]
+  }));
+}
+
+function writeQuizCategories(categories) {
+  const names = categories.map(category => category.name);
+  const subcategories = Object.fromEntries(
+    categories.map(category => [category.name, category.subCategories])
+  );
+  fs.writeFileSync(quizCategoriesFilePath, `${JSON.stringify(names, null, 2)}\n`, 'utf8');
+  fs.writeFileSync(quizSubcategoriesFilePath, `${JSON.stringify(subcategories, null, 2)}\n`, 'utf8');
+}
+
+function normalizeQuizCategory(payload) {
+  if (!payload || typeof payload.name !== 'string' || !payload.name.trim() || payload.name.trim().length > 80) {
+    return { error: 'Category name is required and must be no longer than 80 characters.' };
+  }
+  if (!Array.isArray(payload.subCategories) || payload.subCategories.length > 100 ||
+      payload.subCategories.some(name => typeof name !== 'string' || !name.trim() || name.trim().length > 100)) {
+    return { error: 'Subcategories must be a list of non-empty names no longer than 100 characters.' };
+  }
+  const subCategories = payload.subCategories.map(name => name.trim());
+  if (new Set(subCategories.map(name => name.toLowerCase())).size !== subCategories.length) {
+    return { error: 'Subcategory names must be unique within a category.' };
+  }
+  return { value: { name: payload.name.trim(), subCategories } };
+}
+
+function findQuizQuestionReferences(categoryName) {
+  const manifest = JSON.parse(fs.readFileSync(quizQuestionManifestPath, 'utf8'));
+  if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
+    throw new Error('The quiz question manifest has an invalid format.');
+  }
+  const references = [];
+  for (const [category, filename] of Object.entries(manifest)) {
+    if (typeof filename !== 'string' || !/^[a-z0-9-]+\.json$/i.test(filename)) {
+      throw new Error(`Invalid quiz question file entry for category "${category}".`);
+    }
+    const questions = JSON.parse(fs.readFileSync(
+      path.join(__dirname, 'src', 'assets', 'data', filename),
+      'utf8'
+    ));
+    if (!Array.isArray(questions)) {
+      throw new Error(`Quiz question file "${filename}" must contain a JSON array.`);
+    }
+    for (const question of questions) {
+      if (question && question.category === categoryName) {
+        references.push({ category, subCategory: question.subCategory });
+      }
+    }
+  }
+  return references;
+}
+
+app.get('/api/categories', (request, response) => {
+  try {
+    response.set('Cache-Control', 'no-store');
+    response.json(readQuizCategories());
+  } catch (error) {
+    console.error('Error reading quiz categories:', error);
+    response.status(500).json({ message: 'Could not load quiz categories.' });
+  }
+});
+
+app.post('/api/categories', requirePermission('admin'), (request, response) => {
+  const result = normalizeQuizCategory(request.body || {});
+  if (result.error) return response.status(400).json({ message: result.error });
+  try {
+    const categories = readQuizCategories();
+    if (categories.some(category => category.name.toLowerCase() === result.value.name.toLowerCase())) {
+      return response.status(409).json({ message: 'A category with that name already exists.' });
+    }
+    categories.push(result.value);
+    writeQuizCategories(categories);
+    response.status(201).json(categories);
+  } catch (error) {
+    console.error('Error creating quiz category:', error);
+    response.status(500).json({ message: 'Could not save quiz categories.' });
+  }
+});
+
+app.put('/api/categories/:name', requirePermission('admin'), (request, response) => {
+  const result = normalizeQuizCategory(request.body || {});
+  if (result.error) return response.status(400).json({ message: result.error });
+  try {
+    const categories = readQuizCategories();
+    const index = categories.findIndex(category => category.name === request.params.name);
+    if (index < 0) return response.status(404).json({ message: 'Category not found.' });
+    if (categories.some((category, categoryIndex) =>
+      categoryIndex !== index && category.name.toLowerCase() === result.value.name.toLowerCase()
+    )) {
+      return response.status(409).json({ message: 'A category with that name already exists.' });
+    }
+
+    const references = findQuizQuestionReferences(request.params.name);
+    if (result.value.name !== request.params.name && references.length) {
+      return response.status(409).json({ message: 'This category is used by quiz questions and cannot be renamed.' });
+    }
+    const retainedSubcategories = new Set(result.value.subCategories);
+    if (references.some(reference => !retainedSubcategories.has(reference.subCategory))) {
+      return response.status(409).json({ message: 'A subcategory used by quiz questions cannot be removed or renamed.' });
+    }
+
+    categories[index] = result.value;
+    writeQuizCategories(categories);
+    response.json(categories);
+  } catch (error) {
+    console.error('Error updating quiz category:', error);
+    response.status(500).json({ message: 'Could not update quiz categories.' });
+  }
+});
+
+app.delete('/api/categories/:name', requirePermission('admin'), (request, response) => {
+  try {
+    const categories = readQuizCategories();
+    const index = categories.findIndex(category => category.name === request.params.name);
+    if (index < 0) return response.status(404).json({ message: 'Category not found.' });
+    if (findQuizQuestionReferences(request.params.name).length) {
+      return response.status(409).json({ message: 'This category is used by quiz questions and cannot be deleted.' });
+    }
+    categories.splice(index, 1);
+    writeQuizCategories(categories);
+    response.json(categories);
+  } catch (error) {
+    console.error('Error deleting quiz category:', error);
+    response.status(500).json({ message: 'Could not delete quiz category.' });
+  }
+});
 
 function normalizeTags(value) {
   return Array.isArray(value)
