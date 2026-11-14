@@ -7,7 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { InterviewQuestionsComponent } from './interview-questions/interview-questions.component';
 // import { ExceptionHandlingComponent } from './exception-handling/exception-handling.component';
 import { LoginComponent } from './login/login.component';
-import { authChildGuard, authGuard } from './login-guard.guard';
+import { authChildGuard, authGuard, loginPageGuard } from './login-guard.guard';
+import { environment } from '../environments/environment';
 import { JavaNotesComponent } from './java-notes/java-notes.component';
 import { JavaCompilerComponent } from './java-compiler/java-compiler.component';
 import { CategorizedNotesComponent } from './categorized-notes/categorized-notes.component';
@@ -17,8 +18,8 @@ import { InterviewQuestionsAnswerUpdateComponent } from './interview-questions-a
 import { InteriorSampleComponent } from './interior-sample/interior-sample.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, title: 'Login Page' },
+  { path: '', redirectTo: environment.loginEnabled ? 'login' : 'home', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, title: 'Login Page', canActivate: [loginPageGuard] },
   {
     path: '',
     canActivate: [authGuard],

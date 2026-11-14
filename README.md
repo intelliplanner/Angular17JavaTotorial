@@ -73,14 +73,21 @@ npm run server
 
 The backend API will run on `http://localhost:9090` (or `http://192.168.1.10:9090` depending on your network configuration).
 
-### Authentication and GitHub Pages Login
+### Login Access
 
-GitHub Pages only hosts the Angular frontend. Username/password login requires the separate Express authentication API; the GitHub Pages URL is not the API URL.
+The `loginEnabled` property in each `src/environments/environment*.ts` file controls route access:
+
+- `true`: users must sign in; route permissions are enforced.
+- `false`: all application tabs are available without signing in. The production environment currently sets this to `false`; local development sets it to `true`.
+
+Change `loginEnabled` in `environment.prod.ts` and redeploy to change the GitHub Pages behavior. Disabling frontend login only changes access to application pages; protected backend write/admin APIs continue to require server authentication.
+
+When login is enabled on GitHub Pages, username/password login requires the separate Express API:
 
 1. Deploy the Express backend using the repository's `render.yaml` Blueprint. Render generates a `SESSION_SECRET` and enables secure cookies.
-2. In the GitHub repository, open **Settings → Secrets and variables → Actions → Variables**, add `AUTH_API_URL`, and set it to the deployed backend's HTTPS origin (for example, `https://your-service.onrender.com`, without an `/auth` path).
-3. Configure the Render service's `FRONTEND_ORIGINS` variable as `https://intelliplanner.github.io`. The Render Blueprint includes this default. The API must allow credentialed CORS requests and secure cross-site cookies.
-4. Push to `main` or `dev`, or rerun the GitHub Pages workflow. The production build injects `AUTH_API_URL`; the deployment intentionally fails with a clear error if that variable is missing or is not HTTPS.
+2. Set `authApiUrl` in `src/environments/environment.prod.ts` to the deployed backend's HTTPS origin (for example, `https://your-service.onrender.com`, without an `/auth` path).
+3. Configure the Render service's `FRONTEND_ORIGINS` variable as `https://intelliplanner.github.io`.
+4. Push to `main` or `dev`, or rerun the GitHub Pages workflow.
 5. To run locally, start the backend and Angular frontend:
 
    ```powershell

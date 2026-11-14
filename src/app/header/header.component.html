@@ -10,7 +10,7 @@
     </button>
 
     <div class="collapse navbar-collapse hub-nav-collapse" [class.show]="isMenuOpen" id="hubNav">
-      <div class="navbar-nav hub-nav-links" [hidden]="!isLoggedIn">
+      <div class="navbar-nav hub-nav-links" [hidden]="loginEnabled && !isLoggedIn">
         <a class="nav-link" routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a>
         <a class="nav-link" routerLink="/categorizedNotes" routerLinkActive="active" (click)="closeMenu()">Learn</a>
         <!-- <a class="nav-link" routerLink="/interview" routerLinkActive="active" (click)="closeMenu()">Interview prep</a> -->
@@ -19,11 +19,11 @@
         <a *ngIf="isAdmin" class="nav-link" routerLink="/quiz/categories" routerLinkActive="active" (click)="closeMenu()">Categories</a>
       </div>
       <div class="hub-nav-actions">
-        <button *ngIf="isLoggedIn" type="button" class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="darkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+        <button *ngIf="!loginEnabled || isLoggedIn" type="button" class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="darkMode ? 'Switch to light mode' : 'Switch to dark mode'">
           <i class="fa-solid" [ngClass]="darkMode ? 'fa-sun' : 'fa-moon'"></i>
         </button>
-        <a *ngIf="!isLoggedIn" routerLink="/login" class="btn hub-signin" (click)="closeMenu()">Sign in</a>
-        <button *ngIf="isLoggedIn" type="button" class="btn hub-signin" (click)="logout(); closeMenu()">Sign out</button>
+        <a *ngIf="loginEnabled && !isLoggedIn" routerLink="/login" class="btn hub-signin" (click)="closeMenu()">Sign in</a>
+        <button *ngIf="loginEnabled && isLoggedIn" type="button" class="btn hub-signin" (click)="logout(); closeMenu()">Sign out</button>
       </div>
     </div>
   </div>

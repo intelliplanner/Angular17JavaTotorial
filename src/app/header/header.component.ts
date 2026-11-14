@@ -4,6 +4,7 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/ro
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +14,9 @@ import { AuthService } from '../auth.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnDestroy {
+  readonly loginEnabled = environment.loginEnabled;
   isLoggedIn = false;
-  isAdmin = false;
+  isAdmin = !this.loginEnabled;
   darkMode = localStorage.getItem('quiz-dark-mode') === 'true';
   isMenuOpen = false;
   private readonly navigationSubscription: Subscription;
@@ -54,7 +56,7 @@ export class HeaderComponent implements OnDestroy {
   private updateLoginState(): void {
     const user = this.authService.user;
     this.isLoggedIn = !!user;
-    this.isAdmin = this.authService.hasPermission('admin', user);
+    this.isAdmin = !this.loginEnabled || this.authService.hasPermission('admin', user);
     this.closeMenu();
   }
 

@@ -2,8 +2,13 @@ import { CanActivateChildFn, CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { environment } from '../environments/environment';
 
 function authorize(permission?: string) {
+  if (!environment.loginEnabled) {
+    return true;
+  }
+
   const router = inject(Router);
   const authService = inject(AuthService);
 
@@ -18,6 +23,9 @@ function authorize(permission?: string) {
     return true;
   }));
 }
+
+export const loginPageGuard: CanActivateFn = () =>
+  environment.loginEnabled ? true : inject(Router).createUrlTree(['/home']);
 
 export const authGuard: CanActivateFn = route => {
   const permission = route.data['permission'];
