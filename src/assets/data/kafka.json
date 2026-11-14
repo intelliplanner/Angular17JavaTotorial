@@ -1,1 +1,1459 @@
-[]
+[
+    {
+        "id": 1,
+        "category": "Kafka",
+        "subCategory": "Kafka",
+        "difficulty": "Easy",
+        "question": "What is Apache Kafka?",
+        "image": "",
+        "options": [
+            "Database",
+            "Distributed Event Streaming Platform",
+            "Web Server",
+            "Container Runtime"
+        ],
+        "correctAnswer": "Distributed Event Streaming Platform",
+        "explanation": "Kafka is a distributed event streaming platform used for building real-time data pipelines and streaming applications."
+    },
+    {
+        "id": 2,
+        "category": "Kafka",
+        "subCategory": "Topics",
+        "difficulty": "Easy",
+        "question": "What is a Kafka Topic?",
+        "image": "",
+        "options": [
+            "Database Table",
+            "Message Category",
+            "Consumer Group",
+            "Broker"
+        ],
+        "correctAnswer": "Message Category",
+        "explanation": "A topic is a logical channel where records are published."
+    },
+    {
+        "id": 3,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Easy",
+        "question": "Why are partitions used in Kafka?",
+        "image": "",
+        "options": [
+            "Security",
+            "Scalability and Parallelism",
+            "Compression",
+            "Monitoring"
+        ],
+        "correctAnswer": "Scalability and Parallelism",
+        "explanation": "Partitions allow data to be processed in parallel."
+    },
+    {
+        "id": 4,
+        "category": "Kafka",
+        "subCategory": "Consumers",
+        "difficulty": "Easy",
+        "question": "What is a Kafka Consumer?",
+        "image": "",
+        "options": [
+            "Produces Messages",
+            "Stores Messages",
+            "Reads Messages",
+            "Deletes Messages"
+        ],
+        "correctAnswer": "Reads Messages",
+        "explanation": "Consumers read records from Kafka topics."
+    },
+    {
+        "id": 5,
+        "category": "Kafka",
+        "subCategory": "Consumers",
+        "difficulty": "Easy",
+        "question": "What is a Kafka Producer?",
+        "image": "",
+        "options": [
+            "Publishes Messages",
+            "Consumes Messages",
+            "Stores Messages",
+            "Deletes Messages"
+        ],
+        "correctAnswer": "Publishes Messages",
+        "explanation": "Producers send records to Kafka topics."
+    },
+    {
+        "id": 6,
+        "category": "Kafka",
+        "subCategory": "Consumer Groups",
+        "difficulty": "Medium",
+        "question": "What is a Consumer Group?",
+        "image": "",
+        "options": [
+            "Group of Brokers",
+            "Group of Topics",
+            "Consumers sharing workload",
+            "Cluster of Databases"
+        ],
+        "correctAnswer": "Consumers sharing workload",
+        "explanation": "Consumer groups enable parallel and scalable message processing."
+    },
+    {
+        "id": 7,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Medium",
+        "question": "Kafka guarantees ordering within which scope?",
+        "image": "",
+        "options": [
+            "Topic",
+            "Broker",
+            "Partition",
+            "Cluster"
+        ],
+        "correctAnswer": "Partition",
+        "explanation": "Message ordering is guaranteed only within a partition."
+    },
+    {
+        "id": 8,
+        "category": "Kafka",
+        "subCategory": "Kafka",
+        "difficulty": "Easy",
+        "question": "What is a Kafka Broker?",
+        "image": "",
+        "options": [
+            "Server running Kafka",
+            "Topic",
+            "Consumer",
+            "Producer"
+        ],
+        "correctAnswer": "Server running Kafka",
+        "explanation": "A broker stores data and serves producers and consumers."
+    },
+    {
+        "id": 9,
+        "category": "Kafka",
+        "subCategory": "Consumer Groups",
+        "difficulty": "Medium",
+        "question": "Can two consumers in the same group read the same partition?",
+        "image": "",
+        "options": [
+            "Always",
+            "Sometimes",
+            "No",
+            "Only in Production"
+        ],
+        "correctAnswer": "No",
+        "explanation": "A partition can be assigned to only one consumer in a consumer group."
+    },
+    {
+        "id": 10,
+        "category": "Kafka",
+        "subCategory": "Delivery Semantics",
+        "difficulty": "Medium",
+        "question": "Which delivery guarantee may result in duplicate messages?",
+        "image": "",
+        "options": [
+            "At Most Once",
+            "At Least Once",
+            "Exactly Once",
+            "No Delivery"
+        ],
+        "correctAnswer": "At Least Once",
+        "explanation": "Retries can cause duplicate message processing."
+    },
+    {
+        "id": 11,
+        "category": "Kafka",
+        "subCategory": "Delivery Semantics",
+        "difficulty": "Medium",
+        "question": "Which delivery guarantee may result in message loss?",
+        "image": "",
+        "options": [
+            "At Least Once",
+            "Exactly Once",
+            "At Most Once",
+            "Guaranteed Once"
+        ],
+        "correctAnswer": "At Most Once",
+        "explanation": "Messages can be lost if failures occur before processing."
+    },
+    {
+        "id": 12,
+        "category": "Kafka",
+        "subCategory": "Delivery Semantics",
+        "difficulty": "Hard",
+        "question": "What is Exactly Once Semantics (EOS)?",
+        "image": "",
+        "options": [
+            "Process once only",
+            "Store once only",
+            "Consume once only",
+            "Broker restart"
+        ],
+        "correctAnswer": "Process once only",
+        "explanation": "EOS ensures messages are processed without duplicates."
+    },
+    {
+        "id": 13,
+        "category": "Kafka",
+        "subCategory": "Consumers",
+        "difficulty": "Medium",
+        "question": "What is an Offset?",
+        "image": "",
+        "options": [
+            "Partition Size",
+            "Consumer Position",
+            "Topic Name",
+            "Broker Memory"
+        ],
+        "correctAnswer": "Consumer Position",
+        "explanation": "An offset identifies a message's position within a partition."
+    },
+    {
+        "id": 14,
+        "category": "Kafka",
+        "subCategory": "Consumers",
+        "difficulty": "Medium",
+        "question": "Where are consumer offsets stored by default?",
+        "image": "",
+        "options": [
+            "__consumer_offsets",
+            "offset_table",
+            "offset_log",
+            "consumer_db"
+        ],
+        "correctAnswer": "__consumer_offsets",
+        "explanation": "Kafka stores offsets internally in the __consumer_offsets topic."
+    },
+    {
+        "id": 15,
+        "category": "Kafka",
+        "subCategory": "Consumers",
+        "difficulty": "Medium",
+        "question": "What does auto.offset.reset=earliest mean?",
+        "image": "",
+        "options": [
+            "Read latest messages",
+            "Read from beginning",
+            "Reset cluster",
+            "Delete offsets"
+        ],
+        "correctAnswer": "Read from beginning",
+        "explanation": "Consumer starts reading from the earliest available offset."
+    },
+    {
+        "id": 16,
+        "category": "Kafka",
+        "subCategory": "Consumers",
+        "difficulty": "Medium",
+        "question": "What does auto.offset.reset=latest mean?",
+        "image": "",
+        "options": [
+            "Start from latest offset",
+            "Read all messages",
+            "Delete messages",
+            "Reset partition"
+        ],
+        "correctAnswer": "Start from latest offset",
+        "explanation": "Consumer reads only newly arriving messages."
+    },
+    {
+        "id": 17,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Hard",
+        "question": "What causes partition rebalancing?",
+        "image": "",
+        "options": [
+            "Consumer joins/leaves",
+            "Topic creation",
+            "Database update",
+            "Producer restart"
+        ],
+        "correctAnswer": "Consumer joins/leaves",
+        "explanation": "Kafka redistributes partitions among consumers."
+    },
+    {
+        "id": 18,
+        "category": "Kafka",
+        "subCategory": "Kafka",
+        "difficulty": "Medium",
+        "question": "What is a Kafka Cluster?",
+        "image": "",
+        "options": [
+            "Group of Brokers",
+            "Group of Consumers",
+            "Group of Topics",
+            "Group of Databases"
+        ],
+        "correctAnswer": "Group of Brokers",
+        "explanation": "Multiple brokers form a Kafka cluster."
+    },
+    {
+        "id": 19,
+        "category": "Kafka",
+        "subCategory": "Topics",
+        "difficulty": "Medium",
+        "question": "What is Topic Replication?",
+        "image": "",
+        "options": [
+            "Copying Topics across Brokers",
+            "Deleting Topics",
+            "Compressing Topics",
+            "Creating Partitions"
+        ],
+        "correctAnswer": "Copying Topics across Brokers",
+        "explanation": "Replication improves fault tolerance and availability."
+    },
+    {
+        "id": 20,
+        "category": "Kafka",
+        "subCategory": "Topics",
+        "difficulty": "Hard",
+        "question": "What is Replication Factor?",
+        "image": "",
+        "options": [
+            "Number of Consumers",
+            "Number of Topic Copies",
+            "Number of Producers",
+            "Number of Brokers"
+        ],
+        "correctAnswer": "Number of Topic Copies",
+        "explanation": "Replication Factor specifies how many copies of partition data exist."
+    },
+    {
+        "id": 1,
+        "category": "Kafka",
+        "subCategory": "Kafka",
+        "difficulty": "Easy",
+        "question": "What is Apache Kafka?",
+        "image": "",
+        "options": [
+            "Database",
+            "Distributed Event Streaming Platform",
+            "Web Server",
+            "Cache"
+        ],
+        "correctAnswer": "Distributed Event Streaming Platform",
+        "explanation": "Kafka is a distributed event streaming platform."
+    },
+    {
+        "id": 2,
+        "category": "Kafka",
+        "subCategory": "Topics",
+        "difficulty": "Easy",
+        "question": "What is a Kafka Topic?",
+        "image": "",
+        "options": [
+            "Database Table",
+            "Message Category",
+            "Consumer Group",
+            "Partition"
+        ],
+        "correctAnswer": "Message Category",
+        "explanation": "A topic is a logical category where messages are published."
+    },
+    {
+        "id": 3,
+        "category": "Kafka",
+        "subCategory": "Kafka",
+        "difficulty": "Easy",
+        "question": "What is a Kafka Broker?",
+        "image": "",
+        "options": [
+            "Kafka Server",
+            "Consumer",
+            "Producer",
+            "Partition"
+        ],
+        "correctAnswer": "Kafka Server",
+        "explanation": "A broker is a Kafka server that stores and serves data."
+    },
+    {
+        "id": 4,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Easy",
+        "question": "Why are partitions used in Kafka?",
+        "image": "",
+        "options": [
+            "Encryption",
+            "Scalability and Parallelism",
+            "Compression",
+            "Backup"
+        ],
+        "correctAnswer": "Scalability and Parallelism",
+        "explanation": "Partitions allow data to be processed in parallel."
+    },
+    {
+        "id": 5,
+        "category": "Kafka",
+        "subCategory": "Consumer Groups",
+        "difficulty": "Medium",
+        "question": "What is a Consumer Group?",
+        "image": "",
+        "options": [
+            "Group of Topics",
+            "Group of Brokers",
+            "Consumers sharing workload",
+            "Database Cluster"
+        ],
+        "correctAnswer": "Consumers sharing workload",
+        "explanation": "Consumer groups allow scaling message consumption."
+    },
+    {
+        "id": 6,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Medium",
+        "question": "Kafka guarantees ordering within?",
+        "image": "",
+        "options": [
+            "Topic",
+            "Cluster",
+            "Partition",
+            "Consumer Group"
+        ],
+        "correctAnswer": "Partition",
+        "explanation": "Ordering is guaranteed only within a partition."
+    },
+    {
+        "id": 7,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Easy",
+        "question": "What is an Offset?",
+        "image": "",
+        "options": [
+            "Topic Name",
+            "Message Position",
+            "Producer Id",
+            "Consumer Group"
+        ],
+        "correctAnswer": "Message Position",
+        "explanation": "Offset uniquely identifies a record within a partition."
+    },
+    {
+        "id": 8,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Medium",
+        "question": "Where are consumer offsets stored?",
+        "image": "",
+        "options": [
+            "__consumer_offsets",
+            "__partitions",
+            "__brokers",
+            "__kafka_logs"
+        ],
+        "correctAnswer": "__consumer_offsets",
+        "explanation": "Kafka internally stores committed offsets."
+    },
+    {
+        "id": 9,
+        "category": "Kafka",
+        "subCategory": "Delivery Semantics",
+        "difficulty": "Medium",
+        "question": "Which delivery guarantee can create duplicates?",
+        "image": "",
+        "options": [
+            "At Most Once",
+            "At Least Once",
+            "Exactly Once",
+            "None"
+        ],
+        "correctAnswer": "At Least Once",
+        "explanation": "Retries may result in duplicate processing."
+    },
+    {
+        "id": 10,
+        "category": "Kafka",
+        "subCategory": "Delivery Semantics",
+        "difficulty": "Hard",
+        "question": "What does Exactly Once Semantics provide?",
+        "image": "",
+        "options": [
+            "No Messages",
+            "Process Once Only",
+            "Duplicate Messages",
+            "Fast Delivery"
+        ],
+        "correctAnswer": "Process Once Only",
+        "explanation": "EOS prevents duplicate processing."
+    },
+    {
+        "id": 21,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Easy",
+        "question": "What is a Kafka partition?",
+        "image": "",
+        "options": [
+            "A broker",
+            "A topic subdivision",
+            "A consumer group",
+            "A cluster"
+        ],
+        "correctAnswer": "A topic subdivision",
+        "explanation": "A partition is a subdivision of a topic that enables scalability and parallel processing."
+    },
+    {
+        "id": 22,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Easy",
+        "question": "Why are partitions used in Kafka?",
+        "image": "",
+        "options": [
+            "For security",
+            "For parallelism and scalability",
+            "For monitoring",
+            "For authentication"
+        ],
+        "correctAnswer": "For parallelism and scalability",
+        "explanation": "Partitions allow Kafka to distribute data and processing across multiple brokers and consumers."
+    },
+    {
+        "id": 23,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Medium",
+        "question": "Kafka guarantees message ordering within?",
+        "image": "",
+        "options": [
+            "Cluster",
+            "Consumer Group",
+            "Partition",
+            "Broker"
+        ],
+        "correctAnswer": "Partition",
+        "explanation": "Kafka guarantees ordering only within a single partition."
+    },
+    {
+        "id": 24,
+        "category": "Kafka",
+        "subCategory": "Consumer Groups",
+        "difficulty": "Easy",
+        "question": "What is a Consumer Group?",
+        "image": "",
+        "options": [
+            "Multiple brokers",
+            "Multiple producers",
+            "Consumers sharing workload",
+            "Multiple topics"
+        ],
+        "correctAnswer": "Consumers sharing workload",
+        "explanation": "Consumer groups distribute partitions among consumers for scalability."
+    },
+    {
+        "id": 25,
+        "category": "Kafka",
+        "subCategory": "Consumer Groups",
+        "difficulty": "Medium",
+        "question": "Can multiple consumers in the same group read the same partition simultaneously?",
+        "image": "",
+        "options": [
+            "Always",
+            "Never",
+            "Sometimes",
+            "Only during failover"
+        ],
+        "correctAnswer": "Never",
+        "explanation": "A partition is assigned to only one consumer within a consumer group."
+    },
+    {
+        "id": 26,
+        "category": "Kafka",
+        "subCategory": "Consumer Groups",
+        "difficulty": "Medium",
+        "question": "What is consumer rebalancing?",
+        "image": "",
+        "options": [
+            "Deleting partitions",
+            "Reassigning partitions among consumers",
+            "Restarting brokers",
+            "Changing topic names"
+        ],
+        "correctAnswer": "Reassigning partitions among consumers",
+        "explanation": "Kafka reassigns partitions when consumers join or leave a group."
+    },
+    {
+        "id": 27,
+        "category": "Kafka",
+        "subCategory": "Consumer Groups",
+        "difficulty": "Medium",
+        "question": "What event can trigger a rebalance?",
+        "image": "",
+        "options": [
+            "Consumer joins",
+            "Consumer leaves",
+            "Partition count changes",
+            "All of the above"
+        ],
+        "correctAnswer": "All of the above",
+        "explanation": "Any consumer membership or partition change can trigger rebalancing."
+    },
+    {
+        "id": 28,
+        "category": "Kafka",
+        "subCategory": "Consumer Groups",
+        "difficulty": "Hard",
+        "question": "Which assignor distributes partitions sequentially by topic?",
+        "image": "",
+        "options": [
+            "Sticky Assignor",
+            "RoundRobin Assignor",
+            "Range Assignor",
+            "Custom Assignor"
+        ],
+        "correctAnswer": "Range Assignor",
+        "explanation": "Range Assignor assigns contiguous partition ranges to consumers."
+    },
+    {
+        "id": 29,
+        "category": "Kafka",
+        "subCategory": "Consumer Groups",
+        "difficulty": "Hard",
+        "question": "Which assignor aims to minimize partition movement during rebalancing?",
+        "image": "",
+        "options": [
+            "RoundRobin",
+            "Sticky Assignor",
+            "Range Assignor",
+            "Default Assignor"
+        ],
+        "correctAnswer": "Sticky Assignor",
+        "explanation": "Sticky Assignor tries to preserve previous partition assignments."
+    },
+    {
+        "id": 30,
+        "category": "Kafka",
+        "subCategory": "Consumer Groups",
+        "difficulty": "Hard",
+        "question": "What is Cooperative Rebalancing?",
+        "image": "",
+        "options": [
+            "Full reassignment",
+            "Incremental partition movement",
+            "Producer balancing",
+            "Broker restart"
+        ],
+        "correctAnswer": "Incremental partition movement",
+        "explanation": "Cooperative rebalancing minimizes disruptions by moving partitions gradually."
+    },
+    {
+        "id": 31,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Medium",
+        "question": "What is a leader partition?",
+        "image": "",
+        "options": [
+            "A backup replica",
+            "Replica handling reads and writes",
+            "A consumer partition",
+            "An empty partition"
+        ],
+        "correctAnswer": "Replica handling reads and writes",
+        "explanation": "All producer writes and consumer reads occur through the leader replica."
+    },
+    {
+        "id": 32,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Medium",
+        "question": "What is a follower replica?",
+        "image": "",
+        "options": [
+            "Replica that copies leader data",
+            "Producer instance",
+            "Consumer instance",
+            "Topic metadata"
+        ],
+        "correctAnswer": "Replica that copies leader data",
+        "explanation": "Followers replicate data from the leader for fault tolerance."
+    },
+    {
+        "id": 33,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Hard",
+        "question": "What does ISR stand for?",
+        "image": "",
+        "options": [
+            "Internal Sync Replication",
+            "In-Sync Replicas",
+            "Instant Service Replicas",
+            "Input Stream Replicas"
+        ],
+        "correctAnswer": "In-Sync Replicas",
+        "explanation": "ISR is the set of replicas that are fully caught up with the leader."
+    },
+    {
+        "id": 34,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Hard",
+        "question": "What happens if a leader broker fails?",
+        "image": "",
+        "options": [
+            "Topic is deleted",
+            "Kafka stops",
+            "A new leader is elected",
+            "Consumer groups are removed"
+        ],
+        "correctAnswer": "A new leader is elected",
+        "explanation": "Kafka elects a new leader from the ISR replicas."
+    },
+    {
+        "id": 35,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Hard",
+        "question": "What is an Under Replicated Partition (URP)?",
+        "image": "",
+        "options": [
+            "Partition with extra replicas",
+            "Partition whose replicas are not fully synced",
+            "Deleted partition",
+            "Consumer partition"
+        ],
+        "correctAnswer": "Partition whose replicas are not fully synced",
+        "explanation": "URP indicates some replicas have fallen behind the leader."
+    },
+    {
+        "id": 36,
+        "category": "Kafka",
+        "subCategory": "Consumer Groups",
+        "difficulty": "Medium",
+        "question": "What is Consumer Lag?",
+        "image": "",
+        "options": [
+            "Broker failure",
+            "Difference between latest offset and committed offset",
+            "Large message size",
+            "Network latency"
+        ],
+        "correctAnswer": "Difference between latest offset and committed offset",
+        "explanation": "Consumer lag measures how far a consumer is behind."
+    },
+    {
+        "id": 37,
+        "category": "Kafka",
+        "subCategory": "Consumer Groups",
+        "difficulty": "Medium",
+        "question": "If a topic has 4 partitions, what is the maximum number of active consumers in one consumer group?",
+        "image": "",
+        "options": [
+            "2",
+            "4",
+            "6",
+            "8"
+        ],
+        "correctAnswer": "4",
+        "explanation": "Only one consumer can read a partition within a consumer group."
+    },
+    {
+        "id": 38,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Hard",
+        "question": "What is partition reassignment used for?",
+        "image": "",
+        "options": [
+            "Move partitions between brokers",
+            "Delete topics",
+            "Create consumers",
+            "Increase retention"
+        ],
+        "correctAnswer": "Move partitions between brokers",
+        "explanation": "Partition reassignment balances cluster workloads."
+    },
+    {
+        "id": 39,
+        "category": "Kafka",
+        "subCategory": "Partitions",
+        "difficulty": "Hard",
+        "question": "What is a hot partition?",
+        "image": "",
+        "options": [
+            "Encrypted partition",
+            "Partition receiving disproportionate traffic",
+            "Deleted partition",
+            "Compressed partition"
+        ],
+        "correctAnswer": "Partition receiving disproportionate traffic",
+        "explanation": "Hot partitions cause uneven workload distribution."
+    },
+    {
+        "id": 40,
+        "category": "Kafka",
+        "subCategory": "Consumer Groups",
+        "difficulty": "Hard",
+        "question": "Which assignor distributes partitions evenly across all consumers regardless of topic?",
+        "image": "",
+        "options": [
+            "Range Assignor",
+            "Sticky Assignor",
+            "RoundRobin Assignor",
+            "Cooperative Assignor"
+        ],
+        "correctAnswer": "RoundRobin Assignor",
+        "explanation": "RoundRobin Assignor distributes partitions as evenly as possible across consumers."
+    },
+    {
+        "id": 41,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Medium",
+        "question": "What is a Kafka Offset?",
+        "image": "",
+        "options": [
+            "Partition identifier",
+            "Message position",
+            "Topic name",
+            "Consumer group"
+        ],
+        "correctAnswer": "Message position",
+        "explanation": "Offset uniquely identifies a record inside a partition."
+    },
+    {
+        "id": 41,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Easy",
+        "question": "What is a Kafka Offset?",
+        "image": "",
+        "options": [
+            "Broker identifier",
+            "Message position within a partition",
+            "Consumer group name",
+            "Topic configuration"
+        ],
+        "correctAnswer": "Message position within a partition",
+        "explanation": "An offset uniquely identifies a record's position inside a Kafka partition."
+    },
+    {
+        "id": 42,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Easy",
+        "question": "Why are offsets important in Kafka?",
+        "image": "",
+        "options": [
+            "For encryption",
+            "To track consumer progress",
+            "To create topics",
+            "To compress data"
+        ],
+        "correctAnswer": "To track consumer progress",
+        "explanation": "Offsets help consumers resume processing from the correct position."
+    },
+    {
+        "id": 43,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Medium",
+        "question": "What is offset commit in Kafka?",
+        "image": "",
+        "options": [
+            "Deleting a message",
+            "Saving consumer progress",
+            "Creating partitions",
+            "Replicating data"
+        ],
+        "correctAnswer": "Saving consumer progress",
+        "explanation": "Offset commits record the last processed message position."
+    },
+    {
+        "id": 44,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Medium",
+        "question": "What is Auto Commit?",
+        "image": "",
+        "options": [
+            "Kafka automatically commits offsets",
+            "Kafka creates topics automatically",
+            "Kafka deletes messages automatically",
+            "Kafka creates partitions automatically"
+        ],
+        "correctAnswer": "Kafka automatically commits offsets",
+        "explanation": "When enabled, Kafka periodically commits offsets on behalf of consumers."
+    },
+    {
+        "id": 45,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Medium",
+        "question": "What is Manual Commit?",
+        "image": "",
+        "options": [
+            "Broker commits offsets",
+            "Application explicitly commits offsets",
+            "Producer commits offsets",
+            "Topic commits offsets"
+        ],
+        "correctAnswer": "Application explicitly commits offsets",
+        "explanation": "Developers control exactly when offsets are committed."
+    },
+    {
+        "id": 46,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Hard",
+        "question": "What does commitSync() provide?",
+        "image": "",
+        "options": [
+            "Asynchronous commit",
+            "Guaranteed commit acknowledgment",
+            "Topic replication",
+            "Message compression"
+        ],
+        "correctAnswer": "Guaranteed commit acknowledgment",
+        "explanation": "commitSync() blocks until Kafka acknowledges the offset commit."
+    },
+    {
+        "id": 47,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Hard",
+        "question": "What does commitAsync() provide?",
+        "image": "",
+        "options": [
+            "Faster non-blocking commits",
+            "Topic replication",
+            "Consumer rebalancing",
+            "Message ordering"
+        ],
+        "correctAnswer": "Faster non-blocking commits",
+        "explanation": "commitAsync() improves performance by not waiting for broker acknowledgment."
+    },
+    {
+        "id": 48,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Medium",
+        "question": "Which internal Kafka topic stores consumer offsets?",
+        "image": "",
+        "options": [
+            "__kafka_offsets",
+            "__consumer_offsets",
+            "__broker_offsets",
+            "__group_offsets"
+        ],
+        "correctAnswer": "__consumer_offsets",
+        "explanation": "Kafka stores committed consumer offsets in the internal __consumer_offsets topic."
+    },
+    {
+        "id": 49,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Medium",
+        "question": "What happens if offsets are not committed?",
+        "image": "",
+        "options": [
+            "Messages are deleted",
+            "Consumer may reprocess messages",
+            "Topic disappears",
+            "Broker shuts down"
+        ],
+        "correctAnswer": "Consumer may reprocess messages",
+        "explanation": "The consumer will restart from the last committed offset."
+    },
+    {
+        "id": 50,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Medium",
+        "question": "What does auto.offset.reset=earliest do?",
+        "image": "",
+        "options": [
+            "Reads from beginning",
+            "Reads latest message only",
+            "Deletes offsets",
+            "Resets brokers"
+        ],
+        "correctAnswer": "Reads from beginning",
+        "explanation": "The consumer starts at the earliest available offset."
+    },
+    {
+        "id": 51,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Medium",
+        "question": "What does auto.offset.reset=latest do?",
+        "image": "",
+        "options": [
+            "Reads historical data",
+            "Reads only new messages",
+            "Deletes offsets",
+            "Creates offsets"
+        ],
+        "correctAnswer": "Reads only new messages",
+        "explanation": "The consumer starts from the latest offset."
+    },
+    {
+        "id": 52,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Hard",
+        "question": "What happens with auto.offset.reset=none?",
+        "image": "",
+        "options": [
+            "Consumer starts from latest",
+            "Consumer starts from earliest",
+            "An exception is thrown if no offset exists",
+            "Offsets are reset automatically"
+        ],
+        "correctAnswer": "An exception is thrown if no offset exists",
+        "explanation": "Kafka throws an exception instead of choosing earliest or latest."
+    },
+    {
+        "id": 53,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Hard",
+        "question": "What is offset retention?",
+        "image": "",
+        "options": [
+            "Retention of committed offsets",
+            "Retention of brokers",
+            "Retention of topics",
+            "Retention of producers"
+        ],
+        "correctAnswer": "Retention of committed offsets",
+        "explanation": "Kafka retains committed offsets for a configurable time period."
+    },
+    {
+        "id": 54,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Hard",
+        "question": "What can happen when offset retention expires?",
+        "image": "",
+        "options": [
+            "Offsets are removed",
+            "Partitions are removed",
+            "Topics are removed",
+            "Consumers are removed"
+        ],
+        "correctAnswer": "Offsets are removed",
+        "explanation": "Consumers may have to start using the auto.offset.reset policy."
+    },
+    {
+        "id": 55,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Medium",
+        "question": "What is the purpose of the seek() API?",
+        "image": "",
+        "options": [
+            "Change broker",
+            "Move consumer to a specific offset",
+            "Create partitions",
+            "Create topics"
+        ],
+        "correctAnswer": "Move consumer to a specific offset",
+        "explanation": "seek() allows consumers to jump to any desired offset position."
+    },
+    {
+        "id": 56,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Hard",
+        "question": "Why might a consumer intentionally reset offsets?",
+        "image": "",
+        "options": [
+            "Replay historical messages",
+            "Delete topics",
+            "Add brokers",
+            "Compress records"
+        ],
+        "correctAnswer": "Replay historical messages",
+        "explanation": "Offset resets are commonly used for reprocessing data."
+    },
+    {
+        "id": 57,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Hard",
+        "question": "What is duplicate processing in Kafka?",
+        "image": "",
+        "options": [
+            "Message processed more than once",
+            "Topic duplication",
+            "Broker replication",
+            "Consumer replication"
+        ],
+        "correctAnswer": "Message processed more than once",
+        "explanation": "Duplicate processing can occur if offsets are not committed correctly."
+    },
+    {
+        "id": 58,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Hard",
+        "question": "Which commit strategy provides the best reliability?",
+        "image": "",
+        "options": [
+            "No commit",
+            "commitAsync() only",
+            "commitSync()",
+            "Random commit"
+        ],
+        "correctAnswer": "commitSync()",
+        "explanation": "commitSync() provides stronger guarantees because it waits for acknowledgment."
+    },
+    {
+        "id": 59,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Medium",
+        "question": "What is the primary disadvantage of Auto Commit?",
+        "image": "",
+        "options": [
+            "Higher reliability",
+            "Potential message loss or duplicates",
+            "Improved performance",
+            "Reduced consumption"
+        ],
+        "correctAnswer": "Potential message loss or duplicates",
+        "explanation": "Auto Commit may commit offsets before actual processing completes."
+    },
+    {
+        "id": 60,
+        "category": "Kafka",
+        "subCategory": "Offset Management",
+        "difficulty": "Hard",
+        "question": "What is a best practice for offset management in critical applications?",
+        "image": "",
+        "options": [
+            "Disable commits",
+            "Commit offsets only after successful processing",
+            "Always use latest",
+            "Always use auto commit"
+        ],
+        "correctAnswer": "Commit offsets only after successful processing",
+        "explanation": "This minimizes data loss and duplicate processing during failures."
+    },
+  {
+    "id": 61,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Easy",
+    "question": "What does At-Most-Once delivery guarantee?",
+    "image": "",
+    "options": [
+      "Messages may be duplicated",
+      "Messages are processed once or not at all",
+      "Messages are always processed",
+      "Messages are stored forever"
+    ],
+    "correctAnswer": "Messages are processed once or not at all",
+    "explanation": "At-Most-Once prioritizes avoiding duplicates, even if some messages are lost."
+  },
+  {
+    "id": 62,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Easy",
+    "question": "What does At-Least-Once delivery guarantee?",
+    "image": "",
+    "options": [
+      "Messages may be delivered multiple times",
+      "Messages are lost",
+      "Messages are delivered exactly once",
+      "Messages are deleted automatically"
+    ],
+    "correctAnswer": "Messages may be delivered multiple times",
+    "explanation": "At-Least-Once ensures no data loss but duplicates can occur."
+  },
+  {
+    "id": 63,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Medium",
+    "question": "What is Exactly-Once Semantics (EOS)?",
+    "image": "",
+    "options": [
+      "Message processed exactly one time",
+      "Message stored forever",
+      "Message always replicated",
+      "Message compressed"
+    ],
+    "correctAnswer": "Message processed exactly one time",
+    "explanation": "EOS guarantees records are processed without duplication."
+  },
+  {
+    "id": 64,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Medium",
+    "question": "Which producer configuration is required for idempotence?",
+    "image": "",
+    "options": [
+      "enable.idempotence=true",
+      "acks=0",
+      "compression=lz4",
+      "enable.auto.commit=true"
+    ],
+    "correctAnswer": "enable.idempotence=true",
+    "explanation": "Idempotent producers prevent duplicate message publishing."
+  },
+  {
+    "id": 65,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Medium",
+    "question": "What is the purpose of an Idempotent Producer?",
+    "image": "",
+    "options": [
+      "Improve monitoring",
+      "Prevent duplicate records",
+      "Increase partitions",
+      "Delete old records"
+    ],
+    "correctAnswer": "Prevent duplicate records",
+    "explanation": "Kafka tracks producer sequence numbers to avoid duplicates."
+  },
+  {
+    "id": 66,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Easy",
+    "question": "What does acks=0 mean?",
+    "image": "",
+    "options": [
+      "Producer waits for all replicas",
+      "Producer waits for leader",
+      "Producer does not wait for acknowledgment",
+      "Producer stops sending"
+    ],
+    "correctAnswer": "Producer does not wait for acknowledgment",
+    "explanation": "acks=0 provides highest throughput but lowest reliability."
+  },
+  {
+    "id": 67,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Easy",
+    "question": "What does acks=1 mean?",
+    "image": "",
+    "options": [
+      "Leader broker acknowledges write",
+      "All replicas acknowledge",
+      "No acknowledgment",
+      "Consumer acknowledgment"
+    ],
+    "correctAnswer": "Leader broker acknowledges write",
+    "explanation": "The producer receives acknowledgment from the leader only."
+  },
+  {
+    "id": 68,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Medium",
+    "question": "What does acks=all provide?",
+    "image": "",
+    "options": [
+      "Maximum durability",
+      "No durability",
+      "Fastest performance",
+      "No replication"
+    ],
+    "correctAnswer": "Maximum durability",
+    "explanation": "The leader waits for all ISR replicas before acknowledging."
+  },
+  {
+    "id": 69,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Hard",
+    "question": "Which acknowledgment mode is safest for mission-critical systems?",
+    "image": "",
+    "options": [
+      "acks=0",
+      "acks=1",
+      "acks=all",
+      "acks=none"
+    ],
+    "correctAnswer": "acks=all",
+    "explanation": "acks=all minimizes the chance of data loss."
+  },
+  {
+    "id": 70,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Hard",
+    "question": "What can cause duplicate records in Kafka?",
+    "image": "",
+    "options": [
+      "Producer retries",
+      "Broker restart",
+      "Network failure",
+      "All of the above"
+    ],
+    "correctAnswer": "All of the above",
+    "explanation": "Failures and retries can result in duplicate message delivery."
+  },
+  {
+    "id": 71,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Medium",
+    "question": "What is a producer retry?",
+    "image": "",
+    "options": [
+      "Re-sending a failed message",
+      "Deleting a record",
+      "Compressing a message",
+      "Creating a topic"
+    ],
+    "correctAnswer": "Re-sending a failed message",
+    "explanation": "Retries improve reliability but can introduce duplicates."
+  },
+  {
+    "id": 72,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Hard",
+    "question": "What is max.in.flight.requests.per.connection used for?",
+    "image": "",
+    "options": [
+      "Control concurrent unacknowledged requests",
+      "Create partitions",
+      "Manage consumers",
+      "Configure offsets"
+    ],
+    "correctAnswer": "Control concurrent unacknowledged requests",
+    "explanation": "It limits how many requests can be sent before acknowledgments are received."
+  },
+  {
+    "id": 73,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Hard",
+    "question": "Why can high in-flight requests affect ordering?",
+    "image": "",
+    "options": [
+      "Retries may arrive out of order",
+      "Topics are deleted",
+      "Consumers stop working",
+      "Offsets are removed"
+    ],
+    "correctAnswer": "Retries may arrive out of order",
+    "explanation": "A retry can arrive after later successful requests."
+  },
+  {
+    "id": 74,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Hard",
+    "question": "Which feature combines idempotence and transactions?",
+    "image": "",
+    "options": [
+      "EOS",
+      "ISR",
+      "KRaft",
+      "Log Compaction"
+    ],
+    "correctAnswer": "EOS",
+    "explanation": "Exactly Once Semantics builds upon idempotence and transactions."
+  },
+  {
+    "id": 75,
+    "category": "Kafka",
+    "subCategory": "Delivery Semantics",
+    "difficulty": "Hard",
+    "question": "Which delivery guarantee is most commonly used in enterprise systems?",
+    "image": "",
+    "options": [
+      "At Least Once",
+      "At Most Once",
+      "No Delivery",
+      "Best Effort"
+    ],
+    "correctAnswer": "At Least Once",
+    "explanation": "Most enterprise systems prefer no data loss even if duplicates occur."
+  },
+  {
+    "id": 76,
+    "category": "Kafka",
+    "subCategory": "Kafka Streams",
+    "difficulty": "Easy",
+    "question": "What is Kafka Streams?",
+    "image": "",
+    "options": [
+      "Message Queue",
+      "Stream Processing Library",
+      "Database",
+      "Monitoring Tool"
+    ],
+    "correctAnswer": "Stream Processing Library",
+    "explanation": "Kafka Streams enables real-time stream processing within Java applications."
+  },
+  {
+    "id": 77,
+    "category": "Kafka",
+    "subCategory": "Kafka Streams",
+    "difficulty": "Easy",
+    "question": "What is a KStream?",
+    "image": "",
+    "options": [
+      "Immutable stream of records",
+      "Database table",
+      "Topic partition",
+      "Consumer group"
+    ],
+    "correctAnswer": "Immutable stream of records",
+    "explanation": "KStream represents a continuous stream of records."
+  },
+  {
+    "id": 78,
+    "category": "Kafka",
+    "subCategory": "Kafka Streams",
+    "difficulty": "Medium",
+    "question": "What is a KTable?",
+    "image": "",
+    "options": [
+      "A changelog stream represented as a table",
+      "Database schema",
+      "Consumer group",
+      "Topic metadata"
+    ],
+    "correctAnswer": "A changelog stream represented as a table",
+    "explanation": "KTable holds the latest value for each key."
+  },
+  {
+    "id": 79,
+    "category": "Kafka",
+    "subCategory": "Kafka Streams",
+    "difficulty": "Medium",
+    "question": "What is a GlobalKTable?",
+    "image": "",
+    "options": [
+      "Replicated copy of table on every instance",
+      "Shared partition",
+      "Consumer group",
+      "Broker metadata"
+    ],
+    "correctAnswer": "Replicated copy of table on every instance",
+    "explanation": "Every stream application instance gets a full copy."
+  },
+  {
+    "id": 80,
+    "category": "Kafka",
+    "subCategory": "Kafka Streams",
+    "difficulty": "Medium",
+    "question": "Which processing type requires maintaining state?",
+    "image": "",
+    "options": [
+      "Stateless Processing",
+      "Stateful Processing",
+      "Asynchronous Processing",
+      "Batch Processing"
+    ],
+    "correctAnswer": "Stateful Processing",
+    "explanation": "Stateful operations maintain local state such as counts, joins, and aggregations."
+  }
+
+]

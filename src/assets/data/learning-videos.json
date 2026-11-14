@@ -8,8 +8,8 @@
     "channel": "JavaTechie",
     "duration": "CHANNEL",
     "level": "Beginner",
-    "youtubeUrl": "https://www.youtube.com/@Javatechie",
-    "tags": ["Java", "Collections", "Spring"]
+    "youtubeUrl": "https://www.youtube.com/watch?v=FFfJeb8Ec6Y&t=156s",
+    "tags": ["Java", "OOP", "Collections"]
   },
   {
     "id": "spring-boot-videos",
@@ -20,7 +20,7 @@
     "channel": "JavaTechie",
     "duration": "CHANNEL",
     "level": "Beginner",
-    "youtubeUrl": "https://www.youtube.com/@Javatechie",
+    "youtubeUrl": "https://www.youtube.com/watch?v=-_tPeb3VE6w&t=47s",
     "tags": ["Spring Boot", "Java", "REST API"]
   },
   {
@@ -32,7 +32,7 @@
     "channel": "JavaTechie",
     "duration": "CHANNEL",
     "level": "Beginner",
-    "youtubeUrl": "https://www.youtube.com/@Javatechie",
+    "youtubeUrl": "https://www.youtube.com/watch?v=6O5iJ7PKUhs&list=PLVz2XdJiJQxw1H3JVhclHc__WYDaiS1uL&index=2",
     "tags": ["Microservices", "Architecture", "Distributed Systems"]
   },
   {

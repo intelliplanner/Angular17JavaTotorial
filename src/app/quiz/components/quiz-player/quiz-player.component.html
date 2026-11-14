@@ -1,7 +1,7 @@
 <main class="player-shell" *ngIf="session && question">
   <header class="player-header">
     <a routerLink="/quiz" class="brand-mark">Q<span>uizLab</span></a>
-    <div class="session-label">{{ session.category }} <span>·</span> {{ session.subCategory }} <span>·</span> {{ session.difficulty }}</div>
+    <div class="session-label">{{ session.category }} <span>·</span> {{ session.subCategory || 'All subcategories' }} <span>·</span> {{ session.difficulty }}</div>
     <div class="timer-pill" [class.timer-warning]="session.remainingSeconds <= 300" role="timer">
       <span aria-hidden="true">◷</span> {{ timer.format(session.remainingSeconds) }}
       <span class="visually-hidden">remaining</span>

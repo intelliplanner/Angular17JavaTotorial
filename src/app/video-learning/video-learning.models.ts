@@ -1,8 +1,9 @@
 export interface LearningCategory {
   name: string;
-  icon: string;
-  description: string;
-  color: string;
+  subCategories: string[];
+  icon?: string;
+  description?: string;
+  color?: string;
 }
 
 export interface LearningVideo {

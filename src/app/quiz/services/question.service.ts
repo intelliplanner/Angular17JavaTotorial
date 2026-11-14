@@ -8,25 +8,6 @@ import { StorageService } from './storage.service';
 
 const QUESTION_KEY = 'interview-quiz.questions.v1';
 
-export const DEFAULT_CATEGORIES: QuizCategory[] = [
-  { name: 'Java', subCategories: ['Core Java', 'Collections', 'Multithreading', 'JVM', 'Garbage Collection', 'Streams', 'Java 8'] },
-  { name: 'Database', subCategories: ['SQL', 'PL/SQL', 'Oracle', 'PostgreSQL', 'MySQL'] },
-  { name: 'Spring Boot', subCategories: ['Core', 'Web', 'Security', 'Data', 'Actuator'] },
-  { name: 'Microservices', subCategories: ['Architecture', 'Communication', 'Resilience', 'Discovery'] },
-  { name: 'Kafka', subCategories: ['Topics', 'Partitions', 'Consumer Groups', 'Delivery Semantics'] },
-  { name: 'Docker', subCategories: ['Images', 'Containers', 'Networking', 'Compose'] },
-  { name: 'Kubernetes', subCategories: ['Pods', 'Services', 'Deployment', 'ConfigMap', 'Helm'] },
-  { name: 'AWS', subCategories: ['EC2', 'S3', 'IAM', 'Lambda', 'VPC'] },
-  { name: 'GCP', subCategories: ['GKE', 'Cloud Run', 'PubSub', 'BigQuery', 'GCS'] },
-  { name: 'Angular', subCategories: ['Components', 'Routing', 'Signals', 'Forms'] },
-  { name: 'React', subCategories: ['Components', 'Hooks', 'State', 'Rendering'] },
-  { name: 'JavaScript', subCategories: ['Language', 'Async', 'DOM', 'ES Modules'] },
-  { name: 'AI', subCategories: ['Machine Learning', 'Generative AI', 'Large Language Models', 'Responsible AI'] },
-  { name: 'Claude', subCategories: ['Claude Models', 'Prompt Engineering', 'Claude API', 'AI Safety'] },
-  { name: 'Data Science', subCategories: ['Statistics', 'Machine Learning', 'Data Preparation', 'Model Evaluation'] },
-  { name: 'Data Engineering', subCategories: ['Data Pipelines', 'Data Warehousing', 'Stream Processing', 'Data Modeling'] }
-];
-
 export interface QuestionFileCount {
   category: string;
   filename: string;
@@ -37,7 +18,7 @@ export interface QuestionFileCount {
 export class QuestionService {
   private readonly questionsSubject = new BehaviorSubject<QuizQuestion[]>([]);
   private readonly questionFileCountsSubject = new BehaviorSubject<QuestionFileCount[]>([]);
-  private readonly categoriesSubject = new BehaviorSubject<QuizCategory[]>(DEFAULT_CATEGORIES);
+  private readonly categoriesSubject = new BehaviorSubject<QuizCategory[]>([]);
   readonly questions$ = this.questionsSubject.asObservable();
   readonly categories$ = this.categoriesSubject.asObservable();
   private loading?: Promise<void>;

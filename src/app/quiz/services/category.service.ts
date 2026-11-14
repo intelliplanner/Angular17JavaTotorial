@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { getAuthApiUrl } from '../../auth-api-url';
 import { QuizCategory } from '../models/category';
@@ -13,22 +13,12 @@ export class CategoryService {
 
   getCategories(): Observable<QuizCategory[]> {
     if (this.apiUrl) return this.http.get<QuizCategory[]>(`${this.apiUrl}/api/categories`);
-    return forkJoin({
-      files: this.http.get<Record<string, string[]>>('assets/data/subcategories.json'),
-      names: this.http.get<string[]>('assets/data/categories.json')
-    }).pipe(map(({ files, names }) => {
-      if (!Array.isArray(names) || names.some(name => typeof name !== 'string' || !name.trim())) {
-        throw new Error('The categories JSON file must contain non-empty category names.');
-      }
-      return names.map(name => {
-        const subCategories = files[name];
-        if (!Array.isArray(subCategories) ||
-            subCategories.some(subCategory => typeof subCategory !== 'string' || !subCategory.trim())) {
-          throw new Error(`The subcategories JSON file has an invalid entry for "${name}".`);
-        }
-        return { name, subCategories };
-      });
-    }));
+    return this.http.get<QuizCategory[]>('assets/data/topic_categories.json').pipe(
+      map(categories => {
+        this.validateCategories(categories);
+        return categories;
+      })
+    );
   }
 
   createCategory(category: QuizCategory): Observable<QuizCategory[]> {
@@ -55,5 +45,22 @@ export class CategoryService {
 
   private apiNotConfigured<T>(): Observable<T> {
     return throwError(new Error('Category changes require a configured Node.js API URL.'));
+  }
+
+  private validateCategories(value: unknown): asserts value is QuizCategory[] {
+    if (!Array.isArray(value) || value.some(category =>
+      !category || typeof category.name !== 'string' || !category.name.trim() ||
+      !Array.isArray(category.subCategories) ||
+      category.subCategories.some((subCategory: unknown) =>
+        typeof subCategory !== 'string' || !subCategory.trim()
+      ) ||
+      new Set(category.subCategories.map((subCategory: string) => subCategory.toLowerCase())).size !==
+        category.subCategories.length
+    )) {
+      throw new Error('The topic categories JSON file must contain categories with valid subcategory lists.');
+    }
+    if (new Set(value.map(category => category.name.toLowerCase())).size !== value.length) {
+      throw new Error('Category names in the topic categories JSON file must be unique.');
+    }
   }
 }

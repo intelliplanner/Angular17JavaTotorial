@@ -1,1 +1,1605 @@
-[]
+[
+  {
+    "id": 1,
+    "category": "Microservices",
+    "subCategory": "Architecture",
+    "difficulty": "Easy",
+    "question": "What is a microservice?",
+    "image": "",
+    "options": [
+      "A small database",
+      "An independently deployable service",
+      "A Java library",
+      "A UI component"
+    ],
+    "correctAnswer": "An independently deployable service",
+    "explanation": "A microservice is a small, independently deployable unit focused on a specific business capability."
+  },
+  {
+    "id": 2,
+    "category": "Microservices",
+    "subCategory": "Architecture",
+    "difficulty": "Easy",
+    "question": "Which architecture is an alternative to Microservices?",
+    "image": "",
+    "options": [
+      "Monolithic",
+      "MVC",
+      "Client Server",
+      "SOA"
+    ],
+    "correctAnswer": "Monolithic",
+    "explanation": "Monolithic architecture combines all functionalities into a single application."
+  },
+  {
+    "id": 3,
+    "category": "Microservices",
+    "subCategory": "Communication",
+    "difficulty": "Easy",
+    "question": "Which protocol is most commonly used for synchronous communication between microservices?",
+    "image": "",
+    "options": [
+      "HTTP/REST",
+      "FTP",
+      "SMTP",
+      "SSH"
+    ],
+    "correctAnswer": "HTTP/REST",
+    "explanation": "REST APIs over HTTP are the most common synchronous communication mechanism."
+  },
+  {
+    "id": 4,
+    "category": "Microservices",
+    "subCategory": "Messaging",
+    "difficulty": "Medium",
+    "question": "Which tool is widely used for asynchronous communication in microservices?",
+    "image": "",
+    "options": [
+      "Kafka",
+      "Tomcat",
+      "Maven",
+      "JUnit"
+    ],
+    "correctAnswer": "Kafka",
+    "explanation": "Kafka enables event-driven and asynchronous communication."
+  },
+  {
+    "id": 5,
+    "category": "Microservices",
+    "subCategory": "Service Discovery",
+    "difficulty": "Medium",
+    "question": "What is the purpose of Service Discovery?",
+    "image": "",
+    "options": [
+      "Database backup",
+      "Finding service locations dynamically",
+      "Code deployment",
+      "Load testing"
+    ],
+    "correctAnswer": "Finding service locations dynamically",
+    "explanation": "Service Discovery allows services to locate each other at runtime."
+  },
+  {
+    "id": 6,
+    "category": "Microservices",
+    "subCategory": "Service Discovery",
+    "difficulty": "Medium",
+    "question": "Which Spring Cloud component is commonly used for service discovery?",
+    "image": "",
+    "options": [
+      "Eureka",
+      "Zuul",
+      "Feign",
+      "Ribbon"
+    ],
+    "correctAnswer": "Eureka",
+    "explanation": "Netflix Eureka is commonly used as a service registry."
+  },
+  {
+    "id": 7,
+    "category": "Microservices",
+    "subCategory": "API Design",
+    "difficulty": "Easy",
+    "question": "What is an API Gateway?",
+    "image": "",
+    "options": [
+      "Database Router",
+      "Entry point for client requests",
+      "Load Testing Tool",
+      "Security Scanner"
+    ],
+    "correctAnswer": "Entry point for client requests",
+    "explanation": "API Gateway acts as the single entry point for all client requests."
+  },
+  {
+    "id": 8,
+    "category": "Microservices",
+    "subCategory": "API Design",
+    "difficulty": "Medium",
+    "question": "Which Spring Cloud component can be used as an API Gateway?",
+    "image": "",
+    "options": [
+      "Spring Cloud Gateway",
+      "Feign",
+      "Eureka",
+      "RestTemplate"
+    ],
+    "correctAnswer": "Spring Cloud Gateway",
+    "explanation": "Spring Cloud Gateway provides routing, filtering and security capabilities."
+  },
+  {
+    "id": 9,
+    "category": "Microservices",
+    "subCategory": "Load Balancing",
+    "difficulty": "Medium",
+    "question": "What is Load Balancing?",
+    "image": "",
+    "options": [
+      "Encrypting requests",
+      "Distributing traffic across instances",
+      "Managing databases",
+      "Monitoring logs"
+    ],
+    "correctAnswer": "Distributing traffic across instances",
+    "explanation": "Load balancing distributes incoming requests among available service instances."
+  },
+  {
+    "id": 10,
+    "category": "Microservices",
+    "subCategory": "Resilience",
+    "difficulty": "Medium",
+    "question": "What is a Circuit Breaker pattern?",
+    "image": "",
+    "options": [
+      "Database optimization",
+      "Caching strategy",
+      "Prevents repeated calls to failed services",
+      "Logging mechanism"
+    ],
+    "correctAnswer": "Prevents repeated calls to failed services",
+    "explanation": "Circuit Breaker prevents cascading failures when downstream services are unavailable."
+  },
+  {
+    "id": 11,
+    "category": "Microservices",
+    "subCategory": "Resilience4j",
+    "difficulty": "Medium",
+    "question": "Which library is commonly used to implement Circuit Breaker in Spring Boot?",
+    "image": "",
+    "options": [
+      "Hibernate",
+      "Resilience4j",
+      "JUnit",
+      "Mockito"
+    ],
+    "correctAnswer": "Resilience4j",
+    "explanation": "Resilience4j provides Circuit Breaker, Retry, Bulkhead, and Rate Limiter patterns."
+  },
+  {
+    "id": 12,
+    "category": "Microservices",
+    "subCategory": "Communication",
+    "difficulty": "Medium",
+    "question": "Which client simplifies REST calls between microservices?",
+    "image": "",
+    "options": [
+      "Feign Client",
+      "JUnit",
+      "Kafka",
+      "Docker"
+    ],
+    "correctAnswer": "Feign Client",
+    "explanation": "OpenFeign provides declarative REST clients."
+  },
+  {
+    "id": 13,
+    "category": "Microservices",
+    "subCategory": "Database",
+    "difficulty": "Easy",
+    "question": "Should multiple microservices share the same database?",
+    "image": "",
+    "options": [
+      "Always",
+      "Never",
+      "Prefer separate databases",
+      "Only in production"
+    ],
+    "correctAnswer": "Prefer separate databases",
+    "explanation": "Database-per-service is a common microservices principle."
+  },
+  {
+    "id": 14,
+    "category": "Microservices",
+    "subCategory": "Transaction Management",
+    "difficulty": "Hard",
+    "question": "Why are distributed transactions challenging in microservices?",
+    "image": "",
+    "options": [
+      "Because services are independent",
+      "Due to UI issues",
+      "Because APIs are slow",
+      "Because Java lacks support"
+    ],
+    "correctAnswer": "Because services are independent",
+    "explanation": "Maintaining consistency across multiple services is difficult."
+  },
+  {
+    "id": 15,
+    "category": "Microservices",
+    "subCategory": "Saga Pattern",
+    "difficulty": "Hard",
+    "question": "What problem does Saga Pattern solve?",
+    "image": "",
+    "options": [
+      "Caching",
+      "Distributed transaction management",
+      "Service discovery",
+      "API versioning"
+    ],
+    "correctAnswer": "Distributed transaction management",
+    "explanation": "Saga coordinates transactions across multiple services."
+  },
+  {
+    "id": 16,
+    "category": "Microservices",
+    "subCategory": "Saga Pattern",
+    "difficulty": "Hard",
+    "question": "What is a compensating transaction in Saga?",
+    "image": "",
+    "options": [
+      "Undo operation",
+      "Database backup",
+      "Cache refresh",
+      "Load balancing"
+    ],
+    "correctAnswer": "Undo operation",
+    "explanation": "Compensating transactions reverse previously completed actions."
+  },
+  {
+    "id": 17,
+    "category": "Microservices",
+    "subCategory": "Configuration",
+    "difficulty": "Medium",
+    "question": "Which component centralizes configuration management?",
+    "image": "",
+    "options": [
+      "Spring Cloud Config Server",
+      "Kafka",
+      "Docker",
+      "Redis"
+    ],
+    "correctAnswer": "Spring Cloud Config Server",
+    "explanation": "Config Server manages externalized configurations."
+  },
+  {
+    "id": 18,
+    "category": "Microservices",
+    "subCategory": "Monitoring",
+    "difficulty": "Medium",
+    "question": "Which tool is commonly used to monitor metrics from microservices?",
+    "image": "",
+    "options": [
+      "Prometheus",
+      "Maven",
+      "JUnit",
+      "Liquibase"
+    ],
+    "correctAnswer": "Prometheus",
+    "explanation": "Prometheus collects and stores application metrics."
+  },
+  {
+    "id": 19,
+    "category": "Microservices",
+    "subCategory": "Monitoring",
+    "difficulty": "Medium",
+    "question": "Which visualization tool is frequently paired with Prometheus?",
+    "image": "",
+    "options": [
+      "Grafana",
+      "SonarQube",
+      "Git",
+      "Jenkins"
+    ],
+    "correctAnswer": "Grafana",
+    "explanation": "Grafana provides visualization dashboards for metrics."
+  },
+  {
+    "id": 20,
+    "category": "Microservices",
+    "subCategory": "Design Patterns",
+    "difficulty": "Hard",
+    "question": "What is the Strangler Pattern?",
+    "image": "",
+    "options": [
+      "Security pattern",
+      "Incrementally replacing a monolith",
+      "Database partitioning",
+      "Caching strategy"
+    ],
+    "correctAnswer": "Incrementally replacing a monolith",
+    "explanation": "The Strangler Pattern gradually migrates functionality from a monolith to microservices."
+  },
+  {
+    "id": 21,
+    "category": "Microservices",
+    "subCategory": "Design Patterns",
+    "difficulty": "Hard",
+    "question": "What problem does the Bulkhead pattern solve?",
+    "image": "",
+    "options": [
+      "Database replication",
+      "Resource isolation",
+      "Service discovery",
+      "Caching"
+    ],
+    "correctAnswer": "Resource isolation",
+    "explanation": "Bulkhead isolates resources to prevent one failure from affecting the entire system."
+  },
+  {
+    "id": 22,
+    "category": "Microservices",
+    "subCategory": "Resilience4j",
+    "difficulty": "Hard",
+    "question": "Which Resilience4j component limits the number of requests per time period?",
+    "image": "",
+    "options": [
+      "Retry",
+      "Bulkhead",
+      "Circuit Breaker",
+      "Rate Limiter"
+    ],
+    "correctAnswer": "Rate Limiter",
+    "explanation": "Rate Limiter controls traffic and protects services from overload."
+  },
+  {
+    "id": 23,
+    "category": "Microservices",
+    "subCategory": "Resilience4j",
+    "difficulty": "Hard",
+    "question": "What is the purpose of Retry pattern?",
+    "image": "",
+    "options": [
+      "Load balancing",
+      "Re-attempt temporary failures",
+      "Data encryption",
+      "Logging"
+    ],
+    "correctAnswer": "Re-attempt temporary failures",
+    "explanation": "Retry automatically retries failed requests before marking them unsuccessful."
+  },
+  {
+    "id": 24,
+    "category": "Microservices",
+    "subCategory": "Communication",
+    "difficulty": "Hard",
+    "question": "Which communication style is preferred for event-driven microservices?",
+    "image": "",
+    "options": [
+      "REST",
+      "SOAP",
+      "Message Broker",
+      "FTP"
+    ],
+    "correctAnswer": "Message Broker",
+    "explanation": "Event-driven systems commonly use Kafka, RabbitMQ, or similar brokers."
+  },
+  {
+    "id": 25,
+    "category": "Microservices",
+    "subCategory": "Messaging",
+    "difficulty": "Hard",
+    "question": "What is idempotency in microservices?",
+    "image": "",
+    "options": [
+      "Single execution",
+      "Repeated execution produces same result",
+      "Database locking",
+      "Request caching"
+    ],
+    "correctAnswer": "Repeated execution produces same result",
+    "explanation": "Idempotent operations can be safely retried."
+  },
+  {
+    "id": 26,
+    "category": "Microservices",
+    "subCategory": "Kafka",
+    "difficulty": "Hard",
+    "question": "What is the benefit of Kafka Consumer Groups?",
+    "image": "",
+    "options": [
+      "Data encryption",
+      "Horizontal scalability",
+      "Database optimization",
+      "Version control"
+    ],
+    "correctAnswer": "Horizontal scalability",
+    "explanation": "Consumer groups allow load sharing across multiple consumers."
+  },
+  {
+    "id": 27,
+    "category": "Microservices",
+    "subCategory": "Kafka",
+    "difficulty": "Hard",
+    "question": "What guarantees ordering in Kafka?",
+    "image": "",
+    "options": [
+      "Topic",
+      "Partition",
+      "Broker",
+      "Consumer Group"
+    ],
+    "correctAnswer": "Partition",
+    "explanation": "Kafka guarantees ordering within a partition."
+  },
+  {
+    "id": 28,
+    "category": "Microservices",
+    "subCategory": "Service Discovery",
+    "difficulty": "Hard",
+    "question": "What is client-side service discovery?",
+    "image": "",
+    "options": [
+      "Gateway finds services",
+      "Client queries registry directly",
+      "Database lookup",
+      "Static URLs"
+    ],
+    "correctAnswer": "Client queries registry directly",
+    "explanation": "The client retrieves service instances from a registry."
+  },
+  {
+    "id": 29,
+    "category": "Microservices",
+    "subCategory": "Service Discovery",
+    "difficulty": "Hard",
+    "question": "What is server-side service discovery?",
+    "image": "",
+    "options": [
+      "Client selects instance",
+      "Load balancer selects instance",
+      "Database handles routing",
+      "Kafka handles routing"
+    ],
+    "correctAnswer": "Load balancer selects instance",
+    "explanation": "A load balancer or gateway routes requests to appropriate instances."
+  },
+  {
+    "id": 30,
+    "category": "Microservices",
+    "subCategory": "API Design",
+    "difficulty": "Hard",
+    "question": "Which pattern aggregates responses from multiple services?",
+    "image": "",
+    "options": [
+      "Saga",
+      "Aggregator",
+      "Bulkhead",
+      "Retry"
+    ],
+    "correctAnswer": "Aggregator",
+    "explanation": "Aggregator combines data from multiple microservices."
+  },
+  {
+    "id": 31,
+    "category": "Microservices",
+    "subCategory": "API Design",
+    "difficulty": "Hard",
+    "question": "What is API Composition?",
+    "image": "",
+    "options": [
+      "Combining APIs at runtime",
+      "Database federation",
+      "Caching APIs",
+      "API deployment"
+    ],
+    "correctAnswer": "Combining APIs at runtime",
+    "explanation": "API Composition gathers data from multiple services dynamically."
+  },
+  {
+    "id": 32,
+    "category": "Microservices",
+    "subCategory": "Configuration",
+    "difficulty": "Hard",
+    "question": "Why should configuration be externalized?",
+    "image": "",
+    "options": [
+      "Reduce code size",
+      "Environment-specific management",
+      "Increase security only",
+      "Improve UI"
+    ],
+    "correctAnswer": "Environment-specific management",
+    "explanation": "Externalized configuration allows settings without code changes."
+  },
+  {
+    "id": 33,
+    "category": "Microservices",
+    "subCategory": "Monitoring",
+    "difficulty": "Hard",
+    "question": "What is Distributed Tracing?",
+    "image": "",
+    "options": [
+      "Database debugging",
+      "Tracking requests across services",
+      "Memory profiling",
+      "Log rotation"
+    ],
+    "correctAnswer": "Tracking requests across services",
+    "explanation": "Distributed tracing tracks a request through multiple services."
+  },
+  {
+    "id": 34,
+    "category": "Microservices",
+    "subCategory": "Monitoring",
+    "difficulty": "Hard",
+    "question": "Which tool is commonly used for distributed tracing?",
+    "image": "",
+    "options": [
+      "Zipkin",
+      "Tomcat",
+      "Liquibase",
+      "Mockito"
+    ],
+    "correctAnswer": "Zipkin",
+    "explanation": "Zipkin helps visualize request flow across services."
+  },
+  {
+    "id": 35,
+    "category": "Microservices",
+    "subCategory": "Monitoring",
+    "difficulty": "Hard",
+    "question": "What is the purpose of correlation IDs?",
+    "image": "",
+    "options": [
+      "Authentication",
+      "Connect requests across logs",
+      "Caching",
+      "Serialization"
+    ],
+    "correctAnswer": "Connect requests across logs",
+    "explanation": "Correlation IDs identify a request through multiple services."
+  },
+  {
+    "id": 36,
+    "category": "Microservices",
+    "subCategory": "Security",
+    "difficulty": "Hard",
+    "question": "Which token standard is commonly used for microservice authentication?",
+    "image": "",
+    "options": [
+      "JWT",
+      "XML",
+      "SOAP",
+      "CSV"
+    ],
+    "correctAnswer": "JWT",
+    "explanation": "JWT is widely used for stateless authentication."
+  },
+  {
+    "id": 37,
+    "category": "Microservices",
+    "subCategory": "Security",
+    "difficulty": "Hard",
+    "question": "Which protocol is commonly used with OAuth2?",
+    "image": "",
+    "options": [
+      "JWT",
+      "FTP",
+      "Telnet",
+      "SNMP"
+    ],
+    "correctAnswer": "JWT",
+    "explanation": "OAuth2 commonly uses JWT access tokens."
+  },
+  {
+    "id": 38,
+    "category": "Microservices",
+    "subCategory": "Security",
+    "difficulty": "Hard",
+    "question": "Where should authentication usually happen?",
+    "image": "",
+    "options": [
+      "Database",
+      "API Gateway",
+      "Kafka",
+      "Load Balancer"
+    ],
+    "correctAnswer": "API Gateway",
+    "explanation": "Authentication is often centralized at the gateway."
+  },
+  {
+    "id": 39,
+    "category": "Microservices",
+    "subCategory": "Database",
+    "difficulty": "Hard",
+    "question": "What is CQRS?",
+    "image": "",
+    "options": [
+      "Separate read and write models",
+      "Database backup strategy",
+      "Caching mechanism",
+      "Monitoring tool"
+    ],
+    "correctAnswer": "Separate read and write models",
+    "explanation": "CQRS separates command and query responsibilities."
+  },
+  {
+    "id": 40,
+    "category": "Microservices",
+    "subCategory": "Database",
+    "difficulty": "Hard",
+    "question": "What does Event Sourcing store?",
+    "image": "",
+    "options": [
+      "Current state only",
+      "Events that changed state",
+      "Indexes only",
+      "Configuration files"
+    ],
+    "correctAnswer": "Events that changed state",
+    "explanation": "Event Sourcing persists state changes as events."
+  },
+  {
+    "id": 41,
+    "category": "Microservices",
+    "subCategory": "Database",
+    "difficulty": "Hard",
+    "question": "What consistency model is common in microservices?",
+    "image": "",
+    "options": [
+      "Strong Consistency",
+      "Eventual Consistency",
+      "Zero Consistency",
+      "Static Consistency"
+    ],
+    "correctAnswer": "Eventual Consistency",
+    "explanation": "Services often adopt eventual consistency for scalability."
+  },
+  {
+    "id": 42,
+    "category": "Microservices",
+    "subCategory": "Design Patterns",
+    "difficulty": "Hard",
+    "question": "What is the Sidecar Pattern?",
+    "image": "",
+    "options": [
+      "Additional helper service beside main service",
+      "Database replication",
+      "Caching pattern",
+      "Logging framework"
+    ],
+    "correctAnswer": "Additional helper service beside main service",
+    "explanation": "Sidecars provide supporting functionality such as logging or monitoring."
+  },
+  {
+    "id": 43,
+    "category": "Microservices",
+    "subCategory": "Design Patterns",
+    "difficulty": "Hard",
+    "question": "What is the Ambassador Pattern?",
+    "image": "",
+    "options": [
+      "Proxy communication pattern",
+      "Caching pattern",
+      "Deployment pattern",
+      "Monitoring pattern"
+    ],
+    "correctAnswer": "Proxy communication pattern",
+    "explanation": "Ambassador acts as a proxy for external communication."
+  },
+  {
+    "id": 44,
+    "category": "Microservices",
+    "subCategory": "Kubernetes",
+    "difficulty": "Hard",
+    "question": "Why is Kubernetes commonly used with microservices?",
+    "image": "",
+    "options": [
+      "Source control",
+      "Container orchestration",
+      "Database administration",
+      "Testing"
+    ],
+    "correctAnswer": "Container orchestration",
+    "explanation": "Kubernetes manages deployment, scaling, and operations."
+  },
+  {
+    "id": 45,
+    "category": "Microservices",
+    "subCategory": "Kubernetes",
+    "difficulty": "Hard",
+    "question": "What is a Kubernetes Service?",
+    "image": "",
+    "options": [
+      "Container image",
+      "Stable network endpoint",
+      "Deployment strategy",
+      "Volume storage"
+    ],
+    "correctAnswer": "Stable network endpoint",
+    "explanation": "Services provide stable networking for pods."
+  },
+  {
+    "id": 46,
+    "category": "Microservices",
+    "subCategory": "Kubernetes",
+    "difficulty": "Hard",
+    "question": "Which Kubernetes resource manages rolling updates?",
+    "image": "",
+    "options": [
+      "Pod",
+      "Service",
+      "Deployment",
+      "ConfigMap"
+    ],
+    "correctAnswer": "Deployment",
+    "explanation": "Deployments manage updates and rollbacks."
+  },
+  {
+    "id": 47,
+    "category": "Microservices",
+    "subCategory": "Cloud",
+    "difficulty": "Hard",
+    "question": "What is autoscaling?",
+    "image": "",
+    "options": [
+      "Automatic logging",
+      "Automatic scaling based on load",
+      "Automatic deployment",
+      "Automatic backup"
+    ],
+    "correctAnswer": "Automatic scaling based on load",
+    "explanation": "Autoscaling adjusts resources according to traffic."
+  },
+  {
+    "id": 48,
+    "category": "Microservices",
+    "subCategory": "Cloud",
+    "difficulty": "Hard",
+    "question": "What is blue-green deployment?",
+    "image": "",
+    "options": [
+      "Database migration",
+      "Two identical production environments",
+      "Security strategy",
+      "Load balancing"
+    ],
+    "correctAnswer": "Two identical production environments",
+    "explanation": "Blue-green deployment minimizes downtime during releases."
+  },
+  {
+    "id": 49,
+    "category": "Microservices",
+    "subCategory": "Cloud",
+    "difficulty": "Hard",
+    "question": "What is canary deployment?",
+    "image": "",
+    "options": [
+      "Deploy to all users",
+      "Gradual rollout to subset of users",
+      "Rollback strategy",
+      "Database strategy"
+    ],
+    "correctAnswer": "Gradual rollout to subset of users",
+    "explanation": "Canary releases reduce deployment risks."
+  },
+  {
+    "id": 50,
+    "category": "Microservices",
+    "subCategory": "Design Patterns",
+    "difficulty": "Hard",
+    "question": "Which pattern prevents cascading service failures?",
+    "image": "",
+    "options": [
+      "Factory",
+      "Circuit Breaker",
+      "Builder",
+      "Observer"
+    ],
+    "correctAnswer": "Circuit Breaker",
+    "explanation": "Circuit Breaker stops repeated calls to unhealthy services."
+  },
+  {
+    "id": 51,
+    "category": "Microservices",
+    "subCategory": "Design Patterns",
+    "difficulty": "Hard",
+    "question": "Which pattern isolates concurrent requests?",
+    "image": "",
+    "options": [
+      "Retry",
+      "Bulkhead",
+      "CQRS",
+      "Saga"
+    ],
+    "correctAnswer": "Bulkhead",
+    "explanation": "Bulkhead isolates workloads into separate resource pools."
+  },
+  {
+    "id": 52,
+    "category": "Microservices",
+    "subCategory": "Messaging",
+    "difficulty": "Hard",
+    "question": "What is dead letter queue (DLQ)?",
+    "image": "",
+    "options": [
+      "Backup queue",
+      "Queue for failed messages",
+      "Priority queue",
+      "Archive"
+    ],
+    "correctAnswer": "Queue for failed messages",
+    "explanation": "DLQ stores messages that could not be processed."
+  },
+  {
+    "id": 53,
+    "category": "Microservices",
+    "subCategory": "Messaging",
+    "difficulty": "Hard",
+    "question": "Why are asynchronous messages preferred in some architectures?",
+    "image": "",
+    "options": [
+      "Tighter coupling",
+      "Loose coupling",
+      "Higher memory",
+      "Less scalability"
+    ],
+    "correctAnswer": "Loose coupling",
+    "explanation": "Asynchronous messaging reduces direct dependencies."
+  },
+  {
+    "id": 54,
+    "category": "Microservices",
+    "subCategory": "API Design",
+    "difficulty": "Hard",
+    "question": "What is Backend for Frontend (BFF) pattern?",
+    "image": "",
+    "options": [
+      "Dedicated backend for each frontend",
+      "Database gateway",
+      "Monitoring solution",
+      "Caching server"
+    ],
+    "correctAnswer": "Dedicated backend for each frontend",
+    "explanation": "BFF optimizes APIs for specific frontend applications."
+  },
+  {
+    "id": 55,
+    "category": "Microservices",
+    "subCategory": "Cloud",
+    "difficulty": "Hard",
+    "question": "What is service mesh?",
+    "image": "",
+    "options": [
+      "Database cluster",
+      "Infrastructure layer for service communication",
+      "Deployment tool",
+      "Messaging broker"
+    ],
+    "correctAnswer": "Infrastructure layer for service communication",
+    "explanation": "Service mesh manages traffic, observability, and security."
+  },
+  {
+    "id": 56,
+    "category": "Microservices",
+    "subCategory": "Cloud",
+    "difficulty": "Hard",
+    "question": "Which service mesh is most popular in Kubernetes?",
+    "image": "",
+    "options": [
+      "Istio",
+      "RabbitMQ",
+      "Eureka",
+      "Nginx"
+    ],
+    "correctAnswer": "Istio",
+    "explanation": "Istio is widely adopted for service mesh capabilities."
+  },
+  {
+    "id": 57,
+    "category": "Microservices",
+    "subCategory": "Transaction Management",
+    "difficulty": "Hard",
+    "question": "What is choreography-based Saga?",
+    "image": "",
+    "options": [
+      "Central coordinator",
+      "Event-driven coordination",
+      "Database transaction",
+      "API Gateway"
+    ],
+    "correctAnswer": "Event-driven coordination",
+    "explanation": "Services react to events to drive the transaction."
+  },
+  {
+    "id": 58,
+    "category": "Microservices",
+    "subCategory": "Transaction Management",
+    "difficulty": "Hard",
+    "question": "What is orchestration-based Saga?",
+    "image": "",
+    "options": [
+      "Central coordinator controls flow",
+      "Kafka partitions",
+      "Database replication",
+      "Service discovery"
+    ],
+    "correctAnswer": "Central coordinator controls flow",
+    "explanation": "An orchestrator manages transaction steps."
+  },
+  {
+    "id": 59,
+    "category": "Microservices",
+    "subCategory": "Design Patterns",
+    "difficulty": "Hard",
+    "question": "What is anti-corruption layer (ACL)?",
+    "image": "",
+    "options": [
+      "Security layer",
+      "Protects domain model from external models",
+      "Cache layer",
+      "Monitoring layer"
+    ],
+    "correctAnswer": "Protects domain model from external models",
+    "explanation": "ACL prevents external systems from contaminating a domain model."
+  },
+  {
+    "id": 60,
+    "category": "Microservices",
+    "subCategory": "Architecture",
+    "difficulty": "Hard",
+    "question": "What is the biggest challenge in microservices architecture?",
+    "image": "",
+    "options": [
+      "UI development",
+      "Distributed system complexity",
+      "Programming language",
+      "Unit testing"
+    ],
+    "correctAnswer": "Distributed system complexity",
+    "explanation": "Networking, consistency, observability, and resilience make microservices challenging."
+  }
+,
+  {
+    "id": 61,
+    "category": "Microservices",
+    "subCategory": "Architecture",
+    "difficulty": "Hard",
+    "question": "Which principle helps determine microservice boundaries?",
+    "image": "",
+    "options": [
+      "CAP Theorem",
+      "Domain Driven Design",
+      "MVC",
+      "OSI Model"
+    ],
+    "correctAnswer": "Domain Driven Design",
+    "explanation": "DDD helps identify bounded contexts that naturally map to microservices."
+  },
+  {
+    "id": 62,
+    "category": "Microservices",
+    "subCategory": "Architecture",
+    "difficulty": "Hard",
+    "question": "What is a Bounded Context in DDD?",
+    "image": "",
+    "options": [
+      "Database partition",
+      "Clearly defined business domain boundary",
+      "Kubernetes namespace",
+      "API version"
+    ],
+    "correctAnswer": "Clearly defined business domain boundary",
+    "explanation": "Bounded Context defines ownership and business boundaries."
+  },
+  {
+    "id": 63,
+    "category": "Microservices",
+    "subCategory": "Communication",
+    "difficulty": "Hard",
+    "question": "Which communication mechanism provides the lowest coupling?",
+    "image": "",
+    "options": [
+      "REST",
+      "gRPC",
+      "Event-driven messaging",
+      "SOAP"
+    ],
+    "correctAnswer": "Event-driven messaging",
+    "explanation": "Publish-subscribe architecture enables loose coupling."
+  },
+  {
+    "id": 64,
+    "category": "Microservices",
+    "subCategory": "Communication",
+    "difficulty": "Hard",
+    "question": "What is gRPC primarily based on?",
+    "image": "",
+    "options": [
+      "HTTP/1.1",
+      "JSON",
+      "HTTP/2 and Protocol Buffers",
+      "XML"
+    ],
+    "correctAnswer": "HTTP/2 and Protocol Buffers",
+    "explanation": "gRPC provides high-performance communication using HTTP/2."
+  },
+  {
+    "id": 65,
+    "category": "Microservices",
+    "subCategory": "Communication",
+    "difficulty": "Hard",
+    "question": "Why is gRPC often faster than REST?",
+    "image": "",
+    "options": [
+      "Uses XML",
+      "Uses Protocol Buffers",
+      "Uses SQL",
+      "Uses SOAP"
+    ],
+    "correctAnswer": "Uses Protocol Buffers",
+    "explanation": "Binary serialization is smaller and faster than JSON."
+  },
+  {
+    "id": 66,
+    "category": "Microservices",
+    "subCategory": "Kafka",
+    "difficulty": "Hard",
+    "question": "What is the role of Kafka Offset?",
+    "image": "",
+    "options": [
+      "Message encryption",
+      "Position tracking",
+      "Load balancing",
+      "Partition creation"
+    ],
+    "correctAnswer": "Position tracking",
+    "explanation": "Offsets track consumer read positions."
+  },
+  {
+    "id": 67,
+    "category": "Microservices",
+    "subCategory": "Kafka",
+    "difficulty": "Hard",
+    "question": "What does exactly-once processing mean in Kafka?",
+    "image": "",
+    "options": [
+      "Never processing messages",
+      "Message processed only once",
+      "Message processed twice",
+      "Message ignored"
+    ],
+    "correctAnswer": "Message processed only once",
+    "explanation": "Exactly-once semantics avoids duplicates."
+  },
+  {
+    "id": 68,
+    "category": "Microservices",
+    "subCategory": "Kafka",
+    "difficulty": "Hard",
+    "question": "What causes consumer rebalancing?",
+    "image": "",
+    "options": [
+      "New consumer joins",
+      "Database update",
+      "Code deployment",
+      "Cache refresh"
+    ],
+    "correctAnswer": "New consumer joins",
+    "explanation": "Consumer group membership changes trigger rebalancing."
+  },
+  {
+    "id": 69,
+    "category": "Microservices",
+    "subCategory": "Kafka",
+    "difficulty": "Hard",
+    "question": "Which delivery guarantee may produce duplicate messages?",
+    "image": "",
+    "options": [
+      "At Most Once",
+      "Exactly Once",
+      "At Least Once",
+      "Strict Once"
+    ],
+    "correctAnswer": "At Least Once",
+    "explanation": "Retries can lead to duplicates."
+  },
+  {
+    "id": 70,
+    "category": "Microservices",
+    "subCategory": "Transaction Management",
+    "difficulty": "Hard",
+    "question": "What is the main drawback of Saga Pattern?",
+    "image": "",
+    "options": [
+      "Complex compensation logic",
+      "No scalability",
+      "No transactions",
+      "No APIs"
+    ],
+    "correctAnswer": "Complex compensation logic",
+    "explanation": "Compensating actions increase implementation complexity."
+  },
+  {
+    "id": 71,
+    "category": "Microservices",
+    "subCategory": "Database",
+    "difficulty": "Hard",
+    "question": "Why is Two Phase Commit avoided in Microservices?",
+    "image": "",
+    "options": [
+      "Too complex and impacts availability",
+      "No SQL support",
+      "Only works with MongoDB",
+      "Requires Docker"
+    ],
+    "correctAnswer": "Too complex and impacts availability",
+    "explanation": "2PC creates bottlenecks and availability concerns."
+  },
+  {
+    "id": 72,
+    "category": "Microservices",
+    "subCategory": "Database",
+    "difficulty": "Hard",
+    "question": "What is Polyglot Persistence?",
+    "image": "",
+    "options": [
+      "Single database",
+      "Different databases for different services",
+      "Database replication",
+      "Database backup"
+    ],
+    "correctAnswer": "Different databases for different services",
+    "explanation": "Services use the best-suited database technology."
+  },
+  {
+    "id": 73,
+    "category": "Microservices",
+    "subCategory": "Resilience",
+    "difficulty": "Hard",
+    "question": "What is Fail Fast strategy?",
+    "image": "",
+    "options": [
+      "Retry forever",
+      "Immediate failure detection",
+      "Database rollback",
+      "Service restart"
+    ],
+    "correctAnswer": "Immediate failure detection",
+    "explanation": "Fail Fast avoids wasting resources on failing operations."
+  },
+  {
+    "id": 74,
+    "category": "Microservices",
+    "subCategory": "Resilience",
+    "difficulty": "Hard",
+    "question": "Which Circuit Breaker state allows limited requests for recovery testing?",
+    "image": "",
+    "options": [
+      "Open",
+      "Closed",
+      "Half Open",
+      "Failed"
+    ],
+    "correctAnswer": "Half Open",
+    "explanation": "Half Open tests whether a service has recovered."
+  },
+  {
+    "id": 75,
+    "category": "Microservices",
+    "subCategory": "Security",
+    "difficulty": "Hard",
+    "question": "What is Mutual TLS (mTLS)?",
+    "image": "",
+    "options": [
+      "Client authenticates server",
+      "Both parties authenticate each other",
+      "Encryption only",
+      "API authorization"
+    ],
+    "correctAnswer": "Both parties authenticate each other",
+    "explanation": "mTLS secures service-to-service communication."
+  },
+  {
+    "id": 76,
+    "category": "Microservices",
+    "subCategory": "Security",
+    "difficulty": "Hard",
+    "question": "Which OAuth2 flow is best for machine-to-machine communication?",
+    "image": "",
+    "options": [
+      "Authorization Code",
+      "Implicit",
+      "Client Credentials",
+      "Password"
+    ],
+    "correctAnswer": "Client Credentials",
+    "explanation": "Client Credentials flow is designed for service communication."
+  },
+  {
+    "id": 77,
+    "category": "Microservices",
+    "subCategory": "Monitoring",
+    "difficulty": "Hard",
+    "question": "What are the three pillars of observability?",
+    "image": "",
+    "options": [
+      "Logs, Metrics, Traces",
+      "CPU, Memory, Disk",
+      "Services, APIs, UI",
+      "Build, Deploy, Release"
+    ],
+    "correctAnswer": "Logs, Metrics, Traces",
+    "explanation": "Observability is built around logs, metrics, and traces."
+  },
+  {
+    "id": 78,
+    "category": "Microservices",
+    "subCategory": "Monitoring",
+    "difficulty": "Hard",
+    "question": "Which OpenTelemetry feature collects distributed traces?",
+    "image": "",
+    "options": [
+      "Collector",
+      "Exporter",
+      "Tracer",
+      "Monitor"
+    ],
+    "correctAnswer": "Tracer",
+    "explanation": "Tracers capture spans and distributed traces."
+  },
+  {
+    "id": 79,
+    "category": "Microservices",
+    "subCategory": "Kubernetes",
+    "difficulty": "Hard",
+    "question": "What is a Pod in Kubernetes?",
+    "image": "",
+    "options": [
+      "Deployment",
+      "Smallest deployable unit",
+      "Node",
+      "Service"
+    ],
+    "correctAnswer": "Smallest deployable unit",
+    "explanation": "Pods are the basic execution units in Kubernetes."
+  },
+  {
+    "id": 80,
+    "category": "Microservices",
+    "subCategory": "Kubernetes",
+    "difficulty": "Hard",
+    "question": "What is Horizontal Pod Autoscaler?",
+    "image": "",
+    "options": [
+      "Scales node size",
+      "Scales pod count",
+      "Scales storage",
+      "Scales database"
+    ],
+    "correctAnswer": "Scales pod count",
+    "explanation": "HPA automatically increases or decreases pod replicas."
+  },
+  {
+    "id": 81,
+    "category": "Microservices",
+    "subCategory": "Kubernetes",
+    "difficulty": "Hard",
+    "question": "What is a ConfigMap used for?",
+    "image": "",
+    "options": [
+      "Store configuration",
+      "Store logs",
+      "Store images",
+      "Store metrics"
+    ],
+    "correctAnswer": "Store configuration",
+    "explanation": "ConfigMap externalizes application configuration."
+  },
+  {
+    "id": 82,
+    "category": "Microservices",
+    "subCategory": "Kubernetes",
+    "difficulty": "Hard",
+    "question": "What is the purpose of a Kubernetes Ingress?",
+    "image": "",
+    "options": [
+      "Internal storage",
+      "External HTTP routing",
+      "Database connection",
+      "Monitoring"
+    ],
+    "correctAnswer": "External HTTP routing",
+    "explanation": "Ingress manages external access to services."
+  },
+  {
+    "id": 83,
+    "category": "Microservices",
+    "subCategory": "Cloud",
+    "difficulty": "Hard",
+    "question": "What is a rolling deployment?",
+    "image": "",
+    "options": [
+      "All servers updated at once",
+      "Gradual replacement of instances",
+      "Rollback strategy only",
+      "Manual deployment"
+    ],
+    "correctAnswer": "Gradual replacement of instances",
+    "explanation": "Rolling deployments replace instances gradually."
+  },
+  {
+    "id": 84,
+    "category": "Microservices",
+    "subCategory": "Cloud",
+    "difficulty": "Hard",
+    "question": "What is the primary benefit of Canary Releases?",
+    "image": "",
+    "options": [
+      "Reduce deployment risk",
+      "Increase database speed",
+      "Reduce memory",
+      "Improve logging"
+    ],
+    "correctAnswer": "Reduce deployment risk",
+    "explanation": "Canary releases validate changes with a small user subset."
+  },
+  {
+    "id": 85,
+    "category": "Microservices",
+    "subCategory": "API Design",
+    "difficulty": "Hard",
+    "question": "What is API Versioning used for?",
+    "image": "",
+    "options": [
+      "Security",
+      "Backward compatibility",
+      "Logging",
+      "Scaling"
+    ],
+    "correctAnswer": "Backward compatibility",
+    "explanation": "Versioning supports clients using older API versions."
+  },
+  {
+    "id": 86,
+    "category": "Microservices",
+    "subCategory": "API Design",
+    "difficulty": "Hard",
+    "question": "Which HTTP status code indicates a service is unavailable?",
+    "image": "",
+    "options": [
+      "404",
+      "401",
+      "503",
+      "302"
+    ],
+    "correctAnswer": "503",
+    "explanation": "503 indicates temporary service unavailability."
+  },
+  {
+    "id": 87,
+    "category": "Microservices",
+    "subCategory": "Architecture",
+    "difficulty": "Hard",
+    "question": "What is eventual consistency?",
+    "image": "",
+    "options": [
+      "Immediate consistency",
+      "Consistency achieved over time",
+      "No consistency",
+      "Database lock"
+    ],
+    "correctAnswer": "Consistency achieved over time",
+    "explanation": "Distributed systems often converge eventually."
+  },
+  {
+    "id": 88,
+    "category": "Microservices",
+    "subCategory": "Architecture",
+    "difficulty": "Hard",
+    "question": "Which CAP theorem property is often sacrificed in distributed systems?",
+    "image": "",
+    "options": [
+      "Consistency",
+      "Availability",
+      "Partition Tolerance",
+      "CPU"
+    ],
+    "correctAnswer": "Consistency",
+    "explanation": "Many large-scale systems favor AP over strong consistency."
+  },
+  {
+    "id": 89,
+    "category": "Microservices",
+    "subCategory": "Design Patterns",
+    "difficulty": "Hard",
+    "question": "What is Database-per-Service pattern?",
+    "image": "",
+    "options": [
+      "Shared database",
+      "Dedicated database for each service",
+      "Single database cluster",
+      "Read-only database"
+    ],
+    "correctAnswer": "Dedicated database for each service",
+    "explanation": "Each service owns its data independently."
+  },
+  {
+    "id": 90,
+    "category": "Microservices",
+    "subCategory": "Design Patterns",
+    "difficulty": "Hard",
+    "question": "What problem does CQRS primarily address?",
+    "image": "",
+    "options": [
+      "Data backup",
+      "Separate read/write optimization",
+      "Monitoring",
+      "Deployment"
+    ],
+    "correctAnswer": "Separate read/write optimization",
+    "explanation": "CQRS allows independent scaling and optimization."
+  },
+  {
+    "id": 91,
+    "category": "Microservices",
+    "subCategory": "Performance",
+    "difficulty": "Hard",
+    "question": "What is backpressure in distributed systems?",
+    "image": "",
+    "options": [
+      "Network encryption",
+      "Controlling producer rate",
+      "Database scaling",
+      "API monitoring"
+    ],
+    "correctAnswer": "Controlling producer rate",
+    "explanation": "Backpressure prevents consumers from being overwhelmed."
+  },
+  {
+    "id": 92,
+    "category": "Microservices",
+    "subCategory": "Performance",
+    "difficulty": "Hard",
+    "question": "Which cache type is commonly used across microservices?",
+    "image": "",
+    "options": [
+      "Redis",
+      "Oracle",
+      "MongoDB",
+      "Eureka"
+    ],
+    "correctAnswer": "Redis",
+    "explanation": "Redis is widely used as a distributed cache."
+  },
+  {
+    "id": 93,
+    "category": "Microservices",
+    "subCategory": "Performance",
+    "difficulty": "Hard",
+    "question": "What is cache-aside pattern?",
+    "image": "",
+    "options": [
+      "Cache updated automatically",
+      "Application manages cache",
+      "Database cache only",
+      "CDN strategy"
+    ],
+    "correctAnswer": "Application manages cache",
+    "explanation": "Application loads data into cache when absent."
+  },
+  {
+    "id": 94,
+    "category": "Microservices",
+    "subCategory": "Cloud",
+    "difficulty": "Hard",
+    "question": "What is a service registry?",
+    "image": "",
+    "options": [
+      "Database",
+      "Repository of service instances",
+      "Message queue",
+      "Monitoring dashboard"
+    ],
+    "correctAnswer": "Repository of service instances",
+    "explanation": "Service registries track available service endpoints."
+  },
+  {
+    "id": 95,
+    "category": "Microservices",
+    "subCategory": "Cloud",
+    "difficulty": "Hard",
+    "question": "Which component replaces Ribbon in modern Spring Cloud?",
+    "image": "",
+    "options": [
+      "Zuul",
+      "Spring Cloud LoadBalancer",
+      "Feign",
+      "Hystrix"
+    ],
+    "correctAnswer": "Spring Cloud LoadBalancer",
+    "explanation": "Ribbon is deprecated in favor of Spring Cloud LoadBalancer."
+  },
+  {
+    "id": 96,
+    "category": "Microservices",
+    "subCategory": "Security",
+    "difficulty": "Hard",
+    "question": "What is token propagation?",
+    "image": "",
+    "options": [
+      "Passing authentication token across services",
+      "Database replication",
+      "Cache refresh",
+      "Request retry"
+    ],
+    "correctAnswer": "Passing authentication token across services",
+    "explanation": "User identity is propagated across service calls."
+  },
+  {
+    "id": 97,
+    "category": "Microservices",
+    "subCategory": "Security",
+    "difficulty": "Hard",
+    "question": "What is Zero Trust Architecture?",
+    "image": "",
+    "options": [
+      "Trust all services",
+      "Verify every request",
+      "Disable security",
+      "Use VPN only"
+    ],
+    "correctAnswer": "Verify every request",
+    "explanation": "Zero Trust assumes no implicit trust."
+  },
+  {
+    "id": 98,
+    "category": "Microservices",
+    "subCategory": "Monitoring",
+    "difficulty": "Hard",
+    "question": "What is RED monitoring strategy?",
+    "image": "",
+    "options": [
+      "Rate, Errors, Duration",
+      "Read, Execute, Delete",
+      "Retry, Event, Deploy",
+      "Resource, Error, Database"
+    ],
+    "correctAnswer": "Rate, Errors, Duration",
+    "explanation": "RED is commonly used for service monitoring."
+  },
+  {
+    "id": 99,
+    "category": "Microservices",
+    "subCategory": "Monitoring",
+    "difficulty": "Hard",
+    "question": "What is SLI in Site Reliability Engineering?",
+    "image": "",
+    "options": [
+      "Service Level Indicator",
+      "System Level Instance",
+      "Service Log Index",
+      "Scaling Limit Index"
+    ],
+    "correctAnswer": "Service Level Indicator",
+    "explanation": "SLI measures a specific aspect of service reliability."
+  },
+  {
+    "id": 100,
+    "category": "Microservices",
+    "subCategory": "Monitoring",
+    "difficulty": "Hard",
+    "question": "What is SLO?",
+    "image": "",
+    "options": [
+      "Service Level Objective",
+      "System Logging Operation",
+      "Service Lock Operation",
+      "Security Layer Objective"
+    ],
+    "correctAnswer": "Service Level Objective",
+    "explanation": "SLO defines reliability targets for a service."
+  }
+
+
+]

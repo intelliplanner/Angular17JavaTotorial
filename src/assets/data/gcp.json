@@ -158,5 +158,807 @@
     ],
     "correctAnswer": "Cloud Storage",
     "explanation": "Cloud Storage is object storage frequently used as a source or staging location for analytics data."
+  },
+  {
+    "id": 51,
+    "category": "GCP",
+    "subCategory": "GKE",
+    "difficulty": "Easy",
+    "question": "What does GKE stand for?",
+    "image": "",
+    "options": [
+      "Google Kubernetes Engine",
+      "Google Kernel Environment",
+      "Global Kubernetes Environment",
+      "Google Key Engine"
+    ],
+    "correctAnswer": "Google Kubernetes Engine",
+    "explanation": "GKE is Google Cloud's managed Kubernetes service."
+  },
+  {
+    "id": 52,
+    "category": "GCP",
+    "subCategory": "GKE",
+    "difficulty": "Easy",
+    "question": "What is the primary purpose of GKE?",
+    "image": "",
+    "options": [
+      "Run and manage Kubernetes workloads",
+      "Store files",
+      "Manage DNS",
+      "Send emails"
+    ],
+    "correctAnswer": "Run and manage Kubernetes workloads",
+    "explanation": "GKE simplifies deployment, management, and scaling of containerized applications."
+  },
+  {
+    "id": 53,
+    "category": "GCP",
+    "subCategory": "Cloud Run",
+    "difficulty": "Easy",
+    "question": "What is Cloud Run?",
+    "image": "",
+    "options": [
+      "Serverless platform for containers",
+      "Database service",
+      "Monitoring service",
+      "Storage service"
+    ],
+    "correctAnswer": "Serverless platform for containers",
+    "explanation": "Cloud Run allows running stateless containers without managing infrastructure."
+  },
+  {
+    "id": 54,
+    "category": "GCP",
+    "subCategory": "Cloud Run",
+    "difficulty": "Medium",
+    "question": "What is a key benefit of Cloud Run?",
+    "image": "",
+    "options": [
+      "Automatic scaling",
+      "Manual scaling only",
+      "Dedicated hardware requirement",
+      "No container support"
+    ],
+    "correctAnswer": "Automatic scaling",
+    "explanation": "Cloud Run automatically scales based on incoming requests."
+  },
+  {
+    "id": 55,
+    "category": "GCP",
+    "subCategory": "PubSub",
+    "difficulty": "Easy",
+    "question": "What is Google Cloud Pub/Sub?",
+    "image": "",
+    "options": [
+      "Messaging service",
+      "Storage service",
+      "Kubernetes service",
+      "Database service"
+    ],
+    "correctAnswer": "Messaging service",
+    "explanation": "Pub/Sub enables asynchronous communication between applications."
+  },
+  {
+    "id": 56,
+    "category": "GCP",
+    "subCategory": "PubSub",
+    "difficulty": "Medium",
+    "question": "Which communication model does Pub/Sub use?",
+    "image": "",
+    "options": [
+      "Publish-Subscribe",
+      "Request-Response",
+      "Client-Server",
+      "Peer-to-Peer"
+    ],
+    "correctAnswer": "Publish-Subscribe",
+    "explanation": "Publishers send messages to topics and subscribers consume them."
+  },
+  {
+    "id": 57,
+    "category": "GCP",
+    "subCategory": "GCS",
+    "difficulty": "Easy",
+    "question": "What is Google Cloud Storage (GCS)?",
+    "image": "",
+    "options": [
+      "Object Storage Service",
+      "Relational Database",
+      "Messaging System",
+      "Load Balancer"
+    ],
+    "correctAnswer": "Object Storage Service",
+    "explanation": "GCS provides scalable and durable object storage."
+  },
+  {
+    "id": 58,
+    "category": "GCP",
+    "subCategory": "GCS",
+    "difficulty": "Medium",
+    "question": "What is a bucket in GCS?",
+    "image": "",
+    "options": [
+      "Container for storing objects",
+      "Kubernetes node",
+      "Database schema",
+      "Virtual machine"
+    ],
+    "correctAnswer": "Container for storing objects",
+    "explanation": "Buckets are the basic containers that hold files in Cloud Storage."
+  },
+  {
+    "id": 59,
+    "category": "GCP",
+    "subCategory": "GCS",
+    "difficulty": "Medium",
+    "question": "Which storage class is typically used for frequently accessed data?",
+    "image": "",
+    "options": [
+      "Standard",
+      "Archive",
+      "Coldline",
+      "Nearline"
+    ],
+    "correctAnswer": "Standard",
+    "explanation": "Standard storage is optimized for hot and frequently accessed data."
+  },
+  {
+    "id": 60,
+    "category": "GCP",
+    "subCategory": "IAM",
+    "difficulty": "Easy",
+    "question": "What is IAM in GCP?",
+    "image": "",
+    "options": [
+      "Identity and Access Management",
+      "Instance Access Management",
+      "Internet Access Module",
+      "Internal Application Manager"
+    ],
+    "correctAnswer": "Identity and Access Management",
+    "explanation": "IAM controls authentication and authorization in Google Cloud."
+  },
+  {
+    "id": 61,
+    "category": "GCP",
+    "subCategory": "IAM",
+    "difficulty": "Medium",
+    "question": "What are IAM roles used for?",
+    "image": "",
+    "options": [
+      "Grant permissions",
+      "Create networks",
+      "Store objects",
+      "Deploy containers"
+    ],
+    "correctAnswer": "Grant permissions",
+    "explanation": "Roles define what actions a user or service account can perform."
+  },
+  {
+    "id": 62,
+    "category": "GCP",
+    "subCategory": "IAM",
+    "difficulty": "Medium",
+    "question": "What is a Service Account?",
+    "image": "",
+    "options": [
+      "Identity for applications and services",
+      "Storage account",
+      "Database account",
+      "Billing account"
+    ],
+    "correctAnswer": "Identity for applications and services",
+    "explanation": "Service Accounts allow applications to securely access Google Cloud resources."
+  },
+  {
+    "id": 63,
+    "category": "GCP",
+    "subCategory": "GKE",
+    "difficulty": "Medium",
+    "question": "What is a node pool in GKE?",
+    "image": "",
+    "options": [
+      "Group of worker nodes",
+      "Database cluster",
+      "Messaging queue",
+      "Storage bucket"
+    ],
+    "correctAnswer": "Group of worker nodes",
+    "explanation": "Node pools allow managing groups of nodes with similar configurations."
+  },
+  {
+    "id": 64,
+    "category": "GCP",
+    "subCategory": "GKE",
+    "difficulty": "Hard",
+    "question": "What is Autopilot mode in GKE?",
+    "image": "",
+    "options": [
+      "Fully managed Kubernetes operations",
+      "Manual node management",
+      "Static scaling only",
+      "Dedicated networking mode"
+    ],
+    "correctAnswer": "Fully managed Kubernetes operations",
+    "explanation": "Autopilot automatically handles node provisioning, scaling, and maintenance."
+  },
+  {
+    "id": 65,
+    "category": "GCP",
+    "subCategory": "Cloud Run",
+    "difficulty": "Medium",
+    "question": "What type of applications are best suited for Cloud Run?",
+    "image": "",
+    "options": [
+      "Stateless containerized applications",
+      "Mainframe applications",
+      "Desktop apps",
+      "Local scripts only"
+    ],
+    "correctAnswer": "Stateless containerized applications",
+    "explanation": "Cloud Run is optimized for stateless services packaged as containers."
+  },
+  {
+    "id": 66,
+    "category": "GCP",
+    "subCategory": "PubSub",
+    "difficulty": "Medium",
+    "question": "What is a Pub/Sub Topic?",
+    "image": "",
+    "options": [
+      "Message channel",
+      "Bucket",
+      "Dataset",
+      "Cluster"
+    ],
+    "correctAnswer": "Message channel",
+    "explanation": "Publishers send messages to topics for subscribers to consume."
+  },
+  {
+    "id": 67,
+    "category": "GCP",
+    "subCategory": "PubSub",
+    "difficulty": "Medium",
+    "question": "What is a Pub/Sub Subscription?",
+    "image": "",
+    "options": [
+      "Message receiver configuration",
+      "VM instance",
+      "Storage class",
+      "IAM role"
+    ],
+    "correctAnswer": "Message receiver configuration",
+    "explanation": "Subscriptions allow applications to receive messages from topics."
+  },
+  {
+    "id": 68,
+    "category": "GCP",
+    "subCategory": "Cloud SQL",
+    "difficulty": "Easy",
+    "question": "What is Cloud SQL?",
+    "image": "",
+    "options": [
+      "Managed relational database service",
+      "Messaging platform",
+      "Monitoring service",
+      "Container registry"
+    ],
+    "correctAnswer": "Managed relational database service",
+    "explanation": "Cloud SQL supports MySQL, PostgreSQL, and SQL Server."
+  },
+  {
+    "id": 69,
+    "category": "GCP",
+    "subCategory": "Cloud SQL",
+    "difficulty": "Medium",
+    "question": "Which databases are supported by Cloud SQL?",
+    "image": "",
+    "options": [
+      "MySQL, PostgreSQL, SQL Server",
+      "Oracle only",
+      "MongoDB only",
+      "Cassandra only"
+    ],
+    "correctAnswer": "MySQL, PostgreSQL, SQL Server",
+    "explanation": "Cloud SQL is a fully managed service for these relational databases."
+  },
+  {
+    "id": 70,
+    "category": "GCP",
+    "subCategory": "VPC",
+    "difficulty": "Easy",
+    "question": "What is a VPC in GCP?",
+    "image": "",
+    "options": [
+      "Virtual Private Cloud",
+      "Virtual Process Controller",
+      "Versioned Project Cloud",
+      "Virtual Pod Cluster"
+    ],
+    "correctAnswer": "Virtual Private Cloud",
+    "explanation": "A VPC provides private networking for Google Cloud resources."
+  },
+  {
+    "id": 71,
+    "category": "GCP",
+    "subCategory": "VPC",
+    "difficulty": "Medium",
+    "question": "What is a subnet in a VPC?",
+    "image": "",
+    "options": [
+      "A segmented IP range",
+      "A bucket",
+      "A database",
+      "A service account"
+    ],
+    "correctAnswer": "A segmented IP range",
+    "explanation": "Subnets divide VPC networks into smaller address ranges."
+  },
+  {
+    "id": 72,
+    "category": "GCP",
+    "subCategory": "Load Balancing",
+    "difficulty": "Medium",
+    "question": "Why is Cloud Load Balancing used?",
+    "image": "",
+    "options": [
+      "Distribute traffic across resources",
+      "Store files",
+      "Run SQL queries",
+      "Manage IAM users"
+    ],
+    "correctAnswer": "Distribute traffic across resources",
+    "explanation": "Load balancing improves availability and scalability."
+  },
+  {
+    "id": 73,
+    "category": "GCP",
+    "subCategory": "Cloud Monitoring",
+    "difficulty": "Easy",
+    "question": "What is Cloud Monitoring used for?",
+    "image": "",
+    "options": [
+      "Observability and monitoring",
+      "Object storage",
+      "Container deployment",
+      "DNS management"
+    ],
+    "correctAnswer": "Observability and monitoring",
+    "explanation": "Cloud Monitoring collects metrics and provides dashboards and alerts."
+  },
+  {
+    "id": 74,
+    "category": "GCP",
+    "subCategory": "Cloud Logging",
+    "difficulty": "Easy",
+    "question": "What is Cloud Logging used for?",
+    "image": "",
+    "options": [
+      "Centralized log collection",
+      "Database replication",
+      "Network peering",
+      "Container runtime"
+    ],
+    "correctAnswer": "Centralized log collection",
+    "explanation": "Cloud Logging stores and analyzes logs from Google Cloud resources."
+  },
+  {
+    "id": 75,
+    "category": "GCP",
+    "subCategory": "Secret Manager",
+    "difficulty": "Medium",
+    "question": "What is Secret Manager used for?",
+    "image": "",
+    "options": [
+      "Secure storage of secrets",
+      "Store VM images",
+      "Manage Kubernetes clusters",
+      "Store log files"
+    ],
+    "correctAnswer": "Secure storage of secrets",
+    "explanation": "Secret Manager securely stores passwords, API keys, and certificates."
+  },
+  {
+    "id": 76,
+    "category": "GCP",
+    "subCategory": "GKE Advanced",
+    "difficulty": "Hard",
+    "question": "What is the purpose of a GKE Node Pool?",
+    "image": "",
+    "options": [
+      "Group nodes with the same configuration",
+      "Store application logs",
+      "Manage IAM roles",
+      "Create VPC networks"
+    ],
+    "correctAnswer": "Group nodes with the same configuration",
+    "explanation": "Node Pools allow managing groups of nodes with different machine types and configurations."
+  },
+  {
+    "id": 77,
+    "category": "GCP",
+    "subCategory": "GKE Advanced",
+    "difficulty": "Hard",
+    "question": "What is Workload Identity in GKE?",
+    "image": "",
+    "options": [
+      "Mapping Kubernetes service accounts to Google service accounts",
+      "A storage class",
+      "A logging solution",
+      "A networking plugin"
+    ],
+    "correctAnswer": "Mapping Kubernetes service accounts to Google service accounts",
+    "explanation": "Workload Identity provides secure authentication for pods without using service account keys."
+  },
+  {
+    "id": 78,
+    "category": "GCP",
+    "subCategory": "GKE Advanced",
+    "difficulty": "Hard",
+    "question": "What is the advantage of Workload Identity over service account keys?",
+    "image": "",
+    "options": [
+      "Improved security",
+      "Faster pod startup",
+      "More CPU",
+      "Larger storage"
+    ],
+    "correctAnswer": "Improved security",
+    "explanation": "It eliminates long-lived credentials and reduces key management risks."
+  },
+  {
+    "id": 79,
+    "category": "GCP",
+    "subCategory": "GKE Advanced",
+    "difficulty": "Hard",
+    "question": "Which GKE feature automatically scales the number of nodes?",
+    "image": "",
+    "options": [
+      "Cluster Autoscaler",
+      "Load Balancer",
+      "Pod Security Policy",
+      "Cloud Armor"
+    ],
+    "correctAnswer": "Cluster Autoscaler",
+    "explanation": "Cluster Autoscaler adds or removes nodes based on pod scheduling requirements."
+  },
+  {
+    "id": 80,
+    "category": "GCP",
+    "subCategory": "GKE Advanced",
+    "difficulty": "Hard",
+    "question": "What is Horizontal Pod Autoscaler (HPA)?",
+    "image": "",
+    "options": [
+      "Scales pods based on metrics",
+      "Scales disks",
+      "Creates clusters",
+      "Encrypts containers"
+    ],
+    "correctAnswer": "Scales pods based on metrics",
+    "explanation": "HPA scales pod replicas based on CPU, memory, or custom metrics."
+  },
+  {
+    "id": 81,
+    "category": "GCP",
+    "subCategory": "GKE Advanced",
+    "difficulty": "Hard",
+    "question": "What is Vertical Pod Autoscaler?",
+    "image": "",
+    "options": [
+      "Adjusts CPU and memory requests",
+      "Adds more nodes",
+      "Creates replicas",
+      "Monitors logs"
+    ],
+    "correctAnswer": "Adjusts CPU and memory requests",
+    "explanation": "VPA automatically recommends or updates container resource requests."
+  },
+  {
+    "id": 82,
+    "category": "GCP",
+    "subCategory": "GKE Advanced",
+    "difficulty": "Hard",
+    "question": "What is a GKE Ingress?",
+    "image": "",
+    "options": [
+      "HTTP/HTTPS routing resource",
+      "Storage bucket",
+      "Service account",
+      "Node image"
+    ],
+    "correctAnswer": "HTTP/HTTPS routing resource",
+    "explanation": "Ingress exposes applications externally through managed load balancing."
+  },
+  {
+    "id": 83,
+    "category": "GCP",
+    "subCategory": "GKE Advanced",
+    "difficulty": "Hard",
+    "question": "What is Anthos Service Mesh primarily used for?",
+    "image": "",
+    "options": [
+      "Observability, security, and traffic management",
+      "Object storage",
+      "VM deployment",
+      "DNS routing"
+    ],
+    "correctAnswer": "Observability, security, and traffic management",
+    "explanation": "Anthos Service Mesh provides advanced service-to-service communication capabilities."
+  },
+  {
+    "id": 84,
+    "category": "GCP",
+    "subCategory": "GKE Advanced",
+    "difficulty": "Hard",
+    "question": "What is the purpose of a Pod Disruption Budget?",
+    "image": "",
+    "options": [
+      "Limit simultaneous pod disruptions",
+      "Increase disk space",
+      "Manage IAM access",
+      "Configure DNS"
+    ],
+    "correctAnswer": "Limit simultaneous pod disruptions",
+    "explanation": "PDBs maintain application availability during maintenance and upgrades."
+  },
+  {
+    "id": 85,
+    "category": "GCP",
+    "subCategory": "GKE Advanced",
+    "difficulty": "Hard",
+    "question": "Which GKE feature helps isolate workloads at the node level?",
+    "image": "",
+    "options": [
+      "Node Taints and Tolerations",
+      "Cloud Storage",
+      "Cloud SQL",
+      "BigQuery"
+    ],
+    "correctAnswer": "Node Taints and Tolerations",
+    "explanation": "Taints and tolerations control pod placement on nodes."
+  },
+
+  {
+    "id": 86,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Easy",
+    "question": "What is Google Compute Engine?",
+    "image": "",
+    "options": [
+      "Infrastructure as a Service (IaaS)",
+      "Database Service",
+      "Messaging Service",
+      "Monitoring Tool"
+    ],
+    "correctAnswer": "Infrastructure as a Service (IaaS)",
+    "explanation": "Compute Engine provides virtual machines running in Google Cloud."
+  },
+  {
+    "id": 87,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Easy",
+    "question": "What is a VM instance in Compute Engine?",
+    "image": "",
+    "options": [
+      "Virtual Machine",
+      "Storage Bucket",
+      "Database",
+      "Container Registry"
+    ],
+    "correctAnswer": "Virtual Machine",
+    "explanation": "VM instances are virtual servers running on Google infrastructure."
+  },
+  {
+    "id": 88,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Medium",
+    "question": "What is an Instance Template?",
+    "image": "",
+    "options": [
+      "Blueprint for creating VM instances",
+      "Storage class",
+      "DNS zone",
+      "Database backup"
+    ],
+    "correctAnswer": "Blueprint for creating VM instances",
+    "explanation": "Instance Templates define machine settings used to create VMs."
+  },
+  {
+    "id": 89,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Medium",
+    "question": "What is a Managed Instance Group (MIG)?",
+    "image": "",
+    "options": [
+      "Group of VMs managed together",
+      "Database cluster",
+      "Storage bucket collection",
+      "Pub/Sub subscribers"
+    ],
+    "correctAnswer": "Group of VMs managed together",
+    "explanation": "MIGs support auto-healing, autoscaling, and rolling updates."
+  },
+  {
+    "id": 90,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Medium",
+    "question": "Which feature automatically replaces unhealthy VM instances?",
+    "image": "",
+    "options": [
+      "Autohealing",
+      "Load Balancing",
+      "BigQuery",
+      "Cloud SQL"
+    ],
+    "correctAnswer": "Autohealing",
+    "explanation": "Autohealing recreates unhealthy instances based on health checks."
+  },
+  {
+    "id": 91,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Medium",
+    "question": "What is a Preemptible VM?",
+    "image": "",
+    "options": [
+      "Low-cost VM that can be terminated by Google",
+      "Dedicated Host",
+      "Permanent VM",
+      "GPU Instance"
+    ],
+    "correctAnswer": "Low-cost VM that can be terminated by Google",
+    "explanation": "Preemptible VMs are cheaper but may be stopped at any time."
+  },
+  {
+    "id": 92,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Medium",
+    "question": "What is the main benefit of Preemptible VMs?",
+    "image": "",
+    "options": [
+      "Lower cost",
+      "More memory",
+      "Unlimited CPU",
+      "Permanent uptime"
+    ],
+    "correctAnswer": "Lower cost",
+    "explanation": "Preemptible VMs significantly reduce compute costs for fault-tolerant workloads."
+  },
+  {
+    "id": 93,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Hard",
+    "question": "What is a Custom Machine Type?",
+    "image": "",
+    "options": [
+      "VM with customized CPU and memory",
+      "Dedicated storage bucket",
+      "Kubernetes node pool",
+      "Serverless function"
+    ],
+    "correctAnswer": "VM with customized CPU and memory",
+    "explanation": "Custom machine types allow right-sizing workloads."
+  },
+  {
+    "id": 94,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Hard",
+    "question": "What is Live Migration in Compute Engine?",
+    "image": "",
+    "options": [
+      "Moving running VMs during maintenance",
+      "Migrating databases",
+      "Moving buckets",
+      "Changing IAM roles"
+    ],
+    "correctAnswer": "Moving running VMs during maintenance",
+    "explanation": "Live migration reduces downtime during infrastructure maintenance."
+  },
+  {
+    "id": 95,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Hard",
+    "question": "What is Shielded VM?",
+    "image": "",
+    "options": [
+      "Security-hardened VM",
+      "Containerized VM",
+      "Serverless VM",
+      "Archived VM"
+    ],
+    "correctAnswer": "Security-hardened VM",
+    "explanation": "Shielded VMs protect against rootkits and boot-level attacks."
+  },
+  {
+    "id": 96,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Hard",
+    "question": "What is Sole-Tenant Node?",
+    "image": "",
+    "options": [
+      "Dedicated physical server for one customer",
+      "Shared VM",
+      "Managed Kubernetes Node",
+      "Database Cluster"
+    ],
+    "correctAnswer": "Dedicated physical server for one customer",
+    "explanation": "Sole-Tenant Nodes provide isolation and compliance controls."
+  },
+  {
+    "id": 97,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Hard",
+    "question": "Which disk type provides the highest IOPS performance?",
+    "image": "",
+    "options": [
+      "Local SSD",
+      "Standard Persistent Disk",
+      "Coldline Storage",
+      "Archive Storage"
+    ],
+    "correctAnswer": "Local SSD",
+    "explanation": "Local SSD offers the highest throughput and lowest latency."
+  },
+  {
+    "id": 98,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Hard",
+    "question": "What is the advantage of Managed Instance Groups over standalone VMs?",
+    "image": "",
+    "options": [
+      "Auto-scaling and auto-healing",
+      "Free networking",
+      "Unlimited storage",
+      "No billing"
+    ],
+    "correctAnswer": "Auto-scaling and auto-healing",
+    "explanation": "MIGs automate scaling, updates, and recovery operations."
+  },
+  {
+    "id": 99,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Hard",
+    "question": "Which Compute Engine feature supports rolling updates?",
+    "image": "",
+    "options": [
+      "Managed Instance Group",
+      "Cloud Storage",
+      "BigQuery",
+      "Pub/Sub"
+    ],
+    "correctAnswer": "Managed Instance Group",
+    "explanation": "MIGs provide controlled rolling deployments."
+  },
+  {
+    "id": 100,
+    "category": "GCP",
+    "subCategory": "Compute Engine",
+    "difficulty": "Hard",
+    "question": "What is the recommended architecture for highly available Compute Engine applications?",
+    "image": "",
+    "options": [
+      "Load Balancer + Managed Instance Groups across zones",
+      "Single VM",
+      "One storage bucket",
+      "Single zone deployment"
+    ],
+    "correctAnswer": "Load Balancer + Managed Instance Groups across zones",
+    "explanation": "This architecture provides redundancy, scalability, and fault tolerance."
   }
+
 ]

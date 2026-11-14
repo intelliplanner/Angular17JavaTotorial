@@ -1,5 +1,5 @@
 <main class="review-shell" *ngIf="result && question; else noReview">
-  <header class="review-heading"><div><span class="eyebrow">ANSWER REVIEW</span><h1>Learn from every question</h1><p>{{ result.category }} · {{ result.subCategory }} · {{ result.difficulty }}</p></div><a class="btn btn-outline-secondary" routerLink="/quiz/result">← Results</a></header>
+  <header class="review-heading"><div><span class="eyebrow">ANSWER REVIEW</span><h1>Learn from every question</h1><p>{{ result.category }} · {{ result.subCategory || 'All subcategories' }} · {{ result.difficulty }}</p></div><a class="btn btn-outline-secondary" routerLink="/quiz/result">← Results</a></header>
   <div class="review-layout">
     <nav class="review-nav"><h2>Questions</h2><button *ngFor="let item of result.answers; let i = index" [class.current]="i === index" [class.correct]="item.selectedAnswer === result.questions[i].correctAnswer" [class.incorrect]="item.selectedAnswer !== null && item.selectedAnswer !== result.questions[i].correctAnswer" (click)="index = i">{{ i + 1 }}</button></nav>
     <article class="review-card">

@@ -44,7 +44,7 @@ export class JavaNotesComponent implements OnInit {
       });
 
 
-    // Load categories.json
+    // Load categorized notes topics.
     this.http.get<{ [key: string]: string[] }>(
       `${environment.apiUrl}/assets/json_files/categorized_topic.json`
     ).subscribe({

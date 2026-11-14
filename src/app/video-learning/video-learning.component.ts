@@ -85,6 +85,10 @@ export class VideoLearningComponent implements OnInit {
     return this.categories.find(item => item.name === category)?.color ?? '#263f50';
   }
 
+  isDirectVideo(video: LearningVideo): boolean {
+    return new URL(video.youtubeUrl).pathname === '/watch';
+  }
+
   selectVideo(video: LearningVideo): void {
     this.selectedVideo = video;
   }

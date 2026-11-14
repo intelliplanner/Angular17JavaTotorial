@@ -4,6 +4,7 @@ import { of } from 'rxjs';
 import { ContentService } from './content.service';
 import { ContentHubComponent } from './content-hub.component';
 import { InterviewQuestion, Tutorial } from './content.models';
+import { CategoryService } from '../quiz/services/category.service';
 
 describe('ContentHubComponent', () => {
   let contentService: jasmine.SpyObj<ContentService>;
@@ -38,6 +39,15 @@ describe('ContentHubComponent', () => {
         provideRouter([]),
         { provide: ContentService, useValue: contentService },
         {
+          provide: CategoryService,
+          useValue: {
+            getCategories: () => of([{
+              name: 'Java',
+              subCategories: ['Basics', 'Collections']
+            }])
+          }
+        },
+        {
           provide: ActivatedRoute,
           useValue: {
             get snapshot() {
@@ -61,6 +71,8 @@ describe('ContentHubComponent', () => {
     expect(fixture.nativeElement.textContent).toContain('Java Collections');
     expect(fixture.componentInstance.filteredQuestions.length).toBe(1);
     expect(fixture.nativeElement.textContent).not.toContain('tutorials.json');
+    expect(fixture.componentInstance.categories).toEqual(['Java']);
+    expect(fixture.componentInstance.questionSubCategories).toEqual(['Basics', 'Collections']);
   });
 
   it('filters tutorials by search text and difficulty', () => {
