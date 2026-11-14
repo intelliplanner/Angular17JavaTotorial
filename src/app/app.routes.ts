@@ -27,8 +27,10 @@ export const routes: Routes = [
     children: [
       { path: 'javaNotes', component: JavaNotesComponent, title: 'Java Notes', data: { permission: 'learn' } },
       { path: 'categorizedNotes', component: CategorizedNotesComponent, title: 'Categorized Notes', data: { permission: 'learn' } },
+      { path: 'tutorials', loadComponent: () => import('./content-hub/content-hub.component').then(module => module.ContentHubComponent), title: 'Tutorials & Interview Q&A', data: { permission: 'learn' } },
       { path: 'home', component: HomeComponent, title: 'Tech Interview Hub', data: { permission: 'home' } },
       { path: 'dashboard', redirectTo: 'home', pathMatch: 'full', data: { permission: 'home' } },
+      { path: 'admin-panel', loadComponent: () => import('./content-hub/content-hub.component').then(module => module.ContentHubComponent), title: 'Admin Panel', data: { permission: 'admin' } },
       { path: 'interior-sample', component: InteriorSampleComponent, title: 'Interior Sample', data: { permission: 'admin' } },
       { path: 'interview', component: InterviewQuestionsComponent, title: 'Interview', data: { permission: 'admin' } },
       { path: 'myJavaNotes', component: JavaNotesComponent, title: 'Java Notes', data: { permission: 'learn' } },

@@ -1,0 +1,53 @@
+[
+  {
+    "id": "java-equals-hashcode-contract",
+    "category": "Java",
+    "subCategory": "Collections",
+    "question": "What contract should equals() and hashCode() follow when an object is used as a HashMap key?",
+    "answer": "If two objects are equal according to equals(), they must return the same hashCode(). Unequal objects may share a hash code, but a good hash function reduces collisions. Both methods should use the same identity fields, and fields used in the hash should not change while the object is used as a key.",
+    "difficulty": "Intermediate",
+    "tags": [
+      "Java",
+      "HashMap",
+      "Object Contract"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 18,
+    "dislikeCount": 1,
+    "viewCount": 126
+  },
+  {
+    "id": "spring-dependency-injection",
+    "category": "Spring Boot",
+    "subCategory": "Basics",
+    "question": "What is dependency injection, and why is constructor injection commonly preferred?",
+    "answer": "Dependency injection supplies an object with the collaborators it needs instead of having it construct them. Constructor injection makes required dependencies explicit, supports immutable fields, and makes classes easier to instantiate and test without relying on reflection or partially initialized objects.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Spring Boot",
+      "Dependency Injection",
+      "Testing"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 12,
+    "dislikeCount": 0,
+    "viewCount": 94
+  },
+  {
+    "id": "kubernetes-service-purpose",
+    "category": "Kubernetes",
+    "subCategory": "Services",
+    "question": "Why use a Kubernetes Service in front of a set of Pods?",
+    "answer": "Pod IPs are ephemeral and Pods can be replaced. A Service provides a stable virtual IP and DNS name and selects matching Pods, distributing traffic among the ready endpoints according to the Service type and cluster networking implementation.",
+    "difficulty": "Beginner",
+    "tags": [
+      "Kubernetes",
+      "Services",
+      "Networking"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 21,
+    "dislikeCount": 2,
+    "viewCount": 173
+  }
+]

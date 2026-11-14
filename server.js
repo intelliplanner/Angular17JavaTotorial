@@ -565,6 +565,211 @@ app.post('/uploadPdf', requirePermission('admin'), upload.single('pdfFile'), (re
 
 // ----------------------------- Save Interview Q&A -----------------------------
 const qaFilePath = path.join(__dirname, 'src', 'assets', 'json_files', 'interview_question_answer.json');
+const tutorialsFilePath = path.join(__dirname, 'src', 'assets', 'data', 'tutorials.json');
+const interviewQaFilePath = path.join(__dirname, 'src', 'assets', 'data', 'questions-and-answers.json');
+
+function readContentList(filePath) {
+  const value = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  if (!Array.isArray(value)) {
+    throw new Error(`Expected a JSON array in ${path.basename(filePath)}.`);
+  }
+  return value;
+}
+
+function writeContentList(filePath, items) {
+  fs.writeFileSync(filePath, `${JSON.stringify(items, null, 2)}\n`, 'utf8');
+}
+
+function normalizeTags(value) {
+  return Array.isArray(value)
+    ? value.filter(tag => typeof tag === 'string').map(tag => tag.trim()).filter(Boolean).slice(0, 20)
+    : [];
+}
+
+function validateContentText(value, label, maximum) {
+  if (typeof value !== 'string' || !value.trim() || value.trim().length > maximum) {
+    return `${label} is required and must be no longer than ${maximum} characters.`;
+  }
+  return '';
+}
+
+function normalizeTutorial(payload, previous = {}) {
+  const tutorial = { ...previous, ...payload };
+  for (const [field, maximum] of Object.entries({
+    title: 180, category: 80, subCategory: 100, description: 400, content: 50000
+  })) {
+    const error = validateContentText(tutorial[field], field, maximum);
+    if (error) return { error };
+  }
+  if (!['Beginner', 'Intermediate', 'Advanced'].includes(tutorial.difficulty)) {
+    return { error: 'difficulty must be Beginner, Intermediate, or Advanced.' };
+  }
+  return {
+    value: {
+      ...tutorial,
+      title: tutorial.title.trim(),
+      category: tutorial.category.trim(),
+      subCategory: tutorial.subCategory.trim(),
+      description: tutorial.description.trim(),
+      content: tutorial.content.trim(),
+      difficulty: tutorial.difficulty,
+      tags: normalizeTags(tutorial.tags),
+      published: tutorial.published === true,
+      author: typeof tutorial.author === 'string' && tutorial.author.trim()
+        ? tutorial.author.trim().slice(0, 100)
+        : 'Tech Interview Hub'
+    }
+  };
+}
+
+function normalizeInterviewQuestion(payload, previous = {}) {
+  const question = { ...previous, ...payload };
+  for (const [field, maximum] of Object.entries({
+    category: 80, subCategory: 100, question: 1000, answer: 20000
+  })) {
+    const error = validateContentText(question[field], field, maximum);
+    if (error) return { error };
+  }
+  if (!['Beginner', 'Intermediate', 'Advanced'].includes(question.difficulty)) {
+    return { error: 'difficulty must be Beginner, Intermediate, or Advanced.' };
+  }
+  return {
+    value: {
+      ...question,
+      category: question.category.trim(),
+      subCategory: question.subCategory.trim(),
+      question: question.question.trim(),
+      answer: question.answer.trim(),
+      tags: normalizeTags(question.tags),
+      likeCount: Number.isInteger(question.likeCount) && question.likeCount >= 0 ? question.likeCount : 0,
+      dislikeCount: Number.isInteger(question.dislikeCount) && question.dislikeCount >= 0 ? question.dislikeCount : 0,
+      viewCount: Number.isInteger(question.viewCount) && question.viewCount >= 0 ? question.viewCount : 0
+    }
+  };
+}
+
+app.get('/api/tutorials', (request, response) => {
+  try {
+    response.set('Cache-Control', 'no-store');
+    response.json(readContentList(tutorialsFilePath).filter(tutorial => tutorial.published === true));
+  } catch (error) {
+    console.error('Error reading tutorials:', error);
+    response.status(500).json({ message: 'Could not load tutorials.' });
+  }
+});
+
+app.get('/api/admin/tutorials', requirePermission('admin'), (request, response) => {
+  try {
+    response.set('Cache-Control', 'no-store');
+    response.json(readContentList(tutorialsFilePath));
+  } catch (error) {
+    console.error('Error reading tutorials for administration:', error);
+    response.status(500).json({ message: 'Could not load tutorials.' });
+  }
+});
+
+app.post('/api/tutorials', requirePermission('admin'), (request, response) => {
+  const result = normalizeTutorial(request.body || {});
+  if (result.error) return response.status(400).json({ message: result.error });
+  try {
+    const tutorials = readContentList(tutorialsFilePath);
+    const tutorial = {
+      ...result.value,
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    tutorials.unshift(tutorial);
+    writeContentList(tutorialsFilePath, tutorials);
+    response.status(201).json(tutorial);
+  } catch (error) {
+    console.error('Error creating tutorial:', error);
+    response.status(500).json({ message: 'Could not create tutorial.' });
+  }
+});
+
+app.put('/api/tutorials/:id', requirePermission('admin'), (request, response) => {
+  try {
+    const tutorials = readContentList(tutorialsFilePath);
+    const index = tutorials.findIndex(tutorial => tutorial.id === request.params.id);
+    if (index < 0) return response.status(404).json({ message: 'Tutorial not found.' });
+    const result = normalizeTutorial(request.body || {}, tutorials[index]);
+    if (result.error) return response.status(400).json({ message: result.error });
+    tutorials[index] = { ...result.value, id: tutorials[index].id, createdAt: tutorials[index].createdAt, updatedAt: new Date().toISOString() };
+    writeContentList(tutorialsFilePath, tutorials);
+    response.json(tutorials[index]);
+  } catch (error) {
+    console.error('Error updating tutorial:', error);
+    response.status(500).json({ message: 'Could not update tutorial.' });
+  }
+});
+
+app.delete('/api/tutorials/:id', requirePermission('admin'), (request, response) => {
+  try {
+    const tutorials = readContentList(tutorialsFilePath);
+    const remaining = tutorials.filter(tutorial => tutorial.id !== request.params.id);
+    if (remaining.length === tutorials.length) return response.status(404).json({ message: 'Tutorial not found.' });
+    writeContentList(tutorialsFilePath, remaining);
+    response.status(204).end();
+  } catch (error) {
+    console.error('Error deleting tutorial:', error);
+    response.status(500).json({ message: 'Could not delete tutorial.' });
+  }
+});
+
+app.get('/api/questions', (request, response) => {
+  try {
+    response.set('Cache-Control', 'no-store');
+    response.json(readContentList(interviewQaFilePath));
+  } catch (error) {
+    console.error('Error reading interview Q&A:', error);
+    response.status(500).json({ message: 'Could not load interview questions.' });
+  }
+});
+
+app.post('/api/questions', requirePermission('admin'), (request, response) => {
+  const result = normalizeInterviewQuestion(request.body || {});
+  if (result.error) return response.status(400).json({ message: result.error });
+  try {
+    const questions = readContentList(interviewQaFilePath);
+    const question = { ...result.value, id: crypto.randomUUID(), createdAt: new Date().toISOString() };
+    questions.unshift(question);
+    writeContentList(interviewQaFilePath, questions);
+    response.status(201).json(question);
+  } catch (error) {
+    console.error('Error creating interview question:', error);
+    response.status(500).json({ message: 'Could not create interview question.' });
+  }
+});
+
+app.put('/api/questions/:id', requirePermission('admin'), (request, response) => {
+  try {
+    const questions = readContentList(interviewQaFilePath);
+    const index = questions.findIndex(question => question.id === request.params.id);
+    if (index < 0) return response.status(404).json({ message: 'Question not found.' });
+    const result = normalizeInterviewQuestion(request.body || {}, questions[index]);
+    if (result.error) return response.status(400).json({ message: result.error });
+    questions[index] = { ...result.value, id: questions[index].id, createdAt: questions[index].createdAt };
+    writeContentList(interviewQaFilePath, questions);
+    response.json(questions[index]);
+  } catch (error) {
+    console.error('Error updating interview question:', error);
+    response.status(500).json({ message: 'Could not update interview question.' });
+  }
+});
+
+app.delete('/api/questions/:id', requirePermission('admin'), (request, response) => {
+  try {
+    const questions = readContentList(interviewQaFilePath);
+    const remaining = questions.filter(question => question.id !== request.params.id);
+    if (remaining.length === questions.length) return response.status(404).json({ message: 'Question not found.' });
+    writeContentList(interviewQaFilePath, remaining);
+    response.status(204).end();
+  } catch (error) {
+    console.error('Error deleting interview question:', error);
+    response.status(500).json({ message: 'Could not delete interview question.' });
+  }
+});
 
 // Ensure file exists
 if (!fs.existsSync(qaFilePath)) {

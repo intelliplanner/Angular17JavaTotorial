@@ -1,0 +1,241 @@
+<main class="content-page container-xl">
+  <header class="page-heading">
+    <div>
+      <a routerLink="/home" class="breadcrumb-link"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+      <p class="eyebrow">{{ isAdminPanel ? 'CONTENT WORKSPACE' : 'LEARN · PRACTICE · GROW' }}</p>
+      <h1>{{ isAdminPanel ? 'Admin panel' : 'Tutorials & interview questions' }}</h1>
+      <p class="intro">{{ isAdminPanel
+        ? 'Create, edit, publish, and organize learning content.'
+        : 'Focused tutorials and interview answers to help you build practical skills.' }}</p>
+    </div>
+    <div class="page-actions">
+      <span class="stat-chip"><i class="fa-regular fa-bookmark"></i>
+        {{ bookmarkedTutorials.size + bookmarkedQuestions.size }} saved</span>
+      <span *ngIf="isAdminPanel" class="admin-chip"><i class="fa-solid fa-shield-halved"></i> Admin access</span>
+    </div>
+  </header>
+
+  <div *ngIf="notification" class="notice" role="status">{{ notification }}</div>
+  <div *ngIf="loading" class="loading-state"><span class="spinner-border spinner-border-sm"></span> Loading learning content…</div>
+
+  <ng-container *ngIf="!loading">
+    <ng-container *ngIf="!isAdminPanel">
+      <nav class="content-tabs" aria-label="Learning content">
+        <button type="button" [class.active]="view === 'tutorials'" (click)="changeView('tutorials')">
+          <i class="fa-solid fa-book-open"></i> Tutorials <span>{{ filteredTutorials.length }}</span>
+        </button>
+        <button type="button" [class.active]="view === 'questions'" (click)="changeView('questions')">
+          <i class="fa-regular fa-circle-question"></i> Interview Q&amp;A <span>{{ filteredQuestions.length }}</span>
+        </button>
+      </nav>
+
+      <section *ngIf="!selectedTutorial && view === 'tutorials'" class="workspace">
+        <div class="filter-panel">
+          <label class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input [(ngModel)]="searchText" type="search" placeholder="Search tutorials, topics, or tags" aria-label="Search tutorials">
+          </label>
+          <select [(ngModel)]="selectedCategory" (ngModelChange)="selectCategory($event)" aria-label="Filter by category">
+            <option value="">All categories</option><option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          </select>
+          <select [(ngModel)]="selectedSubCategory" aria-label="Filter by subcategory" [disabled]="!selectedCategory">
+            <option value="">All topics</option><option *ngFor="let topic of subCategories" [value]="topic">{{ topic }}</option>
+          </select>
+          <select [(ngModel)]="selectedDifficulty" aria-label="Filter by difficulty">
+            <option value="">All levels</option><option *ngFor="let level of difficulties" [value]="level">{{ level }}</option>
+          </select>
+        </div>
+
+        <div *ngIf="filteredTutorials.length; else noTutorials" class="tutorial-grid">
+          <article *ngFor="let tutorial of filteredTutorials" class="tutorial-card">
+            <div class="card-topline"><span class="category-label">{{ tutorial.category }} <span aria-hidden="true">/</span> {{ tutorial.subCategory }}</span>
+              <button type="button" class="icon-button" (click)="toggleTutorialBookmark(tutorial.id)"
+                [attr.aria-label]="isTutorialBookmarked(tutorial.id) ? 'Remove bookmark' : 'Bookmark tutorial'">
+                <i [class]="isTutorialBookmarked(tutorial.id) ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'"></i>
+              </button>
+            </div>
+            <h2>{{ tutorial.title }}</h2>
+            <p class="card-description">{{ tutorial.description }}</p>
+            <div class="tag-row"><span class="level-tag">{{ tutorial.difficulty }}</span><span *ngFor="let tag of tutorial.tags.slice(0, 3)" class="tag">{{ tag }}</span></div>
+            <div class="card-footer">
+              <span><i class="fa-regular fa-clock"></i> {{ isTutorialRead(tutorial.id) ? 'Completed' : '5–8 min read' }}</span>
+              <button type="button" class="text-action" (click)="openTutorial(tutorial)">Read tutorial <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+          </article>
+        </div>
+        <ng-template #noTutorials><div class="empty-state"><i class="fa-regular fa-folder-open"></i><h2>No tutorials found</h2><p>Try changing your search or filters.</p></div></ng-template>
+      </section>
+
+      <article *ngIf="selectedTutorial && view === 'tutorials'" class="reading-layout">
+        <section class="reading-main">
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <button type="button" (click)="selectedTutorial = null">Tutorials</button><span>/</span>
+            <button type="button" (click)="selectCategory(selectedTutorial.category)">{{ selectedTutorial.category }}</button><span>/</span>
+            <span>{{ selectedTutorial.subCategory }}</span>
+          </nav>
+          <div class="article-meta"><span class="category-label">{{ selectedTutorial.category }} · {{ selectedTutorial.subCategory }}</span><span class="level-tag">{{ selectedTutorial.difficulty }}</span></div>
+          <h1 class="article-title">{{ selectedTutorial.title }}</h1>
+          <p class="article-description">{{ selectedTutorial.description }}</p>
+          <div class="author-line"><i class="fa-regular fa-user"></i> {{ selectedTutorial.author || 'Tech Interview Hub' }}
+            <span>Updated {{ selectedTutorial.updatedAt | date:'mediumDate' }}</span>
+          </div>
+          <div class="article-tools">
+            <button type="button" (click)="toggleTutorialBookmark(selectedTutorial.id)">
+              <i [class]="isTutorialBookmarked(selectedTutorial.id) ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'"></i>
+              {{ isTutorialBookmarked(selectedTutorial.id) ? 'Saved' : 'Bookmark' }}
+            </button>
+            <button type="button" (click)="share('/tutorials', selectedTutorial.title)"><i class="fa-solid fa-arrow-up-from-bracket"></i> Share</button>
+          </div>
+          <div class="article-content">
+            <ng-container *ngFor="let section of selectedTutorial.content.split('\n\n')">
+              <h2 *ngIf="section.startsWith('## '); else paragraph">{{ section.slice(3) }}</h2>
+              <ng-template #paragraph><p>{{ section }}</p></ng-template>
+            </ng-container>
+          </div>
+          <div class="read-complete">
+            <div><strong>{{ isTutorialRead(selectedTutorial.id) ? 'Lesson completed' : 'Finished this lesson?' }}</strong><p>Keep track of your progress as you work through the learning path.</p></div>
+            <button type="button" class="primary-button" (click)="markTutorialRead(selectedTutorial)">
+              <i [class]="isTutorialRead(selectedTutorial.id) ? 'fa-solid fa-check' : 'fa-regular fa-circle-check'"></i>
+              {{ isTutorialRead(selectedTutorial.id) ? 'Completed' : 'Mark as read' }}
+            </button>
+          </div>
+          <div class="article-pager">
+            <button type="button" (click)="goToTutorial(-1)" [disabled]="selectedTutorialIndex <= 0"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+            <button type="button" (click)="goToTutorial(1)" [disabled]="selectedTutorialIndex < 0 || selectedTutorialIndex >= filteredTutorials.length - 1">Next tutorial <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </section>
+        <aside class="related-panel">
+          <h2>Related tutorials</h2>
+          <button *ngFor="let related of relatedTutorials" type="button" class="related-link" (click)="openTutorial(related)">
+            <span>{{ related.subCategory }}</span><strong>{{ related.title }}</strong><i class="fa-solid fa-arrow-right"></i>
+          </button>
+          <p *ngIf="!relatedTutorials.length" class="muted">More lessons for this path are coming soon.</p>
+        </aside>
+      </article>
+
+      <section *ngIf="view === 'questions'" class="workspace">
+        <div class="filter-panel">
+          <label class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input [(ngModel)]="searchText" type="search" placeholder="Search interview questions" aria-label="Search questions"></label>
+          <select [(ngModel)]="selectedCategory" (ngModelChange)="selectCategory($event)" aria-label="Filter by category">
+            <option value="">All categories</option><option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          </select>
+          <select [(ngModel)]="selectedSubCategory" aria-label="Filter by subcategory" [disabled]="!selectedCategory">
+            <option value="">All topics</option><option *ngFor="let topic of subCategories" [value]="topic">{{ topic }}</option>
+          </select>
+          <select [(ngModel)]="selectedDifficulty" aria-label="Filter by difficulty">
+            <option value="">All levels</option><option *ngFor="let level of difficulties" [value]="level">{{ level }}</option>
+          </select>
+        </div>
+        <div *ngIf="filteredQuestions.length; else noQuestions" class="question-list">
+          <article *ngFor="let question of filteredQuestions" class="question-card">
+            <div class="card-topline"><span class="category-label">{{ question.category }} <span aria-hidden="true">/</span> {{ question.subCategory }}</span>
+              <button type="button" class="icon-button" (click)="toggleQuestionBookmark(question.id)" [attr.aria-label]="isQuestionBookmarked(question.id) ? 'Remove bookmark' : 'Bookmark question'">
+                <i [class]="isQuestionBookmarked(question.id) ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'"></i>
+              </button>
+            </div>
+            <h2>{{ question.question }}</h2>
+            <div class="tag-row"><span class="level-tag">{{ question.difficulty }}</span><span *ngFor="let tag of question.tags" class="tag">{{ tag }}</span></div>
+            <div *ngIf="showAnswer[question.id]" class="answer-content"><strong>Answer</strong><p>{{ question.answer }}</p></div>
+            <div class="question-footer">
+              <div class="vote-actions">
+                <button type="button" [class.selected]="votes[question.id] === 'like'" (click)="vote(question, 'like')" [attr.aria-label]="'Like, ' + voteCount(question, 'like')">
+                  <i class="fa-regular fa-thumbs-up"></i> {{ voteCount(question, 'like') }}
+                </button>
+                <button type="button" [class.selected]="votes[question.id] === 'dislike'" (click)="vote(question, 'dislike')" [attr.aria-label]="'Dislike, ' + voteCount(question, 'dislike')">
+                  <i class="fa-regular fa-thumbs-down"></i> {{ voteCount(question, 'dislike') }}
+                </button>
+                <span><i class="fa-regular fa-eye"></i> {{ question.viewCount }}</span>
+              </div>
+              <div class="question-actions">
+                <button type="button" class="quiet-action" (click)="copyQuestion(question)"><i class="fa-regular fa-copy"></i> Copy</button>
+                <button type="button" class="quiet-action" (click)="share('/tutorials?view=questions', question.question)"><i class="fa-solid fa-arrow-up-from-bracket"></i> Share</button>
+                <button type="button" class="text-action" (click)="markQuestionViewed(question)">{{ showAnswer[question.id] ? 'Hide answer' : 'Show answer' }} <i [class]="showAnswer[question.id] ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'"></i></button>
+              </div>
+            </div>
+          </article>
+        </div>
+        <ng-template #noQuestions><div class="empty-state"><i class="fa-regular fa-comments"></i><h2>No questions found</h2><p>Try changing your search or filters.</p></div></ng-template>
+      </section>
+    </ng-container>
+
+    <ng-container *ngIf="isAdminPanel">
+      <nav class="content-tabs" aria-label="Manage content">
+        <button type="button" [class.active]="view === 'tutorials'" (click)="changeView('tutorials')"><i class="fa-solid fa-book-open"></i> Tutorials</button>
+        <button type="button" [class.active]="view === 'questions'" (click)="changeView('questions')"><i class="fa-regular fa-circle-question"></i> Questions &amp; answers</button>
+      </nav>
+
+      <section *ngIf="view === 'tutorials'" class="admin-workspace">
+        <form class="editor-card" (ngSubmit)="saveTutorial()">
+          <div class="editor-heading"><div><p class="eyebrow">{{ editingTutorialId ? 'UPDATE CONTENT' : 'NEW CONTENT' }}</p><h2>{{ editingTutorialId ? 'Edit tutorial' : 'Add a tutorial' }}</h2></div>
+            <button *ngIf="editingTutorialId" type="button" class="quiet-action" (click)="resetTutorialForm()">Cancel edit</button>
+          </div>
+          <label>Title<input name="tutorialTitle" [(ngModel)]="tutorialDraft.title" required maxlength="180" placeholder="e.g. Java Streams explained"></label>
+          <div class="form-grid">
+            <label>Category<select name="tutorialCategory" [(ngModel)]="tutorialDraft.category" (ngModelChange)="tutorialDraft.subCategory = categoryTopics[tutorialDraft.category][0]" required>
+              <option *ngFor="let category of categories" [value]="category">{{ category }}</option></select></label>
+            <label>Subcategory<select name="tutorialSubCategory" [(ngModel)]="tutorialDraft.subCategory" required>
+              <option *ngFor="let topic of categoryTopics[tutorialDraft.category]" [value]="topic">{{ topic }}</option></select></label>
+            <label>Difficulty<select name="tutorialDifficulty" [(ngModel)]="tutorialDraft.difficulty"><option *ngFor="let level of difficulties" [value]="level">{{ level }}</option></select></label>
+            <label>Tags <span class="field-hint">comma separated</span><input name="tutorialTags" [(ngModel)]="tutorialDraft.tags" placeholder="Java, Streams"></label>
+          </div>
+          <label>Short description<textarea name="tutorialDescription" [(ngModel)]="tutorialDraft.description" required rows="2" maxlength="400" placeholder="What will the learner take away?"></textarea></label>
+          <label>Tutorial content <span class="field-hint">Use a blank line between paragraphs. Start a heading with ##.</span>
+            <textarea name="tutorialContent" [(ngModel)]="tutorialDraft.content" required rows="9" placeholder="Write the tutorial content…"></textarea></label>
+          <label class="publish-toggle"><input type="checkbox" name="tutorialPublished" [(ngModel)]="tutorialDraft.published"> Publish for learners</label>
+          <button type="submit" class="primary-button"><i class="fa-solid fa-floppy-disk"></i> {{ editingTutorialId ? 'Save changes' : 'Create tutorial' }}</button>
+        </form>
+
+        <section class="admin-list">
+          <div class="list-heading"><div><p class="eyebrow">CONTENT LIBRARY</p><h2>Tutorials <span>{{ adminTutorials.length }}</span></h2></div>
+            <label class="search-box compact"><i class="fa-solid fa-magnifying-glass"></i><input [(ngModel)]="tutorialSearch" placeholder="Search tutorials" aria-label="Search tutorials"></label>
+          </div>
+          <select class="list-filter" [(ngModel)]="tutorialCategoryFilter" aria-label="Filter tutorials by category"><option value="">All categories</option><option *ngFor="let category of categories" [value]="category">{{ category }}</option></select>
+          <article *ngFor="let tutorial of adminTutorials" class="manage-row">
+            <div><span class="category-label">{{ tutorial.category }} · {{ tutorial.subCategory }}</span><h3>{{ tutorial.title }}</h3>
+              <span class="status-pill" [class.published]="tutorial.published">{{ tutorial.published ? 'Published' : 'Draft' }}</span>
+            </div>
+            <div class="manage-actions">
+              <button type="button" (click)="togglePublished(tutorial)">{{ tutorial.published ? 'Unpublish' : 'Publish' }}</button>
+              <button type="button" (click)="editTutorial(tutorial)">Edit</button>
+              <button type="button" class="danger-action" (click)="deleteTutorial(tutorial)">Delete</button>
+            </div>
+          </article>
+          <p *ngIf="!adminTutorials.length" class="muted empty-list">No tutorials match this filter.</p>
+        </section>
+      </section>
+
+      <section *ngIf="view === 'questions'" class="admin-workspace">
+        <form class="editor-card" (ngSubmit)="saveQuestion()">
+          <div class="editor-heading"><div><p class="eyebrow">{{ editingQuestionId ? 'UPDATE CONTENT' : 'NEW CONTENT' }}</p><h2>{{ editingQuestionId ? 'Edit Q&A' : 'Add an interview question' }}</h2></div>
+            <button *ngIf="editingQuestionId" type="button" class="quiet-action" (click)="resetQuestionForm()">Cancel edit</button>
+          </div>
+          <div class="form-grid">
+            <label>Category<select name="questionCategory" [(ngModel)]="questionDraft.category" (ngModelChange)="questionDraft.subCategory = categoryTopics[questionDraft.category][0]">
+              <option *ngFor="let category of categories" [value]="category">{{ category }}</option></select></label>
+            <label>Subcategory<select name="questionSubCategory" [(ngModel)]="questionDraft.subCategory">
+              <option *ngFor="let topic of categoryTopics[questionDraft.category]" [value]="topic">{{ topic }}</option></select></label>
+            <label>Difficulty<select name="questionDifficulty" [(ngModel)]="questionDraft.difficulty"><option *ngFor="let level of difficulties" [value]="level">{{ level }}</option></select></label>
+            <label>Tags <span class="field-hint">comma separated</span><input name="questionTags" [(ngModel)]="questionDraft.tags" placeholder="Java, Collections"></label>
+          </div>
+          <label>Question<textarea name="questionText" [(ngModel)]="questionDraft.question" required rows="3" placeholder="Write a clear interview question"></textarea></label>
+          <label>Answer<textarea name="questionAnswer" [(ngModel)]="questionDraft.answer" required rows="6" placeholder="Write a concise, accurate answer"></textarea></label>
+          <button type="submit" class="primary-button"><i class="fa-solid fa-floppy-disk"></i> {{ editingQuestionId ? 'Save changes' : 'Create question' }}</button>
+        </form>
+
+        <section class="admin-list">
+          <div class="list-heading"><div><p class="eyebrow">QUESTION BANK</p><h2>Interview Q&amp;A <span>{{ adminQuestions.length }}</span></h2></div>
+            <label class="search-box compact"><i class="fa-solid fa-magnifying-glass"></i><input [(ngModel)]="questionSearch" placeholder="Search questions" aria-label="Search questions"></label>
+          </div>
+          <select class="list-filter" [(ngModel)]="questionCategoryFilter" aria-label="Filter questions by category"><option value="">All categories</option><option *ngFor="let category of categories" [value]="category">{{ category }}</option></select>
+          <article *ngFor="let question of adminQuestions" class="manage-row">
+            <div><span class="category-label">{{ question.category }} · {{ question.subCategory }}</span><h3>{{ question.question }}</h3>
+              <span class="status-pill published">{{ question.difficulty }}</span>
+            </div>
+            <div class="manage-actions"><button type="button" (click)="editQuestion(question)">Edit</button><button type="button" class="danger-action" (click)="deleteQuestion(question)">Delete</button></div>
+          </article>
+          <p *ngIf="!adminQuestions.length" class="muted empty-list">No questions match this filter.</p>
+        </section>
+      </section>
+    </ng-container>
+  </ng-container>
+</main>
