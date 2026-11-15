@@ -318,5 +318,850 @@
     ],
     "correctAnswer": "Elements comparing as zero can be treated as duplicates",
     "explanation": "Sorted sets use compareTo/Comparator equality (zero) to determine element uniqueness."
+  },
+  {
+    "id": 21,
+    "category": "Java",
+    "subCategory": "OOPS",
+    "difficulty": "Easy",
+    "question": "What is Encapsulation?",
+    "image": "",
+    "options": [
+      "Binding data and methods together",
+      "Multiple inheritance",
+      "Method overloading",
+      "Object creation"
+    ],
+    "correctAnswer": "Binding data and methods together",
+    "explanation": "Encapsulation wraps data and methods into a single unit and restricts direct access."
+  },
+  {
+    "id": 22,
+    "category": "Java",
+    "subCategory": "OOPS",
+    "difficulty": "Easy",
+    "question": "What is Abstraction?",
+    "image": "",
+    "options": [
+      "Hiding implementation details",
+      "Creating objects",
+      "Copying objects",
+      "Deleting objects"
+    ],
+    "correctAnswer": "Hiding implementation details",
+    "explanation": "Abstraction exposes only essential features and hides implementation details."
+  },
+  {
+    "id": 23,
+    "category": "Java",
+    "subCategory": "OOPS",
+    "difficulty": "Easy",
+    "question": "Which keyword is used for inheritance?",
+    "image": "",
+    "options": [
+      "implement",
+      "extend",
+      "extends",
+      "inherits"
+    ],
+    "correctAnswer": "extends",
+    "explanation": "The extends keyword is used for class inheritance in Java."
+  },
+  {
+    "id": 24,
+    "category": "Java",
+    "subCategory": "OOPS",
+    "difficulty": "Medium",
+    "question": "What is Polymorphism?",
+    "image": "",
+    "options": [
+      "Many forms of one method",
+      "Hiding data",
+      "Creating threads",
+      "Exception handling"
+    ],
+    "correctAnswer": "Many forms of one method",
+    "explanation": "Polymorphism allows the same method to behave differently."
+  },
+  {
+    "id": 25,
+    "category": "Java",
+    "subCategory": "OOPS",
+    "difficulty": "Medium",
+    "question": "Which type of polymorphism is achieved using method overloading?",
+    "image": "",
+    "options": [
+      "Runtime",
+      "Compile-time",
+      "Dynamic",
+      "Abstract"
+    ],
+    "correctAnswer": "Compile-time",
+    "explanation": "Method overloading is resolved during compilation."
+  },
+  {
+    "id": 26,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Easy",
+    "question": "Which collection stores elements in insertion order and allows duplicates?",
+    "image": "",
+    "options": [
+      "HashSet",
+      "ArrayList",
+      "TreeSet",
+      "HashMap"
+    ],
+    "correctAnswer": "ArrayList",
+    "explanation": "ArrayList maintains insertion order and allows duplicate values."
+  },
+  {
+    "id": 27,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Easy",
+    "question": "Which collection does not allow duplicate values?",
+    "image": "",
+    "options": [
+      "ArrayList",
+      "LinkedList",
+      "HashSet",
+      "Vector"
+    ],
+    "correctAnswer": "HashSet",
+    "explanation": "HashSet stores only unique elements."
+  },
+  {
+    "id": 28,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Medium",
+    "question": "Which Map implementation is not thread-safe?",
+    "image": "",
+    "options": [
+      "ConcurrentHashMap",
+      "Hashtable",
+      "HashMap",
+      "ConcurrentMap"
+    ],
+    "correctAnswer": "HashMap",
+    "explanation": "HashMap is not synchronized and is not thread-safe."
+  },
+  {
+    "id": 29,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Medium",
+    "question": "Which collection uses key-value pairs?",
+    "image": "",
+    "options": [
+      "List",
+      "Set",
+      "Map",
+      "Queue"
+    ],
+    "correctAnswer": "Map",
+    "explanation": "Map stores values as key-value pairs."
+  },
+  {
+    "id": 30,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Hard",
+    "question": "Which collection preserves insertion order and provides O(1) lookup?",
+    "image": "",
+    "options": [
+      "HashMap",
+      "TreeMap",
+      "LinkedHashMap",
+      "Hashtable"
+    ],
+    "correctAnswer": "LinkedHashMap",
+    "explanation": "LinkedHashMap maintains insertion order using a linked list."
+  },
+  {
+    "id": 31,
+    "category": "Java",
+    "subCategory": "Exception Handling",
+    "difficulty": "Easy",
+    "question": "What is the parent class of all exceptions?",
+    "image": "",
+    "options": [
+      "Error",
+      "Throwable",
+      "Exception",
+      "RuntimeException"
+    ],
+    "correctAnswer": "Throwable",
+    "explanation": "Throwable is the superclass of all exceptions and errors."
+  },
+  {
+    "id": 32,
+    "category": "Java",
+    "subCategory": "Exception Handling",
+    "difficulty": "Easy",
+    "question": "Which keyword is used to handle exceptions?",
+    "image": "",
+    "options": [
+      "catch",
+      "throw",
+      "throws",
+      "final"
+    ],
+    "correctAnswer": "catch",
+    "explanation": "The catch block handles exceptions."
+  },
+  {
+    "id": 33,
+    "category": "Java",
+    "subCategory": "Exception Handling",
+    "difficulty": "Medium",
+    "question": "What is the difference between throw and throws?",
+    "image": "",
+    "options": [
+      "Both are same",
+      "throw creates exception, throws declares exception",
+      "throws handles exceptions",
+      "throw declares exception"
+    ],
+    "correctAnswer": "throw creates exception, throws declares exception",
+    "explanation": "throw is used to explicitly throw an exception and throws declares exceptions."
+  },
+  {
+    "id": 34,
+    "category": "Java",
+    "subCategory": "Multithreading",
+    "difficulty": "Easy",
+    "question": "Which interface is commonly used to create a thread?",
+    "image": "",
+    "options": [
+      "Serializable",
+      "Runnable",
+      "Collection",
+      "Cloneable"
+    ],
+    "correctAnswer": "Runnable",
+    "explanation": "Runnable is a functional interface used to create threads."
+  },
+  {
+    "id": 35,
+    "category": "Java",
+    "subCategory": "Multithreading",
+    "difficulty": "Medium",
+    "question": "Which method starts a new thread?",
+    "image": "",
+    "options": [
+      "run()",
+      "execute()",
+      "start()",
+      "begin()"
+    ],
+    "correctAnswer": "start()",
+    "explanation": "start() creates a new thread and invokes run()."
+  },
+  {
+    "id": 36,
+    "category": "Java",
+    "subCategory": "Multithreading",
+    "difficulty": "Hard",
+    "question": "Which keyword provides exclusive access to a block of code?",
+    "image": "",
+    "options": [
+      "volatile",
+      "static",
+      "synchronized",
+      "final"
+    ],
+    "correctAnswer": "synchronized",
+    "explanation": "synchronized prevents multiple threads from executing the same block simultaneously."
+  },
+  {
+    "id": 37,
+    "category": "Java",
+    "subCategory": "JVM",
+    "difficulty": "Medium",
+    "question": "What is JVM?",
+    "image": "",
+    "options": [
+      "Java Version Manager",
+      "Java Virtual Machine",
+      "Java Variable Memory",
+      "Java Vendor Model"
+    ],
+    "correctAnswer": "Java Virtual Machine",
+    "explanation": "JVM executes Java bytecode."
+  },
+  {
+    "id": 38,
+    "category": "Java",
+    "subCategory": "Garbage Collection",
+    "difficulty": "Medium",
+    "question": "What is the purpose of Garbage Collection?",
+    "image": "",
+    "options": [
+      "Compile code",
+      "Manage memory automatically",
+      "Create threads",
+      "Run SQL queries"
+    ],
+    "correctAnswer": "Manage memory automatically",
+    "explanation": "Garbage Collector removes unreachable objects."
+  },
+  {
+    "id": 39,
+    "category": "Java",
+    "subCategory": "Java 8",
+    "difficulty": "Easy",
+    "question": "Which feature was introduced in Java 8?",
+    "image": "",
+    "options": [
+      "Lambda Expressions",
+      "Generics",
+      "JVM",
+      "Servlets"
+    ],
+    "correctAnswer": "Lambda Expressions",
+    "explanation": "Lambda expressions were introduced in Java 8."
+  },
+  {
+    "id": 40,
+    "category": "Java",
+    "subCategory": "Java 8",
+    "difficulty": "Medium",
+    "question": "What is a Functional Interface?",
+    "image": "",
+    "options": [
+      "Multiple abstract methods",
+      "One abstract method",
+      "No methods",
+      "Only static methods"
+    ],
+    "correctAnswer": "One abstract method",
+    "explanation": "A functional interface contains exactly one abstract method."
+  },
+  {
+    "id": 41,
+    "category": "Java",
+    "subCategory": "Stream API",
+    "difficulty": "Easy",
+    "question": "What is Stream API used for?",
+    "image": "",
+    "options": [
+      "Database connectivity",
+      "Collection processing",
+      "Thread creation",
+      "Memory management"
+    ],
+    "correctAnswer": "Collection processing",
+    "explanation": "Stream API enables functional-style processing of collections."
+  },
+  {
+    "id": 42,
+    "category": "Java",
+    "subCategory": "Stream API",
+    "difficulty": "Medium",
+    "question": "Which Stream operation is intermediate?",
+    "image": "",
+    "options": [
+      "collect",
+      "count",
+      "forEach",
+      "filter"
+    ],
+    "correctAnswer": "filter",
+    "explanation": "filter() is an intermediate operation."
+  },
+  {
+    "id": 43,
+    "category": "Java",
+    "subCategory": "Stream API",
+    "difficulty": "Medium",
+    "question": "Which Stream operation is terminal?",
+    "image": "",
+    "options": [
+      "map",
+      "filter",
+      "collect",
+      "sorted"
+    ],
+    "correctAnswer": "collect",
+    "explanation": "collect() is a terminal operation."
+  },
+  {
+    "id": 44,
+    "category": "Java",
+    "subCategory": "CompletableFuture",
+    "difficulty": "Medium",
+    "question": "What is CompletableFuture used for?",
+    "image": "",
+    "options": [
+      "Asynchronous programming",
+      "Database access",
+      "Garbage collection",
+      "Class loading"
+    ],
+    "correctAnswer": "Asynchronous programming",
+    "explanation": "CompletableFuture supports async and non-blocking programming."
+  },
+  {
+    "id": 45,
+    "category": "Java",
+    "subCategory": "CompletableFuture",
+    "difficulty": "Hard",
+    "question": "Which method is used to execute a task asynchronously without returning a result?",
+    "image": "",
+    "options": [
+      "runAsync()",
+      "supplyAsync()",
+      "get()",
+      "join()"
+    ],
+    "correctAnswer": "runAsync()",
+    "explanation": "runAsync() executes asynchronous tasks without returning a value."
+  },
+  {
+    "id": 46,
+    "category": "Java",
+    "subCategory": "Serialization",
+    "difficulty": "Easy",
+    "question": "Which interface enables serialization?",
+    "image": "",
+    "options": [
+      "Runnable",
+      "Serializable",
+      "Cloneable",
+      "Comparable"
+    ],
+    "correctAnswer": "Serializable",
+    "explanation": "Serializable is a marker interface used for object serialization."
+  },
+  {
+    "id": 47,
+    "category": "Java",
+    "subCategory": "Serialization",
+    "difficulty": "Medium",
+    "question": "Which keyword prevents a field from being serialized?",
+    "image": "",
+    "options": [
+      "static",
+      "final",
+      "transient",
+      "volatile"
+    ],
+    "correctAnswer": "transient",
+    "explanation": "transient fields are excluded from serialization."
+  },
+  {
+    "id": 48,
+    "category": "Java",
+    "subCategory": "System Design",
+    "difficulty": "Hard",
+    "question": "Which design pattern ensures only one instance of a class exists?",
+    "image": "",
+    "options": [
+      "Factory",
+      "Observer",
+      "Singleton",
+      "Builder"
+    ],
+    "correctAnswer": "Singleton",
+    "explanation": "Singleton restricts object creation to a single instance."
+  },
+  {
+    "id": 49,
+    "category": "Java",
+    "subCategory": "System Design",
+    "difficulty": "Hard",
+    "question": "Which design pattern creates objects without exposing creation logic?",
+    "image": "",
+    "options": [
+      "Factory",
+      "Singleton",
+      "Decorator",
+      "Adapter"
+    ],
+    "correctAnswer": "Factory",
+    "explanation": "Factory Pattern encapsulates object creation logic."
+  },
+  {
+    "id": 50,
+    "category": "Java",
+    "subCategory": "System Design",
+    "difficulty": "Hard",
+    "question": "What is the main benefit of microservices architecture?",
+    "image": "",
+    "options": [
+      "Independent deployment and scaling",
+      "Single codebase",
+      "Shared database required",
+      "No monitoring needed"
+    ],
+    "correctAnswer": "Independent deployment and scaling",
+    "explanation": "Microservices allow services to be developed, deployed, and scaled independently."
   }
+,
+
+  {
+    "id": 51,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Easy",
+    "question": "Which method is the entry point of a Java application?",
+    "image": "",
+    "options": ["start()", "run()", "main()", "init()"],
+    "correctAnswer": "main()",
+    "explanation": "The JVM starts execution from the main() method."
+  },
+  {
+    "id": 52,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Easy",
+    "question": "Which keyword is used to create an object in Java?",
+    "image": "",
+    "options": ["create", "new", "object", "instance"],
+    "correctAnswer": "new",
+    "explanation": "The new keyword allocates memory and creates an object."
+  },
+  {
+    "id": 53,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Medium",
+    "question": "What is the size of int in Java?",
+    "image": "",
+    "options": ["16 bits", "32 bits", "64 bits", "Depends on OS"],
+    "correctAnswer": "32 bits",
+    "explanation": "Java int occupies 4 bytes (32 bits)."
+  },
+  {
+    "id": 54,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Medium",
+    "question": "Which class is the parent of all classes in Java?",
+    "image": "",
+    "options": ["Class", "Parent", "Object", "Root"],
+    "correctAnswer": "Object",
+    "explanation": "java.lang.Object is the root class of the Java class hierarchy."
+  },
+  {
+    "id": 55,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Medium",
+    "question": "Which package is imported automatically in Java?",
+    "image": "",
+    "options": ["java.util", "java.io", "java.lang", "java.net"],
+    "correctAnswer": "java.lang",
+    "explanation": "All classes in java.lang are automatically imported."
+  },
+  {
+    "id": 56,
+    "category": "Java",
+    "subCategory": "OOPS",
+    "difficulty": "Medium",
+    "question": "Can Java support multiple inheritance using classes?",
+    "image": "",
+    "options": ["Yes", "No", "Only abstract classes", "Only final classes"],
+    "correctAnswer": "No",
+    "explanation": "Java does not support multiple inheritance through classes."
+  },
+  {
+    "id": 57,
+    "category": "Java",
+    "subCategory": "OOPS",
+    "difficulty": "Medium",
+    "question": "Which keyword is used to refer to the current object?",
+    "image": "",
+    "options": ["super", "current", "this", "self"],
+    "correctAnswer": "this",
+    "explanation": "this refers to the current object instance."
+  },
+  {
+    "id": 58,
+    "category": "Java",
+    "subCategory": "OOPS",
+    "difficulty": "Hard",
+    "question": "What is method overriding?",
+    "image": "",
+    "options": [
+      "Multiple methods with same name",
+      "Redefining a parent method in child class",
+      "Deleting a method",
+      "Creating static methods"
+    ],
+    "correctAnswer": "Redefining a parent method in child class",
+    "explanation": "Method overriding provides runtime polymorphism."
+  },
+  {
+    "id": 59,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Medium",
+    "question": "Which collection maintains elements in sorted order?",
+    "image": "",
+    "options": ["HashSet", "LinkedHashSet", "TreeSet", "ArrayList"],
+    "correctAnswer": "TreeSet",
+    "explanation": "TreeSet stores elements in natural sorted order."
+  },
+  {
+    "id": 60,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Medium",
+    "question": "Which Map implementation sorts keys?",
+    "image": "",
+    "options": ["HashMap", "Hashtable", "TreeMap", "LinkedHashMap"],
+    "correctAnswer": "TreeMap",
+    "explanation": "TreeMap stores keys in sorted order."
+  },
+  {
+    "id": 61,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Hard",
+    "question": "What is the default capacity of ArrayList?",
+    "image": "",
+    "options": ["5", "8", "10", "16"],
+    "correctAnswer": "10",
+    "explanation": "An ArrayList starts with a default capacity of 10 when elements are added."
+  },
+  {
+    "id": 62,
+    "category": "Java",
+    "subCategory": "Collections",
+    "difficulty": "Hard",
+    "question": "Which collection is best for frequent insertions and deletions?",
+    "image": "",
+    "options": ["ArrayList", "LinkedList", "Vector", "TreeSet"],
+    "correctAnswer": "LinkedList",
+    "explanation": "LinkedList performs well for insertions and deletions."
+  },
+  {
+    "id": 63,
+    "category": "Java",
+    "subCategory": "Exception Handling",
+    "difficulty": "Easy",
+    "question": "Which block is always executed?",
+    "image": "",
+    "options": ["try", "catch", "throws", "finally"],
+    "correctAnswer": "finally",
+    "explanation": "The finally block executes regardless of exception occurrence."
+  },
+  {
+    "id": 64,
+    "category": "Java",
+    "subCategory": "Exception Handling",
+    "difficulty": "Medium",
+    "question": "Which exception occurs when dividing by zero?",
+    "image": "",
+    "options": [
+      "IOException",
+      "ArithmeticException",
+      "NullPointerException",
+      "SQLException"
+    ],
+    "correctAnswer": "ArithmeticException",
+    "explanation": "Division by zero results in ArithmeticException."
+  },
+  {
+    "id": 65,
+    "category": "Java",
+    "subCategory": "Multithreading",
+    "difficulty": "Medium",
+    "question": "Which method causes a thread to sleep temporarily?",
+    "image": "",
+    "options": ["wait()", "yield()", "sleep()", "pause()"],
+    "correctAnswer": "sleep()",
+    "explanation": "Thread.sleep() pauses execution for a specified time."
+  },
+  {
+    "id": 66,
+    "category": "Java",
+    "subCategory": "Multithreading",
+    "difficulty": "Hard",
+    "question": "Which keyword ensures visibility of changes across threads?",
+    "image": "",
+    "options": ["final", "static", "volatile", "native"],
+    "correctAnswer": "volatile",
+    "explanation": "volatile guarantees visibility of variable updates."
+  },
+  {
+    "id": 67,
+    "category": "Java",
+    "subCategory": "JVM",
+    "difficulty": "Medium",
+    "question": "What does JIT stand for?",
+    "image": "",
+    "options": [
+      "Java Integration Tool",
+      "Just In Time",
+      "Java Internal Thread",
+      "Join Invoke Tool"
+    ],
+    "correctAnswer": "Just In Time",
+    "explanation": "JIT compiles bytecode into native machine code at runtime."
+  },
+  {
+    "id": 68,
+    "category": "Java",
+    "subCategory": "Garbage Collection",
+    "difficulty": "Medium",
+    "question": "Which method requests garbage collection?",
+    "image": "",
+    "options": ["collect()", "gc()", "finalize()", "free()"],
+    "correctAnswer": "gc()",
+    "explanation": "System.gc() requests JVM garbage collection."
+  },
+  {
+    "id": 69,
+    "category": "Java",
+    "subCategory": "Java 8",
+    "difficulty": "Medium",
+    "question": "Which interface represents a function that takes one argument and returns a result?",
+    "image": "",
+    "options": ["Consumer", "Supplier", "Predicate", "Function"],
+    "correctAnswer": "Function",
+    "explanation": "Function<T,R> accepts one input and produces one output."
+  },
+  {
+    "id": 70,
+    "category": "Java",
+    "subCategory": "Java 8",
+    "difficulty": "Medium",
+    "question": "What does Predicate return?",
+    "image": "",
+    "options": ["String", "Integer", "Boolean", "Object"],
+    "correctAnswer": "Boolean",
+    "explanation": "Predicate evaluates a condition and returns true or false."
+  },
+  {
+    "id": 71,
+    "category": "Java",
+    "subCategory": "Stream API",
+    "difficulty": "Medium",
+    "question": "Which Stream API method transforms data?",
+    "image": "",
+    "options": ["filter", "collect", "map", "count"],
+    "correctAnswer": "map",
+    "explanation": "map() transforms each element into another value."
+  },
+  {
+    "id": 72,
+    "category": "Java",
+    "subCategory": "Stream API",
+    "difficulty": "Hard",
+    "question": "Which method removes duplicate elements from a stream?",
+    "image": "",
+    "options": ["unique()", "remove()", "distinct()", "filter()"],
+    "correctAnswer": "distinct()",
+    "explanation": "distinct() removes duplicate elements."
+  },
+  {
+    "id": 73,
+    "category": "Java",
+    "subCategory": "CompletableFuture",
+    "difficulty": "Hard",
+    "question": "Which method waits and returns the result of CompletableFuture?",
+    "image": "",
+    "options": ["result()", "join()", "run()", "wait()"],
+    "correctAnswer": "join()",
+    "explanation": "join() waits for completion and returns the result."
+  },
+  {
+    "id": 74,
+    "category": "Java",
+    "subCategory": "CompletableFuture",
+    "difficulty": "Hard",
+    "question": "Which method is used to create a CompletableFuture with a return value?",
+    "image": "",
+    "options": ["runAsync()", "supplyAsync()", "startAsync()", "futureAsync()"],
+    "correctAnswer": "supplyAsync()",
+    "explanation": "supplyAsync() executes asynchronously and returns a result."
+  },
+  {
+    "id": 75,
+    "category": "Java",
+    "subCategory": "Serialization",
+    "difficulty": "Medium",
+    "question": "What is serialVersionUID used for?",
+    "image": "",
+    "options": [
+      "Version control of serialized classes",
+      "Thread synchronization",
+      "Memory allocation",
+      "Database versioning"
+    ],
+    "correctAnswer": "Version control of serialized classes",
+    "explanation": "serialVersionUID verifies compatibility during deserialization."
+  },
+  {
+    "id": 76,
+    "category": "Java",
+    "subCategory": "System Design",
+    "difficulty": "Hard",
+    "question": "Which design pattern is used to notify multiple objects automatically?",
+    "image": "",
+    "options": ["Factory", "Builder", "Observer", "Singleton"],
+    "correctAnswer": "Observer",
+    "explanation": "Observer pattern notifies dependent objects of state changes."
+  },
+  {
+    "id": 77,
+    "category": "Java",
+    "subCategory": "System Design",
+    "difficulty": "Hard",
+    "question": "Which design pattern simplifies object construction?",
+    "image": "",
+    "options": ["Builder", "Observer", "Adapter", "Factory"],
+    "correctAnswer": "Builder",
+    "explanation": "Builder pattern creates complex objects step by step."
+  },
+  {
+    "id": 78,
+    "category": "Java",
+    "subCategory": "System Design",
+    "difficulty": "Hard",
+    "question": "What is loose coupling?",
+    "image": "",
+    "options": [
+      "Components depend heavily on each other",
+      "Components have minimal dependencies",
+      "No classes interact",
+      "Only interfaces exist"
+    ],
+    "correctAnswer": "Components have minimal dependencies",
+    "explanation": "Loose coupling improves maintainability and flexibility."
+  },
+  {
+    "id": 79,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Hard",
+    "question": "What is immutability in Java?",
+    "image": "",
+    "options": [
+      "Object state cannot change after creation",
+      "Object cannot be serialized",
+      "Object cannot extend classes",
+      "Object cannot override methods"
+    ],
+    "correctAnswer": "Object state cannot change after creation",
+    "explanation": "Immutable objects cannot be modified once created."
+  },
+  {
+    "id": 80,
+    "category": "Java",
+    "subCategory": "Core Java",
+    "difficulty": "Hard",
+    "question": "Which class is an example of an immutable class in Java?",
+    "image": "",
+    "options": ["String", "StringBuilder", "ArrayList", "HashMap"],
+    "correctAnswer": "String",
+    "explanation": "String objects are immutable in Java."
+  }
+
+
+
 ]
