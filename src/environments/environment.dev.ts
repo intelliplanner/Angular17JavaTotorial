@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  loginEnabled: false,
+  loginEnabled: true,
   settingsEnabled: true,
   apiUrl: 'http://192.168.1.10:9090',
   authApiUrl: 'http://localhost:9090',
