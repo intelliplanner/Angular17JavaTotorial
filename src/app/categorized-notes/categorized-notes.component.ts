@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -18,6 +18,7 @@ export class CategorizedNotesComponent implements OnInit {
   files: string[] = [];
   selected?: string;
   currentUrl?: SafeResourceUrl;
+  isPdfFullPage = false;
   recentFiles: string[] = [];
   jsonFilePath: string = environment.apiUrl;
   private RECENT_KEY = 'javaNotesRecentFiles';
@@ -126,6 +127,21 @@ export class CategorizedNotesComponent implements OnInit {
     this.currentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.updateRecent(this.selected);
 
+  }
+
+  togglePdfFullPage(): void {
+    if (this.currentUrl) {
+      this.isPdfFullPage = !this.isPdfFullPage;
+    }
+  }
+
+  closePdfFullPage(): void {
+    this.isPdfFullPage = false;
+  }
+
+  @HostListener('document:keydown.escape')
+  handleEscapeKey(): void {
+    this.closePdfFullPage();
   }
 
   savePdf(): void {
