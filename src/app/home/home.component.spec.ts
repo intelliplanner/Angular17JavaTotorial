@@ -2,13 +2,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { QuestionService } from '../quiz/services/question.service';
 import { QuizService } from '../quiz/services/quiz.service';
+import { AuthService } from '../auth.service';
+import { environment } from '../../environments/environment';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
+  let authService: jasmine.SpyObj<AuthService>;
 
   beforeEach(async () => {
+    environment.loginEnabled = true;
+    authService = jasmine.createSpyObj<AuthService>('AuthService', ['hasPermission']);
+    authService.hasPermission.and.returnValue(false);
     const questionService = {
       load: jasmine.createSpy('load').and.returnValue(Promise.resolve()),
       categories: [],
@@ -35,7 +41,8 @@ describe('HomeComponent', () => {
       providers: [
         provideRouter([]),
         { provide: QuestionService, useValue: questionService },
-        { provide: QuizService, useValue: { activeSession: null, results: [] } }
+        { provide: QuizService, useValue: { activeSession: null, results: [] } },
+        { provide: AuthService, useValue: authService }
       ]
     }).compileComponents();
 
@@ -63,5 +70,16 @@ describe('HomeComponent', () => {
   it('links learning paths to the learner-accessible Learn page', () => {
     expect(component.learningPaths.every(path => path.route === '/categorizedNotes' || path.route === '/quiz')).toBeTrue();
     expect(component.categoryCards.some(card => card.route === '/interview')).toBeFalse();
+  });
+
+  it('shows the application guide link only to administrators', () => {
+    const guideLink = () => fixture.nativeElement.querySelector('a[routerLink="/documentation"]');
+
+    expect(guideLink()).toBeNull();
+
+    authService.hasPermission.and.returnValue(true);
+    fixture.detectChanges();
+
+    expect(guideLink()).not.toBeNull();
   });
 });

@@ -8,6 +8,8 @@
         <a routerLink="/categorizedNotes" class="btn btn-primary">Explore study notes <i
             class="fa-solid fa-arrow-right"></i></a>
         <a routerLink="/quiz" class="btn btn-outline-light"><i class="fa-solid fa-circle-play"></i> Practice quiz</a>
+        <a *ngIf="isAdmin" routerLink="/documentation" class="btn btn-outline-light">Application guide <i
+            class="fa-solid fa-book-open"></i></a>
       </div>
     </div>
   </section>

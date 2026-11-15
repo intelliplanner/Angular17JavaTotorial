@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { QuizCategory } from '../quiz/models/category';
 import { QuestionService } from '../quiz/services/question.service';
 import { QuizService } from '../quiz/services/quiz.service';
+import { AuthService } from '../auth.service';
+import { environment } from '../../environments/environment';
 
 interface RouteMapping {
   routeMap: string;
@@ -51,8 +53,13 @@ export class HomeComponent implements OnInit {
   constructor(
     private readonly sanitizer: DomSanitizer,
     private readonly questionService: QuestionService,
-    readonly quizService: QuizService
+    readonly quizService: QuizService,
+    private readonly authService: AuthService
   ) { }
+
+  get isAdmin(): boolean {
+    return !environment.loginEnabled || this.authService.hasPermission('admin');
+  }
 
   ngOnInit(): void {
     void this.loadQuestionData();

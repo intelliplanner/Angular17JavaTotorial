@@ -1,0 +1,170 @@
+<main class="container py-4">
+  <header class="mb-4">
+    <a routerLink="/home" class="text-decoration-none">
+      <i class="fa-solid fa-arrow-left"></i> Dashboard
+    </a>
+    <p class="text-uppercase text-secondary small fw-semibold mt-3 mb-1">Admin settings</p>
+    <h1 class="h2">Generate JSON datasets</h1>
+    <p class="text-secondary">
+      Run the server-side Python generator for selected content types. Each output file will contain at least
+      the requested number of records.
+    </p>
+  </header>
+
+  <section class="card shadow-sm">
+    <div class="card-body">
+      <form (ngSubmit)="generate()">
+        <fieldset [disabled]="running">
+          <legend class="h5">Generation options</legend>
+          <p class="text-secondary small">
+            Choose one or more datasets and set a minimum of 1,000–10,000 records for each.
+          </p>
+
+          <div class="row g-3 align-items-center mb-3" *ngFor="let dataset of datasets">
+            <div class="col-sm-6">
+              <label class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [(ngModel)]="dataset.selected"
+                  [name]="dataset.kind + 'Selected'">
+                <span class="form-check-label">{{ dataset.label }}</span>
+              </label>
+            </div>
+            <div class="col-sm-6">
+              <label class="form-label mb-1" [for]="dataset.kind + 'Minimum'">Minimum records</label>
+              <input
+                class="form-control"
+                type="number"
+                [id]="dataset.kind + 'Minimum'"
+                [name]="dataset.kind + 'Minimum'"
+                [(ngModel)]="dataset.minimumRecords"
+                [disabled]="!dataset.selected"
+                min="1000"
+                [max]="maximumRecords"
+                step="100">
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="alert alert-warning mt-3" role="note">
+          Generated records are review drafts, not verified technical content. The Python validator checks the
+          existing source data first; generation does not modify source files. Output is saved on the server under
+          <code>data/generated-json</code>. Use the review section below to import approved records.
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="running || !hasSelection">
+          <span *ngIf="running" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+          {{ running ? 'Generating…' : 'Generate selected datasets' }}
+        </button>
+      </form>
+
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3 mb-0" role="alert">
+        <p class="fw-semibold mb-1">{{ errorMessage }}</p>
+        <ul *ngIf="validationIssues.length" class="mb-1">
+          <li *ngFor="let issue of validationIssues">{{ issue }}</li>
+        </ul>
+        <p *ngIf="truncatedIssueCount" class="small mb-0">
+          {{ truncatedIssueCount }} additional validation issue(s) omitted.
+        </p>
+      </div>
+
+      <div *ngIf="result" class="alert alert-success mt-3 mb-0" role="status">
+        <p class="fw-semibold">Generation completed. Review the draft records before publishing.</p>
+        <ul class="mb-0">
+          <li *ngFor="let dataset of datasets" [hidden]="!dataset.selected">
+            {{ dataset.label }}: added {{ result.generated[dataset.kind] }},
+            output total {{ result.totals[dataset.kind] }}.
+          </li>
+        </ul>
+      </div>
+
+      <section class="mt-4 pt-4 border-top" aria-labelledby="review-title">
+        <div class="mb-3">
+          <p class="text-uppercase text-secondary small fw-semibold mb-1">Review and import</p>
+          <h2 id="review-title" class="h4">Move approved drafts into application data</h2>
+          <p class="text-secondary mb-0">
+            Inspect each record, select only the records you approve, then import them. Up to
+            {{ maximumImportRecords }} records can be imported at a time.
+          </p>
+        </div>
+
+        <div class="row g-2 align-items-end mb-3">
+          <div class="col-sm-7 col-md-5">
+            <label class="form-label" for="reviewDataset">Dataset</label>
+            <select id="reviewDataset" name="reviewDataset" class="form-select" [(ngModel)]="reviewDataset"
+              (ngModelChange)="resetReviewState()" [disabled]="reviewLoading || importing">
+              <option *ngFor="let dataset of datasets" [value]="dataset.kind">{{ dataset.label }}</option>
+            </select>
+          </div>
+          <div class="col-auto">
+            <button type="button" class="btn btn-outline-primary" (click)="loadDrafts()"
+              [disabled]="reviewLoading || importing">
+              {{ reviewLoading ? 'Loading…' : 'Load drafts' }}
+            </button>
+          </div>
+          <div class="col-auto ms-sm-auto" *ngIf="reviewLoaded && reviewRecords.length">
+            <button type="button" class="btn btn-success" (click)="importSelectedDrafts()"
+              [disabled]="!selectedDraftIds.size || importing">
+              {{ importing ? 'Importing…' : 'Import selected (' + selectedDraftIds.size + ')' }}
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="reviewDataset === 'tutorials'" class="alert alert-warning py-2" role="note">
+          Approved tutorials will be published immediately after import. Generated content still needs careful
+          technical review before you select it.
+        </div>
+        <div *ngIf="reviewDataset === 'quiz'" class="alert alert-info py-2" role="note">
+          Quiz drafts for categories without an existing mapped quiz file cannot be imported. Missing subtopics
+          are added to their existing category when imported.
+        </div>
+
+        <div *ngIf="reviewError" class="alert alert-danger" role="alert">{{ reviewError }}</div>
+        <div *ngIf="reviewNotice" class="alert alert-success" role="status">{{ reviewNotice }}</div>
+
+        <p *ngIf="reviewLoaded && reviewRecords.length" class="small text-secondary">
+          {{ reviewRecords.length }} draft(s) available · page {{ reviewPage + 1 }} of {{ reviewPageCount }}
+        </p>
+
+        <article *ngFor="let record of visibleReviewRecords" class="card mb-2">
+          <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-between gap-3">
+              <div class="flex-grow-1">
+                <h3 class="h6 mb-1">{{ record.title || record.question || 'Untitled draft' }}</h3>
+                <p class="small text-secondary mb-2">
+                  {{ record.category }} / {{ record.subCategory }} · {{ record.difficulty }} · ID {{ record.id }}
+                </p>
+              </div>
+              <label class="form-check">
+                <input class="form-check-input" type="checkbox" [checked]="selectedDraftIds.has(record.id)"
+                  [disabled]="!reviewLoaded || reviewLoading || !record.importable || importing ||
+                    (selectedDraftIds.size >= maximumImportRecords && !selectedDraftIds.has(record.id))"
+                  (change)="toggleDraft(record.id)">
+                <span class="form-check-label">Select reviewed record</span>
+              </label>
+            </div>
+
+            <p *ngIf="record.importIssue" class="small text-warning-emphasis mb-2">{{ record.importIssue }}</p>
+            <p *ngIf="record.description" class="mb-2">{{ record.description }}</p>
+            <details>
+              <summary>Review full record</summary>
+              <pre class="small mt-2 text-wrap">{{ record | json }}</pre>
+            </details>
+          </div>
+        </article>
+
+        <p *ngIf="reviewLoaded && !reviewRecords.length" class="text-secondary" role="status">
+          No generated {{ reviewDatasetLabel.toLowerCase() }} drafts are available.
+        </p>
+
+        <div *ngIf="reviewPageCount > 1" class="d-flex justify-content-between mt-3">
+          <button type="button" class="btn btn-outline-secondary" (click)="changeReviewPage(-1)"
+            [disabled]="reviewPage === 0">Previous</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="changeReviewPage(1)"
+            [disabled]="reviewPage >= reviewPageCount - 1">Next</button>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>

@@ -156,7 +156,9 @@
       "Synchronization"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "when-to-use-arraylist-linkedlist",
@@ -171,7 +173,9 @@
       "LinkedList"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "collection-traversal-techniques",
@@ -186,7 +190,9 @@
       "Traversal"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "foreach-method",
@@ -202,7 +208,9 @@
       "Lambda"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "foreachremaining-method",
@@ -217,7 +225,9 @@
       "Java8"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "compare-arraylists",
@@ -232,7 +242,9 @@
       "Comparison"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "retainall-method",
@@ -247,7 +259,9 @@
       "Collection"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "removeall-method",
@@ -262,7 +276,9 @@
       "Collection"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "contains-method",
@@ -277,7 +293,9 @@
       "Collection"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "collections-sort-method",
@@ -292,7 +310,9 @@
       "Sorting"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "list-interface",
@@ -307,7 +327,9 @@
       "Collections"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "arraylist",
@@ -322,7 +344,9 @@
       "List"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "linkedlist",
@@ -338,7 +362,9 @@
       "Deque"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "concurrenthashmap",
@@ -354,7 +380,9 @@
       "Map"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "hashmap-vs-concurrenthashmap",
@@ -369,7 +397,9 @@
       "ConcurrentHashMap"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "concurrenthashmap-vs-synchronizedmap",
@@ -385,7 +415,9 @@
       "Thread Safety"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "vector",
@@ -400,7 +432,9 @@
       "Legacy"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "stack",
@@ -415,7 +449,9 @@
       "LIFO"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "queue-interface",
@@ -430,7 +466,9 @@
       "FIFO"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "priorityqueue",
@@ -445,7 +483,9 @@
       "Queue"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "deque-interface",
@@ -460,7 +500,9 @@
       "Queue"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "arraydeque",
@@ -475,7 +517,9 @@
       "Deque"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "set-interface",
@@ -489,7 +533,9 @@
       "Set"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "hashset",
@@ -503,7 +549,9 @@
       "HashSet"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "linkedhashset",
@@ -518,7 +566,9 @@
       "Set"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "sortedset",
@@ -533,7 +583,9 @@
       "Set"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "treeset",
@@ -548,7 +600,9 @@
       "SortedSet"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "enumset",
@@ -564,7 +618,9 @@
       "Enum"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "map-interface",
@@ -578,7 +634,9 @@
       "Map"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "hashmap",
@@ -592,7 +650,9 @@
       "HashMap"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "linkedhashmap",
@@ -607,7 +667,9 @@
       "HashMap"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "treemap",
@@ -622,7 +684,9 @@
       "SortedMap"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "hashtable",
@@ -638,7 +702,9 @@
       "Map"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "collection-framework",
@@ -654,7 +720,9 @@
       "Framework"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "array-vs-collection",
@@ -669,7 +737,9 @@
       "Collection"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "collection-interfaces",
@@ -688,7 +758,9 @@
       "Map"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "legacy-classes",
@@ -705,7 +777,9 @@
       "Stack"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "enumeration-interface",
@@ -720,7 +794,9 @@
       "Legacy"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "arraylist-vs-vector",
@@ -735,7 +811,9 @@
       "Vector"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "arraylist-vs-linkedlist",
@@ -750,7 +828,9 @@
       "LinkedList"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "iterator-vs-listiterator",
@@ -765,7 +845,9 @@
       "ListIterator"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "iterator-vs-enumeration",
@@ -780,7 +862,9 @@
       "Enumeration"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "list-vs-set",
@@ -795,7 +879,9 @@
       "Set"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "hashset-vs-treeset",
@@ -810,7 +896,9 @@
       "TreeSet"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "set-vs-map",
@@ -825,7 +913,9 @@
       "Map"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "hashset-vs-hashmap",
@@ -840,7 +930,9 @@
       "HashMap"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "hashmap-vs-treemap",
@@ -855,7 +947,9 @@
       "TreeMap"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "hashmap-vs-hashtable",
@@ -870,7 +964,9 @@
       "Hashtable"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "collection-vs-collections",
@@ -885,7 +981,9 @@
       "Collections"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "comparable-vs-comparator",
@@ -900,6 +998,8 @@
       "Comparator"
     ],
     "author": "Tech Interview Hub",
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z",
     "published": true
   },
   {
@@ -916,7 +1016,9 @@
       "Java"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "hashing",
@@ -931,7 +1033,9 @@
       "hashCode"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "entry-class-in-hashmap",
@@ -947,7 +1051,9 @@
       "Internal Working"
     ],
     "author": "Tech Interview Hub",
-    "published": true
+    "published": true,
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "updatedAt": "2026-11-14T00:00:00.000Z"
   },
   {
     "id": "java-arraylist-vs-linkedlist",
@@ -2388,7 +2494,10 @@
     "description": "Centralized configuration management.",
     "content": "Spring Cloud Config Server provides centralized externalized configuration for distributed microservices. It is enabled using @EnableConfigServer.",
     "difficulty": "Intermediate",
-    "tags": ["Spring Cloud", "Config Server"],
+    "tags": [
+      "Spring Cloud",
+      "Config Server"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2402,7 +2511,11 @@
     "description": "Service registry and discovery.",
     "content": "Eureka is a service registry where microservices register and discover each other dynamically. Annotations: @EnableEurekaServer and @EnableEurekaClient.",
     "difficulty": "Intermediate",
-    "tags": ["Eureka", "Discovery", "Microservices"],
+    "tags": [
+      "Eureka",
+      "Discovery",
+      "Microservices"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2416,7 +2529,10 @@
     "description": "Prevent cascading failures.",
     "content": "Hystrix provides fault tolerance using the Circuit Breaker pattern. It stops sending requests to failing services and helps prevent system-wide failures.",
     "difficulty": "Intermediate",
-    "tags": ["Hystrix", "Circuit Breaker"],
+    "tags": [
+      "Hystrix",
+      "Circuit Breaker"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2430,7 +2546,11 @@
     "description": "Single entry point for microservices.",
     "content": "API Gateway acts as a centralized entry point that handles routing, security, load balancing, and request aggregation for multiple microservices.",
     "difficulty": "Intermediate",
-    "tags": ["API Gateway", "Zuul", "Gateway"],
+    "tags": [
+      "API Gateway",
+      "Zuul",
+      "Gateway"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2444,7 +2564,10 @@
     "description": "Benefits of API Gateway.",
     "content": "API Gateway avoids hardcoded URLs, centralizes security, simplifies routing, supports load balancing, and prevents frontend changes when backend services change.",
     "difficulty": "Intermediate",
-    "tags": ["Gateway", "Microservices"],
+    "tags": [
+      "Gateway",
+      "Microservices"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2458,7 +2581,10 @@
     "description": "Client-side load balancer.",
     "content": "Ribbon provides client-side load balancing using algorithms such as Round Robin. It supports fault tolerance, caching, and multiple communication protocols.",
     "difficulty": "Intermediate",
-    "tags": ["Ribbon", "Load Balancer"],
+    "tags": [
+      "Ribbon",
+      "Load Balancer"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2472,7 +2598,10 @@
     "description": "Trace requests across services.",
     "content": "Zipkin is a distributed tracing system used to monitor and visualize requests flowing through multiple microservices.",
     "difficulty": "Intermediate",
-    "tags": ["Zipkin", "Tracing"],
+    "tags": [
+      "Zipkin",
+      "Tracing"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2486,7 +2615,10 @@
     "description": "Frequently asked port numbers.",
     "content": "Config Server: 8888, Eureka Server: 8761, API Gateway: 8765, Zipkin: 9411.",
     "difficulty": "Beginner",
-    "tags": ["Ports", "Spring Cloud"],
+    "tags": [
+      "Ports",
+      "Spring Cloud"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2500,7 +2632,10 @@
     "description": "Continuous Integration tool.",
     "content": "Jenkins is an open-source automation server used for Continuous Integration and Continuous Delivery (CI/CD). It automates build, test, and deployment processes.",
     "difficulty": "Beginner",
-    "tags": ["Jenkins", "CI/CD"],
+    "tags": [
+      "Jenkins",
+      "CI/CD"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2514,7 +2649,10 @@
     "description": "Automatic source code monitoring.",
     "content": "POLL SCM periodically checks the source repository for changes and automatically triggers a build if changes are detected.",
     "difficulty": "Beginner",
-    "tags": ["Jenkins", "SCM"],
+    "tags": [
+      "Jenkins",
+      "SCM"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2528,7 +2666,10 @@
     "description": "Schedule Jenkins jobs.",
     "content": "Jenkins uses cron expressions. Example: */5 * * * * runs every 5 minutes. 0 8 * * * runs daily at 8:00 AM.",
     "difficulty": "Beginner",
-    "tags": ["Jenkins", "Cron"],
+    "tags": [
+      "Jenkins",
+      "Cron"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2542,7 +2683,10 @@
     "description": "Distributed transaction management.",
     "content": "Saga manages distributed transactions through a sequence of local transactions with compensating actions if a step fails.",
     "difficulty": "Advanced",
-    "tags": ["Saga", "Distributed Transaction"],
+    "tags": [
+      "Saga",
+      "Distributed Transaction"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2556,7 +2700,10 @@
     "description": "Event-driven saga implementation.",
     "content": "In choreography, services communicate through events without a central coordinator. Each service reacts to events and triggers the next step.",
     "difficulty": "Advanced",
-    "tags": ["Saga", "Choreography"],
+    "tags": [
+      "Saga",
+      "Choreography"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2570,7 +2717,10 @@
     "description": "Command-driven saga implementation.",
     "content": "In orchestration, a central orchestrator coordinates service execution and manages rollback actions when failures occur.",
     "difficulty": "Advanced",
-    "tags": ["Saga", "Orchestration"],
+    "tags": [
+      "Saga",
+      "Orchestration"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2584,7 +2734,10 @@
     "description": "Modern fault tolerance library.",
     "content": "Resilience4j is a lightweight fault-tolerance library that provides Circuit Breaker, Retry, Rate Limiter, Bulkhead, Time Limiter, and Cache patterns.",
     "difficulty": "Intermediate",
-    "tags": ["Resilience4j", "Fault Tolerance"],
+    "tags": [
+      "Resilience4j",
+      "Fault Tolerance"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2598,7 +2751,10 @@
     "description": "Prevent service failures.",
     "content": "Circuit Breaker stops requests to failing services and quickly returns fallback responses until the service recovers.",
     "difficulty": "Intermediate",
-    "tags": ["Circuit Breaker", "Resilience4j"],
+    "tags": [
+      "Circuit Breaker",
+      "Resilience4j"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2612,7 +2768,9 @@
     "description": "Limit excessive requests.",
     "content": "Rate Limiter restricts the number of requests allowed within a specific period to protect services from overload.",
     "difficulty": "Intermediate",
-    "tags": ["Rate Limiter"],
+    "tags": [
+      "Rate Limiter"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2626,7 +2784,10 @@
     "description": "Automatic retry for failures.",
     "content": "Retry automatically re-executes failed operations a configured number of times before reporting failure.",
     "difficulty": "Intermediate",
-    "tags": ["Retry", "Resilience4j"],
+    "tags": [
+      "Retry",
+      "Resilience4j"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2640,7 +2801,10 @@
     "description": "Isolate system resources.",
     "content": "Bulkhead limits concurrent requests to prevent one failing service from consuming all system resources.",
     "difficulty": "Intermediate",
-    "tags": ["Bulkhead", "Resilience4j"],
+    "tags": [
+      "Bulkhead",
+      "Resilience4j"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2654,7 +2818,11 @@
     "description": "Event-driven microservices framework.",
     "content": "Spring Cloud Stream simplifies building event-driven microservices using messaging systems such as Kafka and RabbitMQ.",
     "difficulty": "Intermediate",
-    "tags": ["Spring Cloud Stream", "Kafka", "Messaging"],
+    "tags": [
+      "Spring Cloud Stream",
+      "Kafka",
+      "Messaging"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
@@ -2668,11 +2836,13 @@
     "description": "Compare service discovery annotations.",
     "content": "@EnableEurekaClient works only with Eureka. @EnableDiscoveryClient is registry-independent and supports Eureka, Consul, and Zookeeper.",
     "difficulty": "Intermediate",
-    "tags": ["Eureka", "Discovery Client"],
+    "tags": [
+      "Eureka",
+      "Discovery Client"
+    ],
     "author": "Tech Interview Hub",
     "createdAt": "2026-11-14T00:00:00.000Z",
     "updatedAt": "2026-11-14T00:00:00.000Z",
     "published": true
   }
-
 ]

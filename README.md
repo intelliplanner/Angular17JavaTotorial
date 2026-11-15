@@ -13,6 +13,7 @@ A comprehensive web-based platform for Java learning and coding practice. This a
 - 📖 **Interview Questions** - Prepare for technical interviews with curated questions
 - 🧭 **Tutorials & Interview Q&A** - Search lessons, filter by topic and difficulty, track reading progress, and save or share content
 - 🛠️ **Admin Panel** - Create, edit, publish, and delete tutorials and interview answers with server-side admin authorization
+- ⚙️ **JSON Data Generator** - Run the Python dataset generator from the administrator Settings menu
 - 🎯 **Code Snippets** - Quick access to common code patterns and examples
 - ✨ **Syntax Highlighting** - Beautiful code editor with suggestions
 
@@ -37,6 +38,30 @@ A comprehensive web-based platform for Java learning and coding practice. This a
 - **Styling**: Bootstrap 5.3.3
 - **Backend API**: Node.js/Express
 - **HTTP Client**: Angular HttpClient
+
+## Application Flow
+
+```mermaid
+flowchart TD
+    User[Learner or administrator] --> UI[Angular application]
+    UI -->|Browse and practice| Content[Bundled JSON data and learning features]
+    UI -->|API requests when configured| API[Express API]
+    API -->|Read or persist managed content| Source[src/assets/data JSON files]
+    UI -->|Admin Settings: Generate JSON data| API
+    API -->|Authenticate administrator and validate request| Python[Python JSON generator]
+    Python -->|Read and validate datasets and catalogs| Source
+    Python -->|Write review drafts only| Drafts[data/generated-json]
+    Drafts --> Review[Review selected records in Admin Settings]
+    Review -->|Import approved records| Source
+```
+
+1. The Angular application opens the requested feature after applying the configured login and route-permission guards.
+2. Learners browse tutorials, interview Q&A, video learning, and quizzes. The application uses bundled data and, when configured, the Express API for content.
+3. Administrators manage content through protected pages. Successful tutorial and Q&A changes are persisted by the Express API to the source JSON files.
+4. For generation, an administrator opens **Settings → Generate JSON data** and selects datasets and minimum record counts. The Angular client sends that request to the protected Express endpoint, which invokes the fixed Python generator module.
+5. The generator scans and validates the source datasets against the category catalogs. Validation errors stop generation; otherwise it writes review drafts under `data/generated-json`. It does not modify or publish source content.
+6. In the generator page, load a dataset, inspect the draft records, select only approved entries, and choose **Import selected**. Imports are limited to 100 records per action; imported entries are removed from the draft file, and duplicates are rejected. Tutorials are published immediately on import. Q&A is appended to `questions-and-answers.json`. Quiz drafts are routed only to existing category files listed in `question-files.json`; missing subcategories are added to their existing category, while drafts for unmapped categories remain in review.
+7. Imported quizzes are stored in the source assets. For a static GitHub Pages deployment, rebuild and redeploy the frontend before learners can load those new quiz questions.
 
 ## Prerequisites
 
@@ -109,6 +134,8 @@ The starter accounts are `test` / `test` (learner access) and `admin` / `admin` 
 
 - Open `/tutorials` to browse published tutorials or use the Interview Q&A tab. Search and filters support all configured categories, topics, and difficulty levels.
 - Open `/admin-panel` while signed in as an administrator to manage tutorial drafts/publication and Q&A entries.
+- Open **Settings → Generate JSON data** to invoke the server-side Python generator. Select tutorials, Q&A, and/or quiz datasets and set a minimum of 1,000–10,000 output records per selected file. The action requires the authenticated admin session and Node.js API; source data is validated first and never overwritten. Generated review drafts are stored in `data/generated-json` on the server and are not automatically published or merged into the Angular assets.
+- The backend requires Python 3.10+; Tkinter is not needed for server execution. On Windows it invokes `py -3`; on other systems it invokes `python3`. Set `PYTHON_EXECUTABLE` to a Python executable path if the runtime is installed elsewhere. The server invokes a fixed Python module and does not accept commands or file paths from the browser.
 - Seed content is stored in `src/assets/data/tutorials.json` and `src/assets/data/questions-and-answers.json`. The Express API persists admin changes to those JSON files.
 - The production frontend can read the bundled JSON files when no API URL is configured; creating or editing content requires the Express backend and a configured `authApiUrl`.
 - Browser bookmarks, tutorial completion, and question votes are stored locally in the current browser.

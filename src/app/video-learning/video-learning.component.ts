@@ -133,4 +133,5 @@ export class VideoLearningComponent implements OnInit {
     else set.add(value);
     localStorage.setItem(key, JSON.stringify([...set]));
   }
+
 }

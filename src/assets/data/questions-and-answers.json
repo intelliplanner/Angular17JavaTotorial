@@ -57,7 +57,11 @@
     "question": "Why are Java Strings immutable, and what practical benefits does this provide?",
     "answer": "A String's value cannot be changed after construction. Immutability makes strings safe to share between threads, allows the JVM to reuse interned values, and keeps values stable when used as map keys. Operations such as concatenation create a new String; use StringBuilder for repeated modifications.",
     "difficulty": "Beginner",
-    "tags": ["Java", "String", "Immutability"],
+    "tags": [
+      "Java",
+      "String",
+      "Immutability"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -70,7 +74,11 @@
     "question": "Why use ExecutorService instead of creating a new Thread for every task?",
     "answer": "ExecutorService separates task submission from thread management and can reuse a bounded pool of worker threads. This avoids repeated thread-creation costs, provides queueing and shutdown controls, and lets callers obtain results through Future. Pool size and queue policy should match the workload so excess tasks do not exhaust resources.",
     "difficulty": "Intermediate",
-    "tags": ["Java", "Concurrency", "ExecutorService"],
+    "tags": [
+      "Java",
+      "Concurrency",
+      "ExecutorService"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -83,7 +91,11 @@
     "question": "What does Spring Boot auto-configuration do?",
     "answer": "Auto-configuration conditionally creates Spring beans based on the libraries on the classpath, existing beans, and configuration properties. It supplies sensible defaults while allowing an application to override them with its own beans or settings. It is not magic: the conditions and configuration report can be inspected when a default is unexpected.",
     "difficulty": "Beginner",
-    "tags": ["Spring Boot", "Auto-Configuration", "Spring"],
+    "tags": [
+      "Spring Boot",
+      "Auto-Configuration",
+      "Spring"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -96,7 +108,11 @@
     "question": "Why can a call to a @Transactional method on the same class fail to start a transaction?",
     "answer": "Spring's common transaction management uses an AOP proxy. A call made directly from one method to another on the same object bypasses that proxy, so the transaction interceptor may not run. Put the transactional operation on a separately injected bean or restructure the call through the proxy, and keep transaction boundaries at service-level operations.",
     "difficulty": "Advanced",
-    "tags": ["Spring Boot", "Transactions", "AOP"],
+    "tags": [
+      "Spring Boot",
+      "Transactions",
+      "AOP"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -109,7 +125,11 @@
     "question": "What problem does the circuit breaker pattern solve in a microservices system?",
     "answer": "A circuit breaker stops repeatedly calling a dependency that is failing or too slow. It typically moves through closed, open, and half-open states, allowing a limited probe after a pause. This can prevent resource exhaustion and cascading failures, but it should be paired with sensible timeouts, fallbacks where appropriate, and observable failure metrics.",
     "difficulty": "Intermediate",
-    "tags": ["Microservices", "Resilience", "Circuit Breaker"],
+    "tags": [
+      "Microservices",
+      "Resilience",
+      "Circuit Breaker"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -122,7 +142,11 @@
     "question": "How does a saga manage a business operation that spans multiple services?",
     "answer": "A saga divides a cross-service operation into local transactions. If a later step fails, compensating actions undo or offset earlier completed steps. Sagas can be coordinated through choreography (events between services) or orchestration (a coordinator directs steps). They provide eventual consistency rather than one ACID transaction, so retries, idempotency, and observable recovery are essential.",
     "difficulty": "Advanced",
-    "tags": ["Microservices", "Saga", "Distributed Transactions"],
+    "tags": [
+      "Microservices",
+      "Saga",
+      "Distributed Transactions"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -135,7 +159,11 @@
     "question": "What does it mean for an API operation to be idempotent, and why is it useful?",
     "answer": "An operation is idempotent when repeating the same request has the same intended effect as performing it once. Idempotency is useful when clients or message consumers retry after timeouts because they cannot tell whether the first attempt completed. A service can use an idempotency key and persist the result or processed-event identifier to avoid duplicate side effects.",
     "difficulty": "Intermediate",
-    "tags": ["Microservices", "API Design", "Idempotency"],
+    "tags": [
+      "Microservices",
+      "API Design",
+      "Idempotency"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -148,7 +176,11 @@
     "question": "What is Hibernate's first-level cache, and how long does it usually live?",
     "answer": "The first-level cache is the persistence context associated with an EntityManager or Hibernate Session. It ensures one managed entity instance per identity in that context and can avoid repeated database reads for the same entity. It is enabled by default and normally lasts for the persistence context or transaction scope; it is not a shared application-wide cache.",
     "difficulty": "Beginner",
-    "tags": ["Hibernate", "Persistence Context", "Caching"],
+    "tags": [
+      "Hibernate",
+      "Persistence Context",
+      "Caching"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -161,7 +193,11 @@
     "question": "What is the N+1 query problem in Hibernate, and how can you address it?",
     "answer": "The N+1 problem occurs when one query loads a set of parent entities and an additional query is issued for each parent's related data. Identify it with SQL logging or monitoring, then fetch the needed associations deliberately using a fetch join, entity graph, or batch fetching. Avoid globally eager-loading every relationship, which can create large or duplicate result sets.",
     "difficulty": "Intermediate",
-    "tags": ["Hibernate", "JPA", "Performance"],
+    "tags": [
+      "Hibernate",
+      "JPA",
+      "Performance"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -174,7 +210,11 @@
     "question": "What is the difference between flushing a Hibernate persistence context and committing a transaction?",
     "answer": "Flushing synchronizes pending persistence-context changes to the database, issuing SQL as needed. A flush does not itself commit the transaction, so those changes can still be rolled back. A transaction commit makes the transaction durable according to the database's guarantees and generally flushes pending changes first.",
     "difficulty": "Advanced",
-    "tags": ["Hibernate", "Transactions", "Persistence Context"],
+    "tags": [
+      "Hibernate",
+      "Transactions",
+      "Persistence Context"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -187,7 +227,11 @@
     "question": "Why does column order matter in a MySQL composite index?",
     "answer": "A composite B-tree index is ordered by its leading column, then subsequent columns. Queries filtering by the leftmost prefix can often use it efficiently, while queries that omit leading columns may not. Choose the order based on common predicates, joins, and sorting, and verify the optimizer's choice with EXPLAIN rather than assuming every query will use the index.",
     "difficulty": "Intermediate",
-    "tags": ["MySQL", "Indexes", "Query Optimization"],
+    "tags": [
+      "MySQL",
+      "Indexes",
+      "Query Optimization"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -200,7 +244,11 @@
     "question": "What does transaction isolation control in MySQL?",
     "answer": "Isolation controls how concurrent transactions can observe one another's changes and which anomalies, such as non-repeatable reads or phantom reads, may occur. InnoDB supports the standard isolation levels, with REPEATABLE READ as its usual default. Higher isolation can reduce anomalies but may increase locking or contention, so choose it based on correctness needs and test realistic workloads.",
     "difficulty": "Advanced",
-    "tags": ["MySQL", "InnoDB", "Transactions"],
+    "tags": [
+      "MySQL",
+      "InnoDB",
+      "Transactions"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -213,7 +261,11 @@
     "question": "How do DELETE, TRUNCATE, and DROP differ in MySQL?",
     "answer": "DELETE removes selected rows and can use a WHERE clause. TRUNCATE removes all rows by resetting the table storage and is a DDL operation with different transaction and trigger behavior from row-by-row deletion. DROP removes the table definition and its data. Confirm the target and required recovery behavior before running any destructive statement.",
     "difficulty": "Beginner",
-    "tags": ["MySQL", "SQL", "DDL"],
+    "tags": [
+      "MySQL",
+      "SQL",
+      "DDL"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -226,7 +278,11 @@
     "question": "Why does PostgreSQL need VACUUM?",
     "answer": "PostgreSQL's multi-version concurrency control keeps old row versions so concurrent transactions can see a consistent snapshot. VACUUM makes space from obsolete versions reusable and helps maintain visibility information; it also prevents transaction ID wraparound when managed correctly. Autovacuum handles routine work, but tables with unusual write patterns may need monitoring and tuning.",
     "difficulty": "Intermediate",
-    "tags": ["PostgreSQL", "MVCC", "Maintenance"],
+    "tags": [
+      "PostgreSQL",
+      "MVCC",
+      "Maintenance"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -239,7 +295,11 @@
     "question": "When might you choose PostgreSQL JSONB instead of a JSON column?",
     "answer": "JSONB stores a decomposed binary representation that PostgreSQL can process and index efficiently, including with GIN indexes. It is useful for flexible or semi-structured attributes that still need querying. It does not replace relational modeling for core data that needs strong constraints, joins, and predictable access patterns; choose based on the data and workload.",
     "difficulty": "Intermediate",
-    "tags": ["PostgreSQL", "JSONB", "Indexing"],
+    "tags": [
+      "PostgreSQL",
+      "JSONB",
+      "Indexing"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -252,7 +312,11 @@
     "question": "What is one difference between PostgreSQL B-tree and GIN indexes?",
     "answer": "B-tree indexes support common equality, range, and ordering operations on scalar values. GIN indexes are inverted indexes suited to values containing multiple searchable elements, such as arrays, full-text documents, and many JSONB queries. GIN can accelerate those searches but costs storage and write work; use EXPLAIN and representative data to choose.",
     "difficulty": "Advanced",
-    "tags": ["PostgreSQL", "Indexes", "Query Optimization"],
+    "tags": [
+      "PostgreSQL",
+      "Indexes",
+      "Query Optimization"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -265,7 +329,11 @@
     "question": "How can ROW_NUMBER() be used to select the most recent row per customer in Oracle?",
     "answer": "Use ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY created_at DESC, id DESC) in a subquery or common table expression, then filter the result to rn = 1. The extra stable tie-breaker, such as id, makes the chosen row deterministic when timestamps match.",
     "difficulty": "Intermediate",
-    "tags": ["Oracle", "SQL", "Window Functions"],
+    "tags": [
+      "Oracle",
+      "SQL",
+      "Window Functions"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -278,7 +346,11 @@
     "question": "What can an Oracle execution plan tell you when diagnosing a slow query?",
     "answer": "An execution plan shows the operations Oracle expects or performed, such as table access, index scans, joins, and their estimated or actual row counts. Compare estimates with actual statistics where available, inspect predicates and join order, and check whether indexes are used appropriately. A plan is evidence about one execution context, not a guarantee of performance for every bind value.",
     "difficulty": "Advanced",
-    "tags": ["Oracle", "SQL Tuning", "Execution Plan"],
+    "tags": [
+      "Oracle",
+      "SQL Tuning",
+      "Execution Plan"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -291,7 +363,11 @@
     "question": "Why should a PL/SQL exception handler avoid silently swallowing an exception?",
     "answer": "A handler that does nothing can make a failed operation appear successful and leave callers with incomplete results. Handle only exceptions the block can recover from; otherwise re-raise the error or translate it while preserving useful context. Log meaningful details at the appropriate boundary without exposing sensitive data.",
     "difficulty": "Beginner",
-    "tags": ["Oracle", "PL/SQL", "Error Handling"],
+    "tags": [
+      "Oracle",
+      "PL/SQL",
+      "Error Handling"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -304,7 +380,11 @@
     "question": "What is the difference between a Docker image and a container?",
     "answer": "An image is an immutable, layered template containing application files and runtime configuration. A container is a running or stopped instance created from an image, with its own writable layer and runtime isolation. Multiple containers can be created from the same image, while persistent data should generally live in a volume or another external store.",
     "difficulty": "Beginner",
-    "tags": ["Docker", "Images", "Containers"],
+    "tags": [
+      "Docker",
+      "Images",
+      "Containers"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -317,7 +397,11 @@
     "question": "How does a multi-stage Docker build help create a smaller production image?",
     "answer": "A multi-stage build uses one stage for compiling or packaging and a later stage for runtime. The final stage copies only the required artifacts, leaving build tools and intermediate files behind. This can reduce image size and attack surface; choose a trusted runtime base and avoid copying secrets into any image layer.",
     "difficulty": "Intermediate",
-    "tags": ["Docker", "Images", "Build"],
+    "tags": [
+      "Docker",
+      "Images",
+      "Build"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -330,7 +414,11 @@
     "question": "When would you use a Docker volume instead of a bind mount?",
     "answer": "A named volume is managed by Docker and is convenient for persistent container data that should not depend on a particular host path. A bind mount maps an explicit host file or directory into the container, which is useful for local development or sharing host-managed files. Both need deliberate access permissions and backup policies.",
     "difficulty": "Beginner",
-    "tags": ["Docker", "Volumes", "Storage"],
+    "tags": [
+      "Docker",
+      "Volumes",
+      "Storage"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -343,7 +431,11 @@
     "question": "How do readiness and liveness probes differ in Kubernetes?",
     "answer": "A readiness probe determines whether a container should receive traffic; a failing readiness check removes the Pod from ready Service endpoints without restarting it. A liveness probe detects a container that is stuck and can trigger a restart after repeated failures. Keep liveness checks independent of transient external dependencies to avoid restart loops.",
     "difficulty": "Intermediate",
-    "tags": ["Kubernetes", "Pods", "Health Checks"],
+    "tags": [
+      "Kubernetes",
+      "Pods",
+      "Health Checks"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -356,7 +448,11 @@
     "question": "When should Kubernetes configuration use a ConfigMap versus a Secret?",
     "answer": "Use a ConfigMap for non-sensitive configuration and a Secret for credentials or other sensitive values. A Secret is base64-encoded by default, not automatically encrypted at rest; protect it with encryption-at-rest configuration, least-privilege RBAC, and secure delivery practices. Avoid putting secrets in source control or exposing them in logs.",
     "difficulty": "Intermediate",
-    "tags": ["Kubernetes", "ConfigMap", "Secrets"],
+    "tags": [
+      "Kubernetes",
+      "ConfigMap",
+      "Secrets"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -369,7 +465,11 @@
     "question": "How does a Kubernetes Deployment help roll out a new application version?",
     "answer": "A Deployment manages ReplicaSets to maintain the desired number of Pods and supports rolling updates according to its rollout strategy. It can gradually replace old Pods with new ones, while readiness checks help prevent unready replicas from receiving traffic. Monitor rollout status and configure resource requests, probes, and rollback procedures for reliable releases.",
     "difficulty": "Beginner",
-    "tags": ["Kubernetes", "Deployments", "Rollouts"],
+    "tags": [
+      "Kubernetes",
+      "Deployments",
+      "Rollouts"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -382,7 +482,11 @@
     "question": "What does the principle of least privilege mean in AWS IAM?",
     "answer": "Grant each user, role, or workload only the actions and resources it needs, for only as long as needed. Prefer roles and temporary credentials over long-lived access keys, scope policies with resource and condition constraints, and review access using logs and policy analysis tools. Avoid broad wildcard permissions when a narrower policy can meet the requirement.",
     "difficulty": "Beginner",
-    "tags": ["AWS", "IAM", "Security"],
+    "tags": [
+      "AWS",
+      "IAM",
+      "Security"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -395,7 +499,11 @@
     "question": "What does enabling versioning on an Amazon S3 bucket provide?",
     "answer": "Versioning keeps multiple versions of an object under the same key, helping recover from accidental overwrites or deletions. It does not replace backups or access controls: versions consume storage, and a delete marker can hide an object without removing prior versions. Use lifecycle rules to manage old versions and restrict who can permanently delete them.",
     "difficulty": "Beginner",
-    "tags": ["AWS", "S3", "Storage"],
+    "tags": [
+      "AWS",
+      "S3",
+      "Storage"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -408,7 +516,11 @@
     "question": "What is a Lambda cold start, and when might it matter?",
     "answer": "A cold start is the initialization work performed when Lambda creates a new execution environment, including runtime startup and application initialization. It can add latency, especially for infrequent functions or heavier runtimes. Reduce unnecessary initialization and dependencies, measure real latency, and consider provisioned concurrency when predictable low latency justifies its cost.",
     "difficulty": "Intermediate",
-    "tags": ["AWS", "Lambda", "Serverless"],
+    "tags": [
+      "AWS",
+      "Lambda",
+      "Serverless"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -421,7 +533,12 @@
     "question": "How should an application running on GKE obtain Google Cloud credentials?",
     "answer": "Use Workload Identity Federation for GKE to associate a Kubernetes service account with a Google Cloud IAM service account, then grant only the required roles. This avoids distributing long-lived service-account key files to Pods. Keep Kubernetes and IAM permissions scoped and audit the identity bindings.",
     "difficulty": "Intermediate",
-    "tags": ["GCP", "GKE", "IAM", "Security"],
+    "tags": [
+      "GCP",
+      "GKE",
+      "IAM",
+      "Security"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -434,7 +551,11 @@
     "question": "Why must a Pub/Sub subscriber acknowledge a message?",
     "answer": "Acknowledging tells Pub/Sub that a message was processed and can be removed from that subscription's outstanding delivery. Without acknowledgment before the deadline, the message may be redelivered, so consumers should be idempotent and acknowledge only after successful processing. Tune acknowledgment deadlines and retry or dead-letter policies for the workload.",
     "difficulty": "Intermediate",
-    "tags": ["GCP", "Pub/Sub", "Messaging"],
+    "tags": [
+      "GCP",
+      "Pub/Sub",
+      "Messaging"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -447,7 +568,11 @@
     "question": "Why should a Cloud Run service avoid relying on local container storage for durable data?",
     "answer": "A Cloud Run instance can be stopped, replaced, or scaled independently, and its writable filesystem is not a durable shared store. Keep persistent data in a managed database or object store and treat local files as temporary. This also makes horizontal scaling safer because requests can reach different instances.",
     "difficulty": "Beginner",
-    "tags": ["GCP", "Cloud Run", "Storage"],
+    "tags": [
+      "GCP",
+      "Cloud Run",
+      "Storage"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -460,7 +585,11 @@
     "question": "How does Angular's OnPush change-detection strategy affect component updates?",
     "answer": "OnPush lets Angular check a component when its input references change, an event occurs in its view, or it is marked for checking through mechanisms such as AsyncPipe or ChangeDetectorRef. It works best with immutable input updates and observable-driven views. Mutating an existing object without changing its reference may not trigger the expected update.",
     "difficulty": "Intermediate",
-    "tags": ["Angular", "Change Detection", "Components"],
+    "tags": [
+      "Angular",
+      "Change Detection",
+      "Components"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -473,7 +602,11 @@
     "question": "When are Angular reactive forms a good choice?",
     "answer": "Reactive forms are useful when form structure and validation need to be explicit, dynamic, or thoroughly testable. The component defines a FormGroup or FormArray, and the template binds to that model. They make it straightforward to add validators and react to value changes; template-driven forms can remain simpler for small, straightforward forms.",
     "difficulty": "Beginner",
-    "tags": ["Angular", "Reactive Forms", "Validation"],
+    "tags": [
+      "Angular",
+      "Reactive Forms",
+      "Validation"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -486,7 +619,11 @@
     "question": "Do Angular route guards provide sufficient authorization for protected data?",
     "answer": "No. Route guards control client-side navigation and improve user experience, but the browser is under the user's control. Every protected API must independently authenticate the request and authorize the requested operation on the server. Never rely on hidden buttons or route guards as the security boundary.",
     "difficulty": "Advanced",
-    "tags": ["Angular", "Routing", "Security"],
+    "tags": [
+      "Angular",
+      "Routing",
+      "Security"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -499,7 +636,11 @@
     "question": "Why is the dependency array important in React's useEffect?",
     "answer": "The dependency array tells React which reactive values an effect uses so React can rerun it when those values change and clean up the prior effect. Missing dependencies can create stale closures; unnecessary unstable dependencies can cause repeated execution. Include the values used by the effect and use stable callbacks or restructure the effect when appropriate.",
     "difficulty": "Intermediate",
-    "tags": ["React", "Hooks", "useEffect"],
+    "tags": [
+      "React",
+      "Hooks",
+      "useEffect"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -512,7 +653,11 @@
     "question": "What is a controlled input in React?",
     "answer": "A controlled input gets its displayed value from React state and updates that state through an event handler such as onChange. This gives the component a single source of truth for validation and conditional UI. An uncontrolled input instead keeps its current value in the DOM and is commonly read through a ref.",
     "difficulty": "Beginner",
-    "tags": ["React", "Forms", "State"],
+    "tags": [
+      "React",
+      "Forms",
+      "State"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -525,7 +670,11 @@
     "question": "Why should React state objects be updated immutably?",
     "answer": "React relies heavily on reference comparisons to determine whether values changed. Mutating an existing object can preserve its reference and make updates difficult to detect, while also making previous state snapshots unreliable. Create a new object or array when updating state, using a functional state update when the next value depends on the previous one.",
     "difficulty": "Intermediate",
-    "tags": ["React", "State Management", "Immutability"],
+    "tags": [
+      "React",
+      "State Management",
+      "Immutability"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -538,7 +687,11 @@
     "question": "What is the difference between continuous delivery and continuous deployment?",
     "answer": "Continuous delivery keeps changes tested and ready to release, but a person may approve production deployment. Continuous deployment automatically releases changes that pass the pipeline's required checks. Both depend on reliable automated tests, repeatable artifacts, monitoring, and a safe rollback or recovery strategy.",
     "difficulty": "Beginner",
-    "tags": ["DevOps", "CI/CD", "Release"],
+    "tags": [
+      "DevOps",
+      "CI/CD",
+      "Release"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -551,7 +704,11 @@
     "question": "Why is Terraform state important, and how should a team protect it?",
     "answer": "Terraform state maps configuration resources to real infrastructure and records values needed for planning changes. Teams should use a shared remote backend with locking where supported, access controls, encryption, and backups. State can contain sensitive data, so do not commit it to source control or expose it in logs.",
     "difficulty": "Intermediate",
-    "tags": ["DevOps", "Terraform", "Infrastructure as Code"],
+    "tags": [
+      "DevOps",
+      "Terraform",
+      "Infrastructure as Code"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -564,7 +721,11 @@
     "question": "What are the main signals commonly used to observe a production service?",
     "answer": "Teams commonly use metrics, logs, and distributed traces together. Metrics reveal trends and alertable service-level behavior; logs provide event details; traces show request flow and latency across components. Correlate them with consistent identifiers and define service-level indicators so alerts focus on user-visible reliability rather than noisy infrastructure symptoms.",
     "difficulty": "Intermediate",
-    "tags": ["DevOps", "Observability", "Monitoring"],
+    "tags": [
+      "DevOps",
+      "Observability",
+      "Monitoring"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -577,7 +738,11 @@
     "question": "When would you use Comparable versus Comparator in Java?",
     "answer": "Comparable defines a class's natural ordering through compareTo(), while Comparator defines an external ordering through compare(). Use Comparable when the type has one sensible default order; use Comparator for alternate sort orders or when you cannot modify the class. Ensure the comparison is consistent and avoid subtraction-based comparisons that can overflow.",
     "difficulty": "Beginner",
-    "tags": ["Java", "Collections", "Sorting"],
+    "tags": [
+      "Java",
+      "Collections",
+      "Sorting"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -590,7 +755,11 @@
     "question": "What is the default Spring bean scope, and what does it mean?",
     "answer": "The default scope is singleton: one bean instance is created per bean definition per Spring application context. Singleton does not automatically make a bean thread-safe. Avoid storing request-specific mutable state in singleton beans, since concurrent requests may use the same instance.",
     "difficulty": "Beginner",
-    "tags": ["Spring Boot", "Spring Beans", "Scopes"],
+    "tags": [
+      "Spring Boot",
+      "Spring Beans",
+      "Scopes"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -603,7 +772,11 @@
     "question": "How can a team evolve a microservice API without breaking existing consumers?",
     "answer": "Prefer backward-compatible changes such as adding optional fields and preserving existing semantics. Coordinate deprecation with consumers, publish a migration window, and monitor old-version usage. Introduce a new API version only when a breaking change is unavoidable, and avoid maintaining versions indefinitely without a clear support policy.",
     "difficulty": "Intermediate",
-    "tags": ["Microservices", "API Design", "Versioning"],
+    "tags": [
+      "Microservices",
+      "API Design",
+      "Versioning"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -616,7 +789,11 @@
     "question": "Why can accessing a lazy association fail after a Hibernate session closes?",
     "answer": "A lazy association may need the persistence context to fetch its data. Once the session or EntityManager is closed, accessing an uninitialized association can raise LazyInitializationException. Fetch the required data inside the transaction using a deliberate query or DTO projection rather than relying on an open session during view rendering.",
     "difficulty": "Intermediate",
-    "tags": ["Hibernate", "Lazy Loading", "JPA"],
+    "tags": [
+      "Hibernate",
+      "Lazy Loading",
+      "JPA"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -629,7 +806,11 @@
     "question": "Why can a WHERE condition on the right table change the result of a LEFT JOIN?",
     "answer": "A LEFT JOIN creates null values for unmatched right-side columns. A WHERE predicate such as right_table.status = 'active' rejects those null rows, removing unmatched left-side records and often making the result behave like an inner join. Put a condition in the ON clause when it should limit matches while retaining all left-side rows.",
     "difficulty": "Intermediate",
-    "tags": ["MySQL", "SQL", "Joins"],
+    "tags": [
+      "MySQL",
+      "SQL",
+      "Joins"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -642,7 +823,11 @@
     "question": "How does PostgreSQL INSERT ... ON CONFLICT help implement an upsert?",
     "answer": "INSERT ... ON CONFLICT handles a uniqueness conflict by either doing nothing or applying a DO UPDATE action. The conflict target must match a suitable unique constraint or index. It can make insert-or-update behavior atomic with respect to that conflict, but the application should still define which columns may be updated and handle other transaction errors.",
     "difficulty": "Intermediate",
-    "tags": ["PostgreSQL", "SQL", "Upsert"],
+    "tags": [
+      "PostgreSQL",
+      "SQL",
+      "Upsert"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -655,7 +840,12 @@
     "question": "Why should applications use bind variables in Oracle SQL?",
     "answer": "Bind variables separate SQL structure from input values, reducing SQL injection risk when used correctly and allowing Oracle to reuse parsed statement plans for different values. They can improve performance for repeated statements. Bind parameters cannot stand in for identifiers such as table names, so dynamic identifiers still need strict allow-list validation.",
     "difficulty": "Intermediate",
-    "tags": ["Oracle", "SQL", "Security", "Performance"],
+    "tags": [
+      "Oracle",
+      "SQL",
+      "Security",
+      "Performance"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -668,7 +858,11 @@
     "question": "Why is Docker's exec form often preferred for a container's main process?",
     "answer": "Exec form runs the process directly instead of starting it through a shell. The application can receive operating-system signals such as SIGTERM as the container's main process, which supports graceful shutdown. Shell form may be useful for shell features, but signal forwarding and process handling should be considered explicitly.",
     "difficulty": "Intermediate",
-    "tags": ["Docker", "Containers", "Signals"],
+    "tags": [
+      "Docker",
+      "Containers",
+      "Signals"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -681,7 +875,11 @@
     "question": "What is the difference between ClusterIP, NodePort, and LoadBalancer Services?",
     "answer": "ClusterIP exposes a stable virtual IP inside the cluster and is the default. NodePort exposes a port on cluster nodes, usually for external routing or testing. LoadBalancer asks the environment's integration to provision an external load balancer when supported. Choose the narrowest exposure that meets the application's networking requirements.",
     "difficulty": "Beginner",
-    "tags": ["Kubernetes", "Services", "Networking"],
+    "tags": [
+      "Kubernetes",
+      "Services",
+      "Networking"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -694,7 +892,11 @@
     "question": "What is an S3 presigned URL, and what security limits should be considered?",
     "answer": "A presigned URL grants time-limited access to a specific S3 operation on an object using the permissions of the signing identity. Anyone who obtains the URL can use it until it expires, so use a short expiration, protect it from logs and referrers, and scope the signing role and object permissions narrowly.",
     "difficulty": "Intermediate",
-    "tags": ["AWS", "S3", "Security"],
+    "tags": [
+      "AWS",
+      "S3",
+      "Security"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -707,7 +909,11 @@
     "question": "How can table partitioning reduce BigQuery query costs?",
     "answer": "Partitioning divides a table by a time or integer range so queries that filter on the partitioning column can scan only relevant partitions. This can reduce bytes processed and improve performance. Include a suitable partition filter, select only needed columns, and use dry runs or job statistics to estimate actual scan costs.",
     "difficulty": "Intermediate",
-    "tags": ["GCP", "BigQuery", "Optimization"],
+    "tags": [
+      "GCP",
+      "BigQuery",
+      "Optimization"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -720,7 +926,11 @@
     "question": "What benefits does Angular's AsyncPipe provide when displaying an Observable?",
     "answer": "AsyncPipe subscribes to an Observable or Promise in the template, exposes the latest value, and automatically unsubscribes when the view is destroyed or the expression changes. It also marks the component for checking when a new value arrives, which is helpful with OnPush change detection.",
     "difficulty": "Beginner",
-    "tags": ["Angular", "RxJS", "AsyncPipe"],
+    "tags": [
+      "Angular",
+      "RxJS",
+      "AsyncPipe"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -733,7 +943,11 @@
     "question": "When should React useMemo be used?",
     "answer": "useMemo can cache the result of a calculation between renders while its dependencies remain unchanged. Use it when profiling shows a meaningful expensive calculation or when a stable derived value prevents avoidable work in a memoized child. It is a performance optimization, not a correctness guarantee, and unnecessary memoization adds complexity.",
     "difficulty": "Intermediate",
-    "tags": ["React", "Hooks", "Performance"],
+    "tags": [
+      "React",
+      "Hooks",
+      "Performance"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -746,13 +960,16 @@
     "question": "How does a blue-green deployment reduce release downtime?",
     "answer": "Blue-green deployment maintains two production-like environments. The current version serves traffic while the new version is deployed and verified in the other environment; traffic is then switched over. Rollback can switch traffic back, but data migrations, background jobs, and external side effects must remain compatible across both versions.",
     "difficulty": "Intermediate",
-    "tags": ["DevOps", "CI/CD", "Deployment Strategies"],
+    "tags": [
+      "DevOps",
+      "CI/CD",
+      "Deployment Strategies"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
     "viewCount": 0
   },
-
   {
     "id": "what-is-spring-cloud-config-server",
     "title": "What is Spring Cloud Config Server?",
@@ -761,7 +978,14 @@
     "question": "What is Spring Cloud Config Server?",
     "answer": "Spring Cloud Config Server provides centralized external configuration management for distributed microservices using a REST-based API.",
     "difficulty": "Intermediate",
-    "tags": ["Spring Cloud", "Config Server"]
+    "tags": [
+      "Spring Cloud",
+      "Config Server"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "what-is-eureka-server",
@@ -771,7 +995,14 @@
     "question": "What is Eureka Server?",
     "answer": "Eureka Server is a service registry where microservices register themselves and discover other services dynamically.",
     "difficulty": "Intermediate",
-    "tags": ["Eureka", "Discovery"]
+    "tags": [
+      "Eureka",
+      "Discovery"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "enableeurekaclient-vs-enablediscoveryclient",
@@ -781,7 +1012,14 @@
     "question": "Difference between @EnableEurekaClient and @EnableDiscoveryClient?",
     "answer": "@EnableEurekaClient works only with Eureka, whereas @EnableDiscoveryClient is registry-independent and supports Eureka, Consul, and Zookeeper.",
     "difficulty": "Intermediate",
-    "tags": ["Eureka", "Discovery Client"]
+    "tags": [
+      "Eureka",
+      "Discovery Client"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "what-is-hystrix",
@@ -791,7 +1029,14 @@
     "question": "What is Hystrix?",
     "answer": "Hystrix is a fault-tolerance library that implements the Circuit Breaker pattern to prevent cascading failures in microservices.",
     "difficulty": "Intermediate",
-    "tags": ["Hystrix", "Circuit Breaker"]
+    "tags": [
+      "Hystrix",
+      "Circuit Breaker"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "what-is-api-gateway",
@@ -801,7 +1046,14 @@
     "question": "What is an API Gateway?",
     "answer": "An API Gateway is a single entry point that handles routing, security, monitoring, and load balancing for microservices.",
     "difficulty": "Intermediate",
-    "tags": ["Gateway", "Microservices"]
+    "tags": [
+      "Gateway",
+      "Microservices"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "why-api-gateway",
@@ -811,7 +1063,14 @@
     "question": "Why do we need an API Gateway?",
     "answer": "API Gateway centralizes security, routing, load balancing, and prevents frontend changes when backend service URLs change.",
     "difficulty": "Intermediate",
-    "tags": ["Gateway", "Architecture"]
+    "tags": [
+      "Gateway",
+      "Architecture"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "what-is-ribbon",
@@ -821,7 +1080,14 @@
     "question": "What is Netflix Ribbon?",
     "answer": "Ribbon is a client-side load balancing library that distributes requests among available service instances.",
     "difficulty": "Intermediate",
-    "tags": ["Ribbon", "Load Balancer"]
+    "tags": [
+      "Ribbon",
+      "Load Balancer"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "what-is-zipkin",
@@ -831,7 +1097,14 @@
     "question": "What is Zipkin used for?",
     "answer": "Zipkin is a distributed tracing tool used to track and visualize requests across multiple microservices.",
     "difficulty": "Intermediate",
-    "tags": ["Zipkin", "Tracing"]
+    "tags": [
+      "Zipkin",
+      "Tracing"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "common-spring-cloud-ports",
@@ -841,7 +1114,14 @@
     "question": "What are commonly used Spring Cloud ports?",
     "answer": "Config Server: 8888, Eureka Server: 8761, API Gateway: 8765, Zipkin: 9411.",
     "difficulty": "Beginner",
-    "tags": ["Spring Cloud", "Ports"]
+    "tags": [
+      "Spring Cloud",
+      "Ports"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "what-is-jenkins",
@@ -851,7 +1131,14 @@
     "question": "What is Jenkins?",
     "answer": "Jenkins is an open-source CI/CD automation tool used to build, test, and deploy applications automatically.",
     "difficulty": "Beginner",
-    "tags": ["Jenkins", "CI/CD"]
+    "tags": [
+      "Jenkins",
+      "CI/CD"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "jenkins-poll-scm",
@@ -861,7 +1148,14 @@
     "question": "What is POLL SCM in Jenkins?",
     "answer": "POLL SCM checks the source repository periodically and triggers a build when changes are detected.",
     "difficulty": "Beginner",
-    "tags": ["Jenkins", "SCM"]
+    "tags": [
+      "Jenkins",
+      "SCM"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "jenkins-cron",
@@ -871,7 +1165,14 @@
     "question": "How does Jenkins schedule jobs?",
     "answer": "Jenkins uses cron expressions such as */5 * * * * for every 5 minutes and 0 8 * * * for daily execution at 8:00 AM.",
     "difficulty": "Beginner",
-    "tags": ["Jenkins", "Cron"]
+    "tags": [
+      "Jenkins",
+      "Cron"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "what-is-saga-pattern",
@@ -881,7 +1182,14 @@
     "question": "What is Saga Pattern?",
     "answer": "Saga Pattern manages distributed transactions using multiple local transactions and compensating actions.",
     "difficulty": "Advanced",
-    "tags": ["Saga", "Distributed Transactions"]
+    "tags": [
+      "Saga",
+      "Distributed Transactions"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "saga-choreography-vs-orchestration",
@@ -891,7 +1199,15 @@
     "question": "Difference between Choreography and Orchestration?",
     "answer": "Choreography uses event-driven communication between services. Orchestration uses a central coordinator to manage the workflow.",
     "difficulty": "Advanced",
-    "tags": ["Saga", "Choreography", "Orchestration"]
+    "tags": [
+      "Saga",
+      "Choreography",
+      "Orchestration"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "what-is-resilience4j",
@@ -901,7 +1217,13 @@
     "question": "What is Resilience4j?",
     "answer": "Resilience4j is a lightweight fault-tolerance library that provides Circuit Breaker, Retry, Rate Limiter, Bulkhead, Cache, and Time Limiter patterns.",
     "difficulty": "Intermediate",
-    "tags": ["Resilience4j"]
+    "tags": [
+      "Resilience4j"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "circuit-breaker-pattern",
@@ -911,7 +1233,13 @@
     "question": "What is Circuit Breaker?",
     "answer": "Circuit Breaker prevents repeated calls to a failing service and returns fallback responses until the service recovers.",
     "difficulty": "Intermediate",
-    "tags": ["Circuit Breaker"]
+    "tags": [
+      "Circuit Breaker"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "rate-limiter",
@@ -921,7 +1249,13 @@
     "question": "What is Rate Limiter?",
     "answer": "Rate Limiter restricts the number of requests allowed within a specific time period.",
     "difficulty": "Intermediate",
-    "tags": ["Rate Limiter"]
+    "tags": [
+      "Rate Limiter"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "retry-pattern",
@@ -931,7 +1265,13 @@
     "question": "What is Retry Mechanism?",
     "answer": "Retry automatically re-executes failed requests based on predefined retry configurations.",
     "difficulty": "Intermediate",
-    "tags": ["Retry"]
+    "tags": [
+      "Retry"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "bulkhead-pattern",
@@ -941,7 +1281,13 @@
     "question": "What is Bulkhead Pattern?",
     "answer": "Bulkhead isolates resources and limits concurrent requests to prevent one service failure from affecting others.",
     "difficulty": "Intermediate",
-    "tags": ["Bulkhead"]
+    "tags": [
+      "Bulkhead"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "time-limiter",
@@ -951,7 +1297,13 @@
     "question": "What is Time Limiter?",
     "answer": "Time Limiter defines a maximum execution time for remote service calls and triggers timeout handling if exceeded.",
     "difficulty": "Intermediate",
-    "tags": ["Time Limiter"]
+    "tags": [
+      "Time Limiter"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "spring-cloud-stream",
@@ -961,7 +1313,15 @@
     "question": "What is Spring Cloud Stream?",
     "answer": "Spring Cloud Stream is a framework for building event-driven microservices using messaging platforms such as Kafka and RabbitMQ.",
     "difficulty": "Intermediate",
-    "tags": ["Spring Cloud Stream", "Kafka", "RabbitMQ"]
+    "tags": [
+      "Spring Cloud Stream",
+      "Kafka",
+      "RabbitMQ"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "webflux-integration-test",
@@ -971,7 +1331,15 @@
     "question": "How do you write integration tests in Spring WebFlux?",
     "answer": "Spring WebFlux integration tests are typically written using JUnit, Mockito, WebTestClient, and @SpringBootTest.",
     "difficulty": "Intermediate",
-    "tags": ["WebFlux", "JUnit", "Mockito"]
+    "tags": [
+      "WebFlux",
+      "JUnit",
+      "Mockito"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "what-is-microservice",
@@ -981,7 +1349,14 @@
     "question": "What is Microservice Architecture?",
     "answer": "Microservice architecture is an approach where an application is divided into small, independent services that communicate through APIs.",
     "difficulty": "Beginner",
-    "tags": ["Microservices", "Architecture"]
+    "tags": [
+      "Microservices",
+      "Architecture"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "microservices-vs-monolith",
@@ -991,7 +1366,14 @@
     "question": "Difference between Monolithic and Microservices Architecture?",
     "answer": "Monolithic applications are deployed as a single unit, while Microservices are independently deployable services.",
     "difficulty": "Intermediate",
-    "tags": ["Microservices", "Monolithic"]
+    "tags": [
+      "Microservices",
+      "Monolithic"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "benefits-of-microservices",
@@ -1001,7 +1383,14 @@
     "question": "What are the advantages of Microservices?",
     "answer": "Independent deployment, scalability, fault isolation, technology flexibility, and faster development.",
     "difficulty": "Beginner",
-    "tags": ["Microservices", "Advantages"]
+    "tags": [
+      "Microservices",
+      "Advantages"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "disadvantages-of-microservices",
@@ -1011,7 +1400,14 @@
     "question": "What are the disadvantages of Microservices?",
     "answer": "Increased complexity, distributed transactions, network latency, monitoring challenges, and deployment overhead.",
     "difficulty": "Intermediate",
-    "tags": ["Microservices", "Disadvantages"]
+    "tags": [
+      "Microservices",
+      "Disadvantages"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "service-discovery",
@@ -1021,7 +1417,14 @@
     "question": "What is Service Discovery?",
     "answer": "Service Discovery allows services to find and communicate with each other dynamically without hardcoded URLs.",
     "difficulty": "Intermediate",
-    "tags": ["Eureka", "Service Discovery"]
+    "tags": [
+      "Eureka",
+      "Service Discovery"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "client-side-load-balancing",
@@ -1031,7 +1434,14 @@
     "question": "What is Client Side Load Balancing?",
     "answer": "The client chooses the service instance using a load balancing algorithm such as Round Robin.",
     "difficulty": "Intermediate",
-    "tags": ["Ribbon", "Load Balancing"]
+    "tags": [
+      "Ribbon",
+      "Load Balancing"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "server-side-load-balancing",
@@ -1041,7 +1451,13 @@
     "question": "What is Server Side Load Balancing?",
     "answer": "A dedicated load balancer receives requests and forwards them to available service instances.",
     "difficulty": "Intermediate",
-    "tags": ["Load Balancer"]
+    "tags": [
+      "Load Balancer"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "circuit-breaker-state",
@@ -1051,7 +1467,13 @@
     "question": "What are the states of Circuit Breaker?",
     "answer": "Closed, Open, and Half-Open.",
     "difficulty": "Intermediate",
-    "tags": ["Circuit Breaker"]
+    "tags": [
+      "Circuit Breaker"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "fallback-method",
@@ -1061,7 +1483,14 @@
     "question": "What is a Fallback Method?",
     "answer": "A fallback method provides an alternative response when a remote service call fails.",
     "difficulty": "Intermediate",
-    "tags": ["Circuit Breaker", "Fallback"]
+    "tags": [
+      "Circuit Breaker",
+      "Fallback"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "distributed-transaction",
@@ -1071,7 +1500,13 @@
     "question": "What is a Distributed Transaction?",
     "answer": "A transaction that spans multiple microservices or databases.",
     "difficulty": "Advanced",
-    "tags": ["Distributed Transaction"]
+    "tags": [
+      "Distributed Transaction"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "cqrs-pattern",
@@ -1081,7 +1516,14 @@
     "question": "What is CQRS?",
     "answer": "CQRS separates read operations (queries) from write operations (commands) to improve scalability and performance.",
     "difficulty": "Advanced",
-    "tags": ["CQRS", "Design Pattern"]
+    "tags": [
+      "CQRS",
+      "Design Pattern"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "event-driven-microservices",
@@ -1091,7 +1533,14 @@
     "question": "What is Event-Driven Architecture?",
     "answer": "Services communicate through events instead of direct synchronous API calls.",
     "difficulty": "Intermediate",
-    "tags": ["Kafka", "Event Driven"]
+    "tags": [
+      "Kafka",
+      "Event Driven"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "sync-vs-async-communication",
@@ -1101,7 +1550,14 @@
     "question": "Difference between synchronous and asynchronous communication?",
     "answer": "Synchronous waits for a response, while asynchronous continues processing without waiting.",
     "difficulty": "Intermediate",
-    "tags": ["REST", "Kafka"]
+    "tags": [
+      "REST",
+      "Kafka"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "feign-client",
@@ -1111,7 +1567,14 @@
     "question": "What is Feign Client?",
     "answer": "Feign Client is a declarative REST client used for service-to-service communication in Spring Cloud.",
     "difficulty": "Intermediate",
-    "tags": ["Feign", "REST"]
+    "tags": [
+      "Feign",
+      "REST"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "resttemplate-vs-webclient",
@@ -1121,7 +1584,14 @@
     "question": "Difference between RestTemplate and WebClient?",
     "answer": "RestTemplate is synchronous and blocking, whereas WebClient is asynchronous and non-blocking.",
     "difficulty": "Intermediate",
-    "tags": ["WebClient", "RestTemplate"]
+    "tags": [
+      "WebClient",
+      "RestTemplate"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "observability",
@@ -1131,7 +1601,14 @@
     "question": "What is Observability?",
     "answer": "Observability is the ability to understand a system using logs, metrics, and traces.",
     "difficulty": "Intermediate",
-    "tags": ["Monitoring", "Observability"]
+    "tags": [
+      "Monitoring",
+      "Observability"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "distributed-tracing",
@@ -1141,7 +1618,14 @@
     "question": "Why is Distributed Tracing used?",
     "answer": "Distributed tracing helps track requests across multiple microservices to identify bottlenecks and failures.",
     "difficulty": "Intermediate",
-    "tags": ["Zipkin", "Tracing"]
+    "tags": [
+      "Zipkin",
+      "Tracing"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "config-server-benefit",
@@ -1151,7 +1635,13 @@
     "question": "Why use Spring Cloud Config Server?",
     "answer": "It centralizes configuration management and avoids storing properties in every microservice.",
     "difficulty": "Intermediate",
-    "tags": ["Config Server"]
+    "tags": [
+      "Config Server"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "database-per-service",
@@ -1161,7 +1651,14 @@
     "question": "What is Database Per Service Pattern?",
     "answer": "Each microservice owns its database and does not directly access another service's database.",
     "difficulty": "Intermediate",
-    "tags": ["Database", "Microservices"]
+    "tags": [
+      "Database",
+      "Microservices"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "api-versioning",
@@ -1171,7 +1668,14 @@
     "question": "Why is API Versioning important?",
     "answer": "API versioning allows introducing changes without breaking existing clients.",
     "difficulty": "Beginner",
-    "tags": ["API", "Versioning"]
+    "tags": [
+      "API",
+      "Versioning"
+    ],
+    "createdAt": "2026-11-14T00:00:00.000Z",
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0
   },
   {
     "id": "ai-supervised-learning-interview",
@@ -1180,7 +1684,11 @@
     "question": "How do supervised and unsupervised learning differ?",
     "answer": "Supervised learning uses labeled examples to learn a mapping from inputs to known targets, such as a classifier trained on labeled images. Unsupervised learning looks for structure in data without target labels, such as clusters or lower-dimensional representations. The choice depends on the available data and the problem objective.",
     "difficulty": "Beginner",
-    "tags": ["AI", "Machine Learning", "Supervised Learning"],
+    "tags": [
+      "AI",
+      "Machine Learning",
+      "Supervised Learning"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1193,7 +1701,11 @@
     "question": "What is overfitting, and how can you reduce it?",
     "answer": "Overfitting occurs when a model fits training-specific noise and performs poorly on unseen data. Use a sound validation strategy, simplify the model, apply regularization or early stopping, collect representative data, and prevent leakage. Evaluate the final approach on a held-out test set.",
     "difficulty": "Intermediate",
-    "tags": ["AI", "Overfitting", "Generalization"],
+    "tags": [
+      "AI",
+      "Overfitting",
+      "Generalization"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1206,7 +1718,11 @@
     "question": "When would you prioritize recall over precision?",
     "answer": "Recall is important when missing a true positive is especially costly, such as an initial medical screening or detecting a security threat. Increasing recall can create more false positives, so the threshold and operating point should reflect the use case, review capacity, and consequences of each error.",
     "difficulty": "Intermediate",
-    "tags": ["AI", "Recall", "Evaluation Metrics"],
+    "tags": [
+      "AI",
+      "Recall",
+      "Evaluation Metrics"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1219,7 +1735,11 @@
     "question": "What is data leakage and why does it undermine model evaluation?",
     "answer": "Data leakage happens when training or model selection uses information that would not be available at prediction time, including target-derived features or information from the test set. It can inflate measured performance and cause disappointing production results. Split data according to the real prediction setting and fit preprocessing only on training data.",
     "difficulty": "Advanced",
-    "tags": ["AI", "Data Leakage", "Model Evaluation"],
+    "tags": [
+      "AI",
+      "Data Leakage",
+      "Model Evaluation"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1232,7 +1752,11 @@
     "question": "How do you structure a prompt to get a reliable response from Claude?",
     "answer": "State the task and constraints clearly, provide relevant context, delimit untrusted source material, and specify the desired output format. For complex work, provide examples or break the task into steps. Evaluate outputs against test cases rather than assuming a prompt guarantees correctness.",
     "difficulty": "Beginner",
-    "tags": ["Claude", "Prompt Engineering", "LLM"],
+    "tags": [
+      "Claude",
+      "Prompt Engineering",
+      "LLM"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1245,7 +1769,11 @@
     "question": "How should an application safely execute a tool call requested by Claude?",
     "answer": "Treat the tool call as untrusted input. Validate the tool name and argument schema, enforce the signed-in user's authorization in application code, restrict access to the minimum required resources, and require confirmation for consequential actions. Log and handle failures without treating model output as authorization.",
     "difficulty": "Advanced",
-    "tags": ["Claude", "Tool Use", "Application Security"],
+    "tags": [
+      "Claude",
+      "Tool Use",
+      "Application Security"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1258,7 +1786,11 @@
     "question": "What is prompt injection in a retrieval-augmented Claude application?",
     "answer": "Prompt injection is an attempt to place instructions in user input or retrieved content that manipulate the model into ignoring intended instructions or disclosing data. Delimit retrieved text as untrusted, keep secrets out of prompts, use access-controlled retrieval, and enforce permissions and tool restrictions outside the model.",
     "difficulty": "Advanced",
-    "tags": ["Claude", "Prompt Injection", "RAG"],
+    "tags": [
+      "Claude",
+      "Prompt Injection",
+      "RAG"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1271,7 +1803,11 @@
     "question": "How would you reduce the impact of unsupported claims in Claude's responses?",
     "answer": "Ground responses in relevant, access-controlled sources, ask the model to identify when evidence is insufficient, and provide citations that can be checked. Build representative evaluations, verify high-impact facts, and keep human review for consequential decisions. These controls reduce risk but do not eliminate hallucinations.",
     "difficulty": "Intermediate",
-    "tags": ["Claude", "Evaluation", "Grounding"],
+    "tags": [
+      "Claude",
+      "Evaluation",
+      "Grounding"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1284,7 +1820,11 @@
     "question": "Why should the test set not be used repeatedly while tuning a model?",
     "answer": "Repeatedly selecting models or parameters based on test results leaks information from the test set into the development process. The score then becomes an optimistic selection estimate rather than an independent evaluation. Use training data for fitting, validation or cross-validation for selection, and reserve the test set for final evaluation.",
     "difficulty": "Intermediate",
-    "tags": ["Data Science", "Train Test Split", "Evaluation"],
+    "tags": [
+      "Data Science",
+      "Train Test Split",
+      "Evaluation"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1297,7 +1837,11 @@
     "question": "Why can accuracy be misleading on an imbalanced classification problem?",
     "answer": "If one class dominates, a model can achieve high accuracy by mostly predicting that class while failing to detect the minority class. Inspect a confusion matrix and metrics such as precision, recall, F1, PR-AUC, or cost-weighted measures selected for the application. Compare against an appropriate baseline.",
     "difficulty": "Intermediate",
-    "tags": ["Data Science", "Class Imbalance", "Metrics"],
+    "tags": [
+      "Data Science",
+      "Class Imbalance",
+      "Metrics"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1310,7 +1854,11 @@
     "question": "What is k-fold cross-validation and when should time-aware splitting be used instead?",
     "answer": "In k-fold cross-validation, data is divided into k folds; each fold is held out once while the others train the model, and the scores are summarized. For time-dependent data, random folds can train on future observations and validate on the past. Use a chronological or rolling split that matches how predictions will be made.",
     "difficulty": "Advanced",
-    "tags": ["Data Science", "Cross Validation", "Time Series"],
+    "tags": [
+      "Data Science",
+      "Cross Validation",
+      "Time Series"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1323,7 +1871,11 @@
     "question": "How should preprocessing be handled to avoid leakage during cross-validation?",
     "answer": "Place transformations such as imputation, scaling, and feature selection inside a pipeline that is fit separately on each training fold. Apply the learned transformations to that fold's validation data without refitting. This keeps validation information from influencing preprocessing parameters.",
     "difficulty": "Advanced",
-    "tags": ["Data Science", "Feature Engineering", "Data Leakage"],
+    "tags": [
+      "Data Science",
+      "Feature Engineering",
+      "Data Leakage"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1336,7 +1888,11 @@
     "question": "What does idempotency mean in a data pipeline, and why is it useful?",
     "answer": "An idempotent operation produces the same final state when the same input is processed more than once. It makes retries and recovery safer, reducing duplicate side effects after partial failures. Common techniques include stable business keys, deduplication, upserts, and recording committed checkpoints.",
     "difficulty": "Intermediate",
-    "tags": ["Data Engineering", "Idempotency", "Pipelines"],
+    "tags": [
+      "Data Engineering",
+      "Idempotency",
+      "Pipelines"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1349,7 +1905,11 @@
     "question": "How do event time and processing time differ in stream processing?",
     "answer": "Event time is when an event occurred according to its source timestamp; processing time is when the system handles it. Event-time windows can produce results aligned to real-world occurrence but must account for delayed or out-of-order events. Watermarks estimate event-time progress and help decide when to close windows.",
     "difficulty": "Advanced",
-    "tags": ["Data Engineering", "Streaming", "Event Time"],
+    "tags": [
+      "Data Engineering",
+      "Streaming",
+      "Event Time"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1362,7 +1922,11 @@
     "question": "What is the grain of a fact table and why must it be defined first?",
     "answer": "The grain states exactly what one row in the fact table represents, such as one order line or one account balance per day. Defining it first guides the dimensions and measures and prevents mixing different levels of detail, which can create incorrect joins and double-counted aggregates.",
     "difficulty": "Intermediate",
-    "tags": ["Data Engineering", "Dimensional Modeling", "Warehouse"],
+    "tags": [
+      "Data Engineering",
+      "Dimensional Modeling",
+      "Warehouse"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
@@ -1375,7 +1939,11 @@
     "question": "How would you handle late-arriving records in a batch or streaming pipeline?",
     "answer": "First define an acceptable lateness policy and the business meaning of corrections. Depending on the system, retain a replay window, update affected partitions or aggregates, use watermarks and allowed lateness, and make writes idempotent. Monitor late-data volume and expose whether downstream results are provisional or corrected.",
     "difficulty": "Advanced",
-    "tags": ["Data Engineering", "Late Data", "Stream Processing"],
+    "tags": [
+      "Data Engineering",
+      "Late Data",
+      "Stream Processing"
+    ],
     "createdAt": "2026-11-14T00:00:00.000Z",
     "likeCount": 0,
     "dislikeCount": 0,
