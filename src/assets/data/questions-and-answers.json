@@ -1,5 +1,1158 @@
 [
   {
+    "category": "Java",
+    "subCategory": "Basics",
+    "question": "What is Enum in Java?",
+    "answer": "It is data type, which contains fixed set of constant.\n1. Improve type safety.\n2. Enum can have Fields, Constructor, Method.\n 3. Enum easily can be used in Swith case",
+    "difficulty": "Beginner",
+    "tags": [
+      "Java Enum"
+    ],
+    "likeCount": 0,
+    "dislikeCount": 0,
+    "viewCount": 0,
+    "id": "548672e2-58e4-43a3-81a3-b67242dc1e06",
+    "createdAt": "2026-11-15T18:25:32.682Z"
+  },
+  
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is the main advantage of Stream API over traditional loops?",
+    "answer": "It provides declarative, functional-style data processing with less boilerplate code.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is lazy evaluation in Stream API?",
+    "answer": "Intermediate operations are executed only when a terminal operation is invoked.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "Can a stream be reused after a terminal operation?",
+    "answer": "No, a stream can only be consumed once.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is a stream pipeline?",
+    "answer": "A stream source followed by zero or more intermediate operations and a terminal operation.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is the difference between map() and flatMap()?",
+    "answer": "map() transforms elements one-to-one, while flatMap() transforms and flattens nested structures.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What are stateful intermediate operations?",
+    "answer": "Operations that require information about other elements such as distinct() and sorted().",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What are stateless intermediate operations?",
+    "answer": "Operations that process elements independently such as map() and filter().",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is short-circuiting in Stream API?",
+    "answer": "Processing stops as soon as the required result is achieved.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "Name some short-circuit terminal operations.",
+    "answer": "findFirst(), findAny(), anyMatch(), allMatch(), noneMatch().",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is the purpose of peek()?",
+    "answer": "It is used mainly for debugging and inspecting stream elements.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "Why should peek() not be used for business logic?",
+    "answer": "Its execution is dependent on terminal operations and should be used only for debugging.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How do you create an infinite stream?",
+    "answer": "Using Stream.iterate() or Stream.generate().",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How can infinite streams be controlled?",
+    "answer": "Using limit() or short-circuit operations.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Stream.generate() used for?",
+    "answer": "To create an infinite stream using a Supplier.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Stream.iterate() used for?",
+    "answer": "To generate a sequential stream based on a seed value.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does distinct() do?",
+    "answer": "Removes duplicate elements from a stream.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does sorted() do?",
+    "answer": "Sorts stream elements using natural or custom ordering.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How can you sort in descending order using streams?",
+    "answer": "Using sorted(Comparator.reverseOrder()).",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How do you merge two streams?",
+    "answer": "Using Stream.concat(stream1, stream2).",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does skip() do?",
+    "answer": "Skips the specified number of elements.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does limit() do?",
+    "answer": "Restricts the stream to a specified number of elements.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is the difference between findFirst() and findAny()?",
+    "answer": "findFirst() returns the first element, while findAny() may return any matching element.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does anyMatch() do?",
+    "answer": "Returns true if any element matches the predicate.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does allMatch() do?",
+    "answer": "Returns true if all elements match the predicate.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does noneMatch() do?",
+    "answer": "Returns true if no element matches the predicate.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is reduce() in Stream API?",
+    "answer": "It combines all stream elements into a single result.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "When should reduce() be preferred?",
+    "answer": "For aggregation operations that return a single value.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is boxing in Stream API?",
+    "answer": "Converting primitive values into wrapper object types.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does boxed() do?",
+    "answer": "Converts primitive streams to wrapper object streams.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What are primitive stream types?",
+    "answer": "IntStream, LongStream, and DoubleStream.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is a Collector in Java Streams?",
+    "answer": "A mechanism used to accumulate stream elements into a mutable result container.",
+    "difficulty": "Advanced",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does Collectors.toList() do?",
+    "answer": "Collects stream elements into a List.",
+    "difficulty": "Advanced",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does Collectors.toSet() do?",
+    "answer": "Collects stream elements into a Set.",
+    "difficulty": "Advanced",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does Collectors.toMap() do?",
+    "answer": "Collects elements into key-value pairs.",
+    "difficulty": "Advanced",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is groupingBy()?",
+    "answer": "Groups elements by a classifier function.",
+    "difficulty": "Advanced",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is partitioningBy()?",
+    "answer": "Partitions elements into two groups based on a predicate.",
+    "difficulty": "Advanced",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Collectors.joining()?",
+    "answer": "Concatenates stream elements into a String.",
+    "difficulty": "Advanced",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Collectors.counting()?",
+    "answer": "Counts the number of elements in a stream.",
+    "difficulty": "Advanced",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Collectors.mapping()?",
+    "answer": "Applies a mapping function before downstream collection.",
+    "difficulty": "Advanced",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Collectors.collectingAndThen()?",
+    "answer": "Performs a finishing transformation after collection.",
+    "difficulty": "Advanced",
+    "tags": ["Collectors"]
+  },
+
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How do you find duplicate elements in a list using streams?",
+    "answer": "Use groupingBy() with counting() and filter elements with count greater than 1.",
+    "difficulty": "Advanced",
+    "tags": ["Scenario", "Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How do you find the second highest salary using streams?",
+    "answer": "Sort salaries in descending order, skip one element and retrieve the first result.",
+    "difficulty": "Advanced",
+    "tags": ["Scenario", "Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How do you count employees in each department?",
+    "answer": "Use Collectors.groupingBy() along with Collectors.counting().",
+    "difficulty": "Advanced",
+    "tags": ["Scenario", "Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How do you find the highest-paid employee in each department?",
+    "answer": "Use groupingBy() with maxBy().",
+    "difficulty": "Advanced",
+    "tags": ["Scenario", "Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How do you convert a List<Employee> into Map<Long, Employee>?",
+    "answer": "Use Collectors.toMap(Employee::getId, Function.identity()).",
+    "difficulty": "Advanced",
+    "tags": ["Scenario", "Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How do you partition employees into active and inactive groups?",
+    "answer": "Use Collectors.partitioningBy(Employee::isActive).",
+    "difficulty": "Advanced",
+    "tags": ["Scenario", "Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How do you find the first non-repeated character in a string?",
+    "answer": "Use groupingBy() with LinkedHashMap and find the first element whose count is one.",
+    "difficulty": "Advanced",
+    "tags": ["Scenario", "Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How do you remove duplicate objects from a list?",
+    "answer": "Override equals() and hashCode() and use distinct().",
+    "difficulty": "Advanced",
+    "tags": ["Scenario", "Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How do you find common elements between two lists?",
+    "answer": "Use filter() with contains() on the second list.",
+    "difficulty": "Advanced",
+    "tags": ["Scenario", "Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "How do you flatten a List<List<String>>?",
+    "answer": "Use flatMap(Collection::stream).",
+    "difficulty": "Advanced",
+    "tags": ["Scenario", "flatMap"]
+  }
+,
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "Can a lambda expression access local variables?",
+    "answer": "Yes, but local variables must be final or effectively final.",
+    "difficulty": "Intermediate",
+    "tags": ["Lambda"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is an effectively final variable?",
+    "answer": "A variable whose value is not changed after initialization.",
+    "difficulty": "Intermediate",
+    "tags": ["Lambda"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "Can lambda expressions throw exceptions?",
+    "answer": "Yes, but checked exceptions must be handled or declared properly.",
+    "difficulty": "Advanced",
+    "tags": ["Lambda", "Exception"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "Can lambda expressions be serialized?",
+    "answer": "Yes, if the target functional interface extends Serializable.",
+    "difficulty": "Advanced",
+    "tags": ["Lambda"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is the difference between anonymous class and lambda expression?",
+    "answer": "Anonymous class creates a separate class object, whereas lambda provides a concise implementation without creating an extra class.",
+    "difficulty": "Intermediate",
+    "tags": ["Lambda", "Anonymous Class"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Predicate in Java 8?",
+    "answer": "A functional interface that takes one argument and returns a boolean result.",
+    "difficulty": "Beginner",
+    "tags": ["Predicate"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Function in Java 8?",
+    "answer": "A functional interface that accepts one argument and returns a result.",
+    "difficulty": "Beginner",
+    "tags": ["Function"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Consumer in Java 8?",
+    "answer": "A functional interface that accepts an argument and returns no result.",
+    "difficulty": "Beginner",
+    "tags": ["Consumer"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Supplier in Java 8?",
+    "answer": "A functional interface that supplies data without taking any input.",
+    "difficulty": "Beginner",
+    "tags": ["Supplier"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is UnaryOperator?",
+    "answer": "A specialization of Function where input and output types are the same.",
+    "difficulty": "Intermediate",
+    "tags": ["UnaryOperator"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is BinaryOperator?",
+    "answer": "A specialization of BiFunction where input and output types are the same.",
+    "difficulty": "Intermediate",
+    "tags": ["BinaryOperator"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is a Constructor Reference?",
+    "answer": "A method reference that refers to a constructor using ClassName::new.",
+    "difficulty": "Intermediate",
+    "tags": ["Method Reference"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "When should Method References be used?",
+    "answer": "When an existing method implementation can replace a lambda expression for better readability.",
+    "difficulty": "Intermediate",
+    "tags": ["Method Reference"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "Are Streams reusable?",
+    "answer": "No, a stream can be consumed only once.",
+    "difficulty": "Intermediate",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is lazy evaluation in streams?",
+    "answer": "Intermediate operations execute only when a terminal operation is invoked.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does distinct() do?",
+    "answer": "Removes duplicate elements from a stream.",
+    "difficulty": "Beginner",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does sorted() do?",
+    "answer": "Sorts stream elements in natural or custom order.",
+    "difficulty": "Beginner",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does peek() do?",
+    "answer": "Performs an action on stream elements mainly for debugging.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is the difference between findFirst() and findAny()?",
+    "answer": "findFirst returns the first element, while findAny may return any element especially in parallel streams.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does limit() do?",
+    "answer": "Restricts the stream to a specified number of elements.",
+    "difficulty": "Beginner",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does skip() do?",
+    "answer": "Skips the specified number of elements from the stream.",
+    "difficulty": "Beginner",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Collectors",
+    "question": "What does Collectors.toList() do?",
+    "answer": "Collects stream elements into a List.",
+    "difficulty": "Beginner",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does Collectors.toSet() do?",
+    "answer": "Collects stream elements into a Set.",
+    "difficulty": "Beginner",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does Collectors.toMap() do?",
+    "answer": "Collects elements into a Map using key-value mappings.",
+    "difficulty": "Intermediate",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Collectors.joining()?",
+    "answer": "Concatenates stream elements into a single String.",
+    "difficulty": "Intermediate",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Collectors.counting()?",
+    "answer": "Counts the number of stream elements.",
+    "difficulty": "Intermediate",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Collectors.mapping()?",
+    "answer": "Applies mapping before collection.",
+    "difficulty": "Advanced",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Optional",
+    "question": "How do you check if a value exists in Optional?",
+    "answer": "Using isPresent() or ifPresent().",
+    "difficulty": "Beginner",
+    "tags": ["Optional"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Optional",
+    "question": "What is ifPresent()?",
+    "answer": "Executes a Consumer if the Optional contains a value.",
+    "difficulty": "Intermediate",
+    "tags": ["Optional"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Optional",
+    "question": "What is orElseGet()?",
+    "answer": "Returns a value generated by Supplier when Optional is empty.",
+    "difficulty": "Intermediate",
+    "tags": ["Optional"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Optional",
+    "question": "What is orElseThrow()?",
+    "answer": "Throws an exception if Optional is empty.",
+    "difficulty": "Intermediate",
+    "tags": ["Optional"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Optional",
+    "question": "Can Optional eliminate all NullPointerExceptions?",
+    "answer": "No, it only helps handle nullable values more safely.",
+    "difficulty": "Advanced",
+    "tags": ["Optional"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Date Time API",
+    "question": "What is Instant?",
+    "answer": "Represents a point on the timeline in UTC.",
+    "difficulty": "Intermediate",
+    "tags": ["Date Time API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Date Time API",
+    "question": "What is Duration?",
+    "answer": "Represents a time-based amount like hours, minutes, and seconds.",
+    "difficulty": "Intermediate",
+    "tags": ["Date Time API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Date Time API",
+    "question": "What is Period?",
+    "answer": "Represents a date-based amount like years, months, and days.",
+    "difficulty": "Intermediate",
+    "tags": ["Date Time API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Date Time API",
+    "question": "Is LocalDate immutable?",
+    "answer": "Yes, all major classes in java.time package are immutable.",
+    "difficulty": "Intermediate",
+    "tags": ["Date Time API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Parallel Streams",
+    "question": "How do you create a parallel stream?",
+    "answer": "Using parallelStream() or stream().parallel().",
+    "difficulty": "Intermediate",
+    "tags": ["Parallel Stream"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Parallel Streams",
+    "question": "Which framework is used internally by parallel streams?",
+    "answer": "ForkJoinPool common pool.",
+    "difficulty": "Advanced",
+    "tags": ["Parallel Stream"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Parallel Streams",
+    "question": "Are parallel streams always faster?",
+    "answer": "No, performance depends on data size, CPU cores, and operation complexity.",
+    "difficulty": "Advanced",
+    "tags": ["Parallel Stream"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is supplyAsync()?",
+    "answer": "Executes a task asynchronously and returns a result.",
+    "difficulty": "Advanced",
+    "tags": ["CompletableFuture"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is runAsync()?",
+    "answer": "Executes a task asynchronously without returning a result.",
+    "difficulty": "Advanced",
+    "tags": ["CompletableFuture"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is thenApply()?",
+    "answer": "Transforms the result of a CompletableFuture.",
+    "difficulty": "Advanced",
+    "tags": ["CompletableFuture"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is thenAccept()?",
+    "answer": "Consumes the result without returning another value.",
+    "difficulty": "Advanced",
+    "tags": ["CompletableFuture"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is exceptionally()?",
+    "answer": "Handles exceptions occurring during asynchronous processing.",
+    "difficulty": "Advanced",
+    "tags": ["CompletableFuture"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8 Interview Scenarios",
+    "question": "How can you remove duplicate elements using Stream API?",
+    "answer": "Use stream().distinct().collect(Collectors.toList()).",
+    "difficulty": "Intermediate",
+    "tags": ["Interview", "Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8 Interview Scenarios",
+    "question": "How do you count elements in a stream?",
+    "answer": "Use stream().count().",
+    "difficulty": "Beginner",
+    "tags": ["Interview", "Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8 Interview Scenarios",
+    "question": "How do you find the maximum value using Stream API?",
+    "answer": "Use stream().max(Comparator).",
+    "difficulty": "Intermediate",
+    "tags": ["Interview", "Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8 Interview Scenarios",
+    "question": "How do you convert a list to a map using streams?",
+    "answer": "Use Collectors.toMap() collector.",
+    "difficulty": "Intermediate",
+    "tags": ["Interview", "Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8 Interview Scenarios",
+    "question": "How do you group employees by department?",
+    "answer": "Use Collectors.groupingBy(Employee::getDepartment).",
+    "difficulty": "Advanced",
+    "tags": ["Interview", "Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8 Interview Scenarios",
+    "question": "How do you partition employees based on salary condition?",
+    "answer": "Use Collectors.partitioningBy(predicate).",
+    "difficulty": "Advanced",
+    "tags": ["Interview", "Collectors"]
+  }
+,
+
+
+
+
+  {
+    "category": "Java",
+    "subCategory": "Java 8 Features",
+    "question": "What are the major features introduced in Java 8?",
+    "answer": "Lambda Expressions, Functional Interfaces, Stream API, Default Methods, Method References, Optional, Date & Time API, Nashorn JavaScript Engine, CompletableFuture.",
+    "difficulty": "Beginner",
+    "tags": ["Java 8", "Features"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is a Lambda Expression in Java 8?",
+    "answer": "A lambda expression is an anonymous function that provides a clear and concise way to implement functional interfaces.",
+    "difficulty": "Beginner",
+    "tags": ["Lambda"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "Why were Lambda Expressions introduced?",
+    "answer": "To reduce boilerplate code, improve readability, and support functional programming.",
+    "difficulty": "Beginner",
+    "tags": ["Lambda"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is the syntax of a Lambda Expression?",
+    "answer": "(parameters) -> expression or (parameters) -> { statements; }",
+    "difficulty": "Beginner",
+    "tags": ["Lambda", "Syntax"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is a Functional Interface?",
+    "answer": "An interface containing exactly one abstract method.",
+    "difficulty": "Beginner",
+    "tags": ["Functional Interface"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "Which annotation is used for Functional Interfaces?",
+    "answer": "@FunctionalInterface",
+    "difficulty": "Beginner",
+    "tags": ["Functional Interface"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "Can a Functional Interface have default methods?",
+    "answer": "Yes, it can contain multiple default and static methods along with one abstract method.",
+    "difficulty": "Intermediate",
+    "tags": ["Functional Interface"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "Name some built-in functional interfaces.",
+    "answer": "Predicate, Function, Consumer, Supplier, UnaryOperator, BinaryOperator.",
+    "difficulty": "Beginner",
+    "tags": ["Functional Interface"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is a Method Reference?",
+    "answer": "A shorthand syntax to refer to methods using :: operator.",
+    "difficulty": "Beginner",
+    "tags": ["Method Reference"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What are the types of Method References?",
+    "answer": "Static method, Instance method of particular object, Instance method of arbitrary object, Constructor reference.",
+    "difficulty": "Intermediate",
+    "tags": ["Method Reference"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Stream API?",
+    "answer": "A powerful API for processing collections in a functional and declarative way.",
+    "difficulty": "Beginner",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is the difference between Collection and Stream?",
+    "answer": "Collection stores data, while Stream processes data.",
+    "difficulty": "Intermediate",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What are intermediate operations in Stream API?",
+    "answer": "Operations such as filter(), map(), sorted(), distinct() that return another stream.",
+    "difficulty": "Intermediate",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What are terminal operations in Stream API?",
+    "answer": "Operations such as collect(), forEach(), count(), reduce() that produce a result.",
+    "difficulty": "Intermediate",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does filter() do in Stream API?",
+    "answer": "It filters elements based on a given condition.",
+    "difficulty": "Beginner",
+    "tags": ["Stream API", "filter"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What does map() do in Stream API?",
+    "answer": "It transforms each element into another form.",
+    "difficulty": "Beginner",
+    "tags": ["Stream API", "map"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is flatMap()?",
+    "answer": "It converts multiple streams into a single stream.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API", "flatMap"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is reduce() in Stream API?",
+    "answer": "It combines stream elements into a single result.",
+    "difficulty": "Intermediate",
+    "tags": ["Stream API", "reduce"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is the purpose of collect()?",
+    "answer": "It converts stream results into collections or other forms.",
+    "difficulty": "Intermediate",
+    "tags": ["Stream API", "collect"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is parallelStream()?",
+    "answer": "It processes stream elements concurrently using multiple threads.",
+    "difficulty": "Advanced",
+    "tags": ["Parallel Stream"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "When should parallel streams be avoided?",
+    "answer": "For small datasets, stateful operations, and non-thread-safe processing.",
+    "difficulty": "Advanced",
+    "tags": ["Parallel Stream"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Optional",
+    "question": "What is Optional in Java 8?",
+    "answer": "A container object used to avoid NullPointerException.",
+    "difficulty": "Beginner",
+    "tags": ["Optional"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Optional",
+    "question": "How do you create an Optional object?",
+    "answer": "Optional.of(), Optional.ofNullable(), Optional.empty().",
+    "difficulty": "Beginner",
+    "tags": ["Optional"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Optional",
+    "question": "What is the difference between of() and ofNullable()?",
+    "answer": "of() does not allow null values while ofNullable() accepts null.",
+    "difficulty": "Intermediate",
+    "tags": ["Optional"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Optional",
+    "question": "What does orElse() do?",
+    "answer": "Returns the value if present, otherwise returns the default value.",
+    "difficulty": "Intermediate",
+    "tags": ["Optional"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Default Methods",
+    "question": "What are Default Methods?",
+    "answer": "Methods with implementation inside interfaces using the default keyword.",
+    "difficulty": "Beginner",
+    "tags": ["Default Method"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Default Methods",
+    "question": "Why were Default Methods introduced?",
+    "answer": "To add new functionality to interfaces without breaking existing implementations.",
+    "difficulty": "Intermediate",
+    "tags": ["Default Method"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Static Methods",
+    "question": "Can interfaces have static methods?",
+    "answer": "Yes, Java 8 allows static methods inside interfaces.",
+    "difficulty": "Beginner",
+    "tags": ["Static Method"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Date Time API",
+    "question": "Why was the new Date and Time API introduced?",
+    "answer": "To provide immutable, thread-safe, and easy-to-use date-time classes.",
+    "difficulty": "Intermediate",
+    "tags": ["Java Time"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Date Time API",
+    "question": "What is LocalDate?",
+    "answer": "Represents a date without time information.",
+    "difficulty": "Beginner",
+    "tags": ["Java Time"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Date Time API",
+    "question": "What is LocalTime?",
+    "answer": "Represents time without date information.",
+    "difficulty": "Beginner",
+    "tags": ["Java Time"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Date Time API",
+    "question": "What is LocalDateTime?",
+    "answer": "Represents both date and time without timezone.",
+    "difficulty": "Beginner",
+    "tags": ["Java Time"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Date Time API",
+    "question": "What is ZonedDateTime?",
+    "answer": "Represents date and time with timezone information.",
+    "difficulty": "Intermediate",
+    "tags": ["Java Time"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Collectors.groupingBy()?",
+    "answer": "Groups stream elements based on a classification function.",
+    "difficulty": "Advanced",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is Collectors.partitioningBy()?",
+    "answer": "Partitions elements into two groups based on a predicate.",
+    "difficulty": "Advanced",
+    "tags": ["Collectors"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is CompletableFuture?",
+    "answer": "An API for asynchronous and non-blocking programming.",
+    "difficulty": "Advanced",
+    "tags": ["CompletableFuture"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Java 8",
+    "question": "What is the advantage of CompletableFuture over Future?",
+    "answer": "It supports chaining, callbacks, exception handling, and non-blocking operations.",
+    "difficulty": "Advanced",
+    "tags": ["CompletableFuture"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Nashorn",
+    "question": "What is the Nashorn JavaScript Engine?",
+    "answer": "A JavaScript engine introduced in Java 8 to execute JavaScript code on JVM.",
+    "difficulty": "Advanced",
+    "tags": ["Nashorn"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Interview Advanced",
+    "question": "What is the difference between map() and flatMap()?",
+    "answer": "map() transforms elements one-to-one, while flatMap() transforms and flattens nested structures.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Interview Advanced",
+    "question": "What is lazy evaluation in Stream API?",
+    "answer": "Intermediate operations execute only when a terminal operation is invoked.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API"]
+  },
+  {
+    "category": "Java",
+    "subCategory": "Interview Advanced",
+    "question": "How does Stream API improve performance?",
+    "answer": "It supports lazy processing and parallel execution.",
+    "difficulty": "Advanced",
+    "tags": ["Stream API", "Performance"]
+  }
+,
+  {
     "id": "java-equals-hashcode-contract",
     "category": "Java",
     "subCategory": "Collections",

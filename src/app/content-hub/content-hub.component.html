@@ -128,8 +128,12 @@
           </select>
         </div>
         <div *ngIf="filteredQuestions.length; else noQuestions" class="question-list">
-          <article *ngFor="let question of filteredQuestions" class="question-card">
-            <div class="card-topline"><span class="category-label">{{ question.category }} <span aria-hidden="true">/</span> {{ question.subCategory }}</span>
+          <article *ngFor="let question of filteredQuestions; let i = index" class="question-card">
+            <div class="card-topline">
+              <div class="card-heading">
+                <span class="question-index">Q-{{ i + 1 }}</span>
+                <span class="category-label">{{ question.category }} <span aria-hidden="true">/</span> {{ question.subCategory }}</span>
+              </div>
               <button type="button" class="icon-button" (click)="toggleQuestionBookmark(question.id)" [attr.aria-label]="isQuestionBookmarked(question.id) ? 'Remove bookmark' : 'Bookmark question'">
                 <i [class]="isQuestionBookmarked(question.id) ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'"></i>
               </button>
@@ -232,8 +236,10 @@
             <label class="search-box compact"><i class="fa-solid fa-magnifying-glass"></i><input [(ngModel)]="questionSearch" placeholder="Search questions" aria-label="Search questions"></label>
           </div>
           <select class="list-filter" [(ngModel)]="questionCategoryFilter" aria-label="Filter questions by category"><option value="">All categories</option><option *ngFor="let category of categories" [value]="category">{{ category }}</option></select>
-          <article *ngFor="let question of adminQuestions" class="manage-row">
-            <div><span class="category-label">{{ question.category }} · {{ question.subCategory }}</span><h3>{{ question.question }}</h3>
+          <article *ngFor="let question of adminQuestions; let i = index" class="manage-row">
+            <div>
+              <div class="manage-title-row"><span class="question-index small">Q{{ i + 1 }}</span><span class="category-label">{{ question.category }} · {{ question.subCategory }}</span></div>
+              <h3>{{ question.question }}</h3>
               <span class="status-pill published">{{ question.difficulty }}</span>
             </div>
             <div class="manage-actions"><button type="button" (click)="editQuestion(question)">Edit</button><button type="button" class="danger-action" (click)="deleteQuestion(question)">Delete</button></div>
