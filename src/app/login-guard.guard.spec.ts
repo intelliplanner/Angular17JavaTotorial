@@ -111,4 +111,13 @@ describe('auth guards', () => {
 
     expect(rootRoute?.redirectTo).toBe(environment.loginEnabled ? 'login' : 'home');
   });
+
+  it('restricts the application guide route to administrators', () => {
+    const documentationRoute = routes
+      .flatMap(route => route.children ?? [])
+      .find(route => route.path === 'documentation');
+
+    expect(documentationRoute?.data?.['permission']).toBe('admin');
+  });
+
 });

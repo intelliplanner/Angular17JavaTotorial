@@ -1,0 +1,105 @@
+.documentation-page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2rem clamp(1rem, 4vw, 2.5rem) 4rem;
+}
+
+.documentation-header {
+  margin-bottom: 1.5rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #3557a4;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.eyebrow {
+  margin-bottom: 0.35rem;
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.documentation-header h1 {
+  margin: 0;
+  color: #15213a;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.markdown-content {
+  overflow-wrap: anywhere;
+  padding: clamp(1.25rem, 4vw, 3rem);
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  background: #fff;
+  color: #263248;
+  line-height: 1.7;
+  box-shadow: 0 0.75rem 2rem rgb(15 23 42 / 6%);
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4 {
+  margin-top: 1.8em;
+  color: #15213a;
+  line-height: 1.25;
+}
+
+.markdown-content h1:first-child,
+.markdown-content h2:first-child {
+  margin-top: 0;
+}
+
+.markdown-content a {
+  color: #3557a4;
+}
+
+.markdown-content pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 0.65rem;
+  background: #172033;
+  color: #f8fafc;
+}
+
+.markdown-content :not(pre) > code {
+  padding: 0.12rem 0.35rem;
+  border-radius: 0.3rem;
+  background: #eef2f8;
+}
+
+.markdown-content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.markdown-content th,
+.markdown-content td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #dbe3ee;
+  text-align: left;
+}
+
+.loading-message,
+.error-message {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.error-message {
+  color: #a32121;
+}

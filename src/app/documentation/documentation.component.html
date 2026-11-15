@@ -1,0 +1,11 @@
+<main class="documentation-page">
+  <header class="documentation-header">
+    <a routerLink="/home" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to home</a>
+    <p class="eyebrow">APPLICATION GUIDE</p>
+    <h1>Project documentation</h1>
+  </header>
+
+  <p *ngIf="loading" class="loading-message" role="status">Loading documentation…</p>
+  <p *ngIf="errorMessage" class="error-message" role="alert">{{ errorMessage }}</p>
+  <article *ngIf="!loading && !errorMessage" class="markdown-content" [innerHTML]="contentHtml"></article>
+</main>

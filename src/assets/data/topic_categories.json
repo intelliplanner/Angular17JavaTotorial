@@ -8,7 +8,7 @@
   },
   {
     "name": "Database",
-    "subCategories": ["SQL", "PL/SQL", "Oracle", "PostgreSQL", "MySQL"],
+    "subCategories": ["SQL", "PL/SQL", "Oracle", "PostgreSQL", "MySQL", "SQL Joins", "Normalization", "Constraints", "MongoDB", "Performance"],
     "icon": "fa-solid fa-database",
     "description": "SQL, data modeling, and queries",
     "color": "#3776ab"
@@ -22,14 +22,14 @@
   },
   {
     "name": "Microservices",
-    "subCategories": ["Architecture", "Communication", "Resilience", "Discovery", "Service Discovery", "API Design", "Configuration", "Database", "Design Pattern", "Design Patterns", "Fault Tolerance", "Interview Facts", "Load Balancing", "Messaging", "Monitoring", "Resilience4j", "Saga Pattern", "Spring Cloud", "Transaction", "Transaction Management"],
+    "subCategories": ["Architecture", "Communication", "Resilience", "Discovery", "Service Discovery", "API Design", "Configuration", "Database", "Design Pattern", "Design Patterns", "Fault Tolerance", "Interview Facts", "Load Balancing", "Messaging", "Monitoring", "Resilience4j", "Saga Pattern", "Spring Cloud", "Transaction", "Transaction Management", "Cloud", "Kafka", "Kubernetes", "Performance", "Security"],
     "icon": "fa-solid fa-cubes",
     "description": "Design resilient distributed systems",
     "color": "#6374d6"
   },
   {
     "name": "Kafka",
-    "subCategories": ["Topics", "Partitions", "Consumer Groups", "Delivery Semantics", "Consumers", "Kafka"],
+    "subCategories": ["Topics", "Partitions", "Consumer Groups", "Delivery Semantics", "Consumers", "Kafka", "Offset Management"],
     "icon": "fa-solid fa-tower-broadcast",
     "description": "Event streaming and messaging",
     "color": "#292929"
@@ -72,7 +72,7 @@
   },
   {
     "name": "GCP",
-    "subCategories": ["GKE", "Cloud Run", "PubSub", "Pub/Sub", "BigQuery", "GCS", "Cloud"],
+    "subCategories": ["GKE", "Cloud Run", "PubSub", "Pub/Sub", "BigQuery", "GCS", "Cloud", "Cloud SQL", "VPC", "Load Balancing", "Cloud Monitoring", "Cloud Logging", "Secret Manager", "GKE Advanced"],
     "icon": "fa-brands fa-google",
     "description": "Google Cloud Platform essentials",
     "color": "#4285f4"

@@ -2,11 +2,17 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { exec } = require('child_process');
+const { exec, execFile } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const os = require('os');
+const {
+  DraftImportError,
+  MAX_IMPORT_RECORDS,
+  importDrafts,
+  listDrafts
+} = require('./server/json-draft-store');
 
 const app = express();
 
@@ -570,6 +576,12 @@ const interviewQaFilePath = path.join(__dirname, 'src', 'assets', 'data', 'quest
 const learningVideosFilePath = path.join(__dirname, 'src', 'assets', 'data', 'learning-videos.json');
 const quizCategoriesFilePath = path.join(__dirname, 'src', 'assets', 'data', 'topic_categories.json');
 const quizQuestionManifestPath = path.join(__dirname, 'src', 'assets', 'data', 'question-files.json');
+const jsonGenerationOutputDirectory = path.join(__dirname, 'data', 'generated-json');
+const jsonGenerationDatasets = new Set(['tutorials', 'answers', 'quiz']);
+const jsonGenerationMinimum = 1000;
+const jsonGenerationMaximum = 10000;
+let jsonGenerationRunning = false;
+let jsonImportRunning = false;
 
 function readContentList(filePath) {
   const value = JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -805,6 +817,161 @@ function normalizeInterviewQuestion(payload, previous = {}) {
     }
   };
 }
+
+function validateJsonGenerationRequest(payload) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload) ||
+      Object.keys(payload).some(key => !['datasets', 'minimumCounts'].includes(key))) {
+    return { error: 'Request must include only datasets and minimumCounts.' };
+  }
+  const { datasets, minimumCounts } = payload;
+  if (!Array.isArray(datasets) || !datasets.length ||
+      datasets.some(dataset => typeof dataset !== 'string' || !jsonGenerationDatasets.has(dataset)) ||
+      new Set(datasets).size !== datasets.length) {
+    return { error: 'Select one or more valid datasets: tutorials, answers, and quiz.' };
+  }
+  if (!minimumCounts || typeof minimumCounts !== 'object' || Array.isArray(minimumCounts)) {
+    return { error: 'minimumCounts must specify a record count for each selected dataset.' };
+  }
+  const countKeys = Object.keys(minimumCounts);
+  if (countKeys.some(kind => !datasets.includes(kind)) ||
+      datasets.some(kind => !Object.prototype.hasOwnProperty.call(minimumCounts, kind))) {
+    return { error: 'minimumCounts must contain exactly the selected datasets.' };
+  }
+  for (const kind of datasets) {
+    const count = minimumCounts[kind];
+    if (!Number.isInteger(count) || count < jsonGenerationMinimum || count > jsonGenerationMaximum) {
+      return { error: `Each selected dataset must request between ${jsonGenerationMinimum} and ${jsonGenerationMaximum} records.` };
+    }
+  }
+  return { value: { datasets, minimumCounts } };
+}
+
+app.post('/api/admin/generate-json', requirePermission('admin'), (request, response) => {
+  response.set('Cache-Control', 'no-store');
+  const normalized = validateJsonGenerationRequest(request.body);
+  if (normalized.error) return response.status(400).json({ message: normalized.error });
+  if (jsonGenerationRunning || jsonImportRunning) {
+    return response.status(409).json({ message: 'A JSON generation or import job is already running.' });
+  }
+
+  const inputDirectory = path.join(__dirname, 'src', 'assets', 'data');
+  const pythonExecutable = process.env.PYTHON_EXECUTABLE ||
+    (process.platform === 'win32' ? 'py' : 'python3');
+  const pythonArguments = [
+    ...(process.platform === 'win32' && !process.env.PYTHON_EXECUTABLE ? ['-3'] : []),
+    '-m',
+    'tools.json_generator.cli',
+    '--input-dir',
+    inputDirectory,
+    '--output-dir',
+    jsonGenerationOutputDirectory
+  ];
+  for (const dataset of normalized.value.datasets) {
+    pythonArguments.push('--dataset', dataset);
+    pythonArguments.push('--minimum', `${dataset}=${normalized.value.minimumCounts[dataset]}`);
+  }
+
+  jsonGenerationRunning = true;
+  execFile(pythonExecutable, pythonArguments, {
+    cwd: __dirname,
+    timeout: 5 * 60 * 1000,
+    maxBuffer: 2 * 1024 * 1024,
+    windowsHide: true
+  }, (error, stdout, stderr) => {
+    jsonGenerationRunning = false;
+    if (error) {
+      if (error.code === 'ENOENT') {
+        console.error('Python runtime for JSON generation is unavailable:', error);
+        return response.status(503).json({
+          message: 'Python 3 was not found. Install Python 3 and configure PYTHON_EXECUTABLE if needed.'
+        });
+      }
+      if (error.killed) {
+        console.error('Python JSON generation timed out or was terminated:', error);
+        return response.status(504).json({ message: 'JSON generation timed out. Check the server logs and try again.' });
+      }
+
+      let details = {};
+      try {
+        details = JSON.parse(stderr);
+      } catch {
+        details = { message: stderr.trim().slice(0, 20000) };
+      }
+      if (error.code === 2) {
+        return response.status(422).json(details);
+      }
+      console.error('Python JSON generation failed:', error, details.message || '');
+      return response.status(500).json({
+        message: details.message || 'JSON generation failed. Check the server logs.',
+        issues: Array.isArray(details.issues) ? details.issues : [],
+        truncated: Number.isInteger(details.truncated) ? details.truncated : 0
+      });
+    }
+
+    try {
+      const result = JSON.parse(stdout);
+      if (!result || typeof result.generated !== 'object' || typeof result.totals !== 'object') {
+        throw new Error('Unexpected JSON generator response format.');
+      }
+      response.json(result);
+    } catch (parseError) {
+      console.error('Could not parse Python JSON generation result:', parseError, stdout.slice(0, 2000));
+      response.status(502).json({ message: 'The Python generator returned an invalid response.' });
+    }
+  });
+});
+
+app.get('/api/admin/generated-json', requirePermission('admin'), (request, response) => {
+  response.set('Cache-Control', 'no-store');
+  if (typeof request.query.dataset !== 'string') {
+    return response.status(400).json({ message: 'Select a dataset to review.' });
+  }
+  try {
+    response.json({
+      dataset: request.query.dataset,
+      records: listDrafts(
+        request.query.dataset,
+        path.join(__dirname, 'src', 'assets', 'data'),
+        jsonGenerationOutputDirectory
+      ),
+      maximumImportRecords: MAX_IMPORT_RECORDS
+    });
+  } catch (error) {
+    const status = error instanceof DraftImportError ? error.status : 500;
+    if (status >= 500) console.error('Could not load generated JSON drafts:', error);
+    response.status(status).json({ message: error.message || 'Could not load generated JSON drafts.' });
+  }
+});
+
+app.post('/api/admin/generated-json/import', requirePermission('admin'), (request, response) => {
+  response.set('Cache-Control', 'no-store');
+  const payload = request.body;
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload) ||
+      Object.keys(payload).some(key => !['dataset', 'ids'].includes(key)) ||
+      typeof payload.dataset !== 'string' || !Array.isArray(payload.ids)) {
+    return response.status(400).json({ message: 'Request must include only a dataset and selected record IDs.' });
+  }
+  if (jsonGenerationRunning || jsonImportRunning) {
+    return response.status(409).json({ message: 'A JSON generation or import job is already running.' });
+  }
+
+  jsonImportRunning = true;
+  try {
+    const result = importDrafts(
+      payload.dataset,
+      payload.ids,
+      path.join(__dirname, 'src', 'assets', 'data'),
+      jsonGenerationOutputDirectory
+    );
+    response.json(result);
+  } catch (error) {
+    const status = error instanceof DraftImportError ? error.status : 500;
+    if (status >= 500) console.error('Could not import selected JSON drafts:', error);
+    response.status(status).json({ message: error.message || 'Could not import selected JSON drafts.' });
+  } finally {
+    jsonImportRunning = false;
+  }
+});
 
 app.get('/api/tutorials', (request, response) => {
   try {
