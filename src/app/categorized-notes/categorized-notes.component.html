@@ -18,6 +18,9 @@
       </select>
 
       <button (click)="openSelected()" [disabled]="!selected">Open</button>
+      <button (click)="togglePdfFullPage()" [disabled]="!currentUrl">
+        {{ isPdfFullPage ? 'Exit full page' : 'Full page' }}
+      </button>
       <button (click)="openCategoryDialog()">Add Note by Category</button>
 
     </div>
@@ -26,8 +29,12 @@
       Selected File: {{ selectedFile.name }}
     </div>
 
-    <div class="pdf-viewer" *ngIf="currentUrl">
-      <iframe [src]="currentUrl" width="100%" height="700px" frameborder="0" scrolling="auto"
+    <div class="pdf-viewer" [class.full-page]="isPdfFullPage" *ngIf="currentUrl">
+      <div *ngIf="isPdfFullPage" class="pdf-full-page-toolbar">
+        <strong>{{ (selectedFile?.name || selected)?.replace('.pdf', '') }}</strong>
+        <button type="button" class="pdf-full-page-close" (click)="closePdfFullPage()">Close full page</button>
+      </div>
+      <iframe class="pdf-frame" [src]="currentUrl" frameborder="0" scrolling="yes"
         title="Selected Java notes PDF"></iframe>
     </div>
   </div>
