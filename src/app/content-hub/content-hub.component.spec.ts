@@ -70,6 +70,9 @@ describe('ContentHubComponent', () => {
     expect(contentService.getTutorials).toHaveBeenCalledWith(false);
     expect(fixture.nativeElement.textContent).toContain('Java Collections');
     expect(fixture.componentInstance.filteredQuestions.length).toBe(1);
+    fixture.componentInstance.changeView('questions');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('Q1');
     expect(fixture.nativeElement.textContent).not.toContain('tutorials.json');
     expect(fixture.componentInstance.categories).toEqual(['Java']);
     expect(fixture.componentInstance.questionSubCategories).toEqual(['Basics', 'Collections']);

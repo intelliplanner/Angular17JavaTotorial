@@ -26,6 +26,9 @@ app-content-hub .tutorial-grid{display:grid;grid-template-columns:repeat(3,minma
 app-content-hub .tutorial-card,app-content-hub .question-card{padding:18px;border:1px solid #e6edef;border-radius:12px;background:#fff;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
 app-content-hub .tutorial-card:hover,app-content-hub .question-card:hover{transform:translateY(-2px);border-color:#cfe4df;box-shadow:0 10px 24px #2648580d}
 app-content-hub .card-topline{display:flex;justify-content:space-between;align-items:center;gap:8px}
+app-content-hub .card-heading{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+app-content-hub .question-index{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:24px;padding:0 8px;border-radius:999px;background:#e9f7f4;color:#176d66;font-size:.68rem;font-weight:800;letter-spacing:.04em}
+app-content-hub .question-index.small{min-width:28px;height:20px;padding:0 6px;font-size:.62rem}
 app-content-hub .category-label{color:#218277;font-size:.72rem;font-weight:750}
 app-content-hub .icon-button{width:33px;height:33px;border:1px solid #e3eaed;border-radius:8px;background:#fff;color:#70858e}
 app-content-hub .icon-button:hover,app-content-hub .icon-button .fa-solid{color:#187d73}
@@ -98,6 +101,7 @@ app-content-hub .search-box.compact{max-width:205px;min-height:37px}
 app-content-hub .search-box.compact input{min-width:0}
 app-content-hub .list-filter{width:auto;min-width:175px;min-height:37px;margin-bottom:10px;padding:7px 10px;font-size:.77rem}
 app-content-hub .manage-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 0;border-top:1px solid #edf1f2}
+app-content-hub .manage-title-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
 app-content-hub .manage-row h3{margin:5px 0;color:#2d4857;font-size:.84rem;font-weight:700;line-height:1.4}
 app-content-hub .status-pill{display:inline-block;padding:4px 7px;border-radius:99px;background:#f1f3f4;color:#73848a;font-size:.64rem;font-weight:700}
 app-content-hub .status-pill.published{background:#e8f7f1;color:#287660}
