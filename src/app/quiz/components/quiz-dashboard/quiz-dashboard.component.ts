@@ -35,6 +35,7 @@ export class QuizDashboardComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     try {
       await this.questionService.load();
+      await this.quizService.load();
       this.categories = this.questionService.categories;
       this.category = this.categories[0]?.name ?? '';
       this.updateSubcategory();
@@ -73,15 +74,19 @@ export class QuizDashboardComponent implements OnInit {
     this.available = this.questionService.findQuestions(this.category, this.subCategory, this.difficulty).length;
   }
 
-  startQuiz(): void {
+  async startQuiz(): Promise<void> {
     const questions = this.questionService.findQuestions(this.category, this.subCategory, this.difficulty);
     if (questions.length < this.questionCount) {
       this.errorMessage = `Only ${questions.length} questions match this selection. Add more questions or choose another selection.`;
       return;
     }
     this.errorMessage = '';
-    this.quizService.start(questions, this.category, this.subCategory, this.difficulty, this.questionCount);
-    this.router.navigateByUrl('/quiz/play');
+    try {
+      await this.quizService.start(questions, this.category, this.subCategory, this.difficulty, this.questionCount);
+      await this.router.navigateByUrl('/quiz/play');
+    } catch (error) {
+      this.errorMessage = error instanceof Error ? error.message : 'Could not save this quiz session.';
+    }
   }
 
   resumeQuiz(): void {

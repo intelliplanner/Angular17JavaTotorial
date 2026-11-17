@@ -5,6 +5,7 @@ import { ContentService } from './content.service';
 import { ContentHubComponent } from './content-hub.component';
 import { InterviewQuestion, Tutorial } from './content.models';
 import { CategoryService } from '../quiz/services/category.service';
+import { DataService } from '../services/data.service';
 
 describe('ContentHubComponent', () => {
   let contentService: jasmine.SpyObj<ContentService>;
@@ -38,6 +39,7 @@ describe('ContentHubComponent', () => {
       providers: [
         provideRouter([]),
         { provide: ContentService, useValue: contentService },
+        { provide: DataService, useValue: { isFirebaseEnabled: () => false } },
         {
           provide: CategoryService,
           useValue: {
@@ -72,7 +74,7 @@ describe('ContentHubComponent', () => {
     expect(fixture.componentInstance.filteredQuestions.length).toBe(1);
     fixture.componentInstance.changeView('questions');
     fixture.detectChanges();
-    expect(fixture.nativeElement.textContent).toContain('Q1');
+    expect(fixture.nativeElement.textContent).toContain('Q-1');
     expect(fixture.nativeElement.textContent).not.toContain('tutorials.json');
     expect(fixture.componentInstance.categories).toEqual(['Java']);
     expect(fixture.componentInstance.questionSubCategories).toEqual(['Basics', 'Collections']);
@@ -89,15 +91,15 @@ describe('ContentHubComponent', () => {
     expect(component.filteredTutorials.length).toBe(0);
   });
 
-  it('tracks saved questions and marks a question view once per browser', () => {
+  it('tracks saved questions and marks a question view once per browser', async () => {
     const fixture = TestBed.createComponent(ContentHubComponent);
     fixture.detectChanges();
     const component = fixture.componentInstance;
 
-    component.toggleQuestionBookmark(questions[0].id);
+    await component.toggleQuestionBookmark(questions[0].id);
     expect(component.isQuestionBookmarked(questions[0].id)).toBeTrue();
-    component.markQuestionViewed(questions[0]);
-    component.markQuestionViewed(questions[0]);
+    await component.markQuestionViewed(questions[0]);
+    await component.markQuestionViewed(questions[0]);
     expect(questions[0].viewCount).toBe(6);
   });
 

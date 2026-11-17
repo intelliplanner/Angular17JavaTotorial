@@ -8,6 +8,7 @@
     </div>
   </header>
   <div class="progress-track"><div class="progress-fill" [style.width.%]="progress"></div></div>
+  <div *ngIf="saveError" class="alert alert-danger" role="alert">{{ saveError }}</div>
   <div class="time-warning" *ngIf="session.remainingSeconds <= 300 && session.remainingSeconds > 0" role="status">Five minutes remaining. Your answers are saved automatically.</div>
 
   <div class="player-layout">
@@ -58,3 +59,4 @@
     </div>
   </div>
 </main>
+<div *ngIf="saveError && !session" class="alert alert-danger m-4" role="alert">{{ saveError }}</div>

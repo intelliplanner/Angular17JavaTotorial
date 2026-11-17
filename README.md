@@ -105,30 +105,31 @@ The backend API will run on `http://localhost:9090` (or `http://192.168.1.10:909
 The `loginEnabled` property in each `src/environments/environment*.ts` file controls route access:
 
 - `true`: users must sign in; route permissions are enforced.
-- `false`: all application tabs are available without signing in. The production environment currently sets this to `false`; local development sets it to `true`.
+- `false`: all application tabs are available without signing in.
 
 Change `loginEnabled` in `environment.prod.ts` and redeploy to change the GitHub Pages behavior. Disabling frontend login only changes access to application pages; protected backend write/admin APIs continue to require server authentication.
 
 The `settingsEnabled` property in each `src/environments/environment*.ts` file controls whether the administrator Settings menu appears in the header. Set it to `false` to hide the menu or `true` to show it for administrators. This is a navigation visibility option; it does not replace route guards or backend authorization.
 
-When login is enabled on GitHub Pages, username/password login requires the separate Express API:
+Login follows `enableFirebase` in the active environment. When disabled, the server validates credentials against its private `data/users.json`. When enabled, login validates the username and password with Firebase Authentication and gets the role and permissions from the matching Firestore `users` profile; the local JSON password file is not used. Firebase Authentication must contain the account, and the Firestore profile document must use that account's Auth UID as its document ID and include `username`, `role`, and `permissions`. A Firestore profile by itself cannot authenticate a password.
 
-1. Deploy the Express backend using the repository's `render.yaml` Blueprint. Render generates a `SESSION_SECRET` and enables secure cookies.
-2. Set `authApiUrl` in `src/environments/environment.prod.ts` to the deployed backend's HTTPS origin (for example, `https://your-service.onrender.com`, without an `/auth` path).
-3. Configure the Render service's `FRONTEND_ORIGINS` variable as `https://intelliplanner.github.io`.
-4. Push to `main` or `dev`, or rerun the GitHub Pages workflow.
-5. To run locally, start the backend and Angular frontend:
+For Firebase data access and user provisioning:
 
-   ```powershell
-   $env:SESSION_SECRET = (node -e "process.stdout.write(require('crypto').randomBytes(32).toString('hex'))")
-   npm run server
-   ```
+1. Deploy the Express backend using the repository's `render.yaml` Blueprint. The production `authApiUrl` must point to this backend.
+2. The Blueprint supplies `FIREBASE_PROJECT_ID` and `FIREBASE_WEB_API_KEY` from the production Firebase web configuration. Verify they match the Firebase project; if using another project, update them in Render. Set `FIREBASE_ADMIN_SERVICE_ACCOUNT_JSON` in the Render service's **Environment** settings to the private service-account JSON. Render generates `PASSWORD_UNIQUENESS_SECRET` from the Blueprint. Keep the service-account JSON and generated secret private; never add them to frontend environment files.
+3. For a project with no Firebase administrator yet, replace the demo local admin password in the server-only `data/users.json` before deployment. Temporarily set the backend's `FIREBASE_BOOTSTRAP_ENABLED=true`, keep `settingsEnabled` enabled in the frontend, then choose **First-time setup? Use local administrator** on the login page. Use that local administrator account to create the first Firebase administrator. The setup session can only create that account; the server rejects it once a Firebase administrator exists. Turn `FIREBASE_BOOTSTRAP_ENABLED` off after setup. Do not expose the demo `admin` / `admin` credentials publicly.
+4. Configure `FRONTEND_ORIGINS` as `https://intelliplanner.github.io` and deploy the repository's Firestore rules with `firebase deploy --only firestore:rules`.
+5. For existing Firebase accounts, enter each account's UID in its server-side `data/users.json` record, then use **Settings → Data Synchronization → Sync User Profiles**. This securely upserts the username index and sanitized Firestore profile. Alternatively, configure local Firebase Admin Application Default Credentials (or `GOOGLE_APPLICATION_CREDENTIALS`), set `FIREBASE_PROJECT_ID`, and run `npm run sync:firebase-users`.
+6. Firebase administrators can use **Settings → User Management** to create learner or administrator accounts. The backend adds each new account's password hash and Firebase UID to its private `data/users.json`, so the same local credentials work at the next login. Password uniqueness is checked for accounts created through this panel; existing Firebase passwords cannot be checked or migrated automatically.
+7. Push to `main` or `dev`, or rerun the GitHub Pages workflow.
 
-   The configured local development API is `http://localhost:9090`.
+The Firestore `usernames` and `passwordUniqueness` collections must not be readable or writable by clients. User profile sync copies only username, role, and permissions; password hashes and salts remain in the server-side JSON file. The API uses Firebase Admin credentials to provision accounts and issue data-access tokens after local password verification. Firebase client configuration is not an Admin credential.
 
-The backend validates the configured accounts in `data/users.json` and issues an HTTP-only session cookie. Keep `SESSION_SECRET` and password hashes on the backend; never put the signing secret in frontend environment files.
+For local development, set the same Firebase server variables, then run `npm run server`; the local API is `http://localhost:9090`. Set `FIREBASE_BOOTSTRAP_ENABLED=true` only while creating the first Firebase administrator. Keep `SESSION_SECRET` and password hashes on the backend, and never copy `data/users.json` into `src/assets`.
 
-The starter accounts are `test` / `test` (learner access) and `admin` / `admin` (full access). Replace these demo credentials before exposing the service publicly.
+The Render free service filesystem is ephemeral. If users are created through the administration panel, persist the updated `data/users.json` using a supported persistent disk or update the deployment copy before a restart/redeploy; otherwise those local login records can be lost.
+
+For local JSON authentication only, the starter accounts are `test` / `test` (learner access) and `admin` / `admin` (full access). Replace these demo credentials before exposing the service publicly.
 
 ### Tutorials and Interview Q&A
 

@@ -89,13 +89,13 @@ export class CategoryManagerComponent implements OnInit {
     await this.persist(
       this.categoryService.updateCategory(category.name, updated),
       `Renamed subcategory to ${name}.`,
-      () => {
+      async () => {
         const questions = this.questions.map(question =>
           question.category === category.name && question.subCategory === previous
             ? { ...question, subCategory: name }
             : question
         );
-        this.questionService.importQuestions(questions);
+        await this.questionService.importQuestions(questions);
       }
     );
   }
@@ -133,12 +133,12 @@ export class CategoryManagerComponent implements OnInit {
   private async persist(
     request: Observable<QuizCategory[]>,
     message: string,
-    updateLocalQuestions?: () => void
+    updateLocalQuestions?: () => void | Promise<void>
   ): Promise<boolean> {
     try {
       const categories = await request.toPromise();
       if (!Array.isArray(categories)) throw new Error('The category API returned an invalid response.');
-      updateLocalQuestions?.();
+      await updateLocalQuestions?.();
       this.questionService.saveCategories(categories);
       this.refresh();
       this.message = message;

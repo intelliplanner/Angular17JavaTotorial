@@ -7,6 +7,27 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const os = require('os');
+const { applicationDefault, cert, getApps, initializeApp } = require('firebase-admin/app');
+const { getAuth } = require('firebase-admin/auth');
+const { getFirestore } = require('firebase-admin/firestore');
+const {
+  FirebaseUserError,
+  createFirebaseUsernameAuth
+} = require('./server/firebase-username-auth');
+const {
+  BOOTSTRAP_SESSION_PERMISSION,
+  FirebaseBootstrapError,
+  assertBootstrapAvailable,
+  claimBootstrap,
+  completeBootstrap,
+  isBootstrapSession,
+  releaseBootstrap
+} = require('./server/firebase-bootstrap');
+const {
+  FirebaseUserProfileSyncError,
+  syncFirebaseUserProfiles
+} = require('./server/firebase-user-profile-sync');
+const { upsertLocalFirebaseUser } = require('./server/local-user-store');
 const {
   DraftImportError,
   MAX_IMPORT_RECORDS,
@@ -72,7 +93,7 @@ app.use(cors({
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type']
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(bodyParser.json());
@@ -161,18 +182,49 @@ function requirePermission(permission) {
   };
 }
 
-app.post('/auth/login', (request, response) => {
-  response.set('Cache-Control', 'no-store');
-  if (!sessionSecret || sessionSecret.length < 32) {
-    response.status(503).json({ message: 'Authentication is unavailable. Configure a SESSION_SECRET of at least 32 characters.' });
-    return;
+function getFirebaseUsernameServices() {
+  const projectId = process.env.FIREBASE_PROJECT_ID;
+  const apiKey = process.env.FIREBASE_WEB_API_KEY;
+  if (!projectId || !apiKey) {
+    throw new FirebaseUserError(503, 'FIREBASE_AUTH_UNAVAILABLE',
+      'Firebase username authentication is not configured on the server. Set FIREBASE_PROJECT_ID and FIREBASE_WEB_API_KEY in the backend environment.');
   }
 
-  const { username, password } = request.body || {};
+  const appName = 'firebase-username-auth';
+  let firebaseApp = getApps().find(app => app.name === appName);
+  if (!firebaseApp) {
+    let credential;
+    if (process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT_JSON) {
+      credential = cert(JSON.parse(process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT_JSON));
+    } else {
+      credential = applicationDefault();
+    }
+    firebaseApp = initializeApp({ credential, projectId }, appName);
+  }
+  if (firebaseApp.options.projectId !== projectId) {
+    throw new FirebaseUserError(503, 'FIREBASE_PROJECT_MISMATCH',
+      'Firebase Admin is configured for a different project.');
+  }
+
+  const auth = getAuth(firebaseApp);
+  const firestore = getFirestore(firebaseApp);
+  return {
+    auth,
+    firestore,
+    usernameAuth: createFirebaseUsernameAuth({
+      auth,
+      firestore,
+      projectId,
+      apiKey,
+      passwordUniquenessSecret: process.env.PASSWORD_UNIQUENESS_SECRET
+    })
+  };
+}
+
+function authenticateLocalUser(username, password) {
   if (typeof username !== 'string' || typeof password !== 'string' ||
       username.length > 128 || password.length > 128) {
-    response.status(400).json({ message: 'Enter a valid username and password.' });
-    return;
+    return { status: 400, message: 'Enter a valid username and password.' };
   }
 
   let users;
@@ -180,12 +232,10 @@ app.post('/auth/login', (request, response) => {
     users = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
   } catch (error) {
     console.error('Could not read the RBAC user configuration:', error);
-    response.status(500).json({ message: 'Authentication user configuration could not be loaded.' });
-    return;
+    return { status: 500, message: 'Authentication user configuration could not be loaded.' };
   }
   if (!Array.isArray(users)) {
-    response.status(500).json({ message: 'Authentication user configuration must be a JSON array.' });
-    return;
+    return { status: 500, message: 'Authentication user configuration must be a JSON array.' };
   }
 
   const normalizedUsername = username.trim().toLowerCase();
@@ -202,21 +252,360 @@ app.post('/auth/login', (request, response) => {
   if (!user || !validHash || typeof user.role !== 'string' ||
       !Array.isArray(user.permissions) ||
       !user.permissions.every(permission => typeof permission === 'string')) {
-    response.status(401).json({ message: 'Invalid username or password.' });
+    return { status: 401, message: 'Invalid username or password.' };
+  }
+
+  return {
+    status: 200,
+    user: {
+      username: user.username,
+      role: user.role,
+      permissions: user.permissions
+    },
+    firebaseUid: typeof user.firebaseUid === 'string' ? user.firebaseUid : ''
+  };
+}
+
+async function requireFirebaseAdmin(request) {
+  const authorization = request.get('Authorization') || '';
+  const tokenMatch = authorization.match(/^Bearer (.+)$/i);
+  if (!tokenMatch) {
+    throw new FirebaseUserError(401, 'AUTH_REQUIRED', 'Please sign in as an administrator.');
+  }
+
+  const services = getFirebaseUsernameServices();
+  let decodedToken;
+  try {
+    decodedToken = await services.auth.verifyIdToken(tokenMatch[1]);
+  } catch {
+    throw new FirebaseUserError(401, 'AUTH_REQUIRED', 'Your Firebase session is invalid or expired.');
+  }
+
+  const profile = await services.firestore.collection('users').doc(decodedToken.uid).get();
+  const permissions = profile.exists && Array.isArray(profile.get('permissions'))
+    ? profile.get('permissions')
+    : [];
+  if (!profile.exists || profile.get('role') !== 'admin' ||
+      (!permissions.includes('*') && !permissions.includes('admin'))) {
+    throw new FirebaseUserError(403, 'ADMIN_REQUIRED', 'Administrator access is required.');
+  }
+  return services;
+}
+
+const firebaseLoginAttempts = new Map();
+const FIREBASE_LOGIN_LIMIT = 10;
+const FIREBASE_LOGIN_WINDOW_MS = 15 * 60 * 1000;
+
+function firebaseLoginAttemptKey(request, username) {
+  const normalized = typeof username === 'string' ? username.trim().toLowerCase() : '';
+  return `${request.ip}:${crypto.createHash('sha256').update(normalized).digest('hex')}`;
+}
+
+function isFirebaseLoginLimited(key) {
+  const now = Date.now();
+  const attempt = firebaseLoginAttempts.get(key);
+  if (!attempt || attempt.resetAt <= now) {
+    firebaseLoginAttempts.delete(key);
+    return false;
+  }
+  return attempt.count >= FIREBASE_LOGIN_LIMIT;
+}
+
+function recordFirebaseLoginFailure(key) {
+  const now = Date.now();
+  if (firebaseLoginAttempts.size >= 5000) {
+    for (const [attemptKey, attempt] of firebaseLoginAttempts) {
+      if (attempt.resetAt <= now) firebaseLoginAttempts.delete(attemptKey);
+    }
+    if (firebaseLoginAttempts.size >= 5000) {
+      const oldestKey = firebaseLoginAttempts.keys().next().value;
+      if (oldestKey) firebaseLoginAttempts.delete(oldestKey);
+    }
+  }
+  const attempt = firebaseLoginAttempts.get(key);
+  if (!attempt || attempt.resetAt <= now) {
+    firebaseLoginAttempts.set(key, { count: 1, resetAt: now + FIREBASE_LOGIN_WINDOW_MS });
+    return;
+  }
+  attempt.count += 1;
+}
+
+app.post('/auth/firebase/login', async (request, response) => {
+  response.set('Cache-Control', 'no-store');
+  const username = request.body && request.body.username;
+  const attemptKey = firebaseLoginAttemptKey(request, username);
+  if (isFirebaseLoginLimited(attemptKey)) {
+    response.status(429).json({ message: 'Too many sign-in attempts. Try again later.' });
     return;
   }
 
-  const publicUser = {
-    username: user.username,
-    role: user.role,
-    permissions: user.permissions
-  };
+  try {
+    const { usernameAuth } = getFirebaseUsernameServices();
+    const result = await usernameAuth.signIn(username, request.body && request.body.password);
+    firebaseLoginAttempts.delete(attemptKey);
+    const sessionToken = signAuthToken({
+      ...result.user,
+      exp: Math.floor(Date.now() / 1000) + 8 * 60 * 60
+    });
+    setCookie(response, 'app_session', sessionToken, { maxAge: 8 * 60 * 60 });
+    response.json(result);
+  } catch (error) {
+    if (error instanceof FirebaseUserError && error.status === 401) {
+      recordFirebaseLoginFailure(attemptKey);
+    }
+    if (error instanceof FirebaseUserError) {
+      response.status(error.status).json({ message: error.message, code: error.code });
+      return;
+    }
+    console.error('Firebase username sign-in failed:', error && error.code || error && error.name || 'Unknown error');
+    response.status(503).json({ message: 'Firebase username sign-in is unavailable. Check the server configuration.' });
+  }
+});
+
+app.post('/api/admin/users', async (request, response) => {
+  response.set('Cache-Control', 'no-store');
+  try {
+    const { usernameAuth } = await requireFirebaseAdmin(request);
+    const user = await usernameAuth.createUser(request.body || {});
+    try {
+      upsertLocalFirebaseUser(usersFilePath, {
+        ...user,
+        password: request.body && request.body.password
+      });
+    } catch (error) {
+      console.error('Firebase user was created but could not be saved to the local user file:', error);
+      response.status(500).json({
+        message: 'The Firebase account was created, but its local login record could not be saved to data/users.json.'
+      });
+      return;
+    }
+    response.status(201).json(user);
+  } catch (error) {
+    if (error instanceof FirebaseUserError) {
+      response.status(error.status).json({ message: error.message, code: error.code });
+      return;
+    }
+    console.error('Firebase administrator user creation failed:', error && error.code || error && error.name || 'Unknown error');
+    response.status(500).json({ message: 'Could not create the Firebase user.' });
+  }
+});
+
+app.post('/auth/firebase/bootstrap-login', async (request, response) => {
+  response.set('Cache-Control', 'no-store');
+  if (!sessionSecret || sessionSecret.length < 32) {
+    response.status(503).json({ message: 'Authentication is unavailable. Configure a SESSION_SECRET of at least 32 characters.' });
+    return;
+  }
+  const attemptKey = `firebase-bootstrap:${request.ip}`;
+  if (isFirebaseLoginLimited(attemptKey)) {
+    response.status(429).json({ message: 'Too many setup sign-in attempts. Try again later.' });
+    return;
+  }
+
+  try {
+    const { firestore } = getFirebaseUsernameServices();
+    await assertBootstrapAvailable(firestore);
+
+    const result = authenticateLocalUser(request.body && request.body.username,
+      request.body && request.body.password);
+    if (result.status !== 200) {
+      if (result.status === 401) recordFirebaseLoginFailure(attemptKey);
+      response.status(result.status).json({ message: result.message });
+      return;
+    }
+    if (result.user.role !== 'admin') {
+      recordFirebaseLoginFailure(attemptKey);
+      response.status(403).json({ message: 'A local administrator account is required for Firebase setup.' });
+      return;
+    }
+
+    firebaseLoginAttempts.delete(attemptKey);
+    const user = {
+      username: result.user.username,
+      role: 'firebaseBootstrap',
+      permissions: [BOOTSTRAP_SESSION_PERMISSION]
+    };
+    const sessionToken = signAuthToken({
+      ...user,
+      exp: Math.floor(Date.now() / 1000) + 60 * 60
+    });
+    setCookie(response, 'app_session', sessionToken, { maxAge: 60 * 60 });
+    response.json({ authenticated: true, user });
+  } catch (error) {
+    if (error instanceof FirebaseUserError || error instanceof FirebaseBootstrapError) {
+      response.status(error.status).json({ message: error.message, code: error.code });
+      return;
+    }
+    console.error('Firebase setup login failed:', error && error.code || error && error.name || 'Unknown error');
+    response.status(503).json({ message: 'Firebase setup login is unavailable. Check the server configuration.' });
+  }
+});
+
+app.get('/auth/firebase/bootstrap-session', async (request, response) => {
+  response.set('Cache-Control', 'no-store');
+  const session = verifyAuthToken(readCookie(request, 'app_session'));
+  if (!isBootstrapSession(session)) {
+    response.status(401).json({ authenticated: false });
+    return;
+  }
+
+  try {
+    const { firestore } = getFirebaseUsernameServices();
+    await assertBootstrapAvailable(firestore);
+    response.json({
+      authenticated: true,
+      user: {
+        username: session.username,
+        role: session.role,
+        permissions: session.permissions
+      }
+    });
+  } catch (error) {
+    if (error instanceof FirebaseBootstrapError && error.status === 409) {
+      setCookie(response, 'app_session', '', { maxAge: 0 });
+      response.status(401).json({ authenticated: false });
+      return;
+    }
+    if (error instanceof FirebaseUserError || error instanceof FirebaseBootstrapError) {
+      response.status(error.status).json({ message: error.message, code: error.code });
+      return;
+    }
+    console.error('Firebase setup session validation failed:', error && error.code || error && error.name || 'Unknown error');
+    response.status(503).json({ message: 'Firebase setup session validation is unavailable.' });
+  }
+});
+
+app.post('/api/admin/bootstrap-user', async (request, response) => {
+  response.set('Cache-Control', 'no-store');
+  const session = verifyAuthToken(readCookie(request, 'app_session'));
+  if (!isBootstrapSession(session)) {
+    response.status(401).json({ message: 'A valid one-time Firebase setup session is required.' });
+    return;
+  }
+
+  let claim;
+  try {
+    const { firestore, usernameAuth } = getFirebaseUsernameServices();
+    await assertBootstrapAvailable(firestore);
+    claim = await claimBootstrap(firestore);
+    const user = await usernameAuth.createUser({
+      username: request.body && request.body.username,
+      password: request.body && request.body.password,
+      role: 'admin'
+    });
+    try {
+      upsertLocalFirebaseUser(usersFilePath, {
+        ...user,
+        password: request.body && request.body.password
+      });
+    } catch (error) {
+      console.error('Initial Firebase administrator was created but could not be saved to the local user file:', error);
+      throw new FirebaseUserError(500, 'LOCAL_USER_SYNC_FAILED',
+        'The Firebase administrator was created, but its local login record could not be saved to data/users.json.');
+    }
+    await completeBootstrap(firestore, claim);
+    response.status(201).json(user);
+  } catch (error) {
+    if (claim) {
+      try {
+        const { firestore } = getFirebaseUsernameServices();
+        await releaseBootstrap(firestore, claim);
+      } catch (releaseError) {
+        console.error('Could not release the Firebase setup claim:', releaseError && releaseError.code || releaseError && releaseError.name || 'Unknown error');
+      }
+    }
+    if (error instanceof FirebaseUserError || error instanceof FirebaseBootstrapError) {
+      response.status(error.status).json({ message: error.message, code: error.code });
+      return;
+    }
+    console.error('Initial Firebase administrator creation failed:', error && error.code || error && error.name || 'Unknown error');
+    response.status(500).json({ message: 'Could not create the initial Firebase administrator.' });
+  }
+});
+
+app.post('/api/admin/sync-users', async (request, response) => {
+  response.set('Cache-Control', 'no-store');
+  try {
+    const { firestore } = await requireFirebaseAdmin(request);
+    const users = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
+    const result = await syncFirebaseUserProfiles(firestore, users);
+    response.json(result);
+  } catch (error) {
+    if (error instanceof FirebaseUserError || error instanceof FirebaseUserProfileSyncError) {
+      response.status(error.status).json({ message: error.message, code: error.code });
+      return;
+    }
+    console.error('Firebase user profile synchronization failed:', error && error.code || error && error.name || 'Unknown error');
+    response.status(500).json({ message: 'Could not synchronize the server-side user profiles.' });
+  }
+});
+
+app.post('/auth/login', async (request, response) => {
+  response.set('Cache-Control', 'no-store');
+  if (!sessionSecret || sessionSecret.length < 32) {
+    response.status(503).json({ message: 'Authentication is unavailable. Configure a SESSION_SECRET of at least 32 characters.' });
+    return;
+  }
+
+  const username = request.body && request.body.username;
+  const attemptKey = firebaseLoginAttemptKey(request, username);
+  if (isFirebaseLoginLimited(attemptKey)) {
+    response.status(429).json({ message: 'Too many sign-in attempts. Try again later.' });
+    return;
+  }
+  const result = authenticateLocalUser(username, request.body && request.body.password);
+  if (result.status !== 200) {
+    if (result.status === 401) recordFirebaseLoginFailure(attemptKey);
+    response.status(result.status).json({ message: result.message });
+    return;
+  }
+
+  const publicUser = result.user;
+  let firebaseCustomToken;
+  if (request.body && request.body.firebaseEnabled === true) {
+    if (!result.firebaseUid) {
+      response.status(409).json({
+        code: 'FIREBASE_UID_REQUIRED',
+        message: 'This local account is not linked to Firebase. Use initial Firebase setup or add its Firebase UID to data/users.json.'
+      });
+      return;
+    }
+    try {
+      const { auth, firestore } = getFirebaseUsernameServices();
+      let firebaseUser;
+      try {
+        firebaseUser = await auth.getUser(result.firebaseUid);
+      } catch {
+        throw new FirebaseUserError(409, 'FIREBASE_UID_NOT_FOUND',
+          'The Firebase UID linked to this local account does not exist in Firebase Authentication.');
+      }
+      if (firebaseUser.disabled) {
+        throw new FirebaseUserError(403, 'FIREBASE_USER_DISABLED',
+          'The Firebase account linked to this local user is disabled.');
+      }
+      await syncFirebaseUserProfiles(firestore, [{
+        ...publicUser,
+        firebaseUid: result.firebaseUid
+      }]);
+      firebaseCustomToken = await auth.createCustomToken(result.firebaseUid);
+    } catch (error) {
+      if (error instanceof FirebaseUserError || error instanceof FirebaseUserProfileSyncError) {
+        response.status(error.status).json({ message: error.message, code: error.code });
+        return;
+      }
+      console.error('Could not establish Firebase data access for the local user:', error && error.code || error && error.name || 'Unknown error');
+      response.status(503).json({ message: 'Firebase data access could not be established for this local account.' });
+      return;
+    }
+  }
+
+  firebaseLoginAttempts.delete(attemptKey);
   const sessionToken = signAuthToken({
     ...publicUser,
     exp: Math.floor(Date.now() / 1000) + 8 * 60 * 60
   });
   setCookie(response, 'app_session', sessionToken, { maxAge: 8 * 60 * 60 });
-  response.json({ authenticated: true, user: publicUser });
+  response.json({ authenticated: true, user: publicUser, firebaseCustomToken });
 });
 
 app.get('/auth/google/nonce', (request, response) => {
@@ -576,6 +965,10 @@ const interviewQaFilePath = path.join(__dirname, 'src', 'assets', 'data', 'quest
 const learningVideosFilePath = path.join(__dirname, 'src', 'assets', 'data', 'learning-videos.json');
 const quizCategoriesFilePath = path.join(__dirname, 'src', 'assets', 'data', 'topic_categories.json');
 const quizQuestionManifestPath = path.join(__dirname, 'src', 'assets', 'data', 'question-files.json');
+const applicationDataFilePath = path.join(__dirname, 'src', 'assets', 'data', 'application-data.json');
+const applicationDataCollections = new Set([
+  'tutorials', 'notes', 'questions', 'answers', 'quizzes', 'categories', 'userSettings', 'jsonFiles'
+]);
 const jsonGenerationOutputDirectory = path.join(__dirname, 'data', 'generated-json');
 const jsonGenerationDatasets = new Set(['tutorials', 'answers', 'quiz']);
 const jsonGenerationMinimum = 1000;
@@ -594,6 +987,117 @@ function readContentList(filePath) {
 function writeContentList(filePath, items) {
   fs.writeFileSync(filePath, `${JSON.stringify(items, null, 2)}\n`, 'utf8');
 }
+
+function readApplicationData() {
+  if (!fs.existsSync(applicationDataFilePath)) return {};
+  const data = JSON.parse(fs.readFileSync(applicationDataFilePath, 'utf8'));
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    throw new Error('The application JSON data file must contain an object of collection arrays.');
+  }
+  for (const [collection, records] of Object.entries(data)) {
+    if (!applicationDataCollections.has(collection) || !Array.isArray(records)) {
+      throw new Error(`Invalid application JSON collection "${collection}".`);
+    }
+    if (records.some(record => !record || typeof record.id !== 'string')) {
+      throw new Error(`Every "${collection}" JSON record must have a string ID.`);
+    }
+  }
+  return data;
+}
+
+function writeApplicationData(data) {
+  fs.writeFileSync(applicationDataFilePath, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
+}
+
+app.get('/api/data', requirePermission('admin'), (request, response) => {
+  try {
+    response.set('Cache-Control', 'no-store');
+    response.json(readApplicationData());
+  } catch (error) {
+    console.error('Error reading application JSON data:', error);
+    response.status(500).json({ message: 'Could not load application JSON data.' });
+  }
+});
+
+app.get('/api/data/:collection', requirePermission('admin'), (request, response) => {
+  const { collection } = request.params;
+  if (!applicationDataCollections.has(collection)) {
+    return response.status(404).json({ message: 'Unknown application data collection.' });
+  }
+  try {
+    response.set('Cache-Control', 'no-store');
+    response.json(readApplicationData()[collection] || []);
+  } catch (error) {
+    console.error(`Error reading application JSON collection "${collection}":`, error);
+    response.status(500).json({ message: 'Could not load application JSON collection.' });
+  }
+});
+
+app.post('/api/data/:collection', requirePermission('admin'), (request, response) => {
+  const { collection } = request.params;
+  const record = request.body;
+  if (!applicationDataCollections.has(collection)) {
+    return response.status(404).json({ message: 'Unknown application data collection.' });
+  }
+  if (!record || typeof record !== 'object' || Array.isArray(record) ||
+      typeof record.id !== 'string' || !record.id.trim() || record.id.includes('/')) {
+    return response.status(400).json({ message: 'A JSON data record must have a valid string ID.' });
+  }
+  try {
+    const data = readApplicationData();
+    const records = data[collection] || [];
+    if (records.some(item => item.id === record.id)) {
+      return response.status(409).json({ message: `Record "${record.id}" already exists.` });
+    }
+    data[collection] = [...records, record];
+    writeApplicationData(data);
+    response.status(201).json(record);
+  } catch (error) {
+    console.error(`Error saving application JSON record in "${collection}":`, error);
+    response.status(500).json({ message: 'Could not save application JSON data.' });
+  }
+});
+
+app.put('/api/data/:collection/:id', requirePermission('admin'), (request, response) => {
+  const { collection, id } = request.params;
+  if (!applicationDataCollections.has(collection)) {
+    return response.status(404).json({ message: 'Unknown application data collection.' });
+  }
+  try {
+    const data = readApplicationData();
+    const records = data[collection] || [];
+    const index = records.findIndex(item => item.id === id);
+    if (index < 0) return response.status(404).json({ message: 'Application data record not found.' });
+    const updated = { ...records[index], ...request.body, id };
+    data[collection] = records.map((item, itemIndex) => itemIndex === index ? updated : item);
+    writeApplicationData(data);
+    response.json(updated);
+  } catch (error) {
+    console.error(`Error updating application JSON record "${id}" in "${collection}":`, error);
+    response.status(500).json({ message: 'Could not update application JSON data.' });
+  }
+});
+
+app.delete('/api/data/:collection/:id', requirePermission('admin'), (request, response) => {
+  const { collection, id } = request.params;
+  if (!applicationDataCollections.has(collection)) {
+    return response.status(404).json({ message: 'Unknown application data collection.' });
+  }
+  try {
+    const data = readApplicationData();
+    const records = data[collection] || [];
+    const remaining = records.filter(record => record.id !== id);
+    if (remaining.length === records.length) {
+      return response.status(404).json({ message: 'Application data record not found.' });
+    }
+    data[collection] = remaining;
+    writeApplicationData(data);
+    response.status(204).end();
+  } catch (error) {
+    console.error(`Error deleting application JSON record "${id}" from "${collection}":`, error);
+    response.status(500).json({ message: 'Could not delete application JSON data.' });
+  }
+});
 
 function readQuizCategories() {
   const categories = JSON.parse(fs.readFileSync(quizCategoriesFilePath, 'utf8'));

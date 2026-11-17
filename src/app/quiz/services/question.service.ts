@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { QuizCategory } from '../models/category';
 import { QuizDifficulty, QuizQuestion } from '../models/question';
+import { DataRecord, DataService } from '../../services/data.service';
 import { CategoryService } from './category.service';
 import { StorageService } from './storage.service';
 
@@ -26,13 +27,30 @@ export class QuestionService {
   constructor(
     private readonly http: HttpClient,
     private readonly storage: StorageService,
-    private readonly categoryService: CategoryService
+    private readonly categoryService: CategoryService,
+    private readonly dataService: DataService
   ) { }
 
   async load(): Promise<void> {
     if (this.questionsSubject.value.length) return;
     if (this.loading) return this.loading;
     this.loading = (async () => {
+      if (this.dataService.isFirebaseEnabled()) {
+        const [storedQuestions, categories] = await Promise.all([
+          this.dataService.list<DataRecord>('quizzes').toPromise(),
+          this.categoryService.getCategories().toPromise()
+        ]);
+        const questions = (storedQuestions ?? []).map(item => ({ ...item, id: Number(item.id) })) as unknown as QuizQuestion[];
+        this.validateQuestions(questions);
+        this.questionsSubject.next(questions);
+        this.questionFileCountsSubject.next((categories ?? []).map(category => ({
+          category: category.name,
+          filename: 'Firestore',
+          count: questions.filter(question => question.category === category.name).length
+        })));
+        this.saveCategories(categories ?? []);
+        return;
+      }
       const saved = this.storage.get<QuizQuestion[] | null>(QUESTION_KEY, null);
       const { questions: fileQuestions, fileCounts, categories } = await this.loadCategoryFiles();
       const questions = saved ?? fileQuestions;
@@ -64,21 +82,21 @@ export class QuestionService {
     );
   }
 
-  saveQuestion(question: QuizQuestion): void {
+  async saveQuestion(question: QuizQuestion): Promise<void> {
     const updated = this.questions.filter(item => item.id !== question.id);
     updated.unshift(question);
-    this.saveQuestions(updated);
+    await this.saveQuestions(updated);
   }
 
-  deleteQuestion(id: number): void {
-    this.saveQuestions(this.questions.filter(question => question.id !== id));
+  async deleteQuestion(id: number): Promise<void> {
+    await this.saveQuestions(this.questions.filter(question => question.id !== id));
   }
 
-  importQuestions(questions: QuizQuestion[]): void {
+  async importQuestions(questions: QuizQuestion[]): Promise<void> {
     this.validateQuestions(questions);
     const merged = new Map(this.questions.map(question => [question.id, question]));
     questions.forEach(question => merged.set(question.id, question));
-    this.saveQuestions([...merged.values()]);
+    await this.saveQuestions([...merged.values()]);
   }
 
   saveCategories(categories: QuizCategory[]): void {
@@ -95,7 +113,7 @@ export class QuestionService {
     this.categoriesSubject.next(categories);
   }
 
-  renameCategory(previousName: string, category: QuizCategory): void {
+  async renameCategory(previousName: string, category: QuizCategory): Promise<void> {
     const changed = this.questions.map(question =>
       question.category === previousName
         ? { ...question, category: category.name,
@@ -104,14 +122,31 @@ export class QuestionService {
             : category.subCategories[0] ?? question.subCategory }
         : question
     );
-    this.saveQuestions(changed);
+    await this.saveQuestions(changed);
     this.saveCategories(this.categories.map(item => item.name === previousName ? category : item));
   }
 
-  private saveQuestions(questions: QuizQuestion[]): void {
+  private async saveQuestions(questions: QuizQuestion[]): Promise<void> {
     this.validateQuestions(questions);
+    if (this.dataService.isFirebaseEnabled()) {
+      const current = await this.dataService.list<DataRecord>('quizzes').toPromise() ?? [];
+      const byId = new Map(current.map(record => [record.id, record]));
+      const nextIds = new Set(questions.map(question => String(question.id)));
+      for (const question of questions) {
+        const record = { ...question, id: String(question.id) } as unknown as DataRecord;
+        if (byId.has(record.id)) {
+          await this.dataService.update<DataRecord>('quizzes', record.id, record).toPromise();
+        } else {
+          await this.dataService.create('quizzes', record).toPromise();
+        }
+      }
+      for (const record of current) {
+        if (!nextIds.has(record.id)) await this.dataService.delete('quizzes', record.id).toPromise();
+      }
+    } else {
+      this.storage.set(QUESTION_KEY, questions);
+    }
     this.questionsSubject.next(questions);
-    this.storage.set(QUESTION_KEY, questions);
   }
 
   private async loadCategoryFiles(): Promise<{

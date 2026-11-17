@@ -72,7 +72,7 @@ export class QuestionManagerComponent implements OnInit {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  save(): void {
+  async save(): Promise<void> {
     const question: QuizQuestion = {
       ...this.draft,
       id: this.editingId ?? Date.now(),
@@ -88,7 +88,7 @@ export class QuestionManagerComponent implements OnInit {
       return;
     }
     try {
-      this.questionService.saveQuestion(question);
+      await this.questionService.saveQuestion(question);
       this.refresh();
       this.message = this.editingId === null ? 'Question added.' : 'Question updated.';
       this.editingId = null;
@@ -99,12 +99,17 @@ export class QuestionManagerComponent implements OnInit {
     }
   }
 
-  delete(question: QuizQuestion): void {
+  async delete(question: QuizQuestion): Promise<void> {
     if (!window.confirm(`Delete question "${question.question}"?`)) return;
-    this.questionService.deleteQuestion(question.id);
-    this.refresh();
-    this.message = 'Question deleted.';
-    if (this.editingId === question.id) this.newQuestion();
+    try {
+      await this.questionService.deleteQuestion(question.id);
+      this.refresh();
+      this.message = 'Question deleted.';
+      if (this.editingId === question.id) this.newQuestion();
+      this.error = '';
+    } catch (error) {
+      this.error = error instanceof Error ? error.message : 'Could not delete this question.';
+    }
   }
 
   async importFile(event: Event): Promise<void> {
@@ -114,7 +119,7 @@ export class QuestionManagerComponent implements OnInit {
     try {
       const parsed: unknown = JSON.parse(await file.text());
       if (!Array.isArray(parsed)) throw new Error('The imported JSON must be an array of questions.');
-      this.questionService.importQuestions(parsed as QuizQuestion[]);
+      await this.questionService.importQuestions(parsed as QuizQuestion[]);
       this.refresh();
       this.message = `Imported ${parsed.length} question(s).`;
       this.error = '';

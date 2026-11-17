@@ -28,8 +28,18 @@
         </div>
 
         <span class="form-eyebrow">WELCOME BACK</span>
-        <h2 id="login-heading">Sign in to your account</h2>
-        <p class="form-intro">Pick up where you left off and continue your preparation.</p>
+        <h2 id="login-heading">{{ isLocalFirebaseBootstrap ? 'Initial Firebase setup' : 'Sign in to your account' }}</h2>
+        <p class="form-intro" *ngIf="!isLocalFirebaseBootstrap && !firebaseLoginEnabled">
+          Pick up where you left off and continue your preparation.
+        </p>
+        <p class="form-intro" *ngIf="!isLocalFirebaseBootstrap && firebaseLoginEnabled">
+          Sign in with the username and password stored in the server’s private <code>data/users.json</code>.
+          Firebase data access requires this local account to have a Firebase UID mapping.
+        </p>
+        <p class="form-intro" *ngIf="isLocalFirebaseBootstrap">
+          Sign in with the local administrator account from the server’s private <code>data/users.json</code>.
+          This temporary access only allows creating the first Firebase administrator.
+        </p>
 
         <form (ngSubmit)="login(txtName.value, txtPassword.value)">
           <div class="field-group">
@@ -70,12 +80,17 @@
           </p>
 
           <button type="submit" class="login-button" [disabled]="isSubmitting">
-            {{ isSubmitting ? 'Signing in…' : 'Sign in' }}
+            {{ isSubmitting ? 'Signing in…' : isLocalFirebaseBootstrap ? 'Continue setup' : 'Sign in' }}
             <i *ngIf="!isSubmitting" class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </button>
         </form>
 
-        <p class="demo-hint">
+        <button *ngIf="firebaseLoginEnabled" type="button" class="btn btn-link"
+          (click)="toggleFirebaseBootstrapLogin()" [disabled]="isSubmitting">
+          {{ isLocalFirebaseBootstrap ? 'Return to Firebase sign in' : 'First-time setup? Use local administrator' }}
+        </button>
+
+        <p *ngIf="!firebaseLoginEnabled" class="demo-hint">
           <i class="fa-regular fa-circle-question" aria-hidden="true"></i>
           Learner: <strong>test</strong> / <strong>test</strong>
           <!-- <span aria-hidden="true"> · </span> -->

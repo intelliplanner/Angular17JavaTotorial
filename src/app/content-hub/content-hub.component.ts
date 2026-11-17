@@ -7,6 +7,7 @@ import { InterviewQuestion, ContentDifficulty, Tutorial } from './content.models
 import { ContentService } from './content.service';
 import { CategoryService } from '../quiz/services/category.service';
 import { QuizCategory } from '../quiz/models/category';
+import { DataRecord, DataService } from '../services/data.service';
 
 type HubView = 'tutorials' | 'questions';
 type Vote = 'like' | 'dislike';
@@ -79,7 +80,8 @@ export class ContentHubComponent implements OnInit {
     private readonly contentService: ContentService,
     private readonly categoryService: CategoryService,
     private readonly route: ActivatedRoute,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly dataService: DataService
   ) {
     this.isAdminPanel = this.route.snapshot.routeConfig?.path === 'admin-panel';
     this.route.queryParamMap.subscribe(params => {
@@ -88,7 +90,16 @@ export class ContentHubComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    if (this.dataService.isFirebaseEnabled()) {
+      try {
+        await this.loadFirebaseSettings();
+      } catch (error) {
+        this.loading = false;
+        this.handleError('Could not load user settings from Firebase', error);
+        return;
+      }
+    }
     this.categoryService.getCategories().subscribe({
       next: categories => {
         this.setCategories(categories);
@@ -215,8 +226,8 @@ export class ContentHubComponent implements OnInit {
     if (target) this.openTutorial(target);
   }
 
-  markTutorialRead(tutorial: Tutorial): void {
-    this.toggleSet(this.readTutorials, tutorial.id, 'hub-read-tutorials');
+  async markTutorialRead(tutorial: Tutorial): Promise<void> {
+    await this.toggleSet(this.readTutorials, tutorial.id, 'hub-read-tutorials');
   }
 
   isTutorialRead(id: string): boolean {
@@ -231,18 +242,23 @@ export class ContentHubComponent implements OnInit {
     return this.bookmarkedQuestions.has(id);
   }
 
-  toggleTutorialBookmark(id: string): void {
-    this.toggleSet(this.bookmarkedTutorials, id, 'hub-tutorial-bookmarks');
+  async toggleTutorialBookmark(id: string): Promise<void> {
+    await this.toggleSet(this.bookmarkedTutorials, id, 'hub-tutorial-bookmarks');
   }
 
-  toggleQuestionBookmark(id: string): void {
-    this.toggleSet(this.bookmarkedQuestions, id, 'hub-question-bookmarks');
+  async toggleQuestionBookmark(id: string): Promise<void> {
+    await this.toggleSet(this.bookmarkedQuestions, id, 'hub-question-bookmarks');
   }
 
-  vote(question: InterviewQuestion, vote: Vote): void {
+  async vote(question: InterviewQuestion, vote: Vote): Promise<void> {
     const current = this.votes[question.id];
-    this.votes[question.id] = current === vote ? null : vote;
-    this.persist('hub-question-votes', this.votes);
+    const updated = { ...this.votes, [question.id]: current === vote ? null : vote };
+    try {
+      await this.persist('hub-question-votes', updated);
+    } catch {
+      return;
+    }
+    this.votes = updated;
   }
 
   voteCount(question: InterviewQuestion, vote: Vote): number {
@@ -251,12 +267,17 @@ export class ContentHubComponent implements OnInit {
     return count + (selected === vote ? 1 : 0);
   }
 
-  markQuestionViewed(question: InterviewQuestion): void {
+  async markQuestionViewed(question: InterviewQuestion): Promise<void> {
     if (!this.showAnswer[question.id]) {
       const viewed = this.readStringSet('hub-viewed-questions');
       if (!viewed.has(question.id)) {
         viewed.add(question.id);
-        this.persist('hub-viewed-questions', [...viewed]);
+        try {
+          await this.persist('hub-viewed-questions', [...viewed]);
+        } catch {
+          this.showAnswer[question.id] = !this.showAnswer[question.id];
+          return;
+        }
         question.viewCount += 1;
       }
     }
@@ -464,10 +485,17 @@ export class ContentHubComponent implements OnInit {
       : this.questions.map(item => item.id === question.id ? question : item);
   }
 
-  private toggleSet(set: Set<string>, id: string, key: string): void {
-    if (set.has(id)) set.delete(id);
-    else set.add(id);
-    this.persist(key, [...set]);
+  private async toggleSet(set: Set<string>, id: string, key: string): Promise<void> {
+    const updated = new Set(set);
+    if (updated.has(id)) updated.delete(id);
+    else updated.add(id);
+    try {
+      await this.persist(key, [...updated]);
+    } catch {
+      return;
+    }
+    set.clear();
+    updated.forEach(item => set.add(item));
   }
 
   private readStringSet(key: string): Set<string> {
@@ -492,12 +520,42 @@ export class ContentHubComponent implements OnInit {
     }
   }
 
-  private persist(key: string, value: unknown): void {
+  private async persist(key: string, value: unknown): Promise<void> {
     try {
-      localStorage.setItem(key, JSON.stringify(value instanceof Set ? [...value] : value));
+      const serialized = JSON.stringify(value instanceof Set ? [...value] : value);
+      if (this.dataService.isFirebaseEnabled()) {
+        await this.dataService.importJsonRecord('userSettings', { id: key, value: serialized }).toPromise();
+      } else {
+        localStorage.setItem(key, serialized);
+      }
     } catch (error) {
-      console.error(`Could not save ${key}:`, error);
-      this.notify('Your change could not be saved in this browser.', true);
+      console.error(`Could not save user setting "${key}":`, error);
+      this.notify('Your change could not be saved.', true);
+      throw error;
+    }
+  }
+
+  private async loadFirebaseSettings(): Promise<void> {
+    const settings = await this.dataService.list<DataRecord>('userSettings').toPromise() ?? [];
+    const getValue = (key: string): unknown => {
+      const value = settings.find(item => item.id === key)?.['value'];
+      if (typeof value !== 'string') return value;
+      try {
+        return JSON.parse(value) as unknown;
+      } catch (error) {
+        throw new Error(`Saved setting "${key}" contains invalid JSON: ${String(error)}`);
+      }
+    };
+    const readSet = (key: string): Set<string> => {
+      const value = getValue(key);
+      return new Set(Array.isArray(value) ? value.filter(item => typeof item === 'string') : []);
+    };
+    this.bookmarkedTutorials = readSet('hub-tutorial-bookmarks');
+    this.bookmarkedQuestions = readSet('hub-question-bookmarks');
+    this.readTutorials = readSet('hub-read-tutorials');
+    const votes = getValue('hub-question-votes');
+    if (votes && typeof votes === 'object' && !Array.isArray(votes)) {
+      this.votes = votes as Record<string, Vote | null>;
     }
   }
 

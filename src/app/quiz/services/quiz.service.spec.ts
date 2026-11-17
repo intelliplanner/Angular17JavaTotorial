@@ -1,3 +1,5 @@
+import { TestBed } from '@angular/core/testing';
+import { DataService } from '../../services/data.service';
 import { QuizQuestion } from '../models/question';
 import { QuizService } from './quiz.service';
 import { StorageService } from './storage.service';
@@ -11,25 +13,32 @@ describe('QuizService', () => {
 
   beforeEach(() => {
     localStorage.clear();
-    service = new QuizService(new StorageService());
+    TestBed.configureTestingModule({
+      providers: [
+        QuizService,
+        StorageService,
+        { provide: DataService, useValue: { isFirebaseEnabled: () => false } }
+      ]
+    });
+    service = TestBed.inject(QuizService);
   });
 
-  it('starts a randomized, resumable 30-minute session', () => {
-    service.start(questions, 'Java', 'Core Java', 'Easy');
+  it('starts a randomized, resumable 30-minute session', async () => {
+    await service.start(questions, 'Java', 'Core Java', 'Easy');
 
     expect(service.activeSession?.questions.length).toBe(2);
     expect(service.activeSession?.remainingSeconds).toBe(1800);
     expect(service.activeSession?.answers.length).toBe(2);
   });
 
-  it('scores answers and persists the completed review', () => {
-    service.start(questions, 'Java', 'Core Java', 'Easy');
+  it('scores answers and persists the completed review', async () => {
+    await service.start(questions, 'Java', 'Core Java', 'Easy');
     const session = service.activeSession!;
-    session.questions.forEach((question, index) => {
-      service.updateAnswer(index, { selectedAnswer: question.correctAnswer });
-    });
+    for (let index = 0; index < session.questions.length; index++) {
+      await service.updateAnswer(index, { selectedAnswer: session.questions[index].correctAnswer });
+    }
 
-    const result = service.finish();
+    const result = await service.finish();
 
     expect(result?.correct).toBe(2);
     expect(result?.attempted).toBe(2);
