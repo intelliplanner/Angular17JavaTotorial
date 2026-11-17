@@ -5,22 +5,7 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { DataRecord, DataService } from '../services/data.service';
-import { environment } from '../../environments/environment';
-
-@Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
-})
-export class HeaderComponent implements OnDestroy {
-  readonly loginEnabled = environment.loginEnabled;
-  readonly settingsEnabled = environment.settingsEnabled;
-  isLoggedIn = false;
-  isAdmin = !this.loginEnabled;
-  isFirebaseBootstrap = false;
-  darkMode = localStorage.getItem('quiz-dark-mode') === 'true';
+darkMode = localStorage.getItem('quiz-dark-mode') === 'true';
   isMenuOpen = false;
   isSettingsOpen = false;
   private readonly navigationSubscription: Subscription;
@@ -32,7 +17,7 @@ export class HeaderComponent implements OnDestroy {
   ) {
     this.applyTheme();
     void this.loadFirebaseTheme();
-    this.navigationSubscription = this.router.events
+this.navigationSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => this.updateLoginState());
   }
@@ -53,7 +38,7 @@ export class HeaderComponent implements OnDestroy {
     } catch (error) {
       console.error('Could not save the selected color theme:', error);
     }
-  }
+}
 
   closeMenu(): void {
     this.isMenuOpen = false;
@@ -81,25 +66,5 @@ export class HeaderComponent implements OnDestroy {
     this.isLoggedIn = !!user;
     this.isAdmin = !this.loginEnabled || this.authService.hasPermission('admin', user);
     this.isFirebaseBootstrap = this.authService.isFirebaseBootstrapUser(user);
-    this.closeMenu();
-  }
-
-  private applyTheme(): void {
-    document.documentElement.dataset['theme'] = this.darkMode ? 'dark' : 'light';
-  }
-
-  private async loadFirebaseTheme(): Promise<void> {
-    if (!this.dataService.isFirebaseEnabled()) return;
-    try {
-      const settings = await this.dataService.list<DataRecord>('userSettings').toPromise() ?? [];
-      const value = settings.find(item => item.id === 'quiz-dark-mode')?.['value'];
-      if (value !== undefined) {
-        const normalized = typeof value === 'string' ? JSON.parse(value) as unknown : value;
-        this.darkMode = normalized === true || normalized === 'true';
-        this.applyTheme();
-      }
-    } catch (error) {
-      console.error('Could not load the saved color theme:', error);
-    }
-  }
+}
 }

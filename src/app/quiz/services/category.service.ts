@@ -24,7 +24,7 @@ export class CategoryService {
         })
       );
     }
-    if (this.apiUrl) return this.http.get<QuizCategory[]>(`${this.apiUrl}/api/categories`);
+if (this.apiUrl) return this.http.get<QuizCategory[]>(`${this.apiUrl}/api/categories`);
     return this.http.get<QuizCategory[]>('assets/data/topic_categories.json').pipe(
       map(categories => {
         this.validateCategories(categories);
@@ -40,44 +40,7 @@ export class CategoryService {
         switchMap(() => this.getCategories())
       );
     }
-    if (!this.apiUrl) return this.apiNotConfigured();
-    return this.http.post<QuizCategory[]>(`${this.apiUrl}/api/categories`, category, { withCredentials: true });
-  }
-
-  updateCategory(previousName: string, category: QuizCategory): Observable<QuizCategory[]> {
-    if (this.dataService.isFirebaseEnabled()) {
-      return forkJoin({
-        categories: this.getCategories(),
-        tutorials: this.dataService.list<DataRecord>('tutorials'),
-        questions: this.dataService.list<DataRecord>('questions'),
-        quizzes: this.dataService.list<DataRecord>('quizzes')
-      }).pipe(switchMap(({ categories, tutorials, questions, quizzes }) => {
-        const duplicate = categories.some(item =>
-          item.name.toLowerCase() === category.name.toLowerCase() && item.name !== previousName
-        );
-        if (duplicate) return throwError(new Error('A category with that name already exists.'));
-        const references = [...tutorials, ...questions, ...quizzes].filter(item => item['category'] === previousName);
-        if (previousName !== category.name && references.length) {
-          return throwError(new Error('This category is used by content and cannot be renamed.'));
-        }
-        const removedSubcategories = references.some(item =>
-          !category.subCategories.includes(String(item['subCategory'] ?? ''))
-        );
-        if (removedSubcategories) {
-          return throwError(new Error('A subcategory used by content cannot be removed or renamed.'));
-        }
-        if (previousName === category.name) {
-          return this.dataService.update<QuizCategory & DataRecord>(
-            'categories', previousName, { ...category, id: previousName }
-          ).pipe(switchMap(() => this.getCategories()));
-        }
-        return this.dataService.create('categories', { ...category, id: category.name } as QuizCategory & DataRecord).pipe(
-          switchMap(() => this.dataService.delete('categories', previousName)),
-          switchMap(() => this.getCategories())
-        );
-      }));
-    }
-    if (!this.apiUrl) return this.apiNotConfigured();
+if (!this.apiUrl) return this.apiNotConfigured();
     return this.http.put<QuizCategory[]>(
       `${this.apiUrl}/api/categories/${encodeURIComponent(previousName)}`,
       category,
@@ -89,7 +52,7 @@ export class CategoryService {
     if (this.dataService.isFirebaseEnabled()) {
       return this.dataService.delete('categories', name).pipe(switchMap(() => this.getCategories()));
     }
-    if (!this.apiUrl) return this.apiNotConfigured();
+if (!this.apiUrl) return this.apiNotConfigured();
     return this.http.delete<QuizCategory[]>(
       `${this.apiUrl}/api/categories/${encodeURIComponent(name)}`,
       { withCredentials: true }

@@ -26,8 +26,7 @@ export class QuizResultComponent implements OnInit {
       this.error = error instanceof Error ? error.message : 'Could not load the quiz result.';
     }
   }
-
-  get barStyle(): string {
+get barStyle(): string {
     return `conic-gradient(#42a27c ${this.result?.percentage ?? 0}%, #e8edef 0)`;
   }
 

@@ -13,10 +13,9 @@ import { QuizService } from '../../services/quiz.service';
 export class ReviewAnswerComponent implements OnInit {
   result = this.quizService.results[0] ?? null;
   error = '';
-  index = 0;
+index = 0;
 
   constructor(private readonly quizService: QuizService) { }
-
   async ngOnInit(): Promise<void> {
     try {
       await this.quizService.load();
@@ -25,8 +24,7 @@ export class ReviewAnswerComponent implements OnInit {
       this.error = error instanceof Error ? error.message : 'Could not load the quiz review.';
     }
   }
-
-  get question() { return this.result?.questions[this.index]; }
+get question() { return this.result?.questions[this.index]; }
   get answer() { return this.result?.answers[this.index]; }
   get isCorrect(): boolean { return !!this.question && this.answer?.selectedAnswer === this.question.correctAnswer; }
   move(offset: number): void {

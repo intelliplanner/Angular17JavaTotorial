@@ -8,81 +8,7 @@ import { ContentService } from './content.service';
 import { CategoryService } from '../quiz/services/category.service';
 import { QuizCategory } from '../quiz/models/category';
 import { DataRecord, DataService } from '../services/data.service';
-
-type HubView = 'tutorials' | 'questions';
-type Vote = 'like' | 'dislike';
-
-interface TutorialDraft {
-  title: string;
-  category: string;
-  subCategory: string;
-  description: string;
-  content: string;
-  difficulty: ContentDifficulty;
-  tags: string;
-  published: boolean;
-}
-
-interface QuestionDraft {
-  category: string;
-  subCategory: string;
-  question: string;
-  answer: string;
-  difficulty: ContentDifficulty;
-  tags: string;
-}
-
-const emptyTutorial: TutorialDraft = {
-  title: '', category: 'Java', subCategory: 'Basics', description: '', content: '',
-  difficulty: 'Beginner', tags: '', published: false
-};
-const emptyQuestion: QuestionDraft = {
-  category: 'Java', subCategory: 'Basics', question: '', answer: '',
-  difficulty: 'Beginner', tags: ''
-};
-
-@Component({
-  selector: 'app-content-hub',
-  standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './content-hub.component.html'
-})
-export class ContentHubComponent implements OnInit {
-  categories: string[] = [];
-  categoryTopics: Record<string, string[]> = {};
-  readonly difficulties: ContentDifficulty[] = ['Beginner', 'Intermediate', 'Advanced'];
-  readonly isAdminPanel: boolean;
-  view: HubView = 'tutorials';
-  tutorials: Tutorial[] = [];
-  questions: InterviewQuestion[] = [];
-  selectedTutorial: Tutorial | null = null;
-  searchText = '';
-  selectedCategory = '';
-  selectedSubCategory = '';
-  selectedDifficulty = '';
-  showAnswer: Record<string, boolean> = {};
-  bookmarkedTutorials = this.readStringSet('hub-tutorial-bookmarks');
-  bookmarkedQuestions = this.readStringSet('hub-question-bookmarks');
-  readTutorials = this.readStringSet('hub-read-tutorials');
-  votes = this.readVotes();
-  notification = '';
-  loading = true;
-  tutorialDraft: TutorialDraft = { ...emptyTutorial };
-  questionDraft: QuestionDraft = { ...emptyQuestion };
-  editingTutorialId: string | null = null;
-  editingQuestionId: string | null = null;
-  tutorialSearch = '';
-  questionSearch = '';
-  tutorialCategoryFilter = '';
-  questionCategoryFilter = '';
-
-  constructor(
-    private readonly contentService: ContentService,
-    private readonly categoryService: CategoryService,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-    private readonly dataService: DataService
-  ) {
+) {
     this.isAdminPanel = this.route.snapshot.routeConfig?.path === 'admin-panel';
     this.route.queryParamMap.subscribe(params => {
       this.view = params.get('view') === 'questions' ? 'questions' : 'tutorials';
@@ -100,7 +26,7 @@ export class ContentHubComponent implements OnInit {
         return;
       }
     }
-    this.categoryService.getCategories().subscribe({
+this.categoryService.getCategories().subscribe({
       next: categories => {
         this.setCategories(categories);
         this.loadContent();
@@ -228,7 +154,7 @@ export class ContentHubComponent implements OnInit {
 
   async markTutorialRead(tutorial: Tutorial): Promise<void> {
     await this.toggleSet(this.readTutorials, tutorial.id, 'hub-read-tutorials');
-  }
+}
 
   isTutorialRead(id: string): boolean {
     return this.readTutorials.has(id);
@@ -259,7 +185,7 @@ export class ContentHubComponent implements OnInit {
       return;
     }
     this.votes = updated;
-  }
+}
 
   voteCount(question: InterviewQuestion, vote: Vote): number {
     const selected = this.votes[question.id];
@@ -268,7 +194,7 @@ export class ContentHubComponent implements OnInit {
   }
 
   async markQuestionViewed(question: InterviewQuestion): Promise<void> {
-    if (!this.showAnswer[question.id]) {
+if (!this.showAnswer[question.id]) {
       const viewed = this.readStringSet('hub-viewed-questions');
       if (!viewed.has(question.id)) {
         viewed.add(question.id);
@@ -278,7 +204,7 @@ export class ContentHubComponent implements OnInit {
           this.showAnswer[question.id] = !this.showAnswer[question.id];
           return;
         }
-        question.viewCount += 1;
+question.viewCount += 1;
       }
     }
     this.showAnswer[question.id] = !this.showAnswer[question.id];
@@ -496,7 +422,7 @@ export class ContentHubComponent implements OnInit {
     }
     set.clear();
     updated.forEach(item => set.add(item));
-  }
+}
 
   private readStringSet(key: string): Set<string> {
     try {
@@ -556,7 +482,7 @@ export class ContentHubComponent implements OnInit {
     const votes = getValue('hub-question-votes');
     if (votes && typeof votes === 'object' && !Array.isArray(votes)) {
       this.votes = votes as Record<string, Vote | null>;
-    }
+}
   }
 
   private handleError(message: string, error: unknown): void {

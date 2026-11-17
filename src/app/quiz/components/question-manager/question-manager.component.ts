@@ -73,7 +73,7 @@ export class QuestionManagerComponent implements OnInit {
   }
 
   async save(): Promise<void> {
-    const question: QuizQuestion = {
+const question: QuizQuestion = {
       ...this.draft,
       id: this.editingId ?? Date.now(),
       question: this.draft.question.trim(),
@@ -89,7 +89,7 @@ export class QuestionManagerComponent implements OnInit {
     }
     try {
       await this.questionService.saveQuestion(question);
-      this.refresh();
+this.refresh();
       this.message = this.editingId === null ? 'Question added.' : 'Question updated.';
       this.editingId = null;
       this.draft = this.emptyQuestion();
@@ -110,7 +110,7 @@ export class QuestionManagerComponent implements OnInit {
     } catch (error) {
       this.error = error instanceof Error ? error.message : 'Could not delete this question.';
     }
-  }
+}
 
   async importFile(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
@@ -120,7 +120,7 @@ export class QuestionManagerComponent implements OnInit {
       const parsed: unknown = JSON.parse(await file.text());
       if (!Array.isArray(parsed)) throw new Error('The imported JSON must be an array of questions.');
       await this.questionService.importQuestions(parsed as QuizQuestion[]);
-      this.refresh();
+this.refresh();
       this.message = `Imported ${parsed.length} question(s).`;
       this.error = '';
     } catch (error) {

@@ -106,7 +106,6 @@ The `loginEnabled` property in each `src/environments/environment*.ts` file cont
 
 - `true`: users must sign in; route permissions are enforced.
 - `false`: all application tabs are available without signing in.
-
 Change `loginEnabled` in `environment.prod.ts` and redeploy to change the GitHub Pages behavior. Disabling frontend login only changes access to application pages; protected backend write/admin APIs continue to require server authentication.
 
 The `settingsEnabled` property in each `src/environments/environment*.ts` file controls whether the administrator Settings menu appears in the header. Set it to `false` to hide the menu or `true` to show it for administrators. This is a navigation visibility option; it does not replace route guards or backend authorization.
@@ -130,7 +129,6 @@ For local development, set the same Firebase server variables, then run `npm run
 The Render free service filesystem is ephemeral. If users are created through the administration panel, persist the updated `data/users.json` using a supported persistent disk or update the deployment copy before a restart/redeploy; otherwise those local login records can be lost.
 
 For local JSON authentication only, the starter accounts are `test` / `test` (learner access) and `admin` / `admin` (full access). Replace these demo credentials before exposing the service publicly.
-
 ### Tutorials and Interview Q&A
 
 - Open `/tutorials` to browse published tutorials or use the Interview Q&A tab. Search and filters support all configured categories, topics, and difficulty levels.

@@ -40,8 +40,7 @@
           Sign in with the local administrator account from the server’s private <code>data/users.json</code>.
           This temporary access only allows creating the first Firebase administrator.
         </p>
-
-        <form (ngSubmit)="login(txtName.value, txtPassword.value)">
+<form (ngSubmit)="login(txtName.value, txtPassword.value)">
           <div class="field-group">
             <label for="name">Username</label>
             <div class="input-wrap">
@@ -81,7 +80,7 @@
 
           <button type="submit" class="login-button" [disabled]="isSubmitting">
             {{ isSubmitting ? 'Signing in…' : isLocalFirebaseBootstrap ? 'Continue setup' : 'Sign in' }}
-            <i *ngIf="!isSubmitting" class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+<i *ngIf="!isSubmitting" class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </button>
         </form>
 
@@ -91,7 +90,7 @@
         </button>
 
         <p *ngIf="!firebaseLoginEnabled" class="demo-hint">
-          <i class="fa-regular fa-circle-question" aria-hidden="true"></i>
+<i class="fa-regular fa-circle-question" aria-hidden="true"></i>
           Learner: <strong>test</strong> / <strong>test</strong>
           <!-- <span aria-hidden="true"> · </span> -->
           <!-- Admin: <strong>admin</strong> / <strong>admin</strong> -->

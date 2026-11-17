@@ -2,7 +2,7 @@
   <div class="navbar-inner">
     <a class="navbar-brand hub-brand" [routerLink]="isFirebaseBootstrap ? '/settings/users' : '/home'"
       (click)="closeMenu()" aria-label="Tech Interview Hub home">
-      <span class="hub-brand-icon"><i class="fa-solid fa-terminal"></i></span>
+<span class="hub-brand-icon"><i class="fa-solid fa-terminal"></i></span>
       <span>Tech Interview<strong>Hub</strong></span>
     </a>
     <button class="navbar-toggler hub-toggler" type="button" aria-controls="hubNav" [attr.aria-expanded]="isMenuOpen"
@@ -23,7 +23,7 @@
         <a *ngIf="settingsEnabled && isFirebaseBootstrap" class="nav-link" routerLink="/settings/users"
           routerLinkActive="active" (click)="closeMenu()">Firebase Setup</a>
         <div *ngIf="settingsEnabled && isAdmin && !isFirebaseBootstrap" class="settings-menu" [class.open]="isSettingsOpen">
-          <button type="button" class="nav-link settings-toggle" (click)="toggleSettings()"
+<button type="button" class="nav-link settings-toggle" (click)="toggleSettings()"
             [attr.aria-expanded]="isSettingsOpen" aria-controls="adminSettings">
             <i class="fa-solid fa-gear"></i> Settings
             <i class="fa-solid fa-chevron-down settings-caret"></i>
@@ -44,15 +44,7 @@
             <a routerLink="/settings/users" routerLinkActive="active" (click)="closeMenu()">
               <i class="fa-solid fa-user-plus"></i> User Management
             </a>
-            <a routerLink="/json-generator" routerLinkActive="active" (click)="closeMenu()">
-              <i class="fa-solid fa-file-code"></i> Generate JSON data
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="hub-nav-actions">
-        <button *ngIf="(!loginEnabled || isLoggedIn) && !isFirebaseBootstrap" type="button" class="theme-toggle" (click)="toggleTheme()"
-          [attr.aria-label]="darkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+[attr.aria-label]="darkMode ? 'Switch to light mode' : 'Switch to dark mode'">
           <i class="fa-solid" [ngClass]="darkMode ? 'fa-sun' : 'fa-moon'"></i>
         </button>
         <a *ngIf="loginEnabled && !isLoggedIn" routerLink="/login" class="btn hub-signin" (click)="closeMenu()">Sign

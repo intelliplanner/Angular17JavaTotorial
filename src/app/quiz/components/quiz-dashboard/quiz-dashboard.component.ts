@@ -36,46 +36,7 @@ export class QuizDashboardComponent implements OnInit {
     try {
       await this.questionService.load();
       await this.quizService.load();
-      this.categories = this.questionService.categories;
-      this.category = this.categories[0]?.name ?? '';
-      this.updateSubcategory();
-    } catch (error) {
-      this.errorMessage = error instanceof Error ? error.message : 'Could not load the quiz question bank.';
-    } finally {
-      this.loading = false;
-    }
-  }
-
-  get subCategories(): string[] {
-    return this.categories.find(item => item.name === this.category)?.subCategories ?? [];
-  }
-
-  get categoryLeaderboard(): { category: string; percentage: number; completedAt: string }[] {
-    const bestByCategory = new Map<string, { category: string; percentage: number; completedAt: string }>();
-    for (const result of this.quizService.results) {
-      const current = bestByCategory.get(result.category);
-      if (!current || result.percentage > current.percentage) {
-        bestByCategory.set(result.category, {
-          category: result.category,
-          percentage: result.percentage,
-          completedAt: result.completedAt
-        });
-      }
-    }
-    return [...bestByCategory.values()].sort((left, right) => right.percentage - left.percentage).slice(0, 5);
-  }
-
-  updateSubcategory(): void {
-    this.subCategory = this.subCategories[0] ?? '';
-    this.updateAvailability();
-  }
-
-  updateAvailability(): void {
-    this.available = this.questionService.findQuestions(this.category, this.subCategory, this.difficulty).length;
-  }
-
-  async startQuiz(): Promise<void> {
-    const questions = this.questionService.findQuestions(this.category, this.subCategory, this.difficulty);
+const questions = this.questionService.findQuestions(this.category, this.subCategory, this.difficulty);
     if (questions.length < this.questionCount) {
       this.errorMessage = `Only ${questions.length} questions match this selection. Add more questions or choose another selection.`;
       return;
@@ -87,7 +48,7 @@ export class QuizDashboardComponent implements OnInit {
     } catch (error) {
       this.errorMessage = error instanceof Error ? error.message : 'Could not save this quiz session.';
     }
-  }
+}
 
   resumeQuiz(): void {
     if (this.quizService.activeSession) this.router.navigateByUrl('/quiz/play');

@@ -1,64 +1,12 @@
 import { Injectable } from '@angular/core';
 import { DataRecord, DataService } from '../../services/data.service';
-import { QuizAnswer, QuizDifficulty, QuizQuestion } from '../models/question';
-import { QuizResult } from '../models/quiz-result';
-import { StorageService } from './storage.service';
-
-export interface QuizSession {
-  questions: QuizQuestion[];
-  answers: QuizAnswer[];
-  category: string;
-  subCategory: string;
-  difficulty: QuizDifficulty;
-  durationSeconds: number;
-  remainingSeconds: number;
-  lastUpdatedAt: number;
-}
-
-const SESSION_KEY = 'interview-quiz.active-session.v1';
-const RESULTS_KEY = 'interview-quiz.results.v1';
-
-@Injectable({ providedIn: 'root' })
-export class QuizService {
-  private activeSessionValue: QuizSession | null = null;
-  private resultsValue: QuizResult[] = [];
-  private loaded = false;
-
-  constructor(
-    private readonly storage: StorageService,
-    private readonly dataService: DataService
-  ) { }
-
-  async load(): Promise<void> {
-    if (this.loaded) return;
-    if (this.dataService.isFirebaseEnabled()) {
-      const settings = await this.dataService.list<DataRecord>('userSettings').toPromise() ?? [];
-      this.activeSessionValue = this.readSetting<QuizSession | null>(settings, SESSION_KEY, null);
-      this.resultsValue = this.readSetting<QuizResult[]>(settings, RESULTS_KEY, []);
-    } else {
-      this.activeSessionValue = this.storage.get<QuizSession | null>(SESSION_KEY, null);
-      this.resultsValue = this.storage.get<QuizResult[]>(RESULTS_KEY, []);
-    }
-    this.loaded = true;
-  }
-
-  get activeSession(): QuizSession | null {
-    return this.activeSessionValue;
-  }
-
-  get results(): QuizResult[] {
-    return this.resultsValue;
-  }
-
-  async start(questions: QuizQuestion[], category: string, subCategory: string, difficulty: QuizDifficulty, count = questions.length): Promise<void> {
-    await this.load();
-    const shuffled = this.shuffle([...questions]).slice(0, count).map(question => ({
+const shuffled = this.shuffle([...questions]).slice(0, count).map(question => ({
       ...question,
       options: this.shuffle([...question.options])
     }));
     const durationSeconds = 30 * 60;
     await this.saveSession({
-      questions: shuffled,
+questions: shuffled,
       answers: shuffled.map(question => ({ questionId: question.id, selectedAnswer: null, markedForReview: false })),
       category,
       subCategory,
@@ -91,7 +39,7 @@ export class QuizService {
 
   async finish(): Promise<QuizResult | null> {
     await this.load();
-    const session = this.activeSession;
+const session = this.activeSession;
     if (!session) return null;
     const correct = session.answers.filter((answer, index) =>
       answer.selectedAnswer === session.questions[index].correctAnswer
@@ -156,7 +104,7 @@ export class QuizService {
     } catch (error) {
       throw new Error(`Saved quiz setting "${key}" is invalid JSON: ${String(error)}`);
     }
-  }
+}
 
   private shuffle<T>(items: T[]): T[] {
     for (let index = items.length - 1; index > 0; index--) {

@@ -64,7 +64,7 @@ describe('LoginComponent', () => {
     expect(usernameInput).not.toBeNull();
     expect(usernameInput.type).toBe('text');
     expect(fixture.nativeElement.querySelector('label[for="name"]').textContent).toContain('Username');
-    expect(fixture.nativeElement.querySelector('#pwd')).not.toBeNull();
+expect(fixture.nativeElement.querySelector('#pwd')).not.toBeNull();
     expect(fixture.nativeElement.querySelector('.google-sign-in-button')).toBeNull();
     expect(fixture.nativeElement.textContent).not.toContain('Or');
   });

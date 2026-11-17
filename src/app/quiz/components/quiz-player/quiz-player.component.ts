@@ -4,23 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { Subscription, interval } from 'rxjs';
 import { QuizAnswer } from '../../models/question';
 import { QuizResult } from '../../models/quiz-result';
-import { QuizService, QuizSession } from '../../services/quiz.service';
-import { TimerService } from '../../services/timer.service';
-
-@Component({
-  selector: 'app-quiz-player',
-  standalone: true,
-  imports: [CommonModule, RouterLink],
-  templateUrl: './quiz-player.component.html',
-  styleUrl: './quiz-player.component.css'
-})
-export class QuizPlayerComponent implements OnInit, OnDestroy {
-  session: QuizSession | null = null;
-  index = 0;
-  confirmSubmit = false;
-  saveError = '';
-  private submitting = false;
-  private timerSubscription?: Subscription;
+private timerSubscription?: Subscription;
 
   constructor(
     readonly quizService: QuizService,
@@ -35,7 +19,7 @@ export class QuizPlayerComponent implements OnInit, OnDestroy {
       this.saveError = error instanceof Error ? error.message : 'Could not load the saved quiz session.';
       return;
     }
-    this.session = this.quizService.activeSession;
+this.session = this.quizService.activeSession;
     if (!this.session) {
       this.router.navigateByUrl('/quiz');
       return;
@@ -43,7 +27,7 @@ export class QuizPlayerComponent implements OnInit, OnDestroy {
     const elapsed = Math.floor((Date.now() - this.session.lastUpdatedAt) / 1000);
     if (elapsed > 0) {
       await this.quizService.setRemainingSeconds(Math.max(0, this.session.remainingSeconds - elapsed));
-      this.session = this.quizService.activeSession;
+this.session = this.quizService.activeSession;
       if (this.session?.remainingSeconds === 0) {
         this.submit();
         return;
@@ -58,7 +42,7 @@ export class QuizPlayerComponent implements OnInit, OnDestroy {
       } catch (error) {
         this.saveError = error instanceof Error ? error.message : 'Could not save the quiz timer.';
       }
-      this.session = this.quizService.activeSession;
+this.session = this.quizService.activeSession;
       if (remaining === 0) this.submit();
     });
   }
@@ -91,7 +75,7 @@ export class QuizPlayerComponent implements OnInit, OnDestroy {
     } catch (error) {
       this.saveError = error instanceof Error ? error.message : 'Could not save this answer.';
     }
-  }
+}
 
   move(offset: number): void {
     if (!this.session) return;
@@ -107,7 +91,7 @@ export class QuizPlayerComponent implements OnInit, OnDestroy {
     } catch (error) {
       this.saveError = error instanceof Error ? error.message : 'Could not save your review status.';
     }
-  }
+}
 
   goTo(index: number): void {
     this.index = index;
@@ -127,5 +111,5 @@ export class QuizPlayerComponent implements OnInit, OnDestroy {
     this.timerSubscription?.unsubscribe();
     if (result) this.router.navigateByUrl('/quiz/result');
     this.submitting = false;
-  }
+}
 }

@@ -33,7 +33,7 @@ export const routes: Routes = [
       { path: 'documentation', loadComponent: () => import('./documentation/documentation.component').then(module => module.DocumentationComponent), title: 'Application Guide', data: { permission: 'admin' } },
       { path: 'settings/data-synchronization', loadComponent: () => import('./data-synchronization/data-synchronization.component').then(module => module.DataSynchronizationComponent), title: 'Data Synchronization', canActivate: [settingsGuard], data: { permission: 'admin' } },
       { path: 'settings/users', loadComponent: () => import('./admin-users/admin-users.component').then(module => module.AdminUsersComponent), title: 'User Management', canActivate: [settingsGuard] },
-      { path: 'dashboard', redirectTo: 'home', pathMatch: 'full', data: { permission: 'home' } },
+{ path: 'dashboard', redirectTo: 'home', pathMatch: 'full', data: { permission: 'home' } },
       { path: 'admin-panel', loadComponent: () => import('./content-hub/content-hub.component').then(module => module.ContentHubComponent), title: 'Admin Panel', data: { permission: 'admin' } },
       { path: 'json-generator', loadComponent: () => import('./json-generator/json-generator.component').then(module => module.JsonGeneratorComponent), title: 'Generate JSON Data', data: { permission: 'admin' } },
       { path: 'interior-sample', component: InteriorSampleComponent, title: 'Interior Sample', data: { permission: 'admin' } },
