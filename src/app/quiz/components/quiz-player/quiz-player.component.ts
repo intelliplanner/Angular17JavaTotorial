@@ -17,6 +17,7 @@ export class QuizPlayerComponent implements OnInit, OnDestroy {
   session: QuizSession | null = null;
   index = 0;
   confirmSubmit = false;
+  saveError = '';
   private timerSubscription?: Subscription;
 
   constructor(

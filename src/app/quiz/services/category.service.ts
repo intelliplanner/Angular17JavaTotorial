@@ -1,18 +1,30 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { getAuthApiUrl } from '../../auth-api-url';
+import { DataRecord, DataService } from '../../services/data.service';
 import { QuizCategory } from '../models/category';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryService {
   private readonly apiUrl = getAuthApiUrl();
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly dataService: DataService
+  ) {}
 
   getCategories(): Observable<QuizCategory[]> {
-    if (this.apiUrl) return this.http.get<QuizCategory[]>(`${this.apiUrl}/api/categories`);
+    if (this.dataService.isFirebaseEnabled()) {
+      return this.dataService.list<QuizCategory & DataRecord>('categories').pipe(
+        map(categories => {
+          this.validateCategories(categories);
+          return categories;
+        })
+      );
+    }
+    if (this.apiUrl) return this.http.get<QuizCategory[]>(`${this.apiUrl}/api/categories`, { withCredentials: true });
     return this.http.get<QuizCategory[]>('assets/data/topic_categories.json').pipe(
       map(categories => {
         this.validateCategories(categories);
@@ -22,11 +34,23 @@ export class CategoryService {
   }
 
   createCategory(category: QuizCategory): Observable<QuizCategory[]> {
+    if (this.dataService.isFirebaseEnabled()) {
+      const record = { ...category, id: category.name } as QuizCategory & DataRecord;
+      return this.dataService.create('categories', record).pipe(
+        switchMap(() => this.getCategories())
+      );
+    }
     if (!this.apiUrl) return this.apiNotConfigured();
     return this.http.post<QuizCategory[]>(`${this.apiUrl}/api/categories`, category, { withCredentials: true });
   }
 
   updateCategory(previousName: string, category: QuizCategory): Observable<QuizCategory[]> {
+    if (this.dataService.isFirebaseEnabled()) {
+      const record = { ...category, id: category.name } as QuizCategory & DataRecord;
+      return this.dataService.update('categories', previousName, record).pipe(
+        switchMap(() => this.getCategories())
+      );
+    }
     if (!this.apiUrl) return this.apiNotConfigured();
     return this.http.put<QuizCategory[]>(
       `${this.apiUrl}/api/categories/${encodeURIComponent(previousName)}`,
@@ -36,6 +60,9 @@ export class CategoryService {
   }
 
   deleteCategory(name: string): Observable<QuizCategory[]> {
+    if (this.dataService.isFirebaseEnabled()) {
+      return this.dataService.delete('categories', name).pipe(switchMap(() => this.getCategories()));
+    }
     if (!this.apiUrl) return this.apiNotConfigured();
     return this.http.delete<QuizCategory[]>(
       `${this.apiUrl}/api/categories/${encodeURIComponent(name)}`,

@@ -18,3 +18,28 @@ Q & A Panel Add image feature
 
 Note: Added file "start-angular.bat" in Startup folder to start angular application on window start
 C:\Users\vicky\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+
+
+Firebase details
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCiIZUqOyisT6YyyZUg5fUPc0i6WmoKKjw",
+  authDomain: "javatutorial-1c117.firebaseapp.com",
+  projectId: "javatutorial-1c117",
+  storageBucket: "javatutorial-1c117.firebasestorage.app",
+  messagingSenderId: "530387668707",
+  appId: "1:530387668707:web:6846abee51cc4f5c477fd6",
+  measurementId: "G-B87679KL1V"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);

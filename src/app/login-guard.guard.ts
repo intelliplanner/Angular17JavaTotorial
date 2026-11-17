@@ -36,3 +36,25 @@ export const authChildGuard: CanActivateChildFn = childRoute => {
   const permission = childRoute.data['permission'];
   return authorize(typeof permission === 'string' ? permission : undefined);
 };
+
+export const settingsGuard: CanActivateFn = () => {
+  if (!environment.settingsEnabled) {
+    return inject(Router).createUrlTree(['/home']);
+  }
+  if (!environment.loginEnabled) {
+    return true;
+  }
+
+  const router = inject(Router);
+  const authService = inject(AuthService);
+  return authService.getSession().pipe(map(user => {
+    if (!user) {
+      return router.createUrlTree(['/login']);
+    }
+    if (authService.hasPermission('admin', user) ||
+        authService.hasPermission('firebaseUserSetup', user)) {
+      return true;
+    }
+    return router.createUrlTree(['/home']);
+  }));
+};

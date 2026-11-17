@@ -21,6 +21,10 @@ const RESULTS_KEY = 'interview-quiz.results.v1';
 export class QuizService {
   constructor(private readonly storage: StorageService) { }
 
+  async load(): Promise<QuizResult[]> {
+    return this.results;
+  }
+
   get activeSession(): QuizSession | null {
     return this.storage.get<QuizSession | null>(SESSION_KEY, null);
   }

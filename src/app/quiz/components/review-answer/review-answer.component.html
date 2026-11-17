@@ -1,3 +1,4 @@
+<div *ngIf="error" class="alert alert-danger m-4" role="alert">{{ error }}</div>
 <main class="review-shell" *ngIf="result && question; else noReview">
   <header class="review-heading"><div><span class="eyebrow">ANSWER REVIEW</span><h1>Learn from every question</h1><p>{{ result.category }} · {{ result.subCategory || 'All subcategories' }} · {{ result.difficulty }}</p></div><a class="btn btn-outline-secondary" routerLink="/quiz/result">← Results</a></header>
   <div class="review-layout">

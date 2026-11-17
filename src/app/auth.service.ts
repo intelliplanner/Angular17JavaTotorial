@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { getAuthApiUrl } from './auth-api-url';
+import { environment } from '../environments/environment';
 
 export interface AuthUser {
   username: string;
@@ -11,8 +12,8 @@ export interface AuthUser {
 }
 
 interface AuthResponse {
-  authenticated: boolean;
-  user: AuthUser;
+  authenticated?: boolean;
+  user?: AuthUser;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -20,6 +21,7 @@ export class AuthService {
   private readonly apiUrl = getAuthApiUrl();
   private currentUser: AuthUser | null = null;
   private sessionResolved = false;
+  private localFirebaseBootstrap = false;
 
   constructor(private readonly http: HttpClient) { }
 
@@ -27,21 +29,49 @@ export class AuthService {
     return this.currentUser;
   }
 
+  isFirebaseLoginEnabled(): boolean {
+    return environment.enableFirebase;
+  }
+
+  isFirebaseBootstrapUser(user: AuthUser | null = this.currentUser): boolean {
+    return !!user && user.role === 'firebaseBootstrap';
+  }
+
   login(username: string, password: string): Observable<AuthUser> {
     if (!this.apiUrl) {
       return throwError(new Error('Authentication API URL is not configured for this deployment.'));
     }
 
-    return this.http.post<AuthResponse>(
-      `${this.apiUrl}/auth/login`,
-      { username, password },
-      { withCredentials: true }
-    ).pipe(
+    this.localFirebaseBootstrap = false;
+    const request = this.isFirebaseLoginEnabled()
+      ? this.http.post<AuthResponse>(`${this.apiUrl}/auth/firebase/login`, { username, password }, { withCredentials: true })
+      : this.http.post<AuthResponse>(`${this.apiUrl}/auth/login`, { username, password }, { withCredentials: true });
+
+    return request.pipe(
       map(response => {
-        if (!response.authenticated || !response.user) {
+        const user = response && response.user ? response.user : null;
+        if (!user || (this.isFirebaseLoginEnabled() && response.authenticated === false)) {
           throw new Error('The authentication server returned an invalid login response.');
         }
-        return response.user;
+        return user;
+      }),
+      tap(user => this.setSession(user))
+    );
+  }
+
+  loginWithLocalFirebaseBootstrap(username: string, password: string): Observable<AuthUser> {
+    if (!this.apiUrl) {
+      return throwError(new Error('Authentication API URL is not configured for this deployment.'));
+    }
+
+    this.localFirebaseBootstrap = true;
+    return this.http.post<AuthResponse>(`${this.apiUrl}/auth/firebase/bootstrap-login`, { username, password }, { withCredentials: true }).pipe(
+      map(response => {
+        const user = response && response.user ? response.user : null;
+        if (!user) {
+          throw new Error('The authentication server returned an invalid bootstrap login response.');
+        }
+        return user;
       }),
       tap(user => this.setSession(user))
     );
@@ -56,8 +86,12 @@ export class AuthService {
       return of(null);
     }
 
-    return this.http.get<AuthResponse>(`${this.apiUrl}/auth/session`, { withCredentials: true }).pipe(
-      map(response => response.authenticated && response.user ? response.user : null),
+    const endpoint = this.localFirebaseBootstrap
+      ? `${this.apiUrl}/auth/firebase/bootstrap-session`
+      : `${this.apiUrl}/auth/session`;
+
+    return this.http.get<AuthResponse>(endpoint, { withCredentials: true }).pipe(
+      map(response => response && response.authenticated && response.user ? response.user : null),
       tap(user => this.setSession(user)),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
@@ -75,6 +109,7 @@ export class AuthService {
 
   logout(): Observable<void> {
     this.setSession(null);
+    this.localFirebaseBootstrap = false;
     return this.http.post<void>(`${this.apiUrl}/auth/logout`, {}, { withCredentials: true });
   }
 

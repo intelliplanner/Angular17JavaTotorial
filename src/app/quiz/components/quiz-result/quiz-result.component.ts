@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { QuizResult } from '../../models/quiz-result';
 import { QuizService } from '../../services/quiz.service';
@@ -12,10 +12,20 @@ import { TimerService } from '../../services/timer.service';
   templateUrl: './quiz-result.component.html',
   styleUrl: './quiz-result.component.css'
 })
-export class QuizResultComponent {
-  result: QuizResult | null = this.quizService.results[0] ?? null;
+export class QuizResultComponent implements OnInit {
+  result: QuizResult | null = null;
+  error = '';
 
   constructor(readonly quizService: QuizService, readonly timer: TimerService) { }
+
+  async ngOnInit(): Promise<void> {
+    try {
+      await this.quizService.load();
+      this.result = this.quizService.results[0] ?? null;
+    } catch (error) {
+      this.error = error instanceof Error ? error.message : 'Could not load the quiz result.';
+    }
+  }
 
   get barStyle(): string {
     return `conic-gradient(#42a27c ${this.result?.percentage ?? 0}%, #e8edef 0)`;

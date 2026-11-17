@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { InterviewQuestionsComponent } from './interview-questions/interview-questions.component';
 // import { ExceptionHandlingComponent } from './exception-handling/exception-handling.component';
 import { LoginComponent } from './login/login.component';
-import { authChildGuard, authGuard, loginPageGuard } from './login-guard.guard';
+import { authChildGuard, authGuard, loginPageGuard, settingsGuard } from './login-guard.guard';
 import { environment } from '../environments/environment';
 import { JavaNotesComponent } from './java-notes/java-notes.component';
 import { JavaCompilerComponent } from './java-compiler/java-compiler.component';
@@ -31,7 +31,9 @@ export const routes: Routes = [
       { path: 'learn', loadComponent: () => import('./video-learning/video-learning.component').then(module => module.VideoLearningComponent), title: 'Video Learning', data: { permission: 'learn' } },
       { path: 'home', component: HomeComponent, title: 'Tech Interview Hub', data: { permission: 'home' } },
       { path: 'documentation', loadComponent: () => import('./documentation/documentation.component').then(module => module.DocumentationComponent), title: 'Application Guide', data: { permission: 'admin' } },
-      { path: 'dashboard', redirectTo: 'home', pathMatch: 'full', data: { permission: 'home' } },
+      { path: 'settings/data-synchronization', loadComponent: () => import('./data-synchronization/data-synchronization.component').then(module => module.DataSynchronizationComponent), title: 'Data Synchronization', canActivate: [settingsGuard], data: { permission: 'admin' } },
+      { path: 'settings/users', loadComponent: () => import('./admin-users/admin-users.component').then(module => module.AdminUsersComponent), title: 'User Management', canActivate: [settingsGuard] },
+{ path: 'dashboard', redirectTo: 'home', pathMatch: 'full', data: { permission: 'home' } },
       { path: 'admin-panel', loadComponent: () => import('./content-hub/content-hub.component').then(module => module.ContentHubComponent), title: 'Admin Panel', data: { permission: 'admin' } },
       { path: 'json-generator', loadComponent: () => import('./json-generator/json-generator.component').then(module => module.JsonGeneratorComponent), title: 'Generate JSON Data', data: { permission: 'admin' } },
       { path: 'interior-sample', component: InteriorSampleComponent, title: 'Interior Sample', data: { permission: 'admin' } },

@@ -13,6 +13,7 @@ import { QuizService } from '../../services/quiz.service';
 export class ReviewAnswerComponent {
   result = this.quizService.results[0] ?? null;
   index = 0;
+  error = '';
 
   constructor(private readonly quizService: QuizService) { }
 

@@ -18,6 +18,7 @@ export class HeaderComponent implements OnDestroy {
   readonly settingsEnabled = environment.settingsEnabled;
   isLoggedIn = false;
   isAdmin = !this.loginEnabled;
+  isFirebaseBootstrap = false;
   darkMode = localStorage.getItem('quiz-dark-mode') === 'true';
   isMenuOpen = false;
   isSettingsOpen = false;
@@ -63,7 +64,8 @@ export class HeaderComponent implements OnDestroy {
   private updateLoginState(): void {
     const user = this.authService.user;
     this.isLoggedIn = !!user;
-    this.isAdmin = !this.loginEnabled || this.authService.hasPermission('admin', user);
+    this.isFirebaseBootstrap = this.authService.isFirebaseBootstrapUser(user);
+    this.isAdmin = !this.loginEnabled || this.authService.hasPermission('admin', user) || this.isFirebaseBootstrap;
     this.closeMenu();
   }
 
