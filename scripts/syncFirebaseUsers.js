@@ -23,8 +23,7 @@ async function main() {
   const result = await syncFirebaseUserProfiles(firestore, users);
   console.log(`Synced ${result.synced} of ${result.total} user profile(s) and username index entries. Credential fields were excluded.`);
 }
-
-main().catch(error => {
+().catch(error => {
   console.error('Could not sync Firebase user profiles:', error.message);
   process.exitCode = 1;
 });
