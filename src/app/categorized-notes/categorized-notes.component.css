@@ -85,6 +85,7 @@
   height: 100vh;
   height: 100dvh;
   margin: 0;
+  margin-left: -10px;
   border: 0;
   border-radius: 0;
   background: #fff;

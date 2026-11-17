@@ -14,7 +14,7 @@ export const environment = {
     measurementId: "G-B87679KL1V"
   },
   appVersion: '1.0.0',
-apiUrl: 'https://intelliplanner.github.io/Angular17JavaTotorial/#/login',
+  apiUrl: 'https://intelliplanner.github.io/Angular17JavaTotorial/#/login',
   authApiUrl: 'https://intelliplanner-google-auth.onrender.com',
   googleClientId: '1061518124608-cvv5gk26kq5hps6677h66dt0u7ndbt4q.apps.googleusercontent.com'
 };

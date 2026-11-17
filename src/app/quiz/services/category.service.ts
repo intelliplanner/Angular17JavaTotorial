@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { getAuthApiUrl } from '../../auth-api-url';
 import { DataRecord, DataService } from '../../services/data.service';
@@ -24,7 +24,7 @@ export class CategoryService {
         })
       );
     }
-if (this.apiUrl) return this.http.get<QuizCategory[]>(`${this.apiUrl}/api/categories`);
+    if (this.apiUrl) return this.http.get<QuizCategory[]>(`${this.apiUrl}/api/categories`, { withCredentials: true });
     return this.http.get<QuizCategory[]>('assets/data/topic_categories.json').pipe(
       map(categories => {
         this.validateCategories(categories);
@@ -40,7 +40,18 @@ if (this.apiUrl) return this.http.get<QuizCategory[]>(`${this.apiUrl}/api/catego
         switchMap(() => this.getCategories())
       );
     }
-if (!this.apiUrl) return this.apiNotConfigured();
+    if (!this.apiUrl) return this.apiNotConfigured();
+    return this.http.post<QuizCategory[]>(`${this.apiUrl}/api/categories`, category, { withCredentials: true });
+  }
+
+  updateCategory(previousName: string, category: QuizCategory): Observable<QuizCategory[]> {
+    if (this.dataService.isFirebaseEnabled()) {
+      const record = { ...category, id: category.name } as QuizCategory & DataRecord;
+      return this.dataService.update('categories', previousName, record).pipe(
+        switchMap(() => this.getCategories())
+      );
+    }
+    if (!this.apiUrl) return this.apiNotConfigured();
     return this.http.put<QuizCategory[]>(
       `${this.apiUrl}/api/categories/${encodeURIComponent(previousName)}`,
       category,
@@ -52,7 +63,7 @@ if (!this.apiUrl) return this.apiNotConfigured();
     if (this.dataService.isFirebaseEnabled()) {
       return this.dataService.delete('categories', name).pipe(switchMap(() => this.getCategories()));
     }
-if (!this.apiUrl) return this.apiNotConfigured();
+    if (!this.apiUrl) return this.apiNotConfigured();
     return this.http.delete<QuizCategory[]>(
       `${this.apiUrl}/api/categories/${encodeURIComponent(name)}`,
       { withCredentials: true }

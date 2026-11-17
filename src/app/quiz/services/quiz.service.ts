@@ -1,12 +1,46 @@
 import { Injectable } from '@angular/core';
-import { DataRecord, DataService } from '../../services/data.service';
-const shuffled = this.shuffle([...questions]).slice(0, count).map(question => ({
+import { QuizAnswer, QuizDifficulty, QuizQuestion } from '../models/question';
+import { QuizResult } from '../models/quiz-result';
+import { StorageService } from './storage.service';
+
+export interface QuizSession {
+  questions: QuizQuestion[];
+  answers: QuizAnswer[];
+  category: string;
+  subCategory: string;
+  difficulty: QuizDifficulty;
+  durationSeconds: number;
+  remainingSeconds: number;
+  lastUpdatedAt: number;
+}
+
+const SESSION_KEY = 'interview-quiz.active-session.v1';
+const RESULTS_KEY = 'interview-quiz.results.v1';
+
+@Injectable({ providedIn: 'root' })
+export class QuizService {
+  constructor(private readonly storage: StorageService) { }
+
+  async load(): Promise<QuizResult[]> {
+    return this.results;
+  }
+
+  get activeSession(): QuizSession | null {
+    return this.storage.get<QuizSession | null>(SESSION_KEY, null);
+  }
+
+  get results(): QuizResult[] {
+    return this.storage.get<QuizResult[]>(RESULTS_KEY, []);
+  }
+
+  start(questions: QuizQuestion[], category: string, subCategory: string, difficulty: QuizDifficulty, count = questions.length): void {
+    const shuffled = this.shuffle([...questions]).slice(0, count).map(question => ({
       ...question,
       options: this.shuffle([...question.options])
     }));
     const durationSeconds = 30 * 60;
-    await this.saveSession({
-questions: shuffled,
+    this.saveSession({
+      questions: shuffled,
       answers: shuffled.map(question => ({ questionId: question.id, selectedAnswer: null, markedForReview: false })),
       category,
       subCategory,
@@ -17,29 +51,20 @@ questions: shuffled,
     });
   }
 
-  async updateAnswer(index: number, patch: Partial<QuizAnswer>): Promise<void> {
-    await this.load();
+  updateAnswer(index: number, patch: Partial<QuizAnswer>): void {
     const session = this.activeSession;
     if (!session || !session.answers[index]) return;
     session.answers[index] = { ...session.answers[index], ...patch };
-    await this.saveSession(session);
+    this.saveSession(session);
   }
 
-  async setRemainingSeconds(seconds: number): Promise<void> {
-    await this.load();
+  setRemainingSeconds(seconds: number): void {
     const session = this.activeSession;
-    if (session) {
-      const updated = { ...session, remainingSeconds: seconds, lastUpdatedAt: Date.now() };
-      this.activeSessionValue = updated;
-      if (!this.dataService.isFirebaseEnabled() || seconds % 15 === 0 || seconds === 0) {
-        await this.persistSetting(SESSION_KEY, updated);
-      }
-    }
+    if (session) this.saveSession({ ...session, remainingSeconds: seconds, lastUpdatedAt: Date.now() });
   }
 
-  async finish(): Promise<QuizResult | null> {
-    await this.load();
-const session = this.activeSession;
+  finish(): QuizResult | null {
+    const session = this.activeSession;
     if (!session) return null;
     const correct = session.answers.filter((answer, index) =>
       answer.selectedAnswer === session.questions[index].correctAnswer
@@ -62,49 +87,14 @@ const session = this.activeSession;
       questions: session.questions,
       completedAt: new Date().toISOString()
     };
-    this.resultsValue = [result, ...this.results].slice(0, 50);
-    this.activeSessionValue = null;
-    await this.persistSetting(RESULTS_KEY, this.resultsValue);
-    await this.removeSetting(SESSION_KEY);
+    this.storage.set(RESULTS_KEY, [result, ...this.results].slice(0, 50));
+    this.storage.remove(SESSION_KEY);
     return result;
   }
 
-  private async saveSession(session: QuizSession): Promise<void> {
-    const updated = { ...session, lastUpdatedAt: Date.now() };
-    this.activeSessionValue = updated;
-    await this.persistSetting(SESSION_KEY, updated);
+  private saveSession(session: QuizSession): void {
+    this.storage.set(SESSION_KEY, { ...session, lastUpdatedAt: Date.now() });
   }
-
-  private async persistSetting(key: string, value: unknown): Promise<void> {
-    if (this.dataService.isFirebaseEnabled()) {
-      await this.dataService.importJsonRecord('userSettings', { id: key, value }).toPromise();
-    } else {
-      this.storage.set(key, value);
-    }
-  }
-
-  private async removeSetting(key: string): Promise<void> {
-    if (this.dataService.isFirebaseEnabled()) {
-      const settings = await this.dataService.list<DataRecord>('userSettings').toPromise() ?? [];
-      if (settings.some(setting => setting.id === key)) {
-        await this.dataService.delete('userSettings', key).toPromise();
-      }
-    } else {
-      this.storage.remove(key);
-    }
-  }
-
-  private readSetting<T>(settings: DataRecord[], key: string, fallback: T): T {
-    const setting = settings.find(item => item.id === key);
-    if (!setting || !('value' in setting)) return fallback;
-    const value = setting['value'];
-    if (typeof value !== 'string') return value as T;
-    try {
-      return JSON.parse(value) as T;
-    } catch (error) {
-      throw new Error(`Saved quiz setting "${key}" is invalid JSON: ${String(error)}`);
-    }
-}
 
   private shuffle<T>(items: T[]): T[] {
     for (let index = items.length - 1; index > 0; index--) {

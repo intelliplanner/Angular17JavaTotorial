@@ -28,7 +28,204 @@ const {
   syncFirebaseUserProfiles
 } = require('./server/firebase-user-profile-sync');
 const { upsertLocalFirebaseUser } = require('./server/local-user-store');
+const {
+  DraftImportError,
+  MAX_IMPORT_RECORDS,
+  importDrafts,
+  listDrafts
+} = require('./server/json-draft-store');
+
+const app = express();
+
+const googleClientId = process.env.GOOGLE_CLIENT_ID ||
+  '1061518124608-cvv5gk26kq5hps6677h66dt0u7ndbt4q.apps.googleusercontent.com';
+function getSessionSecret() {
+  if (process.env.SESSION_SECRET) {
+    return process.env.SESSION_SECRET;
+  }
+  if (process.env.NODE_ENV === 'production') {
+    return '';
+  }
+
+  const secretDirectory = path.join(
+    process.env.LOCALAPPDATA || os.homedir(),
+    'IntelliPlanner'
+  );
+  const secretPath = path.join(secretDirectory, 'session-secret');
+  fs.mkdirSync(secretDirectory, { recursive: true, mode: 0o700 });
+
+  try {
+    return fs.readFileSync(secretPath, 'utf8').trim();
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      throw error;
+    }
+  }
+
+  const generatedSecret = crypto.randomBytes(32).toString('hex');
+  try {
+    fs.writeFileSync(secretPath, generatedSecret, { encoding: 'utf8', flag: 'wx', mode: 0o600 });
+    return generatedSecret;
+  } catch (error) {
+    if (error.code !== 'EEXIST') {
+      throw error;
+    }
+    return fs.readFileSync(secretPath, 'utf8').trim();
+  }
 }
+
+const sessionSecret = getSessionSecret();
+const usersFilePath = path.join(__dirname, 'data', 'users.json');
+const allowedOrigins = new Set([
+  'http://localhost:4200',
+  'http://127.0.0.1:4200',
+  'http://192.168.1.10:4200',
+  'https://intelliplanner.github.io',
+  ...(process.env.FRONTEND_ORIGINS || '').split(',').map(origin => origin.trim()).filter(Boolean)
+]);
+const secureCookies = process.env.COOKIE_SECURE === 'true';
+const cookieSameSite = secureCookies ? 'None' : 'Lax';
+const pendingGoogleNonces = new Map();
+
+app.use(cors({
+  origin(origin, callback) {
+    callback(null, !origin || allowedOrigins.has(origin));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+app.use(bodyParser.json());
+
+function signAuthToken(payload) {
+  const encodedPayload = Buffer.from(JSON.stringify(payload)).toString('base64url');
+  const signature = crypto.createHmac('sha256', sessionSecret).update(encodedPayload).digest('base64url');
+  return `${encodedPayload}.${signature}`;
+}
+
+function verifyAuthToken(token) {
+  if (!sessionSecret || typeof token !== 'string') {
+    return null;
+  }
+
+  const [encodedPayload, providedSignature] = token.split('.');
+  if (!encodedPayload || !providedSignature) {
+    return null;
+  }
+
+  const expectedSignature = crypto.createHmac('sha256', sessionSecret).update(encodedPayload).digest();
+  let actualSignature;
+  try {
+    actualSignature = Buffer.from(providedSignature, 'base64url');
+  } catch {
+    return null;
+  }
+  if (actualSignature.length !== expectedSignature.length ||
+      !crypto.timingSafeEqual(actualSignature, expectedSignature)) {
+    return null;
+  }
+
+  try {
+    const payload = JSON.parse(Buffer.from(encodedPayload, 'base64url').toString('utf8'));
+    return payload.exp > Math.floor(Date.now() / 1000) ? payload : null;
+  } catch {
+    return null;
+  }
+}
+
+function readCookie(request, name) {
+  const cookieHeader = request.headers.cookie || '';
+  const cookie = cookieHeader.split(';').map(value => value.trim())
+    .find(value => value.startsWith(`${name}=`));
+  return cookie ? decodeURIComponent(cookie.slice(name.length + 1)) : '';
+}
+
+function setCookie(response, name, value, options = {}) {
+  const parts = [
+    `${name}=${encodeURIComponent(value)}`,
+    `Path=${options.path || '/'}`,
+    'HttpOnly',
+    `SameSite=${cookieSameSite}`,
+    `Max-Age=${options.maxAge || 0}`
+  ];
+  if (secureCookies) {
+    parts.push('Secure');
+  }
+  response.append('Set-Cookie', parts.join('; '));
+}
+
+function authUnavailable(response) {
+  if (!googleClientId || !sessionSecret || sessionSecret.length < 32) {
+    response.status(503).json({
+      message: 'Google authentication is unavailable. Configure GOOGLE_CLIENT_ID and a SESSION_SECRET of at least 32 characters.'
+    });
+    return true;
+  }
+  return false;
+}
+
+function requirePermission(permission) {
+  return (request, response, next) => {
+    const session = verifyAuthToken(readCookie(request, 'app_session'));
+    if (!session) {
+      response.status(401).json({ message: 'Please sign in to access this resource.' });
+      return;
+    }
+
+    const permissions = Array.isArray(session.permissions) ? session.permissions : [];
+    if (!permissions.includes('*') && !permissions.includes(permission)) {
+      response.status(403).json({ message: 'You do not have permission to access this resource.' });
+      return;
+    }
+    next();
+  };
+}
+
+function getFirebaseUsernameServices() {
+  const projectId = process.env.FIREBASE_PROJECT_ID;
+  const apiKey = process.env.FIREBASE_WEB_API_KEY;
+  if (!projectId || !apiKey) {
+    throw new FirebaseUserError(503, 'FIREBASE_AUTH_UNAVAILABLE',
+      'Firebase username authentication is not configured on the server. Set FIREBASE_PROJECT_ID and FIREBASE_WEB_API_KEY in the backend environment.');
+  }
+
+  const appName = 'firebase-username-auth';
+  let firebaseApp = getApps().find(app => app.name === appName);
+  if (!firebaseApp) {
+    let credential;
+    if (process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT_JSON) {
+      credential = cert(JSON.parse(process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT_JSON));
+    } else {
+      credential = applicationDefault();
+    }
+    firebaseApp = initializeApp({ credential, projectId }, appName);
+  }
+  if (firebaseApp.options.projectId !== projectId) {
+    throw new FirebaseUserError(503, 'FIREBASE_PROJECT_MISMATCH',
+      'Firebase Admin is configured for a different project.');
+  }
+
+  const auth = getAuth(firebaseApp);
+  const firestore = getFirestore(firebaseApp);
+  return {
+    auth,
+    firestore,
+    usernameAuth: createFirebaseUsernameAuth({
+      auth,
+      firestore,
+      projectId,
+      apiKey,
+      passwordUniquenessSecret: process.env.PASSWORD_UNIQUENESS_SECRET
+    })
+  };
+}
+
+function authenticateLocalUser(username, password) {
+  if (typeof username !== 'string' || typeof password !== 'string' ||
+      username.length > 128 || password.length > 128) {
+    return { status: 400, message: 'Enter a valid username and password.' };
+  }
 
   let users;
   try {
@@ -39,7 +236,7 @@ const { upsertLocalFirebaseUser } = require('./server/local-user-store');
   }
   if (!Array.isArray(users)) {
     return { status: 500, message: 'Authentication user configuration must be a JSON array.' };
-}
+  }
 
   const normalizedUsername = username.trim().toLowerCase();
   const user = users.find(entry => entry && typeof entry.username === 'string' &&
@@ -403,7 +600,7 @@ app.post('/auth/login', async (request, response) => {
   }
 
   firebaseLoginAttempts.delete(attemptKey);
-const sessionToken = signAuthToken({
+  const sessionToken = signAuthToken({
     ...publicUser,
     exp: Math.floor(Date.now() / 1000) + 8 * 60 * 60
   });
@@ -772,6 +969,136 @@ const applicationDataFilePath = path.join(__dirname, 'src', 'assets', 'data', 'a
 const applicationDataCollections = new Set([
   'tutorials', 'notes', 'questions', 'answers', 'quizzes', 'categories', 'userSettings', 'jsonFiles'
 ]);
+const jsonGenerationOutputDirectory = path.join(__dirname, 'data', 'generated-json');
+const jsonGenerationDatasets = new Set(['tutorials', 'answers', 'quiz']);
+const jsonGenerationMinimum = 1000;
+const jsonGenerationMaximum = 10000;
+let jsonGenerationRunning = false;
+let jsonImportRunning = false;
+
+function readContentList(filePath) {
+  const value = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  if (!Array.isArray(value)) {
+    throw new Error(`Expected a JSON array in ${path.basename(filePath)}.`);
+  }
+  return value;
+}
+
+function writeContentList(filePath, items) {
+  fs.writeFileSync(filePath, `${JSON.stringify(items, null, 2)}\n`, 'utf8');
+}
+
+function readApplicationData() {
+  if (!fs.existsSync(applicationDataFilePath)) return {};
+  const data = JSON.parse(fs.readFileSync(applicationDataFilePath, 'utf8'));
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    throw new Error('The application JSON data file must contain an object of collection arrays.');
+  }
+  for (const [collection, records] of Object.entries(data)) {
+    if (!applicationDataCollections.has(collection) || !Array.isArray(records)) {
+      throw new Error(`Invalid application JSON collection "${collection}".`);
+    }
+    if (records.some(record => !record || typeof record.id !== 'string')) {
+      throw new Error(`Every "${collection}" JSON record must have a string ID.`);
+    }
+  }
+  return data;
+}
+
+function writeApplicationData(data) {
+  fs.writeFileSync(applicationDataFilePath, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
+}
+
+app.get('/api/data', requirePermission('admin'), (request, response) => {
+  try {
+    response.set('Cache-Control', 'no-store');
+    response.json(readApplicationData());
+  } catch (error) {
+    console.error('Error reading application JSON data:', error);
+    response.status(500).json({ message: 'Could not load application JSON data.' });
+  }
+});
+
+app.get('/api/data/:collection', requirePermission('admin'), (request, response) => {
+  const { collection } = request.params;
+  if (!applicationDataCollections.has(collection)) {
+    return response.status(404).json({ message: 'Unknown application data collection.' });
+  }
+  try {
+    response.set('Cache-Control', 'no-store');
+    response.json(readApplicationData()[collection] || []);
+  } catch (error) {
+    console.error(`Error reading application JSON collection "${collection}":`, error);
+    response.status(500).json({ message: 'Could not load application JSON collection.' });
+  }
+});
+
+app.post('/api/data/:collection', requirePermission('admin'), (request, response) => {
+  const { collection } = request.params;
+  const record = request.body;
+  if (!applicationDataCollections.has(collection)) {
+    return response.status(404).json({ message: 'Unknown application data collection.' });
+  }
+  if (!record || typeof record !== 'object' || Array.isArray(record) ||
+      typeof record.id !== 'string' || !record.id.trim() || record.id.includes('/')) {
+    return response.status(400).json({ message: 'A JSON data record must have a valid string ID.' });
+  }
+  try {
+    const data = readApplicationData();
+    const records = data[collection] || [];
+    if (records.some(item => item.id === record.id)) {
+      return response.status(409).json({ message: `Record "${record.id}" already exists.` });
+    }
+    data[collection] = [...records, record];
+    writeApplicationData(data);
+    response.status(201).json(record);
+  } catch (error) {
+    console.error(`Error saving application JSON record in "${collection}":`, error);
+    response.status(500).json({ message: 'Could not save application JSON data.' });
+  }
+});
+
+app.put('/api/data/:collection/:id', requirePermission('admin'), (request, response) => {
+  const { collection, id } = request.params;
+  if (!applicationDataCollections.has(collection)) {
+    return response.status(404).json({ message: 'Unknown application data collection.' });
+  }
+  try {
+    const data = readApplicationData();
+    const records = data[collection] || [];
+    const index = records.findIndex(item => item.id === id);
+    if (index < 0) return response.status(404).json({ message: 'Application data record not found.' });
+    const updated = { ...records[index], ...request.body, id };
+    data[collection] = records.map((item, itemIndex) => itemIndex === index ? updated : item);
+    writeApplicationData(data);
+    response.json(updated);
+  } catch (error) {
+    console.error(`Error updating application JSON record "${id}" in "${collection}":`, error);
+    response.status(500).json({ message: 'Could not update application JSON data.' });
+  }
+});
+
+app.delete('/api/data/:collection/:id', requirePermission('admin'), (request, response) => {
+  const { collection, id } = request.params;
+  if (!applicationDataCollections.has(collection)) {
+    return response.status(404).json({ message: 'Unknown application data collection.' });
+  }
+  try {
+    const data = readApplicationData();
+    const records = data[collection] || [];
+    const remaining = records.filter(record => record.id !== id);
+    if (remaining.length === records.length) {
+      return response.status(404).json({ message: 'Application data record not found.' });
+    }
+    data[collection] = remaining;
+    writeApplicationData(data);
+    response.status(204).end();
+  } catch (error) {
+    console.error(`Error deleting application JSON record "${id}" from "${collection}":`, error);
+    response.status(500).json({ message: 'Could not delete application JSON data.' });
+  }
+});
+
 function readQuizCategories() {
   const categories = JSON.parse(fs.readFileSync(quizCategoriesFilePath, 'utf8'));
   if (!Array.isArray(categories) ||

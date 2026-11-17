@@ -4,41 +4,41 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/ro
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
-import { DataRecord, DataService } from '../services/data.service';
-darkMode = localStorage.getItem('quiz-dark-mode') === 'true';
+import { environment } from '../../environments/environment';
+
+@Component({
+  selector: 'app-header',
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive],
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.css'
+})
+export class HeaderComponent implements OnDestroy {
+  readonly loginEnabled = environment.loginEnabled;
+  readonly settingsEnabled = environment.settingsEnabled;
+  isLoggedIn = false;
+  isAdmin = !this.loginEnabled;
+  isFirebaseBootstrap = false;
+  darkMode = localStorage.getItem('quiz-dark-mode') === 'true';
   isMenuOpen = false;
   isSettingsOpen = false;
   private readonly navigationSubscription: Subscription;
 
   constructor(
     private readonly authService: AuthService,
-    private readonly router: Router,
-    private readonly dataService: DataService
+    private readonly router: Router
   ) {
     this.applyTheme();
-    void this.loadFirebaseTheme();
-this.navigationSubscription = this.router.events
+    this.navigationSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => this.updateLoginState());
   }
 
-  async toggleTheme(): Promise<void> {
-    const updated = !this.darkMode;
-    try {
-      if (this.dataService.isFirebaseEnabled()) {
-        await this.dataService.importJsonRecord('userSettings', {
-          id: 'quiz-dark-mode',
-          value: String(updated)
-        }).toPromise();
-      } else {
-        localStorage.setItem('quiz-dark-mode', String(updated));
-      }
-      this.darkMode = updated;
-      this.applyTheme();
-    } catch (error) {
-      console.error('Could not save the selected color theme:', error);
-    }
-}
+  toggleTheme(): void {
+    this.darkMode = !this.darkMode;
+    localStorage.setItem('quiz-dark-mode', String(this.darkMode));
+    this.applyTheme();
+  }
 
   closeMenu(): void {
     this.isMenuOpen = false;
@@ -64,7 +64,12 @@ this.navigationSubscription = this.router.events
   private updateLoginState(): void {
     const user = this.authService.user;
     this.isLoggedIn = !!user;
-    this.isAdmin = !this.loginEnabled || this.authService.hasPermission('admin', user);
     this.isFirebaseBootstrap = this.authService.isFirebaseBootstrapUser(user);
-}
+    this.isAdmin = !this.loginEnabled || this.authService.hasPermission('admin', user) || this.isFirebaseBootstrap;
+    this.closeMenu();
+  }
+
+  private applyTheme(): void {
+    document.documentElement.dataset['theme'] = this.darkMode ? 'dark' : 'light';
+  }
 }

@@ -1,9 +1,10 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { getAuthApiUrl } from './auth-api-url';
-import { DataRecord, DataService } from './services/data.service';
+import { environment } from '../environments/environment';
+
 export interface AuthUser {
   username: string;
   role: string;
@@ -11,86 +12,86 @@ export interface AuthUser {
 }
 
 interface AuthResponse {
-  authenticated: boolean;
-  user: AuthUser;
-  firebaseCustomToken?: string;
+  authenticated?: boolean;
+  user?: AuthUser;
 }
 
-interface FirebaseSignInResponse {
-  localId: string;
-  idToken: string;
-  refreshToken: string;
-  user: AuthUser;
-}
-
-interface FirebaseTokenRefreshResponse {
-  user_id: string;
-  id_token: string;
-  refresh_token: string;
-}
-
-const FIREBASE_REFRESH_TOKEN_KEY = 'app.firebase.auth.refreshToken.v1';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly apiUrl = getAuthApiUrl();
   private currentUser: AuthUser | null = null;
   private sessionResolved = false;
-  private firebaseSession = false;
-  private firebaseRefreshTimer: number | undefined;
+  private localFirebaseBootstrap = false;
 
-  constructor(
-    private readonly http: HttpClient,
-    private readonly dataService: DataService
-  ) { }
-get user(): AuthUser | null {
+  constructor(private readonly http: HttpClient) { }
+
+  get user(): AuthUser | null {
     return this.currentUser;
   }
 
   isFirebaseLoginEnabled(): boolean {
-    return this.dataService.isFirebaseEnabled();
+    return environment.enableFirebase;
   }
-{ withCredentials: true }
-    ).pipe(
+
+  isFirebaseBootstrapUser(user: AuthUser | null = this.currentUser): boolean {
+    return !!user && user.role === 'firebaseBootstrap';
+  }
+
+  login(username: string, password: string): Observable<AuthUser> {
+    if (!this.apiUrl) {
+      return throwError(new Error('Authentication API URL is not configured for this deployment.'));
+    }
+
+    this.localFirebaseBootstrap = false;
+    const request = this.isFirebaseLoginEnabled()
+      ? this.http.post<AuthResponse>(`${this.apiUrl}/auth/firebase/login`, { username, password }, { withCredentials: true })
+      : this.http.post<AuthResponse>(`${this.apiUrl}/auth/login`, { username, password }, { withCredentials: true });
+
+    return request.pipe(
       map(response => {
-        if (!response.authenticated || !response.user) {
+        const user = response && response.user ? response.user : null;
+        if (!user || (this.isFirebaseLoginEnabled() && response.authenticated === false)) {
           throw new Error('The authentication server returned an invalid login response.');
         }
-        return response.user;
+        return user;
       }),
       tap(user => this.setSession(user))
     );
   }
 
   loginWithLocalFirebaseBootstrap(username: string, password: string): Observable<AuthUser> {
-    if (!this.dataService.isFirebaseEnabled()) {
-      return throwError(new Error('Firebase must be enabled to use the one-time setup login.'));
-    }
     if (!this.apiUrl) {
-      return throwError(new Error('Firebase setup login API URL is not configured.'));
+      return throwError(new Error('Authentication API URL is not configured for this deployment.'));
     }
 
-    this.clearFirebaseSession();
-    return this.http.post<AuthResponse>(
-      `${this.apiUrl}/auth/firebase/bootstrap-login`,
-      { username, password },
-      { withCredentials: true }
-    ).pipe(
+    this.localFirebaseBootstrap = true;
+    return this.http.post<AuthResponse>(`${this.apiUrl}/auth/firebase/bootstrap-login`, { username, password }, { withCredentials: true }).pipe(
       map(response => {
-        if (!response.authenticated || !this.isFirebaseBootstrapUser(response.user)) {
-          throw new Error('The authentication server returned an invalid setup login response.');
+        const user = response && response.user ? response.user : null;
+        if (!user) {
+          throw new Error('The authentication server returned an invalid bootstrap login response.');
         }
-        return response.user;
+        return user;
       }),
       tap(user => this.setSession(user))
     );
   }
-if (!this.apiUrl) {
+
+  getSession(): Observable<AuthUser | null> {
+    if (this.sessionResolved) {
+      return of(this.currentUser);
+    }
+    if (!this.apiUrl) {
       this.setSession(null);
       return of(null);
     }
 
-    return this.http.get<AuthResponse>(`${this.apiUrl}/auth/session`, { withCredentials: true }).pipe(
-      map(response => response.authenticated && response.user ? response.user : null),
+    const endpoint = this.localFirebaseBootstrap
+      ? `${this.apiUrl}/auth/firebase/bootstrap-session`
+      : `${this.apiUrl}/auth/session`;
+
+    return this.http.get<AuthResponse>(endpoint, { withCredentials: true }).pipe(
+      map(response => response && response.authenticated && response.user ? response.user : null),
       tap(user => this.setSession(user)),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
@@ -102,84 +103,18 @@ if (!this.apiUrl) {
     );
   }
 
-  private restoreFirebaseSession(): Observable<AuthUser | null> {
-    if (!this.apiUrl) {
-      this.clearFirebaseSession();
-      this.setSession(null);
-      return of(null);
-    }
-    const refreshToken = sessionStorage.getItem(FIREBASE_REFRESH_TOKEN_KEY);
-    if (!refreshToken) {
-      this.dataService.setFirebaseAuthToken(null);
-      return this.restoreFirebaseBootstrapSession();
-    }
-
-    return this.dataService.getFirebaseConfig().pipe(
-      switchMap(config => this.http.post<FirebaseTokenRefreshResponse>(
-        `https://securetoken.googleapis.com/v1/token?key=${encodeURIComponent(config.apiKey)}`,
-        `grant_type=refresh_token&refresh_token=${encodeURIComponent(refreshToken)}`,
-        { headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }) }
-      )),
-      switchMap(response => {
-        if (!response.user_id || !response.id_token || !response.refresh_token) {
-          return throwError(new Error('Firebase returned an incomplete session refresh response.'));
-        }
-        this.dataService.setFirebaseAuthToken(response.id_token);
-        return this.http.get<AuthResponse>(`${this.apiUrl}/auth/session`, { withCredentials: true }).pipe(
-          map(session => {
-            if (!session.authenticated || !session.user) {
-              throw new Error('The local user session is unavailable. Sign in again.');
-            }
-            return { user: session.user, refreshToken: response.refresh_token };
-          })
-        );
-      }),
-      tap(({ user, refreshToken: refreshedToken }) => {
-        sessionStorage.setItem(FIREBASE_REFRESH_TOKEN_KEY, refreshedToken);
-        this.setSession(user, true);
-        this.scheduleFirebaseTokenRefresh();
-      }),
-      map(({ user }) => user),
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 400 || error.status === 401) {
-          this.clearFirebaseSession();
-          this.setSession(null);
-          return of(null);
-        }
-        return throwError(error);
-      })
-    );
+  hasPermission(permission: string, user: AuthUser | null = this.currentUser): boolean {
+    return !!user && (user.permissions.includes('*') || user.permissions.includes(permission));
   }
 
-  private restoreFirebaseBootstrapSession(): Observable<AuthUser | null> {
-    if (!this.apiUrl) {
-      this.setSession(null);
-      return of(null);
-    }
-    return this.http.get<AuthResponse>(
-      `${this.apiUrl}/auth/firebase/bootstrap-session`,
-      { withCredentials: true }
-    ).pipe(
-      map(response => response.authenticated && this.isFirebaseBootstrapUser(response.user)
-        ? response.user
-        : null),
-      tap(user => this.setSession(user)),
-      catchError((error: HttpErrorResponse) => {
-        if ([401, 403, 404].includes(error.status)) {
-          this.setSession(null);
-          return of(null);
-        }
-        return throwError(error);
-      })
-    );
+  logout(): Observable<void> {
+    this.setSession(null);
+    this.localFirebaseBootstrap = false;
+    return this.http.post<void>(`${this.apiUrl}/auth/logout`, {}, { withCredentials: true });
   }
 
-  isFirebaseBootstrapUser(user: AuthUser | null = this.currentUser): boolean {
-    return !!user &&
-      user.role === 'firebaseBootstrap' &&
-      Array.isArray(user.permissions) &&
-      user.permissions.length === 1 &&
-      user.permissions[0] === 'firebaseUserSetup';
+  private setSession(user: AuthUser | null): void {
+    this.currentUser = user;
+    this.sessionResolved = true;
   }
-}
 }
