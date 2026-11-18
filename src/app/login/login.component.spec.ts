@@ -10,14 +10,28 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
   let router: jasmine.SpyObj<Router>;
   let http: jasmine.SpyObj<HttpClient>;
+  let googleDescriptor: PropertyDescriptor | undefined;
 
   beforeEach(async () => {
     router = jasmine.createSpyObj<Router>('Router', ['navigateByUrl']);
     http = jasmine.createSpyObj<HttpClient>('HttpClient', ['post', 'get']);
+    http.get.and.returnValue(of({ nonce: 'test-google-nonce' }));
     http.post.and.returnValue(of({
       authenticated: true,
       user: { username: 'admin', role: 'admin', permissions: ['*'] }
     }));
+    googleDescriptor = Object.getOwnPropertyDescriptor(window, 'google');
+    Object.defineProperty(window, 'google', {
+      configurable: true,
+      value: {
+        accounts: {
+          id: {
+            initialize: jasmine.createSpy('initialize'),
+            renderButton: jasmine.createSpy('renderButton')
+          }
+        }
+      }
+    });
     await TestBed.configureTestingModule({
       imports: [LoginComponent],
       providers: [
@@ -31,6 +45,14 @@ describe('LoginComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     sessionStorage.clear();
+  });
+
+  afterEach(() => {
+    if (googleDescriptor) {
+      Object.defineProperty(window, 'google', googleDescriptor);
+    } else {
+      delete window.google;
+    }
   });
 
   it('should create', () => {

@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
@@ -9,6 +9,9 @@ export interface AuthUser {
   username: string;
   role: string;
   permissions: string[];
+  uid?: string;
+  email?: string;
+  displayName?: string;
 }
 
 interface AuthResponse {
@@ -110,6 +113,59 @@ export class AuthService {
     );
   }
 
+  getGoogleSignInNonce(): Observable<string> {
+    if (!this.apiUrl) {
+      return throwError(new Error('Authentication API URL is not configured for this deployment.'));
+    }
+
+    return this.http.get<{ nonce?: string }>(`${this.apiUrl}/auth/google/nonce`, {
+      withCredentials: true
+    }).pipe(map(response => {
+      if (!response || typeof response.nonce !== 'string' || !response.nonce) {
+        throw new Error('The authentication server returned an invalid Google sign-in nonce.');
+      }
+      return response.nonce;
+    }));
+  }
+
+  loginWithGoogle(credential: string, nonce: string): Observable<AuthUser> {
+    if (!this.apiUrl) {
+      return throwError(new Error('Authentication API URL is not configured for this deployment.'));
+    }
+    if (!credential || !nonce) {
+      return throwError(new Error('Google sign-in credentials are incomplete.'));
+    }
+
+    return this.http.post<AuthResponse>(`${this.apiUrl}/auth/google/verify`, { credential, nonce }, {
+      withCredentials: true
+    }).pipe(
+      map(response => {
+        const user = response && response.user ? response.user : null;
+        if (!response || response.authenticated !== true || !user) {
+          throw new Error('The authentication server returned an invalid Google sign-in response.');
+        }
+        if (!user.uid) {
+          throw new Error(
+            'The authentication server did not return a Firebase UID. Deploy the updated backend to enable Google account provisioning.'
+          );
+        }
+        if (!user.email) {
+          throw new Error('The authentication server did not return the Google account email.');
+        }
+        if (!response.firebaseIdToken || !response.firebaseRefreshToken) {
+          throw new Error('The authentication server did not return Firebase access tokens.');
+        }
+        return response;
+      }),
+      tap(response => {
+        this.localFirebaseBootstrap = false;
+        this.setFirebaseTokens(response.firebaseIdToken!, response.firebaseRefreshToken!);
+        this.setSession(response.user!);
+      }),
+      map(response => response.user!)
+    );
+  }
+
   getSession(): Observable<AuthUser | null> {
     if (this.sessionResolved) {
       return of(this.currentUser);
@@ -136,6 +192,7 @@ export class AuthService {
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
+          this.clearFirebaseTokens();
           this.setSession(null);
           this.clearFirebaseTokens();
           return of(null);
