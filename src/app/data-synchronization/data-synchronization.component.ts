@@ -40,7 +40,7 @@ interface CollectionResult {
           <div><p class="eyebrow">STEP 1 · CONNECTION</p><h2 id="setup-title">Firebase Setup</h2></div>
           <span class="status" [class.connected]="firebaseEnabled">{{ firebaseEnabled ? 'Connected' : 'Not connected' }}</span>
         </div>
-        <p class="hint">The configured Firebase project is prefilled below. Sign in before testing access; validating read/write access requires an administrator profile. The Web API key identifies the project but does not grant Firestore permissions.</p>
+        <p class="hint">Enter the client configuration for the project that will store this app's data. Admin registry credentials are deployment-managed and are never shown here. Firestore security rules must grant this client the required collection permissions.</p>
         <div class="config-grid">
           <label>API key<input [(ngModel)]="config.apiKey" autocomplete="off" type="password" placeholder="Firebase Web API key"></label>
           <label>Project Name<input [(ngModel)]="projectName" autocomplete="off" placeholder="Demo Project"></label>
@@ -143,7 +143,7 @@ interface CollectionResult {
 })
 export class DataSynchronizationComponent implements OnInit {
   readonly collections = COLLECTIONS;
-  readonly environmentEnabled = true;//environment.enableFirebase;
+  readonly environmentEnabled = environment.enableFirebase;
   readonly collectionLabels: Record<DataCollection, string> = {
     tutorials: 'Tutorials',
     notes: 'Notes',
@@ -155,14 +155,14 @@ export class DataSynchronizationComponent implements OnInit {
     jsonFiles: 'Source JSON Files'
   };
   config: FirebaseConfig = {
-    apiKey: environment.adminFirebaseConfig.apiKey,
-    authDomain: environment.adminFirebaseConfig.authDomain,
-    projectId: environment.adminFirebaseConfig.projectId,
-    storageBucket: environment.adminFirebaseConfig.storageBucket,
-    messagingSenderId: environment.adminFirebaseConfig.messagingSenderId,
-    appId: environment.adminFirebaseConfig.appId
+    apiKey: '',
+    authDomain: '',
+    projectId: '',
+    storageBucket: '',
+    messagingSenderId: '',
+    appId: ''
   };
-  projectName = environment.adminFirebaseConfig.projectId;
+  projectName = '';
   selected: Record<DataCollection, boolean> = {
     tutorials: true,
     notes: true,

@@ -81,14 +81,14 @@ describe('LoginComponent', () => {
     expect(router.navigateByUrl).toHaveBeenCalledOnceWith('/home');
   });
 
-  it('shows Google sign-in alongside the existing username and password fields', () => {
+  it('shows username and password fields without a Google sign-in option', () => {
     const usernameInput = fixture.nativeElement.querySelector('#name') as HTMLInputElement;
     expect(usernameInput).not.toBeNull();
     expect(usernameInput.type).toBe('text');
     expect(fixture.nativeElement.querySelector('label[for="name"]').textContent).toContain('Username');
 expect(fixture.nativeElement.querySelector('#pwd')).not.toBeNull();
-    expect(fixture.nativeElement.querySelector('.google-sign-in-button')).not.toBeNull();
-    expect(fixture.nativeElement.textContent).toContain('or continue with');
+    expect(fixture.nativeElement.querySelector('.google-sign-in-button')).toBeNull();
+    expect(fixture.nativeElement.textContent).not.toContain('Or');
   });
 
   it('shows an error when the credentials are invalid', () => {

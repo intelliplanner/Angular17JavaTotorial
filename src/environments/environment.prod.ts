@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  loginEnabled: true,
-  settingsEnabled: true,
-  enableFirebase: true,
+  loginEnabled: false,
+  settingsEnabled: false,
+  enableFirebase: false,
   adminFirebaseConfig: {
     projectName: "JavaTutorial",
     apiKey: "AIzaSyCiIZUqOyisT6YyyZUg5fUPc0i6WmoKKjw",

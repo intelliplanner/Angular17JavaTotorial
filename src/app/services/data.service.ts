@@ -131,26 +131,6 @@ export class DataService {
     } catch (error) {
       return throwError(error);
     }
-    if (!environment.loginEnabled) {
-      if (!this.apiUrl) {
-        return throwError(new Error('The local Firebase Admin connection check requires the authentication API.'));
-      }
-      return this.http.post<{ connected: boolean }>(
-        `${this.apiUrl}/api/admin/validate-firebase-connection`,
-        { projectId: config.projectId, apiKey: config.apiKey },
-        { withCredentials: true }
-      ).pipe(
-        map(response => {
-          if (!response || response.connected !== true) {
-            throw new Error('The backend did not confirm the Firebase Admin connection.');
-          }
-          return undefined;
-        })
-      );
-    }
-    if (!this.firebaseAuthToken) {
-      return throwError(new Error('Sign in with a Firebase account before testing Firestore access.'));
-    }
     return this.listFirestore(config, 'tutorials').pipe(
       switchMap(() => {
         const id = `firebase-connection-test-${crypto.randomUUID()}`;

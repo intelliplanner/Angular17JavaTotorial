@@ -27,7 +27,7 @@
           <span>Tech Interview <strong>Hub</strong></span>
         </div>
 
-        <span class="form-eyebrow">WELCOME</span>
+        <span class="form-eyebrow">WELCOME BACK</span>
         <h2 id="login-heading">{{ isLocalFirebaseBootstrap ? 'Initial Firebase setup' : 'Sign in to your account' }}</h2>
         <p class="form-intro" *ngIf="!isLocalFirebaseBootstrap && !firebaseLoginEnabled">
           Pick up where you left off and continue your preparation.
@@ -83,17 +83,6 @@
 <i *ngIf="!isSubmitting" class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </button>
         </form>
-
-        <div *ngIf="googleLoginEnabled" class="google-signin-section">
-          <div class="or-divider"><span>or continue with</span></div>
-          <div #googleSignInButton class="google-sign-in-button" aria-label="Continue with Google"></div>
-          <p *ngIf="googleErrorMessage" class="login-error" role="alert">
-            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
-            {{ googleErrorMessage }}
-          </p>
-          <button *ngIf="googleErrorMessage && !isSubmitting" type="button" class="google-retry"
-            (click)="retryGoogleSignIn()">Try Google sign-in again</button>
-        </div>
 
         <button *ngIf="firebaseLoginEnabled" type="button" class="btn btn-link"
           (click)="toggleFirebaseBootstrapLogin()" [disabled]="isSubmitting">

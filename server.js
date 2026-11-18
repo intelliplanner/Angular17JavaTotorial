@@ -27,11 +27,6 @@ const {
   FirebaseUserProfileSyncError,
   syncFirebaseUserProfiles
 } = require('./server/firebase-user-profile-sync');
-const {
-  GoogleFirebaseAuthError,
-  signInGoogleUserWithFirebase
-} = require('./server/google-firebase-auth');
-const { verifyFirebaseAdminConnection } = require('./server/firebase-connection-check');
 const { upsertLocalFirebaseUser } = require('./server/local-user-store');
 const {
   DraftImportError,
@@ -216,8 +211,6 @@ function getFirebaseUsernameServices() {
   return {
     auth,
     firestore,
-    projectId,
-    apiKey,
     usernameAuth: createFirebaseUsernameAuth({
       auth,
       firestore,
@@ -227,48 +220,6 @@ function getFirebaseUsernameServices() {
     })
   };
 }
-
-function isLoopbackAddress(address = '') {
-  return address === '::1' || address === '127.0.0.1' ||
-    address.startsWith('127.') || address.startsWith('::ffff:127.');
-}
-
-app.post('/api/admin/validate-firebase-connection', async (request, response) => {
-  const session = verifyAuthToken(readCookie(request, 'app_session'));
-  if (process.env.NODE_ENV === 'production') {
-    const permissions = session && Array.isArray(session.permissions) ? session.permissions : [];
-    if (!session) {
-      response.status(401).json({ message: 'Please sign in as an administrator to validate Firebase.' });
-      return;
-    }
-    if (!permissions.includes('*') && !permissions.includes('admin')) {
-      response.status(403).json({ message: 'Administrator access is required to validate Firebase.' });
-      return;
-    }
-  } else if (!isLoopbackAddress(request.socket.remoteAddress)) {
-    response.status(403).json({ message: 'This unauthenticated Firebase check is available only from the local development machine.' });
-    return;
-  }
-
-  try {
-    const { firestore, projectId, apiKey } = getFirebaseUsernameServices();
-    if (!request.body || request.body.projectId !== projectId || request.body.apiKey !== apiKey) {
-      response.status(409).json({
-        message: 'The Firebase configuration does not match the project configured on this backend.'
-      });
-      return;
-    }
-    await verifyFirebaseAdminConnection(firestore);
-    response.json({ connected: true, projectId });
-  } catch (error) {
-    if (error instanceof FirebaseUserError) {
-      response.status(error.status).json({ message: error.message, code: error.code });
-      return;
-    }
-    console.error('Firebase Admin connection validation failed:', error && (error.code || error.name) || 'Unknown error');
-    response.status(503).json({ message: 'The backend could not validate its Firebase Admin connection.' });
-  }
-});
 
 function authenticateLocalUser(username, password) {
   if (typeof username !== 'string' || typeof password !== 'string' ||
