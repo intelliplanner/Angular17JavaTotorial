@@ -10,12 +10,14 @@ describe('DataService', () => {
   let originalProduction: boolean;
   let originalApiUrl: string;
   let originalFirebaseEnabled: boolean;
+  let originalLoginEnabled: boolean;
   let originalAdminConfig: typeof environment.adminFirebaseConfig;
 
   beforeEach(() => {
     originalProduction = environment.production;
     originalApiUrl = environment.authApiUrl;
     originalFirebaseEnabled = environment.enableFirebase;
+    originalLoginEnabled = environment.loginEnabled;
     originalAdminConfig = { ...environment.adminFirebaseConfig };
     environment.production = true;
     environment.authApiUrl = 'https://json.example.test';
@@ -33,6 +35,7 @@ describe('DataService', () => {
     environment.production = originalProduction;
     environment.authApiUrl = originalApiUrl;
     environment.enableFirebase = originalFirebaseEnabled;
+    environment.loginEnabled = originalLoginEnabled;
     environment.adminFirebaseConfig = originalAdminConfig;
     localStorage.removeItem('app.firebase.enabled.v1');
   });
@@ -115,6 +118,29 @@ describe('DataService', () => {
     expect(result).toEqual([{ id: 'q1', question: 'Question?' }]);
     http.expectNone('https://json.example.test/api/data/questions');
   }));
+
+  it('uses the local Admin SDK check when login is disabled', () => {
+    environment.enableFirebase = true;
+    environment.loginEnabled = false;
+    const config = {
+      apiKey: 'AIzaSyDUMMYTESTKEY1234567890123456789',
+      authDomain: 'sample.firebaseapp.com',
+      projectId: 'sample-project',
+      storageBucket: '',
+      messagingSenderId: '',
+      appId: 'sample-app'
+    };
+    let result: void | undefined;
+
+    service.validateFirebaseConnection(config).subscribe(value => result = value);
+
+    const request = http.expectOne('https://json.example.test/api/admin/validate-firebase-connection');
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual({ projectId: 'sample-project', apiKey: config.apiKey });
+    request.flush({ connected: true, projectId: 'sample-project' });
+    expect(result).toBeUndefined();
+    http.expectNone(request => request.url.startsWith('https://firestore.googleapis.com/'));
+  });
 
   it('syncs JSON file snapshots to the Firestore jsonFiles collection', fakeAsync(() => {
     environment.enableFirebase = true;

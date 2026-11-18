@@ -34,3 +34,10 @@ button,select,input,textarea{font:inherit}
 .manage-shell .file-count-empty{margin:0;color:#82919a;font-size:.82rem}
 @media(max-width:800px){.manage-shell .file-count-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:480px){.manage-shell .file-counts-card{padding:16px}.manage-shell .file-count-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.manage-shell .file-counts-heading{align-items:flex-start}}
+.google-signin-section{margin-top:24px}
+.google-signin-section .or-divider{display:flex;align-items:center;gap:14px;margin:0 0 20px;color:#859398;font-size:12px}
+.google-signin-section .or-divider:before,.google-signin-section .or-divider:after{flex:1;height:1px;background:#e5ebeb;content:""}
+.google-sign-in-button{display:flex;justify-content:center;min-height:44px}
+.google-signin-section .login-error{margin:14px 0 0}
+.google-signin-section .google-retry{display:block;margin:10px auto 0;padding:4px 8px;color:#267b6d;background:transparent;border:0;font-size:13px;font-weight:600}
+.google-signin-section .google-retry:hover{text-decoration:underline}

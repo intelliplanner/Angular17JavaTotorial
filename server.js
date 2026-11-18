@@ -27,6 +27,11 @@ const {
   FirebaseUserProfileSyncError,
   syncFirebaseUserProfiles
 } = require('./server/firebase-user-profile-sync');
+const {
+  GoogleFirebaseAuthError,
+  signInGoogleUserWithFirebase
+} = require('./server/google-firebase-auth');
+const { verifyFirebaseAdminConnection } = require('./server/firebase-connection-check');
 const { upsertLocalFirebaseUser } = require('./server/local-user-store');
 const {
   DraftImportError,
@@ -211,6 +216,8 @@ function getFirebaseUsernameServices() {
   return {
     auth,
     firestore,
+    projectId,
+    apiKey,
     usernameAuth: createFirebaseUsernameAuth({
       auth,
       firestore,
@@ -220,6 +227,48 @@ function getFirebaseUsernameServices() {
     })
   };
 }
+
+function isLoopbackAddress(address = '') {
+  return address === '::1' || address === '127.0.0.1' ||
+    address.startsWith('127.') || address.startsWith('::ffff:127.');
+}
+
+app.post('/api/admin/validate-firebase-connection', async (request, response) => {
+  const session = verifyAuthToken(readCookie(request, 'app_session'));
+  if (process.env.NODE_ENV === 'production') {
+    const permissions = session && Array.isArray(session.permissions) ? session.permissions : [];
+    if (!session) {
+      response.status(401).json({ message: 'Please sign in as an administrator to validate Firebase.' });
+      return;
+    }
+    if (!permissions.includes('*') && !permissions.includes('admin')) {
+      response.status(403).json({ message: 'Administrator access is required to validate Firebase.' });
+      return;
+    }
+  } else if (!isLoopbackAddress(request.socket.remoteAddress)) {
+    response.status(403).json({ message: 'This unauthenticated Firebase check is available only from the local development machine.' });
+    return;
+  }
+
+  try {
+    const { firestore, projectId, apiKey } = getFirebaseUsernameServices();
+    if (!request.body || request.body.projectId !== projectId || request.body.apiKey !== apiKey) {
+      response.status(409).json({
+        message: 'The Firebase configuration does not match the project configured on this backend.'
+      });
+      return;
+    }
+    await verifyFirebaseAdminConnection(firestore);
+    response.json({ connected: true, projectId });
+  } catch (error) {
+    if (error instanceof FirebaseUserError) {
+      response.status(error.status).json({ message: error.message, code: error.code });
+      return;
+    }
+    console.error('Firebase Admin connection validation failed:', error && (error.code || error.name) || 'Unknown error');
+    response.status(503).json({ message: 'The backend could not validate its Firebase Admin connection.' });
+  }
+});
 
 function authenticateLocalUser(username, password) {
   if (typeof username !== 'string' || typeof password !== 'string' ||
@@ -665,29 +714,49 @@ app.post('/auth/google/verify', async (request, response) => {
       return;
     }
 
+    const { auth, firestore, apiKey } = getFirebaseUsernameServices();
+    const firebaseSignIn = await signInGoogleUserWithFirebase({
+      auth,
+      firestore,
+      apiKey,
+      credential,
+      identity,
+      requestUri: allowedOrigins.has(request.get('origin'))
+        ? request.get('origin')
+        : 'http://localhost'
+    });
+    const firebaseUser = firebaseSignIn.profile;
+    const sessionUser = {
+      uid: firebaseUser.uid,
+      username: firebaseUser.email,
+      email: firebaseUser.email,
+      displayName: firebaseUser.displayName,
+      role: firebaseUser.role,
+      permissions: firebaseUser.permissions
+    };
     const sessionToken = signAuthToken({
-      sub: identity.sub,
+      ...sessionUser,
       email: identity.email,
-      name: identity.name || '',
-      username: identity.email,
-      role: 'learner',
-      permissions: ['home', 'learn', 'practiceQuiz'],
       exp: Math.floor(Date.now() / 1000) + 8 * 60 * 60
     });
     setCookie(response, 'app_session', sessionToken, { maxAge: 8 * 60 * 60 });
     response.json({
       authenticated: true,
-      user: {
-        username: identity.email,
-        email: identity.email,
-        name: identity.name || '',
-        role: 'learner',
-        permissions: ['home', 'learn', 'practiceQuiz']
-      }
+      user: sessionUser,
+      firebaseIdToken: firebaseSignIn.idToken,
+      firebaseRefreshToken: firebaseSignIn.refreshToken
     });
   } catch (error) {
-    console.error('Google sign-in verification failed:', error);
-    response.status(502).json({ message: 'Could not reach Google to verify sign-in. Please try again.' });
+    console.error('Google sign-in failed:', error && (error.code || error.name) || 'Unknown error');
+    if (error instanceof FirebaseUserError || error instanceof GoogleFirebaseAuthError) {
+      response.status(error.status).json({ message: error.message, code: error.code });
+      return;
+    }
+    if (error instanceof FirebaseUserProfileSyncError) {
+      response.status(error.status).json({ message: error.message, code: error.code });
+      return;
+    }
+    response.status(502).json({ message: 'Could not complete Google sign-in. Please try again.' });
   }
 });
 
@@ -702,7 +771,8 @@ app.get('/auth/session', (request, response) => {
     user: {
       username: session.username,
       email: session.email,
-      name: session.name,
+      uid: session.uid,
+      displayName: session.displayName,
       role: session.role,
       permissions: session.permissions
     }

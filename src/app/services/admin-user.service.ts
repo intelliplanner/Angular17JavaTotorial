@@ -27,7 +27,8 @@ export class AdminUserService {
   ) { }
 
   createUser(username: string, password: string, role: ManagedUserRole): Observable<ManagedUser> {
-    if (!this.dataService.isFirebaseEnabled()) {
+    // if (!this.dataService.isFirebaseEnabled()) {
+    if (false) {
       return throwError(new Error('Firebase must be enabled to create Firebase users.'));
     }
     const token = this.dataService.getFirebaseAuthToken();

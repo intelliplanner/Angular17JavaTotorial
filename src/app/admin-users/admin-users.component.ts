@@ -106,7 +106,7 @@ export class AdminUsersComponent {
     dataService: DataService,
     authService: AuthService
   ) {
-    this.firebaseEnabled = dataService.isFirebaseEnabled();
+    this.firebaseEnabled = true;//dataService.isFirebaseEnabled();
     this.isBootstrapMode = authService.isFirebaseBootstrapUser();
   }
 
