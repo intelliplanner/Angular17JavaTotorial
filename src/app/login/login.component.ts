@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -13,16 +13,27 @@ import { environment } from '../../environments/environment';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements AfterViewInit {
+  @ViewChild('googleSignInButton')
+  private googleSignInButton!: ElementRef<HTMLDivElement>;
+
   errorMessage = '';
+  googleErrorMessage = '';
   isSubmitting = false;
   isLocalFirebaseBootstrap = false;
   readonly firebaseLoginEnabled = environment.enableFirebase;
 
   constructor(
     private readonly authService: AuthService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly zone: NgZone
   ) { }
+
+  ngAfterViewInit(): void {
+    if (this.googleLoginEnabled) {
+      this.prepareGoogleSignIn();
+    }
+  }
 
   login(username: string, password: string): void {
     this.errorMessage = '';

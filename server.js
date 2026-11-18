@@ -665,29 +665,49 @@ app.post('/auth/google/verify', async (request, response) => {
       return;
     }
 
+    const { auth, firestore, apiKey } = getFirebaseUsernameServices();
+    const firebaseSignIn = await signInGoogleUserWithFirebase({
+      auth,
+      firestore,
+      apiKey,
+      credential,
+      identity,
+      requestUri: allowedOrigins.has(request.get('origin'))
+        ? request.get('origin')
+        : 'http://localhost'
+    });
+    const firebaseUser = firebaseSignIn.profile;
+    const sessionUser = {
+      uid: firebaseUser.uid,
+      username: firebaseUser.email,
+      email: firebaseUser.email,
+      displayName: firebaseUser.displayName,
+      role: firebaseUser.role,
+      permissions: firebaseUser.permissions
+    };
     const sessionToken = signAuthToken({
-      sub: identity.sub,
+      ...sessionUser,
       email: identity.email,
-      name: identity.name || '',
-      username: identity.email,
-      role: 'learner',
-      permissions: ['home', 'learn', 'practiceQuiz'],
       exp: Math.floor(Date.now() / 1000) + 8 * 60 * 60
     });
     setCookie(response, 'app_session', sessionToken, { maxAge: 8 * 60 * 60 });
     response.json({
       authenticated: true,
-      user: {
-        username: identity.email,
-        email: identity.email,
-        name: identity.name || '',
-        role: 'learner',
-        permissions: ['home', 'learn', 'practiceQuiz']
-      }
+      user: sessionUser,
+      firebaseIdToken: firebaseSignIn.idToken,
+      firebaseRefreshToken: firebaseSignIn.refreshToken
     });
   } catch (error) {
-    console.error('Google sign-in verification failed:', error);
-    response.status(502).json({ message: 'Could not reach Google to verify sign-in. Please try again.' });
+    console.error('Google sign-in failed:', error && (error.code || error.name) || 'Unknown error');
+    if (error instanceof FirebaseUserError || error instanceof GoogleFirebaseAuthError) {
+      response.status(error.status).json({ message: error.message, code: error.code });
+      return;
+    }
+    if (error instanceof FirebaseUserProfileSyncError) {
+      response.status(error.status).json({ message: error.message, code: error.code });
+      return;
+    }
+    response.status(502).json({ message: 'Could not complete Google sign-in. Please try again.' });
   }
 });
 
@@ -702,7 +722,8 @@ app.get('/auth/session', (request, response) => {
     user: {
       username: session.username,
       email: session.email,
-      name: session.name,
+      uid: session.uid,
+      displayName: session.displayName,
       role: session.role,
       permissions: session.permissions
     }
