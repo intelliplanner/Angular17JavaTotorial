@@ -29,6 +29,7 @@ export const routes: Routes = [
       { path: 'categorizedNotes', component: CategorizedNotesComponent, title: 'Categorized Notes', data: { permission: 'learn' } },
       { path: 'tutorials', loadComponent: () => import('./content-hub/content-hub.component').then(module => module.ContentHubComponent), title: 'Tutorials & Interview Q&A', data: { permission: 'learn' } },
       { path: 'learn', loadComponent: () => import('./video-learning/video-learning.component').then(module => module.VideoLearningComponent), title: 'Video Learning', data: { permission: 'learn' } },
+      { path: 'pdf-to-text', loadComponent: () => import('./pdf-to-text/pdf-to-text.component').then(module => module.PdfToTextComponent), title: 'PDF to Text', data: { permission: 'learn' } },
       { path: 'home', component: HomeComponent, title: 'Tech Interview Hub', data: { permission: 'home' } },
       { path: 'documentation', loadComponent: () => import('./documentation/documentation.component').then(module => module.DocumentationComponent), title: 'Application Guide', data: { permission: 'admin' } },
       { path: 'settings/data-synchronization', loadComponent: () => import('./data-synchronization/data-synchronization.component').then(module => module.DataSynchronizationComponent), title: 'Data Synchronization', canActivate: [settingsGuard], data: { permission: 'admin' } },

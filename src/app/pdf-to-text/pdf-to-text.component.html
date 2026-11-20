@@ -1,0 +1,100 @@
+<main class="pdf-text-page">
+  <header class="pdf-text-header">
+    <p class="eyebrow">DOCUMENT READER</p>
+    <h1>PDF to Text</h1>
+    <p>Extract and organize text, headings, lists, tables, and code from the selected PDF.</p>
+  </header>
+
+  <section class="pdf-toolbar" aria-label="PDF controls">
+    <div class="select-field">
+      <label for="pdfSelect">Select PDF</label>
+      <select id="pdfSelect" [(ngModel)]="selectedFile" (ngModelChange)="readSelectedPdf()">
+        <ng-container *ngFor="let category of categories">
+          <optgroup [label]="category.name">
+            <option *ngFor="let file of category.files" [value]="file">{{ file }}</option>
+          </optgroup>
+        </ng-container>
+      </select>
+    </div>
+
+    <button type="button" class="read-button" (click)="readSelectedPdf()" [disabled]="!selectedFile || loading">
+      <i class="fa-solid fa-file-lines"></i>
+      {{ loading ? 'Reading...' : 'Read PDF' }}
+    </button>
+
+    <div class="search-field" *ngIf="blocks.length && viewMode === 'formatted'">
+      <label for="pdfSearch">Search text</label>
+      <div class="search-input">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="pdfSearch" type="search" [(ngModel)]="searchText" placeholder="Find in document" />
+        <button type="button" *ngIf="searchText" (click)="clearSearch()" aria-label="Clear search">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <p *ngIf="loading" class="status-message" role="status">
+    <span class="spinner"></span> Extracting text from {{ selectedFile }}...
+  </p>
+  <p *ngIf="errorMessage" class="error-message" role="alert">{{ errorMessage }}</p>
+  <p *ngIf="warningMessage" class="warning-message" role="status">{{ warningMessage }}</p>
+
+  <article *ngIf="!loading && blocks.length" class="document-paper">
+    <header class="document-title">
+      <span>EXTRACTED DOCUMENT</span>
+      <h2>{{ getFileTitle() }}</h2>
+      <p>{{ pageCount }} {{ pageCount === 1 ? 'page' : 'pages' }}</p>
+    </header>
+
+    <div class="output-toolbar" aria-label="Extracted content actions">
+      <div class="view-switch" role="group" aria-label="Content view">
+        <button type="button" [class.active]="viewMode === 'formatted'" (click)="viewMode = 'formatted'">
+          Formatted
+        </button>
+        <button type="button" [class.active]="viewMode === 'markdown'" (click)="viewMode = 'markdown'">
+          Markdown
+        </button>
+      </div>
+      <div class="markdown-actions">
+        <button type="button" (click)="copyMarkdown()">Copy Markdown</button>
+        <button type="button" (click)="downloadMarkdown()">Download .md</button>
+      </div>
+    </div>
+
+    <ng-container *ngIf="viewMode === 'formatted'; else markdownView">
+      <ng-container *ngFor="let block of getVisibleBlocks()">
+        <h2 *ngIf="block.type === 'heading' && block.level === 2" class="document-heading level-2">
+          {{ block.text }}
+        </h2>
+        <h3 *ngIf="block.type === 'heading' && block.level === 3" class="document-heading level-3">
+          {{ block.text }}
+        </h3>
+        <h4 *ngIf="block.type === 'heading' && block.level === 4" class="document-heading level-4">
+          {{ block.text }}
+        </h4>
+        <p *ngIf="block.type === 'paragraph'" class="document-paragraph">{{ block.text }}</p>
+        <p *ngIf="block.type === 'list'" class="document-list">{{ block.text }}</p>
+        <pre *ngIf="block.type === 'code'" class="document-code"><code>{{ block.text }}</code></pre>
+
+        <div *ngIf="block.type === 'table'" class="table-wrapper">
+          <table>
+            <tbody>
+              <tr *ngFor="let row of block.rows; let first = first" [class.table-header]="first">
+                <td *ngFor="let cell of row">{{ cell }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+
+      <p *ngIf="searchText && getVisibleBlocks().length === 0" class="no-results">
+        No text matches "{{ searchText }}".
+      </p>
+    </ng-container>
+
+    <ng-template #markdownView>
+      <pre class="markdown-output">{{ markdownContent }}</pre>
+    </ng-template>
+  </article>
+</main>
